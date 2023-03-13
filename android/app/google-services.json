@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "569221317127",
+    "project_id": "talktohumanity",
+    "storage_bucket": "talktohumanity.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569221317127:android:ae98aba66c7dda2ece20a2",
+        "android_client_info": {
+          "package_name": "com.talktohumanity.talktohumanity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "569221317127-71l5dsrpqn9p1tiqbbrllq63g50rf9km.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.talktohumanity.talktohumanity",
+            "certificate_hash": "07e1f27c44635e1816db88ef036a932ee3555e33"
+          }
+        },
+        {
+          "client_id": "569221317127-h8qa27opveakmjg1irddhgslu7j4400l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArWcBULl0M_V16PvKqSpsilmum42FhHf4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "569221317127-h8qa27opveakmjg1irddhgslu7j4400l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

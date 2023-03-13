@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:talktohumanity/providers/ui_provider.dart';
 import 'package:talktohumanity/services/navigation/routing.dart';
+import 'package:talktohumanity/views/screens/home_screen.dart';
 
 Future<void> main() async {
   // --------------------------------------------------------------------------
@@ -116,7 +117,7 @@ class _AppStarterState extends State<AppStarter> {
         ),
 
         /// ROUTES
-        home: const SizedBox(),
+        home: const HomeScreen(),
         // navigatorObservers: [],
         // onGenerateInitialRoutes: ,
         // onUnknownRoute: ,
