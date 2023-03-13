@@ -1,0 +1,117 @@
+name: talktohumanity
+description: A platform designed to say something to humanity
+publish_to: "none"
+# --------------------------------------------------------------------------------
+version: 1.0.0+1
+# --------------------------------------------------------------------------------
+environment:
+  sdk: ">=2.10.5 <3.0.0"
+# --------------------------------------------------------------------------------
+dependencies:
+  flutter:
+    sdk: flutter
+  # ------------------------------------
+  firebase_core: ^2.4.1
+  google_sign_in: ^5.4.4
+  page_transition: ^2.0.4
+  video_player: ^2.2.10
+  youtube_player_flutter: ^8.1.2
+  provider: ^6.0.3
+  flutter_native_splash: ^2.2.9
+  path_provider: ^2.0.12
+  # ------------------------------------
+  # MY WIDGETS
+  widget_fader:
+    git:
+      url: https://github.com/RagehAz/widget_fader.git
+  super_image:
+    git:
+      url: https://github.com/RagehAz/super_image.git
+  super_text:
+    git:
+      url: https://github.com/RagehAz/super_text.git
+  super_box:
+    git:
+      url: https://github.com/RagehAz/super_box.git
+  super_text_field:
+    git:
+      url: https://github.com/RagehAz/super_text_field.git
+  bubbles:
+    git:
+      url: https://github.com/RagehAz/bubbles.git
+  layouts:
+    git:
+      url: https://github.com/RagehAz/layouts.git
+  # ---------------------------
+  # MY BACK END PACKAGES
+  rest:
+    git:
+      url: https://github.com/RagehAz/rest.git
+  fire:
+    git:
+      url: https://github.com/RagehAz/fire.git
+  ldb:
+    git:
+      url: https://github.com/RagehAz/ldb.git
+  real:
+    git:
+      url: https://github.com/RagehAz/real.git
+  # ------------------------------------
+  # MY HELPERS
+  bldrs_theme:
+    git:
+      url: https://github.com/RagehAz/bldrs_theme.git
+  scale:
+    git:
+      url: https://github.com/RagehAz/scale.git
+  mapper:
+    git:
+      url: https://github.com/RagehAz/mapper.git
+  numeric:
+    git:
+      url: https://github.com/RagehAz/numeric.git
+  stringer:
+    git:
+      url: https://github.com/RagehAz/stringer.git
+  filers:
+    git:
+      url: https://github.com/RagehAz/filers.git
+  animators:
+    git:
+      url: https://github.com/RagehAz/animators.git
+  # ------------------------------------
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  lint: ^1.0.0
+  # ------------------------------------
+flutter:
+  # ------------------------------------
+  fonts:
+    - family: BldrsHeadlineFont
+      fonts:
+        - asset: packages/bldrs_theme/assets/fonts/bldrs_font_bold.ttf
+
+    - family: BldrsBodyFont
+      fonts:
+        - asset: packages/bldrs_theme/assets/fonts/bldrs_font_regular.ttf
+
+    - family: EnglishHeadline
+      fonts:
+        - asset: packages/bldrs_theme/assets/fonts/arabic/BldrsFont.ttf
+
+    - family: EnglishBody
+      fonts:
+        - asset: packages/bldrs_theme/assets/fonts/english/Roboto_Thin.ttf
+        - asset: packages/bldrs_theme/assets/fonts/english/Roboto_ThinItalic.ttf
+
+    - family: ArabicHeadline
+      fonts:
+        - asset: packages/bldrs_theme/assets/fonts/arabic/BldrsFont.ttf
+
+    - family: ArabicBody
+      fonts:
+        - asset: packages/bldrs_theme/assets/fonts/arabic/Tajawal_Light.ttf
+        - asset: packages/bldrs_theme/assets/fonts/arabic/Tajawal_Regular.ttf
+        - asset: packages/bldrs_theme/assets/fonts/arabic/BldrsFont.ttf
+# --------------------------------------------------------------------------------
