@@ -5,6 +5,8 @@ import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 import 'package:super_image/super_image.dart';
+import 'package:talktohumanity/services/navigation/nav.dart';
+import 'package:talktohumanity/services/navigation/routing.dart';
 import 'package:talktohumanity/views/widgets/basic_layout.dart';
 import 'package:talktohumanity/views/widgets/talk_box.dart';
 import 'package:talktohumanity/views/widgets/talk_text.dart';
@@ -76,11 +78,13 @@ class _HomeScreenState extends State<HomeScreen> {
   // --------------------
   /// TASK : TEST ME
   Future<void> _onSkipPublishing() async {
+    blog('_onSkipPublishing start');
     await navToArchiveScreen();
   }
   // --------------------
   /// TASK : TEST ME
   Future<void> onPublishPost() async {
+    blog('onPublishPost start');
     final bool _canPublish = await prePublishCheckUps();
 
     if (_canPublish == true) {
@@ -97,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // --------------------
   /// TASK : TEST ME
   Future<bool> prePublishCheckUps() async {
-
+    blog('prePublishCheckUps start');
     bool _canContinue = false;
     final bool _userIsSignedIn = await userIsSignedIn();
 
@@ -126,6 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // --------------------
   /// TASK : WRITE ME
   Future<bool> userIsSignedIn() async {
+    blog('userIsSignedIn start');
     bool _isSignedIn = false;
     if (mounted){
       _isSignedIn = true;
@@ -135,6 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // --------------------
   /// TASK : WRITE ME
   Future<bool> signIn() async {
+    blog('signIn start');
     bool _success = false;
 
     if (mounted){
@@ -146,6 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // --------------------
   /// TASK : WRITE ME
   Future<bool> confirmPublishDialog() async {
+    blog('confirmPublishDialog start');
     bool _continue = false;
     if (mounted){
       _continue = true;
@@ -155,6 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // --------------------
   /// TASK : WRITE ME
   Future<bool> publishPostOps() async {
+    blog('publishPostOps start');
     bool _isPublished = false;
     if (mounted){
       _isPublished = true;
@@ -165,6 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> notifyAndNavigate({
     @required bool published,
   }) async {
+    blog('notifyAndNavigate start');
 
     if (published == true) {
       await showPublishSuccessDialog();
@@ -178,13 +187,22 @@ class _HomeScreenState extends State<HomeScreen> {
   }
   // --------------------
   /// TASK : WRITE ME
-  Future<void> showPublishSuccessDialog() async {}
+  Future<void> showPublishSuccessDialog() async {
+    blog('showPublishSuccessDialog start');
+  }
   // --------------------
   /// TASK : WRITE ME
-  Future<void> showPublishFailureDialog() async {}
+  Future<void> showPublishFailureDialog() async {
+    blog('showPublishFailureDialog start');
+  }
   // --------------------
   /// TASK : WRITE ME
-  Future<void> navToArchiveScreen() async {}
+  Future<void> navToArchiveScreen() async {
+    blog('navToArchiveScreen start');
+
+    await Nav.goToRoute(context, Routing.archiveRoute);
+
+  }
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

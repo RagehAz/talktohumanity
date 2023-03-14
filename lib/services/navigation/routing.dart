@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talktohumanity/services/navigation/nav.dart';
+import 'package:talktohumanity/views/screens/archive_screen.dart';
 import 'package:talktohumanity/views/screens/home_screen.dart';
 
 class Routing {
@@ -13,7 +14,7 @@ class Routing {
 
   // --------------------
   static const String homeRoute = '/home';
-  // static const String labRoute = '/lab';
+  static const String archiveRoute = '/archive';
   // -----------------------------------------------------------------------------
 
   /// ROUTER
@@ -28,10 +29,10 @@ class Routing {
       case homeRoute:
         return Nav.fadeToScreen(const HomeScreen(), settings);
         break;
-    // /// LAB
-    //   case labRoute:
-    //     return Nav.fadeToScreen(const LabPage(), settings);
-    //     break;
+    /// LAB
+      case archiveRoute:
+        return Nav.fadeToScreen(const ArchiveScreen(), settings);
+        break;
 
     }
     return Nav.fadeToScreen(const HomeScreen(), settings);
@@ -42,8 +43,8 @@ class Routing {
 
   // --------------------
   static Map<String, Widget Function(BuildContext)> routesMap = {
-    // homeRoute: (context) => const HomeScreen(),
-    // labRoute: (context) => const LabPage(),
+    homeRoute: (context) => const HomeScreen(),
+    archiveRoute: (context) => const ArchiveScreen(),
     // translator: (context) => const TranslatorPage(),
     // youtubeWebpage: (context) => const YoutubeWebPage(),
   };

@@ -19,6 +19,7 @@ dependencies:
   provider: ^6.0.3
   flutter_native_splash: ^2.2.9
   path_provider: ^2.0.12
+  calendar_timeline: ^1.1.1
   # ------------------------------------
   # MY WIDGETS
   widget_fader:
@@ -79,6 +80,10 @@ dependencies:
   animators:
     git:
       url: https://github.com/RagehAz/animators.git
+  space_time:
+    git:
+      url: https://github.com/RagehAz/space_time.git
+  im_stepper: ^1.0.1+1
   # ------------------------------------
 dev_dependencies:
   flutter_test:

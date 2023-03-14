@@ -68,6 +68,14 @@ packages:
       url: "https://github.com/RagehAz/bubbles.git"
     source: git
     version: "0.0.5"
+  calendar_timeline:
+    dependency: "direct main"
+    description:
+      name: calendar_timeline
+      sha256: c461d5745277d0ee7b02cd8bc9c53eb1a333bc8d22c097549024e39fa2936944
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.1"
   characters:
     dependency: transitive
     description:
@@ -349,6 +357,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.0.2"
+  im_stepper:
+    dependency: "direct main"
+    description:
+      name: im_stepper
+      sha256: "84ca411f7c4666cb8762a6dd6eec0353c96c67f674124614263875d0570ca634"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.1+1"
   image:
     dependency: transitive
     description:
@@ -636,6 +652,14 @@ packages:
       url: "https://github.com/RagehAz/scale.git"
     source: git
     version: "0.0.8"
+  scrollable_positioned_list:
+    dependency: transitive
+    description:
+      name: scrollable_positioned_list
+      sha256: ca7fcaa743db712d4f7b1580526f494d0093c77a721a65705ee51fbeac7a2bd3
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.3.5"
   sembast:
     dependency: transitive
     description:
@@ -658,7 +682,7 @@ packages:
     source: hosted
     version: "1.9.1"
   space_time:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: "."
       ref: HEAD
