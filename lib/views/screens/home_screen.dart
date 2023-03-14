@@ -7,9 +7,9 @@ import 'package:scale/scale.dart';
 import 'package:super_image/super_image.dart';
 import 'package:talktohumanity/services/navigation/nav.dart';
 import 'package:talktohumanity/services/navigation/routing.dart';
-import 'package:talktohumanity/views/widgets/basic_layout.dart';
-import 'package:talktohumanity/views/widgets/talk_box.dart';
-import 'package:talktohumanity/views/widgets/talk_text.dart';
+import 'package:talktohumanity/views/widgets/layouts/basic_layout.dart';
+import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
+import 'package:talktohumanity/views/widgets/basics/talk_text.dart';
 
 class HomeScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------

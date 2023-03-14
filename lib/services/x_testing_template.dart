@@ -3,7 +3,7 @@ import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 import 'package:super_text/super_text.dart';
-import 'package:talktohumanity/views/widgets/basic_layout.dart';
+import 'package:talktohumanity/views/widgets/layouts/basic_layout.dart';
 
 /// ============================================================================
 

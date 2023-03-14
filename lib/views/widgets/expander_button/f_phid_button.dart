@@ -1,7 +1,7 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:talktohumanity/views/widgets/expander_button/a_chain_button_box.dart';
-import 'package:talktohumanity/views/widgets/talk_box.dart';
+import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
 
 class PhidButton extends StatelessWidget {
   /// --------------------------------------------------------------------------

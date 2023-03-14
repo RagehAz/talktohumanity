@@ -6,19 +6,22 @@ class VerticalLineLayer extends StatelessWidget {
   const VerticalLineLayer({
     @required this.height,
     this.topPadding = 0,
+    this.isOn = true,
     Key key
   }) : super(key: key);
   // --------------------------------------------------------------------------
   final double height;
   final double topPadding;
+  final bool isOn;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return Container(
       height: height,
       width: Standards.timelineMinTileWidth,
       alignment: Alignment.bottomLeft,
-      child: Container(
+      child: isOn == false ? const SizedBox() : Container(
         width: Standards.timelineLineThickness,
         height: height - topPadding,
         color: Standards.timelineLineColor,
@@ -27,6 +30,7 @@ class VerticalLineLayer extends StatelessWidget {
         ),
       ),
     );
+
   }
   // --------------------------------------------------------------------------
 }

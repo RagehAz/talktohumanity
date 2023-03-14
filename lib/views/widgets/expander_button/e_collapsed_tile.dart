@@ -1,7 +1,7 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
-import 'package:talktohumanity/views/widgets/talk_box.dart';
+import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
 import 'b_expanding_tile.dart';
 
 class CollapsedTile extends StatelessWidget {
