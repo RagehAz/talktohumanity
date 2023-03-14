@@ -26,6 +26,7 @@ class CollapsableTile extends StatefulWidget {
     @required this.searchText,
     @required this.onTileLongTap,
     @required this.onTileDoubleTap,
+    @required this.tileBox,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -47,6 +48,7 @@ class CollapsableTile extends StatefulWidget {
   final ValueChanged<bool> onTileTap;
   final Function onTileLongTap;
   final Function onTileDoubleTap;
+  final Widget tileBox;
   /// --------------------------------------------------------------------------
   @override
   CollapsableTileState createState() => CollapsableTileState();
@@ -247,7 +249,6 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
               corners: ExpandingTile.getCorners(corners: widget.corners),
               firstHeadline: widget.firstHeadline,
               secondHeadline: widget.secondHeadline,
-              sideBox: widget.sideBox,
               arrowColor: Colorz.white255,
               arrowTurns: _arrowTurns,
               expandableHeightFactorAnimationValue: _easeInAnimation.value,
@@ -256,6 +257,8 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
               onTileTap: _toggleExpansion,
               onTileLongTap: widget.onTileLongTap,
               onTileDoubleTap: widget.onTileDoubleTap,
+              tileBox: widget.tileBox,
+              sideBox: widget.sideBox,
               child: expansionColumn,
             );
           },

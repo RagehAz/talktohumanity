@@ -2,7 +2,6 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/views/widgets/talk_box.dart';
-import 'package:talktohumanity/views/widgets/talk_text.dart';
 import 'b_expanding_tile.dart';
 
 class CollapsedTile extends StatelessWidget {
@@ -20,6 +19,7 @@ class CollapsedTile extends StatelessWidget {
     @required this.expandableHeightFactorAnimationValue,
     @required this.tileColor,
     @required this.corners,
+    @required this.tileBox,
     this.iconCorners,
     this.marginIsOn = true,
     this.searchText,
@@ -45,6 +45,7 @@ class CollapsedTile extends StatelessWidget {
   final ValueNotifier<dynamic> searchText;
   final Function onTileLongTap;
   final Function onTileDoubleTap;
+  final Widget tileBox;
   /// --------------------------------------------------------------------------
   static const double collapsedGroupHeight = ((Ratioz.appBarCorner + Ratioz.appBarMargin) * 2) + Ratioz.appBarMargin;
   static const double arrowBoxSize = ExpandingTile.arrowBoxSize;
@@ -74,7 +75,7 @@ class CollapsedTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    const double _titlePadding = Ratioz.appBarMargin;
+    // const double _titlePadding = Ratioz.appBarMargin;
 
     return Container(
       // key: const ValueKey<String>('CollapsedTile'),
@@ -114,54 +115,16 @@ class CollapsedTile extends StatelessWidget {
                     sideBox,
 
                   /// Tile title
-                  Container(
-                    width: ExpandingTile.calculateTitleBoxWidth(
-                      collapsedHeight: collapsedHeight ?? CollapsedTile.collapsedGroupHeight,
-                      tileWidth: tileWidth,
-                    ),
-                    height: collapsedHeight ?? CollapsedTile.collapsedGroupHeight,
-                    padding: const EdgeInsets.symmetric(horizontal: _titlePadding),
-                    // color: Colorz.bloodTest,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-
-                        /// FIRST HEADLINE
-                        TalkText(
-                          text: firstHeadline,
-                          centered: false,
-                          maxLines: secondHeadline == null ? 2 : 1,
-                          highlight: searchText,
-                          textHeight: 25,
-                        ),
-
-                        /// SECOND HEADLINE
-                        if (secondHeadline != null)
-                          TalkText(
-                            text: secondHeadline,
-                            weight: FontWeight.w100,
-                            italic: true,
-                            textHeight: 20,
-                            textColor: Colorz.white125,
-                            maxLines: 2,
-                            centered: false,
-                            highlight: searchText,
-                            font: BldrsThemeFonts.fontBldrsBodyFont,
-                          ),
-
-                      ],
-                    ),
-                  ),
+                  tileBox,
 
                   /// Arrow
-                  RotationTransition(
-                    turns: arrowTurns,
-                    child: arrow(
-                      collapsedHeight: collapsedHeight,
-                      arrowColor: arrowColor,
-                    ),
-                  ),
+                  // RotationTransition(
+                  //   turns: arrowTurns,
+                  //   child: arrow(
+                  //     collapsedHeight: collapsedHeight,
+                  //     arrowColor: arrowColor,
+                  //   ),
+                  // ),
 
                 ],
               ),

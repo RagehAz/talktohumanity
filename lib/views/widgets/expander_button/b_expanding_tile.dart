@@ -13,6 +13,7 @@ class ExpandingTile extends StatelessWidget {
     @required this.child,
     @required this.width,
     @required this.sideBox,
+    @required this.tileBox,
     this.secondHeadline,
     this.collapsedHeight,
     this.maxHeight,
@@ -50,6 +51,7 @@ class ExpandingTile extends StatelessWidget {
   final Function onTileLongTap;
   final Function onTileDoubleTap;
   final bool isCollapsable;
+  final Widget tileBox;
   // -----------------------------------------------------------------------------
 
   /// COLORS
@@ -236,7 +238,6 @@ class ExpandingTile extends StatelessWidget {
         collapsedHeight: collapsedHeight,
         maxHeight: maxHeight,
         scrollable: scrollable,
-        sideBox: sideBox,
         onTileTap: onTileTap,
         initiallyExpanded: initiallyExpanded,
         initialColor: initialColor,
@@ -247,6 +248,8 @@ class ExpandingTile extends StatelessWidget {
         searchText: searchText,
         onTileLongTap: onTileLongTap,
         onTileDoubleTap: onTileDoubleTap,
+        sideBox: sideBox,
+        tileBox: tileBox,
         child: child,
       );
     }
