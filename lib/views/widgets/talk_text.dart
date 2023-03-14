@@ -87,6 +87,7 @@ class TalkText extends StatelessWidget {
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return SuperText(
       text: text,
       highlight: highlight,
@@ -115,8 +116,9 @@ class TalkText extends StatelessWidget {
       appIsLTR: appIsLTR ?? true,
       onTap: onTap,
       onDoubleTap: onDoubleTap,
-      package: package ?? 'bldrs_theme',
+      package: package,
     );
+
   }
   // --------------------------------------------------------------------------
 }

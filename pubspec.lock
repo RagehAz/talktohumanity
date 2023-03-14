@@ -660,6 +660,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.3.5"
+  segmented_circle_border:
+    dependency: "direct main"
+    description:
+      name: segmented_circle_border
+      sha256: e9919bc8197dfc4977970878cd8758fc44a761b83125750751cf8b83447467c3
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.1"
   sembast:
     dependency: transitive
     description:

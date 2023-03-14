@@ -148,7 +148,7 @@ class TalkBox extends StatelessWidget {
       onLongTap: onLongTap,
       onDoubleTap: onDoubleTap,
       appIsLTR: appIsLTR ?? true,
-      package: package ?? 'bldrs_theme',
+      package: package,
       textFont: textFont ?? BldrsThemeFonts.fontBldrsHeadlineFont,
       letterSpacing: letterSpacing,
       subChild: subChild,

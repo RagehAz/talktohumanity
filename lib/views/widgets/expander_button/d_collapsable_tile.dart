@@ -1,8 +1,6 @@
-import 'package:filers/filers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:super_box/super_box.dart';
-import 'package:talktohumanity/views/widgets/talk_box.dart';
 
 import 'b_expanding_tile.dart';
 import 'e_collapsed_tile.dart';
@@ -224,7 +222,7 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
         collapsedHeight: widget.collapsedHeight,
     );
 
-    final double _bottomStripHeight = _collapsedHeight * 0.5;
+    // final double _bottomStripHeight = _collapsedHeight * 0.5;
     ///------------------------------------------------------------o
     return Center(
       child: Container(

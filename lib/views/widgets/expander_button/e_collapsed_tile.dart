@@ -1,10 +1,8 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
-import 'package:super_box/super_box.dart';
 import 'package:talktohumanity/views/widgets/talk_box.dart';
 import 'package:talktohumanity/views/widgets/talk_text.dart';
-
 import 'b_expanding_tile.dart';
 
 class CollapsedTile extends StatelessWidget {
@@ -76,7 +74,7 @@ class CollapsedTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _titlePadding = Ratioz.appBarMargin;
+    const double _titlePadding = Ratioz.appBarMargin;
 
     return Container(
       // key: const ValueKey<String>('CollapsedTile'),
@@ -122,7 +120,7 @@ class CollapsedTile extends StatelessWidget {
                       tileWidth: tileWidth,
                     ),
                     height: collapsedHeight ?? CollapsedTile.collapsedGroupHeight,
-                    padding: EdgeInsets.symmetric(horizontal: _titlePadding),
+                    padding: const EdgeInsets.symmetric(horizontal: _titlePadding),
                     // color: Colorz.bloodTest,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
