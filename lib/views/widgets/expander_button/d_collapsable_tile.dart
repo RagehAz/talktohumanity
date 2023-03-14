@@ -8,10 +8,8 @@ import 'e_collapsed_tile.dart';
 class CollapsableTile extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const CollapsableTile({
-    @required this.firstHeadline,
     @required this.child,
     @required this.width,
-    @required this.secondHeadline,
     @required this.collapsedHeight,
     @required this.maxHeight,
     @required this.scrollable,
@@ -36,8 +34,6 @@ class CollapsableTile extends StatefulWidget {
   final bool scrollable;
   final Widget sideBox;
   final bool initiallyExpanded;
-  final String firstHeadline;
-  final String secondHeadline;
   final Color initialColor;
   final Color expansionColor;
   final double corners;
@@ -135,8 +131,6 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
         oldWidget.maxHeight != widget.maxHeight ||
         oldWidget.scrollable != widget.scrollable ||
         oldWidget.initiallyExpanded != widget.initiallyExpanded ||
-        oldWidget.firstHeadline != widget.firstHeadline ||
-        oldWidget.secondHeadline != widget.secondHeadline ||
         oldWidget.initialColor != widget.initialColor ||
         oldWidget.expansionColor != widget.expansionColor ||
         oldWidget.corners != widget.corners ||
@@ -247,8 +241,6 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
               collapsedHeight: _collapsedHeight,
               tileColor: _tileColor,
               corners: ExpandingTile.getCorners(corners: widget.corners),
-              firstHeadline: widget.firstHeadline,
-              secondHeadline: widget.secondHeadline,
               arrowColor: Colorz.white255,
               arrowTurns: _arrowTurns,
               expandableHeightFactorAnimationValue: _easeInAnimation.value,

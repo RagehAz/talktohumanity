@@ -9,12 +9,10 @@ import 'd_collapsable_tile.dart';
 class ExpandingTile extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ExpandingTile({
-    @required this.firstHeadline,
     @required this.child,
     @required this.width,
     @required this.sideBox,
     @required this.tileBox,
-    this.secondHeadline,
     this.collapsedHeight,
     this.maxHeight,
     this.scrollable = true,
@@ -38,8 +36,6 @@ class ExpandingTile extends StatelessWidget {
   final bool scrollable;
   final Widget sideBox;
   final bool initiallyExpanded;
-  final String firstHeadline;
-  final String secondHeadline;
   final Color initialColor;
   final Color expansionColor;
   final double corners;
@@ -232,9 +228,7 @@ class ExpandingTile extends StatelessWidget {
     if (isCollapsable == true){
       return CollapsableTile(
         key: const ValueKey('CollapsableTile'),
-        firstHeadline: firstHeadline,
         width: width,
-        secondHeadline: secondHeadline,
         collapsedHeight: collapsedHeight,
         maxHeight: maxHeight,
         scrollable: scrollable,
@@ -257,9 +251,7 @@ class ExpandingTile extends StatelessWidget {
     else {
       return NonCollapsableTile(
         key: const ValueKey('NonCollapsableTile'),
-        firstHeadline: firstHeadline,
         width: width,
-        secondHeadline: secondHeadline,
         sideBox: sideBox,
         onTileTap: onTileTap,
         expansionColor: expansionColor,

@@ -6,10 +6,8 @@ import 'b_expanding_tile.dart';
 class NonCollapsableTile extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NonCollapsableTile({
-    @required this.firstHeadline,
     @required this.child,
     @required this.width,
-    @required this.secondHeadline,
     @required this.sideBox,
     @required this.onTileTap,
     @required this.expansionColor,
@@ -23,8 +21,6 @@ class NonCollapsableTile extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double width;
   final Widget sideBox;
-  final String firstHeadline;
-  final String secondHeadline;
   final Color expansionColor;
   final double corners;
   final Widget child;
@@ -40,8 +36,8 @@ class NonCollapsableTile extends StatelessWidget {
     return Bubble(
       width: width,
       bubbleColor: ExpandingTile.getExpandedColor(expansionColor: expansionColor),
-      bubbleHeaderVM: BubbleHeaderVM(
-        headlineText: firstHeadline,
+      bubbleHeaderVM: const BubbleHeaderVM(
+        // headlineText: firstHeadline,
         // leadingIcon: icon,
         // leadingIconSizeFactor: iconSizeFactor,
 

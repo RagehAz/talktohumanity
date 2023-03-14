@@ -16,8 +16,9 @@ class TimelineTile extends StatelessWidget {
     @required this.isFirst,
     // @required this.postModel,
     @required this.isLast,
-     @required this.onLike,
+    @required this.onLike,
     @required this.onView,
+    @required this.firstIsExpanded,
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
@@ -26,67 +27,82 @@ class TimelineTile extends StatelessWidget {
   final bool isLast;
   final Function onLike;
   final Function onView;
-  // -----------------------------------------------------------------------------
-  String _generateText() {
-    String _output = '';
-    for (int i = 0; i < 5000; i++) {
-      _output = '$_output blah ';
-    }
-    return _output;
-  }
+  final bool firstIsExpanded;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenWidth = Scale.screenWidth(context);
-    final double _screenHeight = Scale.screenHeight(context);
-    // --------------------
-    final double _maxTileHeight = _screenHeight - 150;
-    // --------------------
-    final double _tileBoxWidth = _screenWidth - Standards.timelineMinTileWidth;
-
-    final double _postBubbleWidth = _tileBoxWidth - 20;
-
-    const double _buttonsBoxHeight = 40;
-    final double _bubbleHeight = _maxTileHeight - Standards.timelineMinTileHeight - 20 - _buttonsBoxHeight;
-    // --------------------
     return ExpandingTile(
-      // initiallyExpanded: false,
+      initiallyExpanded: isFirst && firstIsExpanded,
       // isCollapsable: true,
-      // scrollable: true,
+      // scrollable: true
       // isDisabled: index.isOdd,
-      width: _screenWidth,
-      firstHeadline: 'Name',
-      secondHeadline: 'title',
+      width: Scale.screenWidth(context),
       // initialColor: Colorz.bloodTest,
       expansionColor: Colorz.white20,
       margin: EdgeInsets.zero,
       corners: 0,
       collapsedHeight: Standards.timelineMinTileHeight,
-      maxHeight: _maxTileHeight,
+      maxHeight: Standards.getMaxTimelineTileHeight(),
 
       /// NAME - PIC - TITLE : TILE
-      tileBox: SizedBox(
-        width: _tileBoxWidth,
+      tileBox: const _TimelineHeadline(
+
+      ),
+
+      /// SIDE BOX
+      sideBox: _TimelineCornerBox(
+        isFirst: isFirst,
+        isLast: isLast,
+      ),
+
+      /// BODY
+      child: _TimeLineBody(
+        onView: onView,
+        onLike: onLike,
+        isLast: isLast,
+      ),
+
+    );
+    // --------------------
+  }
+  // -----------------------------------------------------------------------------
+}
+
+class _TimelineHeadline extends StatelessWidget {
+  // -----------------------------------------------------------------------------
+  const _TimelineHeadline({
+    Key key
+  }) : super(key: key);
+  // -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+    // --------------------
+    final double _tileUserBoxWidth = Standards.getTimelineUserBoxWidth();
+    // --------------------
+    return SizedBox(
+        width: _tileUserBoxWidth,
         height: Standards.timelineMinTileHeight,
         child: Row(
           // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+
+            /// USER PIC
             const TalkBox(
               width: Standards.timelinePicSize,
               height: Standards.timelinePicSize,
               corners: Standards.timelinePicSize * 0.5,
               icon: Iconz.dvRageh2,
               margins: EdgeInsets.only(
-                top: (Standards.timelineSideMargin * 3) -
-                    (Standards.timelinePicSize / 2) +
-                    (Standards.timelineLineThickness * 0.5),
+                top: Standards.postUserPicTopMargin,
                 left: Standards.timelineSideMargin,
               ),
             ),
+
+            /// NAME AND TITLE
             Container(
-              width: _tileBoxWidth - Standards.timelinePicSize - Standards.timelineSideMargin,
+              width: Standards.getPostUserNameAndTitleBoxWidth(),
               height: Standards.timelineMinTileHeight,
               padding: const EdgeInsets.only(
                 left: 10,
@@ -98,6 +114,7 @@ class TimelineTile extends StatelessWidget {
                 // mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const <Widget>[
+
                   /// FIRST HEADLINE
                   TalkText(
                     text: 'Name',
@@ -117,24 +134,46 @@ class TimelineTile extends StatelessWidget {
                     centered: false,
                     font: BldrsThemeFonts.fontBldrsBodyFont,
                   ),
+
                 ],
               ),
             ),
+
           ],
         ),
-      ),
+      );
+    // --------------------
+  }
+  // -----------------------------------------------------------------------------
+}
 
-      /// SIDE BOX
-      sideBox: SizedBox(
+class _TimelineCornerBox extends StatelessWidget {
+  // -----------------------------------------------------------------------------
+  const _TimelineCornerBox({
+    @required this.isFirst,
+    @required this.isLast,
+    Key key
+  }) : super(key: key);
+  // -----------------------------------------------------------------------------
+  final bool isFirst;
+  final bool isLast;
+  // -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    return SizedBox(
         width: Standards.timelineMinTileWidth,
         height: Standards.timelineMinTileHeight,
         child: Stack(
           alignment: Alignment.topLeft,
           children: <Widget>[
+
             /// VERTICAL LINE
             VerticalLineLayer(
               height: Standards.timelineMinTileHeight,
-              topPadding: isFirst ? Standards.timelineSideMargin * 3 + Standards.timelineLineRadius : 0,
+              topPadding: Standards.getTimelineVerticalLineTopPadding(
+                  isFirst: isFirst,
+              ),
             ),
 
             /// HORIZONTAL LINE
@@ -143,14 +182,12 @@ class TimelineTile extends StatelessWidget {
               height: Standards.timelineMinTileHeight,
               alignment: Alignment.topLeft,
               child: Container(
-                width: Standards.timelineMinTileWidth -
-                    Standards.timelineSideMargin -
-                    Standards.timelineLineRadius,
+                width: Standards.timelineHorizontalLineWidth,
                 height: Standards.timelineLineThickness,
                 color: Standards.timelineLineColor,
                 margin: const EdgeInsets.only(
-                  left: Standards.timelineSideMargin + (Standards.timelineLineRadius),
-                  top: Standards.timelineSideMargin * 3,
+                  left: Standards.timelineHorizontalLineLeftMargin,
+                  top: Standards.timelineHorizontalLineTopMargin,
                 ),
               ),
             ),
@@ -159,31 +196,30 @@ class TimelineTile extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(
                 left: Standards.timelineSideMargin,
-                top: Standards.timelineSideMargin * 3,
+                top: Standards.timelineHorizontalLineTopMargin,
               ),
               child: Material(
                   shape: SegmentedCircleBorder(
                       // offset: 0, // this rotates segments anticlockwise from top quadrant
                       numberOfSegments: 4,
                       sides: const <BorderSide>[
-                        BorderSide(color: Colorz.nothing, width: 2),
-                        BorderSide(color: Colorz.nothing, width: 2),
-                        BorderSide(color: Standards.timelineLineColor, width: 2),
-                        BorderSide(color: Colorz.nothing, width: 2),
+                        BorderSide(color: Colorz.nothing, width: 0),
+                        BorderSide(color: Colorz.nothing, width: 0),
+                        BorderSide(color: Standards.timelineLineColor, width: Standards.timelineLineThickness),
+                        BorderSide(color: Colorz.nothing, width: 0),
                       ]),
                   child: Container(
                     width: Standards.timelineLineRadius * 2,
                     height: Standards.timelineLineRadius * 2,
                     color: Colorz.nothing,
-                  )),
+                  ))
+              ,
             ),
 
             /// DAY
             const Positioned(
-              top: 7,
-              left: Standards.timelineSideMargin +
-                  Standards.timelineLineThickness +
-                  Standards.timelineLineRadius,
+              top: Standards.timelineDayTopMargin,
+              left: Standards.timelineDayLeftMargin,
               child: TalkText(
                 text: '25',
                 textHeight: 25,
@@ -196,10 +232,8 @@ class TimelineTile extends StatelessWidget {
 
             /// MONTH
             const Positioned(
-              top: Standards.timelineSideMargin * 3 + 3,
-              left: Standards.timelineSideMargin +
-                  Standards.timelineLineThickness +
-                  Standards.timelineLineRadius,
+              top: Standards.timelineMonthTopMargin,
+              left: Standards.timelineDayLeftMargin,
               child: TalkText(
                 text: 'Sept.',
                 textHeight: 17,
@@ -213,40 +247,71 @@ class TimelineTile extends StatelessWidget {
             /// LAST POST DOT
             if (isLast)
             Container(
-              width: 10,
-              height: 10,
+              width: Standards.timelineLastDotSize,
+              height: Standards.timelineLastDotSize,
               margin: const EdgeInsets.only(
-                top: Standards.timelineMinTileHeight - 10,
-                left: Standards.timelineSideMargin - (10 / 2) + 1,
+                top: Standards.timelineLastDotToMargin,
+                left: Standards.timelineLastDotLeftMargin,
               ),
               decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(5)),
+                borderRadius: BorderRadius.all(Radius.circular(Standards.timelineLastDotSize/2)),
                 color: Standards.timelineLineColor,
               ),
             ),
 
           ],
         ),
-      ),
+      );
 
-      /// POST
-      child: Row(
+  }
+  // -----------------------------------------------------------------------------
+}
+
+class _TimeLineBody extends StatelessWidget {
+  // -----------------------------------------------------------------------------
+  const _TimeLineBody({
+    @required this.isLast,
+    @required this.onLike,
+    @required this.onView,
+    Key key
+  }) : super(key: key);
+  // -----------------------------------------------------------------------------
+  final bool isLast;
+  final Function onLike;
+  final Function onView;
+  // -----------------------------------------------------------------------------
+  String _generateText() {
+    String _output = '';
+    for (int i = 0; i < 5000; i++) {
+      _output = '$_output blah ';
+    }
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+    // --------------------
+    final double _postBubbleWidth = Standards.getTimelinePostBubbleWidth();
+    final double _bubbleHeight = Standards.getPostBubbleHeight();
+    // --------------------
+    return Row(
         children: <Widget>[
 
           /// TIMELINE LINE
           VerticalLineLayer(
-            height: _maxTileHeight - Standards.timelineMinTileHeight,
+            height: Standards.getTimelineBodyHeight(),
             isOn: !isLast,
           ),
 
           /// POST BUBBLE
           Padding(
             padding: const EdgeInsets.only(
-              left: 10,
-              bottom: 10,
+              left: Standards.postBubbleMargin,
+              bottom: Standards.postBubbleMargin,
             ),
             child: Column(
               children: <Widget>[
+
                 /// BUBBLE
                 Container(
                   height: _bubbleHeight,
@@ -265,12 +330,14 @@ class TimelineTile extends StatelessWidget {
                           top: 10,
                         ),
                         columnChildren: <Widget>[
+
                           const TalkText(
                             text: 'Headline',
                             textHeight: 35,
                             margins: 10,
                             maxLines: 2,
                           ),
+
                           TalkText(
                             text: _generateText(),
                             maxLines: 50000,
@@ -279,6 +346,7 @@ class TimelineTile extends StatelessWidget {
                             weight: FontWeight.w200,
                             margins: 10,
                           ),
+
                         ],
                       ),
                     ),
@@ -294,14 +362,15 @@ class TimelineTile extends StatelessWidget {
                 /// BUTTONS BOX
                 SizedBox(
                   width: _postBubbleWidth,
-                  height: _buttonsBoxHeight,
+                  height: Standards.postButtonsHeight,
                   // color: Colorz.yellow125,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
+
                       /// VIEWS
                       const TalkBox(
-                        height: _buttonsBoxHeight,
+                        height: Standards.postButtonsHeight,
                         icon: Iconz.viewsIcon,
                         text: '12.2M views',
                         iconSizeFactor: 0.5,
@@ -311,23 +380,24 @@ class TimelineTile extends StatelessWidget {
 
                       /// LIKES
                       TalkBox(
-                        height: _buttonsBoxHeight,
+                        height: Standards.postButtonsHeight,
                         icon: Iconz.save,
                         text: '1M Likes',
                         iconSizeFactor: 0.7,
                         // textScaleFactor: 0.7 / 0.7,
                         onTap: onLike,
                       ),
+
                     ],
                   ),
                 ),
+
               ],
             ),
           ),
-        ],
-      ),
 
-    );
+        ],
+      );
     // --------------------
   }
   // -----------------------------------------------------------------------------

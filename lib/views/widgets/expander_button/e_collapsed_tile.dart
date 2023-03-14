@@ -12,8 +12,6 @@ class CollapsedTile extends StatelessWidget {
     @required this.collapsedHeight,
     @required this.sideBox,
     @required this.child,
-    @required this.firstHeadline,
-    @required this.secondHeadline,
     @required this.arrowTurns,
     @required this.arrowColor,
     @required this.expandableHeightFactorAnimationValue,
@@ -33,8 +31,6 @@ class CollapsedTile extends StatelessWidget {
   final double collapsedHeight;
   final Widget sideBox;
   final Widget child;
-  final String firstHeadline;
-  final String secondHeadline;
   final Animation<double> arrowTurns;
   final Color arrowColor;
   final double expandableHeightFactorAnimationValue;

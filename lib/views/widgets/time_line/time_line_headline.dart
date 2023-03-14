@@ -1,5 +1,6 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:talktohumanity/views/helpers/standards.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_text.dart';
 
 class TimeLineHeadline extends StatelessWidget {
@@ -11,13 +12,15 @@ class TimeLineHeadline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    const double _spacings = 5;
+
     return Row(
       children: const <Widget>[
 
         /// SIDE MARGIN
         SizedBox(
-          width: 5,
-          height: 5,
+          width: _spacings,
+          height: _spacings,
         ),
 
         /// YEAR
@@ -25,10 +28,10 @@ class TimeLineHeadline extends StatelessWidget {
           text: '2023',
           centered: false,
           margins: EdgeInsets.only(
-            bottom: 5,
-            top: 30,
+            bottom: _spacings,
+            top: Standards.timelineHeadlineTopMargin,
           ),
-          textHeight: 30,
+          textHeight: Standards.timelineHeadlineHeight - _spacings,
           boxColor: Colorz.white20,
         ),
 
@@ -37,11 +40,11 @@ class TimeLineHeadline extends StatelessWidget {
           text: 'September',
           centered: false,
           margins: EdgeInsets.only(
-            bottom: 5,
-            top: 30,
-            left: 5,
+            bottom: _spacings,
+            top: Standards.timelineHeadlineTopMargin,
+            left: _spacings,
           ),
-          textHeight: 35,
+          textHeight: Standards.timelineHeadlineHeight,
           italic: true,
           font: BldrsThemeFonts.fontBldrsBodyFont,
           weight: FontWeight.w100,

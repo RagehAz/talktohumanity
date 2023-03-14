@@ -1,6 +1,7 @@
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
+import 'package:talktohumanity/views/helpers/standards.dart';
 import 'package:talktohumanity/views/widgets/layouts/basic_layout.dart';
 import 'package:talktohumanity/views/widgets/time_line/timeline_month_builder.dart';
 
@@ -86,19 +87,21 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
         child: ListView.builder(
           physics: const BouncingScrollPhysics(),
           itemCount: 3,
-            shrinkWrap: true,
-            padding: EdgeInsets.only(
-              top: _screenHeight * 0.4,
-            ),
-            itemBuilder: (_, index){
+          shrinkWrap: true,
+          padding: EdgeInsets.only(
+            top: Standards.getTimeLineTopMostMargin(),
+            bottom: Standards.timelineMinTileHeight,
+          ),
+          itemBuilder: (_, index) {
 
-              return TimelineMonthBuilder(
-          onLike: (String post) => _onLike(),
-          onView: (String post) => _onView(),
-          posts: _posts,
-        );
+            return TimelineMonthBuilder(
+              onLike: (String post) => _onLike(),
+              onView: (String post) => _onView(),
+              posts: _posts,
+              isFirstMonth: index == 0,
+            );
 
-            },
+          },
         ),
       ),
     );
