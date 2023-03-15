@@ -148,10 +148,12 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
 
             else {
 
+              final String key = _keys[i];
+
               return TimelineMonthBuilder(
               onLike: (PostModel post) => _onLike(post),
               onView: (PostModel post) => _onView(post),
-              posts: _postsMap[_keys[i]],
+              posts: _postsMap[key],
               isFirstMonth: i == 0,
             );
 

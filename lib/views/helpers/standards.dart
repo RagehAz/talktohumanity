@@ -30,8 +30,11 @@ class Standards {
   static const double timelineHeadlineHeight = 30;
   static const double timelineHeadlineTopMargin = 30;
   // --------------------
+  static const double yearBulletHeight = Standards.timelinePicSize * 0.5;
+  static const double yearBulletCorner = yearBulletHeight * 0.35;
+
   static double getTimelineHeadlineHeightWithMargin(){
-    return timelineHeadlineHeight + timelineHeadlineTopMargin;
+    return yearBulletHeight + timelineHeadlineTopMargin;
   }
   // --------------------
   static double getTimeLineTopMostMargin(){
@@ -39,7 +42,7 @@ class Standards {
 
     return _screenHeight
         - getMaxTimelineTileHeight()
-        // - getTimelineHeadlineHeightWithMargin()
+        - getTimelineHeadlineHeightWithMargin()
         - timelineMinTileHeight;
   }
   // --------------------

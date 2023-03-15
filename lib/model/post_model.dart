@@ -141,24 +141,28 @@ class PostModel {
     ///   '12_2022' : <PostModel>[];
     /// }
 
-    Map<String, dynamic> _output = {};
+    final Map<String, dynamic> _output = {};
 
     if (Mapper.checkCanLoopList(posts) == true){
 
       final List<PostModel> _ordered = orderPosts(
         posts: posts,
-        ascending: true,
+        ascending: false,
       );
 
       for (final PostModel post in _ordered){
 
         final String _key = generateOrganizerMapKey(time: post.time);
 
-        _output = Mapper.insertPairInMap(
-            map: _output,
-            key: _key,
-            value: post,
-        );
+        final List<dynamic> _posts = _output[_key];
+
+        if (Mapper.checkCanLoopList(_posts) == true){
+          final List<PostModel> _list = [..._posts, post];
+          _output[_key] = _list;
+        }
+        else{
+          _output[_key] = [post];
+        }
 
       }
 

@@ -28,7 +28,10 @@ class TimelineMonthBuilder extends StatelessWidget {
       itemBuilder: (_, int i) {
 
         if (i == posts.length) {
-          return const TimeLineHeadline();
+          return TimeLineHeadline(
+            month: posts.first.time.month,
+            year: posts.first.time.year,
+          );
         }
 
         else {
