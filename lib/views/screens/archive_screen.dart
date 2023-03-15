@@ -3,6 +3,7 @@ import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/model/post_model.dart';
+import 'package:talktohumanity/providers/post_ldb_ops.dart';
 import 'package:talktohumanity/services/navigation/nav.dart';
 import 'package:talktohumanity/views/helpers/standards.dart';
 import 'package:talktohumanity/views/screens/post_creator_screen.dart';
@@ -77,14 +78,61 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
     super.dispose();
   }
   // --------------------------------------------------------------------------
+  ///
   Future<void> _onLike(PostModel post) async {
     blog('is liked');
+
+    final bool _isLiked = await PostLDBPOps.checkIsInserted(
+      post: post,
+      docName: PostLDBPOps.myLikes,
+    );
+
+    if (_isLiked == true) {
+      await PostLDBPOps.deletePost(
+        post: post,
+        docName: PostLDBPOps.myLikes,
+      );
+    }
+
+    else {
+      await PostLDBPOps.insertPost(
+        post: post,
+        docName: PostLDBPOps.myLikes,
+      );
+    }
+
+    setState(() {
+
+    });
+
     post.blogPost();
   }
   // --------------------
+  ///
   Future<void> _onView(PostModel post) async {
-    blog('is Viewed');
+
+    await PostLDBPOps.insertPost(
+      post: post,
+      docName: PostLDBPOps.myViews,
+    );
+
+    setState(() {
+
+    });
+
     post.blogPost();
+  }
+  // --------------------
+  ///
+  Future<void> insertPostToMyViewsInLDB({
+    @required PostModel post,
+  }) async {
+
+    await PostLDBPOps.insertPost(
+      post: post,
+      docName: PostLDBPOps.myViews,
+    );
+
   }
   // --------------------------------------------------------------------------
   @override
@@ -113,12 +161,10 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
 
               return Column(
                 children: <Widget>[
-
                   const SeparatorLine(
                     width: 100,
                     withMargins: true,
                   ),
-
                   TalkBox(
                     height: 50,
                     text: 'Talk to Humanity',
@@ -128,22 +174,19 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
                     iconSizeFactor: 0.5,
                     textScaleFactor: 0.8 / 0.5,
                     onTap: () async {
-
                       await Nav.goToNewScreen(
-                          context: context,
-                          screen: const PostCreatorScreen(),
+                        context: context,
+                        screen: const PostCreatorScreen(),
                       );
-
-                    },
+                      },
                   ),
-
                   const SeparatorLine(
                     width: 100,
                     withMargins: true,
                   ),
-
                 ],
               );
+
             }
 
             else {
@@ -151,11 +194,11 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
               final String key = _keys[i];
 
               return TimelineMonthBuilder(
-              onLike: (PostModel post) => _onLike(post),
-              onView: (PostModel post) => _onView(post),
-              posts: _postsMap[key],
-              isFirstMonth: i == 0,
-            );
+                onLike: (PostModel post) => _onLike(post),
+                onView: (PostModel post) => _onView(post),
+                posts: _postsMap[key],
+                isFirstMonth: i == 0,
+              );
 
             }
 

@@ -4,11 +4,10 @@ import 'package:scale/scale.dart';
 import 'package:talktohumanity/services/helper_methods.dart';
 import 'package:talktohumanity/views/helpers/standards.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
-import 'package:talktohumanity/views/widgets/basics/talk_text.dart';
 
-class TimeLineHeadline extends StatelessWidget {
+class TimeLineMonthBullet extends StatelessWidget {
   // --------------------------------------------------------------------------
-  const TimeLineHeadline({
+  const TimeLineMonthBullet({
     @required this.month,
     @required this.year,
     Key key
@@ -35,7 +34,8 @@ class TimeLineHeadline extends StatelessWidget {
         /// YEAR
         TalkBox(
           height: Standards.yearBulletHeight,
-          text: year?.toString(),
+          width: Standards.timelineMinTileHeight,
+          text: '${getMonthName(month: month, shortForm: false,)} $year',
           // centered: false,
           margins: const EdgeInsets.only(
             bottom: Standards.timelineHeadlineTopMargin,
@@ -53,21 +53,18 @@ class TimeLineHeadline extends StatelessWidget {
           ),
         ),
 
-        /// MONTH
-        TalkText(
-          text: getMonthName(
-            month: month,
-            shortForm: false,
-          ),
-          centered: false,
-          margins: const EdgeInsets.only(
-            left: _spacings,
-          ),
-          textHeight: Standards.yearBulletHeight,
-          italic: true,
-          font: BldrsThemeFonts.fontBldrsBodyFont,
-          weight: FontWeight.w100,
-        ),
+        // /// MONTH
+        // TalkText(
+        //   text: getMonthName(month: month, shortForm: false,),
+        //   centered: false,
+        //   margins: const EdgeInsets.only(
+        //     left: _spacings,
+        //   ),
+        //   textHeight: Standards.yearBulletHeight,
+        //   italic: true,
+        //   font: BldrsThemeFonts.fontBldrsBodyFont,
+        //   weight: FontWeight.w100,
+        // ),
 
       ],
     );

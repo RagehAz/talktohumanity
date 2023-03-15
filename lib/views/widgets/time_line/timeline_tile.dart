@@ -6,6 +6,7 @@ import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
 import 'package:segmented_circle_border/segmented_circle_border.dart';
 import 'package:talktohumanity/model/post_model.dart';
+import 'package:talktohumanity/providers/post_ldb_ops.dart';
 import 'package:talktohumanity/services/helper_methods.dart';
 import 'package:talktohumanity/views/helpers/standards.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
@@ -46,6 +47,14 @@ class TimelineTile extends StatelessWidget {
       margin: EdgeInsets.zero,
       corners: 0,
       collapsedHeight: Standards.timelineMinTileHeight,
+      onTileTap: (bool expanded){
+        // blog('post : ${post.id} is expanded : $expanded');
+
+        if (expanded == true){
+          onView();
+        }
+
+      },
       maxHeight: Standards.getMaxTimelineTileHeight(),
 
       /// NAME - PIC - TITLE : TILE
@@ -377,22 +386,37 @@ class _TimeLineBody extends StatelessWidget {
 
                       /// VIEWS
                       TalkBox(
-                        height: Standards.postButtonsHeight,
-                        icon: Iconz.viewsIcon,
-                        text: '${Numeric.formatNumToCounterCaliber(x: post.views)} views',
-                        iconSizeFactor: 0.5,
-                        textScaleFactor: 0.7 / 0.5,
-                        bubble: false,
-                      ),
+                            height: Standards.postButtonsHeight,
+                            icon: Iconz.viewsIcon,
+                            text: '${Numeric.formatNumToCounterCaliber(x: post.views)} views',
+                            iconSizeFactor: 0.5,
+                            textScaleFactor: 0.7 / 0.5,
+                            bubble: false,
+                          ),
 
                       /// LIKES
-                      TalkBox(
-                        height: Standards.postButtonsHeight,
-                        icon: Iconz.save,
-                        text: '${Numeric.formatNumToCounterCaliber(x: post.likes)} likes',
-                        iconSizeFactor: 0.7,
-                        // textScaleFactor: 0.7 / 0.7,
-                        onTap: onLike,
+                      FutureBuilder(
+                        future: PostLDBPOps.checkIsInserted(
+                          post: post,
+                          docName: PostLDBPOps.myLikes,
+                        ),
+                        initialData: false,
+                        builder: (_, AsyncSnapshot<bool> snap) {
+
+                          final bool _isLiked = snap.data;
+
+                          return TalkBox(
+                            height: Standards.postButtonsHeight,
+                            icon: Iconz.save,
+                            text: '${Numeric.formatNumToCounterCaliber(x: post.likes)} likes',
+                            iconSizeFactor: 0.7,
+                            // textScaleFactor: 0.7 / 0.7,
+                            onTap: onLike,
+                            color: _isLiked == true ? Colorz.yellow255 : Colorz.nothing,
+                            textColor: _isLiked == true ? Colorz.black255 : Colorz.white255,
+                            iconColor: _isLiked == true ? Colorz.black255 : Colorz.white255,
+                          );
+                        }
                       ),
 
                     ],

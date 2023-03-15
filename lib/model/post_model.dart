@@ -171,6 +171,30 @@ class PostModel {
     return _output;
   }
   // --------------------
+  ///
+  static List<PostModel> orderPosts({
+    @required List<PostModel> posts,
+    @required bool ascending,
+  }){
+    final List<PostModel> _output = [];
+
+    if (Mapper.checkCanLoopList(posts) == true){
+
+       posts.sort((a, b) => ascending ?
+       a.time.compareTo(b.time)
+           :
+       b.time.compareTo(a.time));
+
+       _output.addAll(posts);
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// ORGANIZER KEY
+
+    // --------------------
   /// AI TESTED
   static String generateOrganizerMapKey({
     @required DateTime time,
@@ -192,26 +216,6 @@ class PostModel {
         _output = '${_mm}_$_yyyy';
       }
 
-    }
-
-    return _output;
-  }
-  // --------------------
-  ///
-  static List<PostModel> orderPosts({
-    @required List<PostModel> posts,
-    @required bool ascending,
-  }){
-    final List<PostModel> _output = [];
-
-    if (Mapper.checkCanLoopList(posts) == true){
-
-       posts.sort((a, b) => ascending ?
-       a.time.compareTo(b.time)
-           :
-       b.time.compareTo(a.time));
-
-       _output.addAll(posts);
     }
 
     return _output;
@@ -261,9 +265,54 @@ class PostModel {
   }
   // -----------------------------------------------------------------------------
 
+  /// CHECKERS
+
+  // --------------------
+  ///
+  static bool checkPostsIncludePost({
+    @required List<PostModel> posts,
+    @required PostModel post,
+  }){
+    bool _includes = false;
+
+    if (Mapper.checkCanLoopList(posts) == true){
+
+      final PostModel _foundPost = getPostModelFromPostModels(
+        id: post.id,
+        posts: posts,
+      );
+
+      _includes = _foundPost != null;
+    }
+
+    return _includes;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+  // --------------------
+  ///
+  static PostModel getPostModelFromPostModels({
+    @required List<PostModel> posts,
+    @required String id,
+  }){
+    PostModel _output;
+
+    if (Mapper.checkCanLoopList(posts) == true){
+
+      _output = posts.firstWhere((element) => element.id == id, orElse: () => null);
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
   /// BLOGGING
 
   // --------------------
+  ///
   void blogPost(){
     blog('POST : ($time) : $id : $name : $email : $bio : $pic : likes: $likes : views: $views');
     blog('     : -> $headline : $body');
@@ -273,6 +322,7 @@ class PostModel {
   /// DUMMIES
 
   // --------------------
+  ///
   static List<PostModel> dummyPosts() {
     return <PostModel>[
       PostModel(
@@ -350,6 +400,71 @@ class PostModel {
       ),
       PostModel(
         id: 'g',
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+        bio: 'Software Engineer',
+        headline: 'Design patterns in modern software development',
+        body:
+            'Exploring the benefits and drawbacks of various design patterns in modern software development',
+        pic: Iconz.bxProductsOn,
+        time: Timers.createDate(year: 2023, month: 07, day: 10),
+        likes: 2313,
+        views: 14123,
+      ),
+      PostModel(
+        id: 'h',
+        name: 'Jane Smith',
+        email: 'jane.smith@example.com',
+        bio: 'Marketing Specialist',
+        headline: 'The impact of social media on marketing',
+        body:
+            'Analyzing the impact of social media on marketing strategies and identifying best practices for leveraging social media platforms',
+        pic: Iconz.comEmail,
+        time: Timers.createDate(year: 2023, month: 07, day: 12),
+        likes: 524,
+        views: 2354,
+      ),
+      PostModel(
+        id: 'i',
+        name: 'Samuel Lee',
+        email: 'samuel.lee@example.com',
+        bio: 'Financial Advisor',
+        headline: 'Investment strategies for beginners',
+        body:
+            'Discussing investment strategies for beginners and outlining key factors to consider when developing an investment portfolio',
+        pic: Iconz.achievement,
+        time: Timers.createDate(year: 2023, month: 07, day: 20),
+        likes: 346,
+        views: 4235,
+      ),
+      PostModel(
+        id: 'j',
+        name: 'Amanda Martinez',
+        email: 'amanda.martinez@example.com',
+        bio: 'Journalist',
+        headline: 'The future of journalism in the digital age',
+        body:
+            'Examining the impact of digital technology on traditional journalism models and exploring the possibilities for new forms of journalism in the digital age',
+        pic: Iconz.dvRagehWhite,
+        time: Timers.createDate(year: 2023, month: 07, day: 25),
+        likes: 872,
+        views: 6734,
+      ),
+      PostModel(
+        id: 'k',
+        name: 'William Johnson',
+        email: 'william.johnson@example.com',
+        bio: 'Data Analyst',
+        headline: 'Data visualization techniques for effective communication',
+        body:
+            'Exploring various data visualization techniques and discussing best practices for using data visualization to effectively communicate insights and analysis',
+        pic: Iconz.filter,
+        time: Timers.createDate(year: 2023, month: 07, day: 28),
+        likes: 1532,
+        views: 9321,
+      ),
+      PostModel(
+        id: 'l',
         name: 'Albert Einstein',
         email: 'einstein@hotmail.com',
         bio: 'Theoretical physicist',
@@ -361,7 +476,7 @@ class PostModel {
         views: 458348348,
       ),
       PostModel(
-        id: 'h',
+        id: 'm',
         name: 'Isaac Newton',
         email: 'newton@hotmail.com',
         bio: 'Physicist and mathematician',
@@ -373,7 +488,7 @@ class PostModel {
         views: 4848486,
       ),
       PostModel(
-        id: 'i',
+        id: 'n',
         name: 'Charles Darwin',
         email: 'darwin@hotmail.com',
         bio: 'Naturalist and biologist',

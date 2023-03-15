@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talktohumanity/model/post_model.dart';
-import 'package:talktohumanity/views/widgets/time_line/time_line_headline.dart';
+import 'package:talktohumanity/views/widgets/time_line/timeline_month_bullet.dart';
 import 'package:talktohumanity/views/widgets/time_line/timeline_tile.dart';
 
 class TimelineMonthBuilder extends StatelessWidget {
@@ -28,7 +28,7 @@ class TimelineMonthBuilder extends StatelessWidget {
       itemBuilder: (_, int i) {
 
         if (i == posts.length) {
-          return TimeLineHeadline(
+          return TimeLineMonthBullet(
             month: posts.first.time.month,
             year: posts.first.time.year,
           );
