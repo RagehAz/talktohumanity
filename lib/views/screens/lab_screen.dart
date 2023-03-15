@@ -2,7 +2,10 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:talktohumanity/model/post_model.dart';
+import 'package:talktohumanity/providers/post_real_ops.dart';
 import 'package:talktohumanity/views/helpers/device_checker.dart';
+import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_text.dart';
 import 'package:talktohumanity/views/widgets/layouts/basic_layout.dart';
 
@@ -65,12 +68,40 @@ class _LabScreenState extends State<LabScreen> {
 
     return BasicLayout(
       body: ListView(
-        children: const <Widget>[
+        children: <Widget>[
 
-        /// APP INFO
-        TalkText(text: 'APP INFO', textHeight: 40),
+        /// CREATE DUMMIES
+        TalkBox(
+          height: 40,
+          text: 'Upload dummy posts',
+          onTap: () async {
 
-        DotSeparator(),
+            for (final PostModel post in PostModel.dummyPosts()){
+
+              final PostModel _uploaded = await PostRealOps.createNewPost(
+                  post: post,
+              );
+
+              _uploaded.blogPost();
+
+            }
+
+          },
+        ),
+
+        /// READ ALL POSTS
+        TalkBox(
+          height: 40,
+          text: 'Read all dummies',
+          onTap: () async {
+
+            final List<PostModel> _posts = await PostRealOps.readAllPublishedPosts();
+            blog('RECEIVED ----> ${_posts.length} POSTS HERE BABY');
+
+          },
+        ),
+
+       const DotSeparator(),
 
         ],
       ),

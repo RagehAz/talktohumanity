@@ -72,10 +72,10 @@ packages:
     dependency: "direct main"
     description:
       name: calendar_timeline
-      sha256: c461d5745277d0ee7b02cd8bc9c53eb1a333bc8d22c097549024e39fa2936944
+      sha256: "7437ce216a7c579f2f9554f385dd77a3d5c9d15a63bc38d4d155b66302c85fba"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.1"
+    version: "1.1.2"
   characters:
     dependency: transitive
     description:
@@ -678,10 +678,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "2a0d889f453b2af2fec55216f5ba059399b04238"
+      resolved-ref: "4324730df37d2f1b3d882c5534dc41579d43792b"
       url: "https://github.com/RagehAz/real.git"
     source: git
-    version: "0.0.1"
+    version: "0.0.2"
   rest:
     dependency: "direct main"
     description:
@@ -720,10 +720,10 @@ packages:
     dependency: transitive
     description:
       name: sembast
-      sha256: "94b951623422781800d748c4e5efd5f108f1342d58159cbcfd7dd943955d6636"
+      sha256: c55198f16f4dcafeaf361ed9c62d9aaf946dff503fd6d6c0ca52efae5f358b66
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.4.1+1"
+    version: "3.4.2"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -875,18 +875,18 @@ packages:
     dependency: transitive
     description:
       name: video_player_android
-      sha256: "86d9d56ffe760a1e3b4855ea94bac6c944e99b9050946464857b3e2818e1662b"
+      sha256: dc31c60ae591aa3ccb2d460c3690ceceb86cbb826e73428d817a37650dc4e229
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.4.1"
+    version: "2.4.2"
   video_player_avfoundation:
     dependency: transitive
     description:
       name: video_player_avfoundation
-      sha256: "9d8585be0d63943f0dc46e0aed6697a715f64d7faab39b6053ecf9b6da3ca01d"
+      sha256: "90468226c8687adf7b567d9bb42c25588783c4d30509af1fbd663b2dd049f700"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.4.1"
+    version: "2.4.2"
   video_player_platform_interface:
     dependency: transitive
     description:

@@ -34,10 +34,40 @@ class PostModel {
   final int views;
   // --------------------------------------------------------------------------
 
+  /// CLONING
+
+  // --------------------
+  PostModel copyWith({
+    String id,
+    String name,
+    String email,
+    String bio,
+    String headline,
+    String body,
+    String pic,
+    DateTime time,
+    int likes,
+    int views,
+  }) {
+    return PostModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      bio: bio ?? this.bio,
+      headline: headline ?? this.headline,
+      body: body ?? this.body,
+      pic: pic ?? this.pic,
+      time: time ?? this.time,
+      likes: likes ?? this.likes,
+      views: views ?? this.views,
+    );
+  }
+  // --------------------------------------------------------------------------
+
   /// CYPHER
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }){
@@ -49,13 +79,13 @@ class PostModel {
       'headline': headline,
       'body': body,
       'pic': pic,
-      'timeStamp': Timers.cipherTime(time: time, toJSON: toJSON),
+      'time': Timers.cipherTime(time: time, toJSON: toJSON),
       'likes': likes,
       'views': views,
     };
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static PostModel decipherPost({
     @required Map<String, dynamic> map,
     @required bool fromJSON,
@@ -103,7 +133,7 @@ class PostModel {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<PostModel> decipherPosts({
     @required List<Map<String, dynamic>> maps,
     @required bool fromJSON,
@@ -128,7 +158,7 @@ class PostModel {
   /// ORGANIZERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Map<String, dynamic> organizePostsInMap({
     @required List<PostModel> posts,
   }){
@@ -171,7 +201,7 @@ class PostModel {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<PostModel> orderPosts({
     @required List<PostModel> posts,
     @required bool ascending,
@@ -268,7 +298,7 @@ class PostModel {
   /// CHECKERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkPostsIncludePost({
     @required List<PostModel> posts,
     @required PostModel post,
@@ -292,7 +322,7 @@ class PostModel {
   /// GETTERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static PostModel getPostModelFromPostModels({
     @required List<PostModel> posts,
     @required String id,
@@ -312,7 +342,7 @@ class PostModel {
   /// BLOGGING
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   void blogPost(){
     blog('POST : ($time) : $id : $name : $email : $bio : $pic : likes: $likes : views: $views');
     blog('     : -> $headline : $body');
@@ -322,7 +352,7 @@ class PostModel {
   /// DUMMIES
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<PostModel> dummyPosts() {
     return <PostModel>[
       PostModel(
@@ -501,6 +531,7 @@ class PostModel {
       ),
     ];
   }
+
   // -----------------------------------------------------------------------------
 
   /// EQUALITY

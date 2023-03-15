@@ -1,7 +1,9 @@
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/controllers/publishing_controllers.dart';
+import 'package:talktohumanity/model/post_model.dart';
 import 'package:talktohumanity/services/navigation/nav.dart';
 import 'package:talktohumanity/views/widgets/layouts/basic_layout.dart';
 import 'package:talktohumanity/views/widgets/post_creator.dart';
@@ -20,6 +22,7 @@ class PostCreatorScreen extends StatefulWidget {
 class _PostCreatorScreenState extends State<PostCreatorScreen> {
   // -----------------------------------------------------------------------------
   final TextEditingController _textController = TextEditingController();
+  PostModel _draft;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -35,6 +38,20 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
   @override
   void initState() {
     super.initState();
+
+    _draft = PostModel(
+      id: Numeric.createUniqueID().toString(),
+      name: null,
+      email: null,
+      bio: null,
+      headline: null,
+      body: null,
+      pic: null,
+      time: null,
+      likes: 0,
+      views: 0,
+    );
+
   }
   // --------------------
   bool _isInit = true;

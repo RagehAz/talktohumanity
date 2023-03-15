@@ -1,10 +1,12 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:real/real.dart';
+import 'package:mapper/mapper.dart';
 import 'package:scale/scale.dart';
+import 'package:super_box/super_box.dart';
 import 'package:talktohumanity/model/post_model.dart';
 import 'package:talktohumanity/providers/post_ldb_ops.dart';
+import 'package:talktohumanity/providers/post_real_ops.dart';
 import 'package:talktohumanity/services/navigation/nav.dart';
 import 'package:talktohumanity/views/helpers/standards.dart';
 import 'package:talktohumanity/views/screens/post_creator_screen.dart';
@@ -28,12 +30,12 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
   // -----------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
   final ScrollController _scrollControllerB = ScrollController();
-  List<PostModel> posts = PostModel.dummyPosts(); //[];
+  List<PostModel> posts = [];
 
   Map<String, dynamic> _postsMap = {};
   // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false);
+  final ValueNotifier<bool> _loading = ValueNotifier(true);
   // --------------------
   Future<void> _triggerLoading({@required bool setTo}) async {
     setNotifier(
@@ -47,10 +49,6 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
   void initState() {
     super.initState();
 
-    _postsMap = PostModel.organizePostsInMap(
-        posts: posts,
-    );
-
     _scrollController.addListener(() {
       _scrollControllerB.jumpTo(_scrollController.offset * 1.5);
     });
@@ -61,7 +59,8 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
       _triggerLoading(setTo: true).then((_) async {
-        /// FUCK
+
+        await fetchAllPublishedPosts();
 
         await _triggerLoading(setTo: false);
       });
@@ -79,7 +78,34 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
     super.dispose();
   }
   // --------------------------------------------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
+  Future<void> fetchAllPublishedPosts() async {
+
+    posts = await PostLDBPOps.readAll(
+      docName: PostLDBPOps.publishedPosts,
+    );
+
+    if (Mapper.checkCanLoopList(posts) == false) {
+      posts = await PostRealOps.readAllPublishedPosts();
+      blog('${posts.length} posts found in REAL DB');
+      if (Mapper.checkCanLoopList(posts) == true) {
+        await PostLDBPOps.insertPosts(
+          posts: posts,
+          docName: PostLDBPOps.publishedPosts,
+        );
+      }
+    } else {
+      blog('${posts.length} posts found in LDB');
+    }
+
+    setState(() {
+      _postsMap = PostModel.organizePostsInMap(
+        posts: posts,
+      );
+    });
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onLike(PostModel post) async {
     blog('is liked');
 
@@ -88,28 +114,46 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
       docName: PostLDBPOps.myLikes,
     );
 
+    /// IS ALREADY LIKED => REMOVE LIKE
     if (_isLiked == true) {
-      await PostLDBPOps.deletePost(
-        post: post,
-        docName: PostLDBPOps.myLikes,
-      );
+
+      await Future.wait(<Future>[
+
+        /// REMOVE FROM LDB
+        PostLDBPOps.deletePost(
+          post: post,
+          docName: PostLDBPOps.myLikes,
+        ),
+
+        /// DECREMENT REAL COUNTER
+        PostRealOps.dislikePost(post),
+
+      ]);
+
     }
 
+    /// IS NOT LIKED => CREATE A NEW LIKE
     else {
-      await PostLDBPOps.insertPost(
-        post: post,
-        docName: PostLDBPOps.myLikes,
-      );
+
+      /// INSERT IN LDB
+      await Future.wait(<Future>[
+        PostLDBPOps.insertPost(
+          post: post,
+          docName: PostLDBPOps.myLikes,
+        ),
+
+        /// INCREMENT REAL COUNTER
+        PostRealOps.likePost(post),
+
+      ]);
     }
 
-    setState(() {
-
-    });
+    setState(() {});
 
     post.blogPost();
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _onView(PostModel post) async {
 
     final bool _isViewed = await PostLDBPOps.checkIsInserted(
@@ -119,22 +163,19 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
 
     if (_isViewed == false) {
 
-      /// INSERT IN LDB
-      await PostLDBPOps.insertPost(
-        post: post,
-        docName: PostLDBPOps.myViews,
-      );
+      await Future.wait(<Future>[
 
-      /// INCREMENT REAL COUNTER
-      await Real.incrementDocFields(
-        context: context,
-        collName: 'counters',
-        docName: 'views',
-        isIncrementing: true,
-        incrementationMap: {
-          post.id: 1,
-        },
-      );
+        /// INSERT IN LDB
+        PostLDBPOps.insertPost(
+          post: post,
+          docName: PostLDBPOps.myViews,
+        ),
+
+        /// INCREMENT REAL COUNTER
+        PostRealOps.viewPost(post),
+
+      ]);
+
     }
 
     setState(() {});
@@ -166,7 +207,17 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
       body: SizedBox(
         width: _screenWidth,
         height: _screenHeight,
-        child: ListView.builder(
+        child: ValueListenableBuilder(
+          valueListenable: _loading,
+          child: Container(),
+          builder: (_, bool isLoading, Widget child){
+
+            if (isLoading){
+              return const Loading(loading: true, color: Colorz.white255,size: 500,);
+            }
+
+            else {
+              return ListView.builder(
           physics: const BouncingScrollPhysics(),
           shrinkWrap: true,
           padding: EdgeInsets.only(
@@ -219,6 +270,10 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
                 isFirstMonth: i == 0,
               );
 
+            }
+
+          },
+        );
             }
 
           },
