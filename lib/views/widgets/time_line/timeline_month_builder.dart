@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talktohumanity/model/post_model.dart';
 import 'package:talktohumanity/views/widgets/time_line/time_line_headline.dart';
 import 'package:talktohumanity/views/widgets/time_line/timeline_tile.dart';
 
@@ -12,9 +13,9 @@ class TimelineMonthBuilder extends StatelessWidget {
     Key key
   }) : super(key: key);
   // --------------------------------------------------------------------------
-  final List<String> posts;
-  final Function(String post) onLike;
-  final Function(String post) onView;
+  final List<PostModel> posts;
+  final Function(PostModel post) onLike;
+  final Function(PostModel post) onView;
   final bool isFirstMonth;
   // --------------------------------------------------------------------------
   @override
@@ -33,7 +34,7 @@ class TimelineMonthBuilder extends StatelessWidget {
         else {
 
           final int index = i ;
-          final String post = posts[index];
+          final PostModel post = posts[index];
 
           return TimelineTile(
             isFirst: index == 0,
@@ -41,6 +42,7 @@ class TimelineMonthBuilder extends StatelessWidget {
             isLast: index + 1 == posts.length,
             onLike: () => onLike(post),
             onView: () => onView(post),
+            post: post,
           );
         }
 

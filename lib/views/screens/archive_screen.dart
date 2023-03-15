@@ -2,6 +2,7 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
+import 'package:talktohumanity/model/post_model.dart';
 import 'package:talktohumanity/services/navigation/nav.dart';
 import 'package:talktohumanity/views/helpers/standards.dart';
 import 'package:talktohumanity/views/screens/post_creator_screen.dart';
@@ -25,6 +26,9 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
   // -----------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
   final ScrollController _scrollControllerB = ScrollController();
+  List<PostModel> posts = PostModel.dummyPosts(); //[];
+
+  Map<String, dynamic> _postsMap = {};
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -40,6 +44,10 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
   @override
   void initState() {
     super.initState();
+
+    _postsMap = PostModel.organizePostsInMap(
+        posts: posts,
+    );
 
     _scrollController.addListener(() {
       _scrollControllerB.jumpTo(_scrollController.offset * 1.5);
@@ -69,12 +77,14 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
     super.dispose();
   }
   // --------------------------------------------------------------------------
-  Future<void> _onLike() async {
+  Future<void> _onLike(PostModel post) async {
     blog('is liked');
+    post.blogPost();
   }
   // --------------------
-  Future<void> _onView() async {
+  Future<void> _onView(PostModel post) async {
     blog('is Viewed');
+    post.blogPost();
   }
   // --------------------------------------------------------------------------
   @override
@@ -83,7 +93,7 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
     final double _screenWidth = Scale.screenWidth(context);
     final double _screenHeight = Scale.screenHeight(context);
     // --------------------
-    final List<String> _posts = ['fuck', 'you', 'bitch'];
+    final List<String> _keys = _postsMap?.keys?.toList();
     // --------------------
     return BasicLayout(
       body: SizedBox(
@@ -96,10 +106,10 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
             top: Standards.getTimeLineTopMostMargin(),
             bottom: Standards.timelineMinTileHeight,
           ),
-          itemCount: 3 + 1,
+          itemCount: _keys.length + 1,
           itemBuilder: (_, i) {
 
-            if (i == 3){
+            if (i == _keys.length){
 
               return Column(
                 children: <Widget>[
@@ -139,9 +149,9 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
             else {
 
               return TimelineMonthBuilder(
-              onLike: (String post) => _onLike(),
-              onView: (String post) => _onView(),
-              posts: _posts,
+              onLike: (PostModel post) => _onLike(post),
+              onView: (PostModel post) => _onView(post),
+              posts: _postsMap[_keys[i]],
               isFirstMonth: i == 0,
             );
 

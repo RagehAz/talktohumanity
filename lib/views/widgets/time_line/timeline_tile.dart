@@ -2,19 +2,22 @@ import 'package:animators/animators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
+import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
 import 'package:segmented_circle_border/segmented_circle_border.dart';
+import 'package:talktohumanity/model/post_model.dart';
+import 'package:talktohumanity/services/helper_methods.dart';
 import 'package:talktohumanity/views/helpers/standards.dart';
-import 'package:talktohumanity/views/widgets/expander_button/b_expanding_tile.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_text.dart';
+import 'package:talktohumanity/views/widgets/expander_button/b_expanding_tile.dart';
 import 'package:talktohumanity/views/widgets/time_line/vertical_timeline_line.dart';
 
 class TimelineTile extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const TimelineTile({
     @required this.isFirst,
-    // @required this.postModel,
+    @required this.post,
     @required this.isLast,
     @required this.onLike,
     @required this.onView,
@@ -23,7 +26,7 @@ class TimelineTile extends StatelessWidget {
   }) : super(key: key);
   // -----------------------------------------------------------------------------
   final bool isFirst;
-  // final PostModel postModel;
+  final PostModel post;
   final bool isLast;
   final Function onLike;
   final Function onView;
@@ -46,14 +49,15 @@ class TimelineTile extends StatelessWidget {
       maxHeight: Standards.getMaxTimelineTileHeight(),
 
       /// NAME - PIC - TITLE : TILE
-      tileBox: const _TimelineHeadline(
-
+      tileBox: _TimelineHeadline(
+        post: post,
       ),
 
       /// SIDE BOX
       sideBox: _TimelineCornerBox(
         isFirst: isFirst,
         isLast: isLast,
+        time: post.time,
       ),
 
       /// BODY
@@ -61,6 +65,7 @@ class TimelineTile extends StatelessWidget {
         onView: onView,
         onLike: onLike,
         isLast: isLast,
+        post: post,
       ),
 
     );
@@ -72,8 +77,11 @@ class TimelineTile extends StatelessWidget {
 class _TimelineHeadline extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const _TimelineHeadline({
+    @required this.post,
     Key key
   }) : super(key: key);
+  // -----------------------------------------------------------------------------
+  final PostModel post;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -89,12 +97,12 @@ class _TimelineHeadline extends StatelessWidget {
           children: <Widget>[
 
             /// USER PIC
-            const TalkBox(
+            TalkBox(
               width: Standards.timelinePicSize,
               height: Standards.timelinePicSize,
               corners: Standards.timelinePicSize * 0.5,
-              icon: Iconz.dvRageh2,
-              margins: EdgeInsets.only(
+              icon: post.pic,
+              margins: const EdgeInsets.only(
                 top: Standards.postUserPicTopMargin,
                 left: Standards.timelineSideMargin,
               ),
@@ -113,11 +121,11 @@ class _TimelineHeadline extends StatelessWidget {
               child: Column(
                 // mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[
+                children: <Widget>[
 
                   /// FIRST HEADLINE
                   TalkText(
-                    text: 'Name',
+                    text: post.name,
                     centered: false,
                     // maxLines: 1,
                     textHeight: 25,
@@ -125,7 +133,7 @@ class _TimelineHeadline extends StatelessWidget {
 
                   /// SECOND HEADLINE
                   TalkText(
-                    text: 'title',
+                    text: post.bio,
                     weight: FontWeight.w100,
                     italic: true,
                     textHeight: 20,
@@ -152,11 +160,13 @@ class _TimelineCornerBox extends StatelessWidget {
   const _TimelineCornerBox({
     @required this.isFirst,
     @required this.isLast,
+    @required this.time,
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
   final bool isFirst;
   final bool isLast;
+  final DateTime time;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -217,11 +227,11 @@ class _TimelineCornerBox extends StatelessWidget {
             ),
 
             /// DAY
-            const Positioned(
+            Positioned(
               top: Standards.timelineDayTopMargin,
               left: Standards.timelineDayLeftMargin,
               child: TalkText(
-                text: '25',
+                text: time.day.toString(),
                 textHeight: 25,
                 font: BldrsThemeFonts.fontBldrsHeadlineFont,
                 // boxColor: Colorz.bloodTest,
@@ -231,11 +241,14 @@ class _TimelineCornerBox extends StatelessWidget {
             ),
 
             /// MONTH
-            const Positioned(
+            Positioned(
               top: Standards.timelineMonthTopMargin,
               left: Standards.timelineDayLeftMargin,
               child: TalkText(
-                text: 'Sept.',
+                text: getMonthName(
+                  month: time.month,
+                  shortForm: true,
+                ),
                 textHeight: 17,
                 font: BldrsThemeFonts.fontBldrsBodyFont,
                 // boxColor: Colorz.bloodTest,
@@ -273,20 +286,14 @@ class _TimeLineBody extends StatelessWidget {
     @required this.isLast,
     @required this.onLike,
     @required this.onView,
+    @required this.post,
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
   final bool isLast;
   final Function onLike;
   final Function onView;
-  // -----------------------------------------------------------------------------
-  String _generateText() {
-    String _output = '';
-    for (int i = 0; i < 5000; i++) {
-      _output = '$_output blah ';
-    }
-    return _output;
-  }
+  final PostModel post;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -331,15 +338,15 @@ class _TimeLineBody extends StatelessWidget {
                         ),
                         columnChildren: <Widget>[
 
-                          const TalkText(
-                            text: 'Headline',
+                          TalkText(
+                            text: post.headline,
                             textHeight: 35,
                             margins: 10,
                             maxLines: 2,
                           ),
 
                           TalkText(
-                            text: _generateText(),
+                            text: post.body,
                             maxLines: 50000,
                             font: BldrsThemeFonts.fontBldrsBodyFont,
                             textHeight: 25,
@@ -369,10 +376,10 @@ class _TimeLineBody extends StatelessWidget {
                     children: <Widget>[
 
                       /// VIEWS
-                      const TalkBox(
+                      TalkBox(
                         height: Standards.postButtonsHeight,
                         icon: Iconz.viewsIcon,
-                        text: '12.2M views',
+                        text: '${Numeric.formatNumToCounterCaliber(x: post.views)} views',
                         iconSizeFactor: 0.5,
                         textScaleFactor: 0.7 / 0.5,
                         bubble: false,
@@ -382,7 +389,7 @@ class _TimeLineBody extends StatelessWidget {
                       TalkBox(
                         height: Standards.postButtonsHeight,
                         icon: Iconz.save,
-                        text: '1M Likes',
+                        text: '${Numeric.formatNumToCounterCaliber(x: post.likes)} likes',
                         iconSizeFactor: 0.7,
                         // textScaleFactor: 0.7 / 0.7,
                         onTap: onLike,
