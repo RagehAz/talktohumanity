@@ -1,6 +1,8 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 import 'package:talktohumanity/views/helpers/standards.dart';
+import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_text.dart';
 
 class TimeLineHeadline extends StatelessWidget {
@@ -13,42 +15,53 @@ class TimeLineHeadline extends StatelessWidget {
   Widget build(BuildContext context) {
 
     const double _spacings = 5;
+    const double _yearBulletHeight = Standards.timelinePicSize * 0.5;
+    const double _yearBulletCorner = _yearBulletHeight * 0.35;
 
     return Row(
-      children: const <Widget>[
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
 
         /// SIDE MARGIN
-        SizedBox(
-          width: _spacings,
+        const SizedBox(
+          width: Standards.timelineSideMargin,
           height: _spacings,
         ),
 
         /// YEAR
-        TalkText(
+        TalkBox(
+          height: _yearBulletHeight,
           text: '2023',
-          centered: false,
-          margins: EdgeInsets.only(
-            bottom: _spacings,
-            top: Standards.timelineHeadlineTopMargin,
+          // centered: false,
+          margins: const EdgeInsets.only(
+            bottom: Standards.timelineHeadlineTopMargin,
           ),
-          textHeight: Standards.timelineHeadlineHeight - _spacings,
-          boxColor: Colorz.white20,
+          bubble: false,
+          textScaleFactor: 1.2,
+          color: Standards.timelineLineColor,
+          textColor: Colorz.black255,
+          corners: Borderers.cornerOnly(
+            appIsLTR: true,
+            enBottomLeft: _yearBulletCorner,
+            enBottomRight: _yearBulletCorner,
+            enTopLeft: 0,
+            enTopRight: _yearBulletCorner,
+          ),
         ),
 
         /// MONTH
-        TalkText(
+        const TalkText(
           text: 'September',
           centered: false,
           margins: EdgeInsets.only(
-            bottom: _spacings,
-            top: Standards.timelineHeadlineTopMargin,
             left: _spacings,
           ),
-          textHeight: Standards.timelineHeadlineHeight,
+          textHeight: _yearBulletHeight,
           italic: true,
           font: BldrsThemeFonts.fontBldrsBodyFont,
           weight: FontWeight.w100,
         ),
+
       ],
     );
 

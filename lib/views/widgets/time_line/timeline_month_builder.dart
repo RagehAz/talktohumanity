@@ -26,13 +26,13 @@ class TimelineMonthBuilder extends StatelessWidget {
       shrinkWrap: true,
       itemBuilder: (_, int i) {
 
-        if (i == 0) {
+        if (i == posts.length) {
           return const TimeLineHeadline();
         }
 
         else {
 
-          final int index = i - 1;
+          final int index = i ;
           final String post = posts[index];
 
           return TimelineTile(

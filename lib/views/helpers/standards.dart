@@ -27,7 +27,7 @@ class Standards {
     return _screenWidth - timelineMinTileWidth;
   }
   // --------------------
-  static const double timelineHeadlineHeight = 35;
+  static const double timelineHeadlineHeight = 30;
   static const double timelineHeadlineTopMargin = 30;
   // --------------------
   static double getTimelineHeadlineHeightWithMargin(){
@@ -39,7 +39,7 @@ class Standards {
 
     return _screenHeight
         - getMaxTimelineTileHeight()
-        - getTimelineHeadlineHeightWithMargin()
+        // - getTimelineHeadlineHeightWithMargin()
         - timelineMinTileHeight;
   }
   // --------------------

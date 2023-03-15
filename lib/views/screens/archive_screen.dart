@@ -1,8 +1,13 @@
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
+import 'package:talktohumanity/services/navigation/nav.dart';
 import 'package:talktohumanity/views/helpers/standards.dart';
+import 'package:talktohumanity/views/screens/post_creator_screen.dart';
+import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
 import 'package:talktohumanity/views/widgets/layouts/basic_layout.dart';
+import 'package:talktohumanity/views/widgets/layouts/separator_line.dart';
 import 'package:talktohumanity/views/widgets/time_line/timeline_month_builder.dart';
 
 class ArchiveScreen extends StatefulWidget {
@@ -86,20 +91,61 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
         height: _screenHeight,
         child: ListView.builder(
           physics: const BouncingScrollPhysics(),
-          itemCount: 3,
           shrinkWrap: true,
           padding: EdgeInsets.only(
             top: Standards.getTimeLineTopMostMargin(),
             bottom: Standards.timelineMinTileHeight,
           ),
-          itemBuilder: (_, index) {
+          itemCount: 3 + 1,
+          itemBuilder: (_, i) {
 
-            return TimelineMonthBuilder(
+            if (i == 3){
+
+              return Column(
+                children: <Widget>[
+
+                  const SeparatorLine(
+                    width: 100,
+                    withMargins: true,
+                  ),
+
+                  TalkBox(
+                    height: 50,
+                    text: 'Talk to Humanity',
+                    // margins: const EdgeInsets.only(top: 50),
+                    color: Colorz.bloodTest,
+                    icon: Iconz.share,
+                    iconSizeFactor: 0.5,
+                    textScaleFactor: 0.8 / 0.5,
+                    onTap: () async {
+
+                      await Nav.goToNewScreen(
+                          context: context,
+                          screen: const PostCreatorScreen(),
+                      );
+
+                    },
+                  ),
+
+                  const SeparatorLine(
+                    width: 100,
+                    withMargins: true,
+                  ),
+
+                ],
+              );
+            }
+
+            else {
+
+              return TimelineMonthBuilder(
               onLike: (String post) => _onLike(),
               onView: (String post) => _onView(),
               posts: _posts,
-              isFirstMonth: index == 0,
+              isFirstMonth: i == 0,
             );
+
+            }
 
           },
         ),

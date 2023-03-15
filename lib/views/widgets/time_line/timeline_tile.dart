@@ -244,20 +244,20 @@ class _TimelineCornerBox extends StatelessWidget {
               ),
             ),
 
-            /// LAST POST DOT
-            if (isLast)
-            Container(
-              width: Standards.timelineLastDotSize,
-              height: Standards.timelineLastDotSize,
-              margin: const EdgeInsets.only(
-                top: Standards.timelineLastDotToMargin,
-                left: Standards.timelineLastDotLeftMargin,
-              ),
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(Standards.timelineLastDotSize/2)),
-                color: Standards.timelineLineColor,
-              ),
-            ),
+            // /// LAST POST DOT
+            // if (isLast)
+            // Container(
+            //   width: Standards.timelineLastDotSize,
+            //   height: Standards.timelineLastDotSize,
+            //   margin: const EdgeInsets.only(
+            //     top: Standards.timelineLastDotToMargin,
+            //     left: Standards.timelineLastDotLeftMargin,
+            //   ),
+            //   decoration: const BoxDecoration(
+            //     borderRadius: BorderRadius.all(Radius.circular(Standards.timelineLastDotSize/2)),
+            //     color: Standards.timelineLineColor,
+            //   ),
+            // ),
 
           ],
         ),
@@ -300,7 +300,7 @@ class _TimeLineBody extends StatelessWidget {
           /// TIMELINE LINE
           VerticalLineLayer(
             height: Standards.getTimelineBodyHeight(),
-            isOn: !isLast,
+            // isOn: true,
           ),
 
           /// POST BUBBLE
