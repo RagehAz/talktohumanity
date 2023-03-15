@@ -30,8 +30,9 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
   // -----------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
   final ScrollController _scrollControllerB = ScrollController();
+  // --------------------
   List<PostModel> posts = [];
-
+  // --------------------
   Map<String, dynamic> _postsMap = {};
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -52,6 +53,7 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
     _scrollController.addListener(() {
       _scrollControllerB.jumpTo(_scrollController.offset * 1.5);
     });
+
   }
   // --------------------
   bool _isInit = true;
@@ -182,18 +184,6 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
 
     post.blogPost();
   }
-  // --------------------
-  ///
-  Future<void> insertPostToMyViewsInLDB({
-    @required PostModel post,
-  }) async {
-
-    await PostLDBPOps.insertPost(
-      post: post,
-      docName: PostLDBPOps.myViews,
-    );
-
-  }
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -210,70 +200,74 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
         child: ValueListenableBuilder(
           valueListenable: _loading,
           child: Container(),
-          builder: (_, bool isLoading, Widget child){
+          builder: (_, bool isLoading, Widget child) {
 
-            if (isLoading){
-              return const Loading(loading: true, color: Colorz.white255,size: 500,);
+            if (isLoading) {
+              return const Loading(
+                loading: true,
+                color: Colorz.white255,
+                size: 500,
+              );
             }
 
             else {
               return ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          shrinkWrap: true,
-          padding: EdgeInsets.only(
-            top: Standards.getTimeLineTopMostMargin(),
-            bottom: Standards.timelineMinTileHeight,
-          ),
-          itemCount: _keys.length + 1,
-          itemBuilder: (_, i) {
+                physics: const BouncingScrollPhysics(),
+                shrinkWrap: true,
+                padding: EdgeInsets.only(
+                  top: Standards.getTimeLineTopMostMargin(),
+                  bottom: Standards.timelineMinTileHeight,
+                ),
+                itemCount: _keys.length + 1,
+                itemBuilder: (_, i) {
 
-            if (i == _keys.length){
+                  if (i == _keys.length) {
+                    return Column(
+                      children: <Widget>[
 
-              return Column(
-                children: <Widget>[
-                  const SeparatorLine(
-                    width: 100,
-                    withMargins: true,
-                  ),
-                  TalkBox(
-                    height: 50,
-                    text: 'Talk to Humanity',
-                    // margins: const EdgeInsets.only(top: 50),
-                    color: Colorz.bloodTest,
-                    icon: Iconz.share,
-                    iconSizeFactor: 0.5,
-                    textScaleFactor: 0.8 / 0.5,
-                    onTap: () async {
-                      await Nav.goToNewScreen(
-                        context: context,
-                        screen: const PostCreatorScreen(),
-                      );
-                      },
-                  ),
-                  const SeparatorLine(
-                    width: 100,
-                    withMargins: true,
-                  ),
-                ],
+                        const SeparatorLine(
+                          width: 100,
+                          withMargins: true,
+                        ),
+
+                        TalkBox(
+                          height: 50,
+                          text: 'Talk to Humanity',
+                          // margins: const EdgeInsets.only(top: 50),
+                          color: Colorz.bloodTest,
+                          icon: Iconz.share,
+                          iconSizeFactor: 0.5,
+                          textScaleFactor: 0.8 / 0.5,
+                          onTap: () async {
+                            await Nav.goToNewScreen(
+                              context: context,
+                              screen: const PostCreatorScreen(),
+                            );
+                          },
+                        ),
+
+                        const SeparatorLine(
+                          width: 100,
+                          withMargins: true,
+                        ),
+
+                      ],
+                    );
+                  }
+
+                  else {
+                    final String key = _keys[i];
+
+                    return TimelineMonthBuilder(
+                      onLike: (PostModel post) => _onLike(post),
+                      onView: (PostModel post) => _onView(post),
+                      posts: _postsMap[key],
+                      isFirstMonth: i == 0,
+                    );
+                  }
+
+                },
               );
-
-            }
-
-            else {
-
-              final String key = _keys[i];
-
-              return TimelineMonthBuilder(
-                onLike: (PostModel post) => _onLike(post),
-                onView: (PostModel post) => _onView(post),
-                posts: _postsMap[key],
-                isFirstMonth: i == 0,
-              );
-
-            }
-
-          },
-        );
             }
 
           },

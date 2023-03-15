@@ -33,7 +33,7 @@ class PostLDBPOps {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> insertPosts({
     @required List<PostModel> posts,
     @required String docName,
