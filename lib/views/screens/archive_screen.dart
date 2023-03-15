@@ -1,6 +1,7 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:real/real.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/model/post_model.dart';
 import 'package:talktohumanity/providers/post_ldb_ops.dart';
@@ -111,14 +112,32 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
   ///
   Future<void> _onView(PostModel post) async {
 
-    await PostLDBPOps.insertPost(
+    final bool _isViewed = await PostLDBPOps.checkIsInserted(
       post: post,
       docName: PostLDBPOps.myViews,
     );
 
-    setState(() {
+    if (_isViewed == false) {
 
-    });
+      /// INSERT IN LDB
+      await PostLDBPOps.insertPost(
+        post: post,
+        docName: PostLDBPOps.myViews,
+      );
+
+      /// INCREMENT REAL COUNTER
+      await Real.incrementDocFields(
+        context: context,
+        collName: 'counters',
+        docName: 'views',
+        isIncrementing: true,
+        incrementationMap: {
+          post.id: 1,
+        },
+      );
+    }
+
+    setState(() {});
 
     post.blogPost();
   }

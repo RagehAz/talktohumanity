@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "569221317127",
+    "firebase_url": "https://talktohumanity-default-rtdb.firebaseio.com",
     "project_id": "talktohumanity",
     "storage_bucket": "talktohumanity.appspot.com"
   },
@@ -37,6 +38,13 @@
             {
               "client_id": "569221317127-h8qa27opveakmjg1irddhgslu7j4400l.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "569221317127-apg6rskk26v2mbkccslo2nqughb75h8r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.talktohumanity.talktohumanity"
+              }
             }
           ]
         }

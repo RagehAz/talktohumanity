@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 import 'package:super_image/super_image.dart';
 import 'package:talktohumanity/controllers/publishing_controllers.dart';
+import 'package:talktohumanity/services/navigation/nav.dart';
+import 'package:talktohumanity/views/screens/lab_screen.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_text.dart';
 import 'package:talktohumanity/views/widgets/layouts/basic_layout.dart';
 import 'package:talktohumanity/views/widgets/post_creator.dart';
@@ -98,6 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
             /// 1
             GestureDetector(
               onTap: () => _slideToNextPage(currentSlide: 0),
+              onLongPress: () => Nav.goToNewScreen(context: context, screen: const LabScreen()),
               child: Container(
                 width: _screenWidth,
                 height: _screenHeight,

@@ -85,6 +85,8 @@ dependencies:
       url: https://github.com/RagehAz/space_time.git
   im_stepper: ^1.0.1+1
   segmented_circle_border: ^2.0.1
+  device_info_plus: ^8.1.0
+  connectivity_plus: ^3.0.3
   # ------------------------------------
 dev_dependencies:
   flutter_test:

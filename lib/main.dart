@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+import 'package:talktohumanity/firebase_options.dart';
 import 'package:talktohumanity/providers/ui_provider.dart';
 import 'package:talktohumanity/services/navigation/routing.dart';
 import 'package:talktohumanity/views/screens/home_screen.dart';
@@ -11,9 +12,11 @@ Future<void> main() async {
   // --------------------------------------------------------------------------
   WidgetsFlutterBinding.ensureInitialized();
   // --------------------
-  await Firebase.initializeApp(
-    // options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // if (kIsWeb == false){
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  // }
   // --------------------
   return runApp(const AppStarter());
   // --------------------------------------------------------------------------
