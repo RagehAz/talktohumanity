@@ -96,7 +96,9 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
           docName: PostLDBPOps.publishedPosts,
         );
       }
-    } else {
+    }
+
+    else {
       blog('${posts.length} posts found in LDB');
     }
 

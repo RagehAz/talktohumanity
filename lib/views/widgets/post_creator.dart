@@ -8,13 +8,15 @@ import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
 class PostCreatorView extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const PostCreatorView({
-    @required this.controller,
+    @required this.titleController,
+    @required this.bodyController,
     @required this.onPublish,
     @required this.onSkip,
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
-  final TextEditingController controller;
+  final TextEditingController titleController;
+  final TextEditingController bodyController;
   final Function onSkip;
   final Function onPublish;
   // -----------------------------------------------------------------------------
@@ -47,52 +49,90 @@ class PostCreatorView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+
               /// TEST FIELD
               TextFieldBubble(
                 bubbleHeaderVM: const BubbleHeaderVM(
-                  headlineText: 'A message to the world',
+                    headlineText: 'Title',
+                    headlineHeight: 18,
+                    headlineColor: Colorz.white200,
                 ),
                 bubbleWidth: _bubbleWidth,
-                textController: controller,
-                maxLines: 1000,
-                maxLength: 10000,
+                textController: titleController,
+                maxLines: 2,
+                // maxLength: 10000,
                 keyboardTextInputType: TextInputType.multiline,
-                bulletPoints: const [
-                  'You can say absolutely anything',
-                ],
+                fieldTextFont: BldrsThemeFonts.fontBldrsHeadlineFont,
+                hintText: '...',
+                bulletPointsFont: BldrsThemeFonts.fontBldrsBodyFont,
+                minLines: 2,
+                fieldTextCentered: true,
+                fieldTextHeight: 37,
+              ),
+
+              /// TEST FIELD
+              TextFieldBubble(
+                bubbleHeaderVM: const BubbleHeaderVM(
+                  headlineText: 'Body',
+                  headlineHeight: 18,
+                  headlineColor: Colorz.white200
+                ),
+                bubbleWidth: _bubbleWidth,
+                textController: bodyController,
+                maxLines: 6,
+                // maxLength: 10000,
+                keyboardTextInputType: TextInputType.multiline,
                 fieldTextFont: BldrsThemeFonts.fontBldrsBodyFont,
                 hintText: '...',
                 bulletPointsFont: BldrsThemeFonts.fontBldrsBodyFont,
-                counterIsOn: true,
-                minLines: 10,
+                minLines: 6,
+                fieldTextCentered: true,
+                fieldTextHeight: 27,
               ),
 
               /// BUTTONS
-              SizedBox(
+              Container(
                 width: _screenWidth,
-                height: 100,
+                height: 50,
+                margin: const EdgeInsets.only(
+                  top: 5,
+                ),
+                padding: const EdgeInsets.only(
+                  left: 10,
+                  right: 10,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
+
                     /// SKIP
                     TalkBox(
-                      height: 60,
-                      text: 'Skip',
-                      margins: 10,
+                      width: 100,
+                      height: 50,
+                      textScaleFactor: 0.7,
+                      text: "I'm not\nready",
                       onTap: onPublish,
+                      textMaxLines: 2,
+                      color: Colorz.white20,
+                      textFont: BldrsThemeFonts.fontBldrsBodyFont,
+                      textItalic: true,
                     ),
 
                     /// PUBLISH
                     TalkBox(
-                      height: 60,
+                      width: 100,
+                      height: 50,
+                      textScaleFactor: 0.8,
                       text: 'Publish',
-                      margins: 10,
                       onTap: onSkip,
+                      color: Colorz.yellow255,
+                      textColor: Colorz.black255,
                     ),
 
                   ],
                 ),
               ),
+
             ],
           ),
         ),

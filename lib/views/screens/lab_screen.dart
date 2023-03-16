@@ -1,10 +1,10 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
+import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:talktohumanity/model/post_model.dart';
 import 'package:talktohumanity/providers/post_real_ops.dart';
-import 'package:talktohumanity/views/helpers/device_checker.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_text.dart';
 import 'package:talktohumanity/views/widgets/layouts/basic_layout.dart';

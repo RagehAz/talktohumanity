@@ -37,6 +37,7 @@ class PostModel {
   /// CLONING
 
   // --------------------
+  ///
   PostModel copyWith({
     String id,
     String name,
@@ -531,7 +532,6 @@ class PostModel {
       ),
     ];
   }
-
   // -----------------------------------------------------------------------------
 
   /// EQUALITY

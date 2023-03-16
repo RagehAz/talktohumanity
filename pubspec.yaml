@@ -20,6 +20,8 @@ dependencies:
   flutter_native_splash: ^2.2.9
   path_provider: ^2.0.12
   calendar_timeline: ^1.1.1
+  im_stepper: ^1.0.1+1
+  segmented_circle_border: ^2.0.1
   # ------------------------------------
   # MY WIDGETS
   widget_fader:
@@ -83,10 +85,9 @@ dependencies:
   space_time:
     git:
       url: https://github.com/RagehAz/space_time.git
-  im_stepper: ^1.0.1+1
-  segmented_circle_border: ^2.0.1
-  device_info_plus: ^8.1.0
-  connectivity_plus: ^3.0.3
+  devicer:
+    git:
+      url: https://github.com/RagehAz/devicer.git
   # ------------------------------------
 dev_dependencies:
   flutter_test:

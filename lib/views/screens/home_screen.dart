@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // -----------------------------------------------------------------------------
   final PageController _pageController = PageController();
   final TextEditingController _textController = TextEditingController();
+  final TextEditingController _bodyController = TextEditingController();
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -139,11 +140,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+
                     const SuperImage(
                       height: 100,
                       width: 100,
                       pic: Iconz.contAfrica,
                     ),
+
                     TalkText(
                       boxWidth: _screenWidth * 0.7,
                       textHeight: 40,
@@ -153,6 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       margins: 10,
                       maxLines: 20,
                     ),
+
                   ],
                 ),
               ),
@@ -190,7 +194,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 currentSlide: 2,
               ),
               child: PostCreatorView(
-                controller: _textController,
+                titleController: _textController,
+                bodyController: _bodyController,
                 onPublish: onPublishPost,
                 onSkip: onSkipPublishing,
               ),

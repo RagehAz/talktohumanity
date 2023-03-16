@@ -15,17 +15,23 @@ class BasicLayout extends StatelessWidget {
 
     return SafeArea(
 
-        child: Scaffold(
-          // appBar: AboTubeAppBar.getBackAppBar(),
+        child: GestureDetector(
+          onTap: (){
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
+          child: Scaffold(
+            // appBar: AboTubeAppBar.getBackAppBar(),
 
-          /// INSETS
-          resizeToAvoidBottomInset: false, /// if false : prevents keyboard from pushing pyramids up / bottom sheet
-          // resizeToAvoidBottomPadding: false,
-          backgroundColor: Colorz.black255,
+            /// INSETS
+            resizeToAvoidBottomInset: false, /// if false : prevents keyboard from pushing pyramids up / bottom sheet
+            // resizeToAvoidBottomPadding: false,
+            backgroundColor: Colorz.black255,
 
-          body: body,
+            body: body,
+          ),
         ),
-        );
+
+    );
 
   }
   // -----------------------------------------------------------------------------

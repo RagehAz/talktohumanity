@@ -22,6 +22,7 @@ class PostCreatorScreen extends StatefulWidget {
 class _PostCreatorScreenState extends State<PostCreatorScreen> {
   // -----------------------------------------------------------------------------
   final TextEditingController _textController = TextEditingController();
+  final TextEditingController _bodyController = TextEditingController();
   PostModel _draft;
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -59,6 +60,7 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
       _triggerLoading(setTo: true).then((_) async {
+
         /// FUCK
 
         await _triggerLoading(setTo: false);
@@ -88,7 +90,8 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
         width: _screenWidth,
         height: _screenHeight,
         child: PostCreatorView(
-          controller: _textController,
+          titleController: _textController,
+          bodyController: _bodyController,
           onPublish: onPublishPost,
           onSkip: () => Nav.goBack(context: context),
         ),
