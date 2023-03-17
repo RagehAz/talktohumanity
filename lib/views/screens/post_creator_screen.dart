@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/controllers/publishing_controllers.dart';
-import 'package:talktohumanity/keyboard_sensor/keyboard_sensor.dart';
+import 'package:talktohumanity/packages/keyboard/keyboard_sensor.dart';
 import 'package:talktohumanity/model/post_model.dart';
-import 'package:talktohumanity/services/navigation/nav.dart';
+import 'package:talktohumanity/packages/layouts/nav.dart';
 import 'package:talktohumanity/views/widgets/layouts/basic_layout.dart';
 import 'package:talktohumanity/views/widgets/post_creator.dart';
 
@@ -22,7 +22,7 @@ class PostCreatorScreen extends StatefulWidget {
 
 class _PostCreatorScreenState extends State<PostCreatorScreen> {
   // -----------------------------------------------------------------------------
-  final TextEditingController _textController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
   final TextEditingController _bodyController = TextEditingController();
   PostModel _draft;
   // -----------------------------------------------------------------------------
@@ -75,7 +75,7 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
   @override
   void dispose() {
     _loading.dispose();
-    _textController.dispose();
+    _titleController.dispose();
     super.dispose();
   }
   // --------------------------------------------------------------------------
@@ -85,17 +85,28 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
     final double _screenWidth = Scale.screenWidth(context);
     final double _screenHeight = Scale.screenHeight(context);
     // --------------------
-    blog('wtf');
-
     return BasicLayout(
       body: KeyboardSensor(
         child: SizedBox(
             width: _screenWidth,
             height: _screenHeight,
             child: PostCreatorView(
-              titleController: _textController,
+              titleController: _titleController,
               bodyController: _bodyController,
-              onPublish: onPublishPost,
+              onPublish: () => onPublishPost(
+                draft: PostModel(
+                  body: _bodyController.text,
+                  headline: _titleController.text,
+                  id: Numeric.createUniqueID().toString(),
+                  views: 0,
+                  likes: 0,
+                  time: DateTime.now(),
+                  name: null,
+                  bio: null,
+                  email: null,
+                  pic: null
+                ),
+              ),
               onSkip: () => Nav.goBack(context: context),
             ),
           ),

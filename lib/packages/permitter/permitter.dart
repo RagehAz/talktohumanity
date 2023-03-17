@@ -1,0 +1,15 @@
+library permitter;
+// -----------------------------------------------------------------------------
+import 'package:devicer/devicer.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:filers/filers.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:talktohumanity/packages/dialogs/dialogs.dart';
+import 'package:wechat_camera_picker/wechat_camera_picker.dart';
+// -----------------------------------------------------------------------------
+part 'methods/permits.dart';
+part 'methods/permits_protocols.dart';
+// -----------------------------------------------------------------------------

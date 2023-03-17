@@ -4,7 +4,7 @@ import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:talktohumanity/authenticator/authenticator.dart';
+import 'package:talktohumanity/packages/authing/authing.dart';
 import 'package:talktohumanity/model/post_model.dart';
 import 'package:talktohumanity/providers/post_real_ops.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_box.dart';

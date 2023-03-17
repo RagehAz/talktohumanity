@@ -1,4 +1,4 @@
-part of authenticator;
+part of authing;
 
 class GoogleAuthing {
   // --------------------

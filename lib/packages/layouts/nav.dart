@@ -12,6 +12,7 @@ class Nav {
 
   const Nav();
 
+  // -----------------------------------------------------------------------------
   static const Duration duration150ms = Duration(milliseconds: 150);
   // -----------------------------------------------------------------------------
 
@@ -70,7 +71,6 @@ class Nav {
   static Future<void> goToRoute(BuildContext context, String routezName, {dynamic arguments}) async {
     await Navigator.of(context).pushNamed(routezName, arguments: arguments);
   }
-
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> replaceRoute(BuildContext context, String routezName, {dynamic arguments}) async {
@@ -161,7 +161,6 @@ class Nav {
   static Future<void> closeApp(BuildContext context) async {
     await SystemNavigator.pop();
   }
-
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> goBackUntil({

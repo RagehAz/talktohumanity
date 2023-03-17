@@ -318,6 +318,30 @@ class PostModel {
 
     return _includes;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool postIsPublishable({
+    @required PostModel post
+  }){
+    bool _isPublishable = false;
+
+    if (post != null){
+
+      if (
+          post.name != null &&
+          post.email != null &&
+          post.bio != null &&
+          post.headline != null &&
+          post.body != null &&
+          post.pic != null
+      ){
+        _isPublishable = true;
+      }
+
+    }
+
+    return _isPublishable;
+  }
   // -----------------------------------------------------------------------------
 
   /// GETTERS

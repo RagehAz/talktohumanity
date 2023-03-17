@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 import 'package:super_image/super_image.dart';
 import 'package:talktohumanity/controllers/publishing_controllers.dart';
-import 'package:talktohumanity/services/navigation/nav.dart';
+import 'package:talktohumanity/packages/layouts/nav.dart';
 import 'package:talktohumanity/views/screens/lab_screen.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_text.dart';
 import 'package:talktohumanity/views/widgets/layouts/basic_layout.dart';

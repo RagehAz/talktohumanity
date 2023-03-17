@@ -3,6 +3,7 @@ import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 import 'package:super_image/super_image.dart';
+import 'package:talktohumanity/services/helper_methods.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
 
 class PostCreatorView extends StatelessWidget {
@@ -20,12 +21,17 @@ class PostCreatorView extends StatelessWidget {
   final Function onSkip;
   final Function onPublish;
   // -----------------------------------------------------------------------------
+  static double getBubbleWidth(){
+    final double _screenWidth = Scale.screenWidth(getContext());
+    return _screenWidth - 20;
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final double _screenWidth = Scale.screenWidth(context);
     final double _screenHeight = Scale.screenHeight(context);
-    final double _bubbleWidth = _screenWidth - 20;
+    final double _bubbleWidth = PostCreatorView.getBubbleWidth();
 
     return Stack(
       alignment: Alignment.center,
@@ -50,7 +56,7 @@ class PostCreatorView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
 
-              /// TEST FIELD
+              /// POST TITLE FIELD
               TextFieldBubble(
                 bubbleHeaderVM: const BubbleHeaderVM(
                     headlineText: 'Title',
@@ -70,7 +76,7 @@ class PostCreatorView extends StatelessWidget {
                 fieldTextHeight: 37,
               ),
 
-              /// TEST FIELD
+              /// POST BODY FIELD
               TextFieldBubble(
                 bubbleHeaderVM: const BubbleHeaderVM(
                   headlineText: 'Body',

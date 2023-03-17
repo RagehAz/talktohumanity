@@ -1,10 +1,13 @@
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:talktohumanity/authenticator/authenticator.dart';
+import 'package:stringer/stringer.dart';
+import 'package:talktohumanity/packages/authing/authing.dart';
+import 'package:talktohumanity/model/post_model.dart';
 import 'package:talktohumanity/services/helper_methods.dart';
-import 'package:talktohumanity/services/navigation/nav.dart';
+import 'package:talktohumanity/packages/layouts/nav.dart';
 import 'package:talktohumanity/services/navigation/routing.dart';
 import 'package:talktohumanity/views/screens/auth_screen.dart';
+import 'package:talktohumanity/views/screens/user_editor_screen.dart';
 import 'package:talktohumanity/views/widgets/dialogs/talk_dialogs.dart';
 // -----------------------------------------------------------------------------
 const bool mounted = true;
@@ -16,12 +19,18 @@ Future<void> onSkipPublishing() async {
 }
 // --------------------
 /// TASK : TEST ME
-Future<void> onPublishPost() async {
+Future<void> onPublishPost({
+  @required PostModel draft,
+}) async {
   blog('onPublishPost start');
-  final bool _canPublish = await prePublishCheckUps();
+  final PostModel _postToPublish = await prePublishCheckUps(
+    post: draft,
+  );
 
-  if (_canPublish == true) {
-    final bool _published = await publishPostOps();
+  if (_postToPublish != null) {
+    final bool _published = await publishPostOps(
+      post: draft,
+    );
 
     // await notifyAndNavigate(
     //   published: _published,
@@ -30,50 +39,82 @@ Future<void> onPublishPost() async {
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<bool> prePublishCheckUps() async {
+Future<PostModel> prePublishCheckUps({
+  @required PostModel post,
+}) async {
   blog('prePublishCheckUps start');
-  bool _canContinue = false;
-  final bool _userIsSignedIn = await userIsSignedIn();
+  PostModel _output;
 
-  /// IF SIGNED IN
+  if (TextCheck.isEmpty(post?.headline) == false && TextCheck.isEmpty(post?.body) == false){
+
+      /// SIGN IN
+  final bool _userIsSignedIn = await signIn();
+
   if (_userIsSignedIn == true) {
-    _canContinue = await confirmPublishDialog();
-  }
 
-  /// IF NOT SIGNED IN
-  else {
-    final bool _signInSuccess = await signIn();
+    /// COMPLETE POST
+    final PostModel _publishablePost = await completePost(
+      post: post,
+    );
 
-    /// COULD SIGN IN
-    if (_signInSuccess == true) {
-      _canContinue = await confirmPublishDialog();
+    if (PostModel.postIsPublishable(post: post) == true) {
+
+      /// CONFIRM DIALOG
+      final bool _canContinue = await confirmPublishDialog();
+
+      if (_canContinue == true){
+        _output = _publishablePost;
+      }
+
     }
 
-    /// COULD NOT SIGN IN
-    else {
-      _canContinue = false;
-    }
   }
 
-  return _canContinue;
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<bool> userIsSignedIn() async {
-  blog('userIsSignedIn start');
-  return Authing.getUserID() != null;
+  }
+
+  return _output;
 }
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> signIn() async {
   blog('signIn start');
 
-  final bool _success = await Nav.goToNewScreen(
+  if (Authing.getUserID() == null) {
+    final bool _success = await Nav.goToNewScreen(
       context: getContext(),
       screen: const AuthScreen(),
-  );
+    );
 
-  return _success;
+    return _success;
+  }
+  else {
+    return true;
+  }
+
+}
+// --------------------
+/// TASK : TEST ME
+Future<PostModel> completePost ({
+  @required PostModel post,
+}) async {
+  PostModel _output;
+
+  if (PostModel.postIsPublishable(post: post) == true){
+    _output = post;
+  }
+
+  else {
+
+    _output = await Nav.goToNewScreen(
+        context: getContext(),
+        screen: UserEditorScreen(
+          post: post,
+        ),
+    );
+
+  }
+
+  return _output;
 }
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -89,7 +130,9 @@ Future<bool> confirmPublishDialog() async {
 }
 // --------------------
 /// TASK : WRITE ME
-Future<bool> publishPostOps() async {
+Future<bool> publishPostOps({
+  @required PostModel post,
+}) async {
   blog('publishPostOps start');
   bool _isPublished = false;
   if (mounted) {

@@ -1,6 +1,6 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:talktohumanity/dialogs/dialogs.dart';
+import 'package:talktohumanity/packages/dialogs/dialogs.dart';
 import 'package:talktohumanity/services/helper_methods.dart';
 
 class TalkDialog {
@@ -9,7 +9,7 @@ class TalkDialog {
   const TalkDialog();
 
   // -----------------------------------------------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> centerDialog({
     String title,
     String body,
@@ -47,7 +47,7 @@ class TalkDialog {
 
     }
   // -----------------------------------------------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<bool> boolDialog({
     String title,
     String body,
