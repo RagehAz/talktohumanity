@@ -161,6 +161,7 @@ class Keyboard {
   /// COPY PASTE
 
   // --------------------
+  ///
   static Future<void> handlePaste(TextSelectionDelegate delegate) async {
 
     final TextEditingValue _value = delegate.textEditingValue; // Snapshot the input before using `await`.

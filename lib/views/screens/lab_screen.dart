@@ -1,16 +1,15 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:talktohumanity/packages/authing/authing.dart';
+import 'package:layouts/layouts.dart';
 import 'package:talktohumanity/model/post_model.dart';
+import 'package:talktohumanity/packages/authing/authing.dart';
 import 'package:talktohumanity/providers/post_real_ops.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_text.dart';
 import 'package:talktohumanity/views/widgets/dialogs/talk_dialogs.dart';
-import 'package:talktohumanity/views/widgets/layouts/basic_layout.dart';
 
 class LabScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------

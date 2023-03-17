@@ -1,12 +1,11 @@
 import 'dart:typed_data';
+import 'package:layouts/layouts.dart';
 import 'package:scale/scale.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:crop_your_image/crop_your_image.dart';
 import 'package:flutter/material.dart';
 import 'package:super_text/super_text.dart';
-
-import '../../../layouts/keep_alive_page.dart';
 import '../../mediators.dart';
 import 'cropper_corner.dart';
 

@@ -1,13 +1,12 @@
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:stringer/stringer.dart';
-import 'package:talktohumanity/packages/authing/authing.dart';
 import 'package:talktohumanity/model/post_model.dart';
-import 'package:talktohumanity/services/helper_methods.dart';
+import 'package:talktohumanity/packages/authing/authing.dart';
 import 'package:talktohumanity/packages/layouts/nav.dart';
+import 'package:talktohumanity/services/helper_methods.dart';
 import 'package:talktohumanity/services/navigation/routing.dart';
 import 'package:talktohumanity/views/screens/auth_screen.dart';
-import 'package:talktohumanity/views/screens/user_editor_screen.dart';
 import 'package:talktohumanity/views/widgets/dialogs/talk_dialogs.dart';
 // -----------------------------------------------------------------------------
 const bool mounted = true;
@@ -52,18 +51,13 @@ Future<PostModel> prePublishCheckUps({
 
   if (_userIsSignedIn == true) {
 
-    /// COMPLETE POST
-    final PostModel _publishablePost = await completePost(
-      post: post,
-    );
-
     if (PostModel.postIsPublishable(post: post) == true) {
 
       /// CONFIRM DIALOG
       final bool _canContinue = await confirmPublishDialog();
 
       if (_canContinue == true){
-        _output = _publishablePost;
+        _output = post;
       }
 
     }
@@ -93,30 +87,6 @@ Future<bool> signIn() async {
 
 }
 // --------------------
-/// TASK : TEST ME
-Future<PostModel> completePost ({
-  @required PostModel post,
-}) async {
-  PostModel _output;
-
-  if (PostModel.postIsPublishable(post: post) == true){
-    _output = post;
-  }
-
-  else {
-
-    _output = await Nav.goToNewScreen(
-        context: getContext(),
-        screen: UserEditorScreen(
-          post: post,
-        ),
-    );
-
-  }
-
-  return _output;
-}
-// --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> confirmPublishDialog() async {
   blog('confirmPublishDialog start');
@@ -136,6 +106,7 @@ Future<bool> publishPostOps({
   blog('publishPostOps start');
   bool _isPublished = false;
   if (mounted) {
+    blog('SHOULD PUBLISH POST NOOOW');
     _isPublished = true;
   }
   return _isPublished;

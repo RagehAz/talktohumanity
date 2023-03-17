@@ -141,7 +141,7 @@ class PicMaker {
           // titleTextStyle: ,
           // textStyle: ,
           // titleTextSpacing: ,
-          // locale: ,
+          locale: const Locale('en'),
           // gridCount: ,
           // pageSize: ,
         ),

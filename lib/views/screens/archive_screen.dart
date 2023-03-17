@@ -1,18 +1,17 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 import 'package:mapper/mapper.dart';
 import 'package:scale/scale.dart';
 import 'package:super_box/super_box.dart';
 import 'package:talktohumanity/model/post_model.dart';
+import 'package:talktohumanity/packages/layouts/nav.dart';
 import 'package:talktohumanity/providers/post_ldb_ops.dart';
 import 'package:talktohumanity/providers/post_real_ops.dart';
-import 'package:talktohumanity/packages/layouts/nav.dart';
 import 'package:talktohumanity/views/helpers/standards.dart';
 import 'package:talktohumanity/views/screens/post_creator_screen.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
-import 'package:talktohumanity/views/widgets/layouts/basic_layout.dart';
-import 'package:talktohumanity/views/widgets/layouts/separator_line.dart';
 import 'package:talktohumanity/views/widgets/time_line/timeline_month_builder.dart';
 
 class ArchiveScreen extends StatefulWidget {
