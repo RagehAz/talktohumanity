@@ -9,7 +9,6 @@ import 'package:talktohumanity/services/helper_methods.dart';
 import 'package:talktohumanity/services/navigation/nav.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
 import 'package:talktohumanity/views/widgets/layouts/basic_layout.dart';
-import 'package:another_flushbar/flushbar.dart';
 
 class AuthScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -161,9 +160,9 @@ Future<void> showTalkTopDialog({
     firstFont: BldrsThemeFonts.fontBldrsHeadlineFont,
     secondFont: BldrsThemeFonts.fontBldrsBodyFont,
     milliseconds: milliseconds,
-    appIsLTR: true,
-    textColor: Colorz.black255,
     secondText: secondLine,
+    // appIsLTR: true,
+    // textColor: Colorz.black255,
   );
 
 }

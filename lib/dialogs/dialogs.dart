@@ -1,10 +1,9 @@
 library dialogs;
-import 'dart:async';
 // -----------------------------------------------------------------------------
+import 'dart:async';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:scale/scale.dart';
 import 'package:stringer/stringer.dart';
 import 'package:super_box/super_box.dart';
