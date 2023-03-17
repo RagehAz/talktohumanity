@@ -1,8 +1,10 @@
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:talktohumanity/authenticator/authenticator.dart';
 import 'package:talktohumanity/services/helper_methods.dart';
 import 'package:talktohumanity/services/navigation/nav.dart';
 import 'package:talktohumanity/services/navigation/routing.dart';
+import 'package:talktohumanity/views/screens/auth_screen.dart';
 // -----------------------------------------------------------------------------
 const bool mounted = true;
 // -----------------------------------------------------------------------------
@@ -20,13 +22,13 @@ Future<void> onPublishPost() async {
   if (_canPublish == true) {
     final bool _published = await publishPostOps();
 
-    await notifyAndNavigate(
-      published: _published,
-    );
+    // await notifyAndNavigate(
+    //   published: _published,
+    // );
   }
 }
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 Future<bool> prePublishCheckUps() async {
   blog('prePublishCheckUps start');
   bool _canContinue = false;
@@ -55,24 +57,20 @@ Future<bool> prePublishCheckUps() async {
   return _canContinue;
 }
 // --------------------
-/// TASK : WRITE ME
+/// TESTED : WORKS PERFECT
 Future<bool> userIsSignedIn() async {
   blog('userIsSignedIn start');
-  bool _isSignedIn = false;
-  if (mounted) {
-    _isSignedIn = true;
-  }
-  return _isSignedIn;
+  return Authing.getUserID() != null;
 }
 // --------------------
-/// TASK : WRITE ME
+/// TESTED : WORKS PERFECT
 Future<bool> signIn() async {
   blog('signIn start');
-  bool _success = false;
 
-  if (mounted) {
-    _success = true;
-  }
+  final bool _success = await Nav.goToNewScreen(
+      context: getContext(),
+      screen: const AuthScreen(),
+  );
 
   return _success;
 }

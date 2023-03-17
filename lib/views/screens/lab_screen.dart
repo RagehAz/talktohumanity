@@ -2,7 +2,11 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:googleapis_auth/googleapis_auth.dart';
+import 'package:mapper/mapper.dart';
+import 'package:talktohumanity/authenticator/authenticator.dart';
 import 'package:talktohumanity/model/post_model.dart';
 import 'package:talktohumanity/providers/post_real_ops.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
@@ -97,6 +101,44 @@ class _LabScreenState extends State<LabScreen> {
 
             final List<PostModel> _posts = await PostRealOps.readAllPublishedPosts();
             blog('RECEIVED ----> ${_posts.length} POSTS HERE BABY');
+
+          },
+        ),
+
+          const DotSeparator(),
+
+        /// USER ID
+        TalkText(
+            text: 'user ID : ${Authing.getUserID()}',
+            textHeight: 20,
+            maxLines: 2,
+            margins: 10,
+          ),
+
+        /// GOOGLE SIGN IN
+        TalkBox(
+          height: 40,
+          text: 'Google sign in',
+          onTap: () async {
+
+            final UserCredential _userCredential = await GoogleAuthing.emailSignIn();
+
+            Authing.blogUserCredential(credential: _userCredential);
+
+            setState(() {});
+
+          },
+        ),
+
+        /// GOOGLE SIGN OUT
+        TalkBox(
+          height: 40,
+          text: 'Sign out',
+          onTap: () async {
+
+            await GoogleAuthing.signOut();
+
+            setState(() {});
 
           },
         ),

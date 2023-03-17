@@ -81,10 +81,9 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-
     final double _screenWidth = Scale.screenWidth(context);
     final double _screenHeight = Scale.screenHeight(context);
-
+    // --------------------
     return BasicLayout(
       body: SizedBox(
         width: _screenWidth,
