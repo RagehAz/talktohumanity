@@ -5,6 +5,7 @@ import 'package:talktohumanity/services/helper_methods.dart';
 import 'package:talktohumanity/services/navigation/nav.dart';
 import 'package:talktohumanity/services/navigation/routing.dart';
 import 'package:talktohumanity/views/screens/auth_screen.dart';
+import 'package:talktohumanity/views/widgets/dialogs/talk_dialogs.dart';
 // -----------------------------------------------------------------------------
 const bool mounted = true;
 // -----------------------------------------------------------------------------
@@ -75,13 +76,15 @@ Future<bool> signIn() async {
   return _success;
 }
 // --------------------
-/// TASK : WRITE ME
+/// TESTED : WORKS PERFECT
 Future<bool> confirmPublishDialog() async {
   blog('confirmPublishDialog start');
-  bool _continue = false;
-  if (mounted) {
-    _continue = true;
-  }
+
+  final bool _continue = await TalkDialog.boolDialog(
+    title: 'Publish Post ?',
+    body: 'Your post will be visible to the entire world',
+  );
+
   return _continue;
 }
 // --------------------

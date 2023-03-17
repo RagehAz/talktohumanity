@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/controllers/publishing_controllers.dart';
+import 'package:talktohumanity/keyboard_sensor/keyboard_sensor.dart';
 import 'package:talktohumanity/model/post_model.dart';
 import 'package:talktohumanity/services/navigation/nav.dart';
 import 'package:talktohumanity/views/widgets/layouts/basic_layout.dart';
@@ -10,12 +11,12 @@ import 'package:talktohumanity/views/widgets/post_creator.dart';
 
 class PostCreatorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const PostCreatorScreen({Key key}) : super(key: key);
-
+  const PostCreatorScreen({
+    Key key
+  }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
   _PostCreatorScreenState createState() => _PostCreatorScreenState();
-
   /// --------------------------------------------------------------------------
 }
 
@@ -84,16 +85,26 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
     final double _screenWidth = Scale.screenWidth(context);
     final double _screenHeight = Scale.screenHeight(context);
     // --------------------
+    blog('wtf');
+
     return BasicLayout(
-      body: SizedBox(
-        width: _screenWidth,
-        height: _screenHeight,
-        child: PostCreatorView(
-          titleController: _textController,
-          bodyController: _bodyController,
-          onPublish: onPublishPost,
-          onSkip: () => Nav.goBack(context: context),
-        ),
+      body: KeyboardSensor(
+        child: SizedBox(
+            width: _screenWidth,
+            height: _screenHeight,
+            child: PostCreatorView(
+              titleController: _textController,
+              bodyController: _bodyController,
+              onPublish: onPublishPost,
+              onSkip: () => Nav.goBack(context: context),
+            ),
+          ),
+        builder: (bool isVisible, Widget child) {
+
+          blog(' THE KEYBOARD isVisible : $isVisible');
+
+          return child;
+        }
       ),
     );
     // --------------------

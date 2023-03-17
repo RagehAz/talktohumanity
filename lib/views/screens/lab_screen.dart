@@ -9,6 +9,7 @@ import 'package:talktohumanity/model/post_model.dart';
 import 'package:talktohumanity/providers/post_real_ops.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_text.dart';
+import 'package:talktohumanity/views/widgets/dialogs/talk_dialogs.dart';
 import 'package:talktohumanity/views/widgets/layouts/basic_layout.dart';
 
 class LabScreen extends StatefulWidget {
@@ -143,6 +144,25 @@ class _LabScreenState extends State<LabScreen> {
 
        const DotSeparator(),
 
+          /// SHOW CENTER DIALOG
+          TalkBox(
+            width: 300,
+            height: 50,
+            textScaleFactor: 0.8,
+            text: 'Center dialog',
+            color: Colorz.yellow255,
+            textColor: Colorz.black255,
+            onTap: () async {
+
+              final bool _ok = await TalkDialog.boolDialog(
+                body: 'Boool',
+                invertButtons: true,
+              );
+
+              blog('is : $_ok');
+
+            },
+          ),
         ],
       ),
     );
