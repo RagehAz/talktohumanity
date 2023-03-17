@@ -17,10 +17,8 @@ import 'package:layouts/layouts.dart';
 import 'package:mapper/mapper.dart';
 import 'package:scale/scale.dart';
 import 'package:stringer/stringer.dart';
-import 'package:talktohumanity/packages/layouts/nav.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
-import '../permitter/permitter.dart';
 import 'screens/cropping_screen/cropper_footer.dart';
 import 'screens/cropping_screen/cropper_pages.dart';
 

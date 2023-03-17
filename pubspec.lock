@@ -289,10 +289,19 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: a15e975b2645f9b1f78318e4bd8ad630f1ea22b2
+      resolved-ref: e1d9e94568b9ef8c0f8291a4499c64bd2576ce7f
       url: "https://github.com/RagehAz/devicer.git"
     source: git
-    version: "0.0.2"
+    version: "0.0.4"
+  dialogs:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "9d54d46cbf6fa1bc57d328c31d57bd497a99be13"
+      url: "https://github.com/RagehAz/dialogs.git"
+    source: git
+    version: "0.0.1"
   extended_image:
     dependency: transitive
     description:
@@ -667,10 +676,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: d41b3ab300640ffcf778f5c3ea888fa57199d878
+      resolved-ref: fbec9cf9ac84199cae74df5a997a7825725658b5
       url: "https://github.com/RagehAz/layouts.git"
     source: git
-    version: "0.0.4"
+    version: "0.0.5"
   ldb:
     dependency: "direct main"
     description:
@@ -926,10 +935,10 @@ packages:
     dependency: transitive
     description:
       name: pointycastle
-      sha256: db7306cf0249f838d1a24af52b5a5887c5bf7f31d8bb4e827d071dc0939ad346
+      sha256: "57b6b78df14175658f09c5dfcfc51a46ad9561a3504fe679913dab404d0cc0f2"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.6.2"
+    version: "3.7.0"
   process:
     dependency: transitive
     description:

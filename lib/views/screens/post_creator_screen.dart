@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:animators/animators.dart';
+import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +11,6 @@ import 'package:scale/scale.dart';
 import 'package:talktohumanity/controllers/publishing_controllers.dart';
 import 'package:talktohumanity/model/post_model.dart';
 import 'package:talktohumanity/packages/authing/authing.dart';
-import 'package:talktohumanity/packages/keyboard/keyboard_sensor.dart';
-import 'package:talktohumanity/packages/layouts/nav.dart';
 import 'package:talktohumanity/packages/mediators/mediators.dart';
 import 'package:talktohumanity/views/screens/user_editor_screen.dart';
 import 'package:talktohumanity/views/widgets/post_creator.dart';

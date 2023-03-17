@@ -1,6 +1,6 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:dialogs/dialogs.dart';
 import 'package:flutter/material.dart';
-import 'package:talktohumanity/packages/dialogs/dialogs.dart';
 import 'package:talktohumanity/services/helper_methods.dart';
 
 class TalkDialog {

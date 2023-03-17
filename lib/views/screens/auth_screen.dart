@@ -1,11 +1,10 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:dialogs/dialogs.dart';
 import 'package:filers/filers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:talktohumanity/packages/authing/authing.dart';
-import 'package:talktohumanity/packages/dialogs/dialogs.dart';
-import 'package:talktohumanity/packages/layouts/nav.dart';
 import 'package:talktohumanity/services/helper_methods.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
 

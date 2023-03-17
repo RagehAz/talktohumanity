@@ -6,7 +6,6 @@ import 'package:mapper/mapper.dart';
 import 'package:scale/scale.dart';
 import 'package:super_box/super_box.dart';
 import 'package:talktohumanity/model/post_model.dart';
-import 'package:talktohumanity/packages/layouts/nav.dart';
 import 'package:talktohumanity/providers/post_ldb_ops.dart';
 import 'package:talktohumanity/providers/post_real_ops.dart';
 import 'package:talktohumanity/views/helpers/standards.dart';

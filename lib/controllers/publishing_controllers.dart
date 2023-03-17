@@ -1,9 +1,9 @@
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 import 'package:stringer/stringer.dart';
 import 'package:talktohumanity/model/post_model.dart';
 import 'package:talktohumanity/packages/authing/authing.dart';
-import 'package:talktohumanity/packages/layouts/nav.dart';
 import 'package:talktohumanity/services/helper_methods.dart';
 import 'package:talktohumanity/services/navigation/routing.dart';
 import 'package:talktohumanity/views/screens/auth_screen.dart';

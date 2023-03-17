@@ -109,6 +109,9 @@ dependencies:
   devicer:
     git:
       url: https://github.com/RagehAz/devicer.git
+  dialogs:
+    git:
+      url: https://github.com/RagehAz/dialogs.git
   # ------------------------------------
 dev_dependencies:
   flutter_test:

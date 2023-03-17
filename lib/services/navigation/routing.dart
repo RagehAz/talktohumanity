@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talktohumanity/packages/layouts/nav.dart';
+import 'package:layouts/layouts.dart';
 import 'package:talktohumanity/views/screens/archive_screen.dart';
 import 'package:talktohumanity/views/screens/home_screen.dart';
 
