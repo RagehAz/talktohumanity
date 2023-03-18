@@ -5,14 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:scale/scale.dart';
 import 'package:super_image/super_image.dart';
-import 'package:talktohumanity/controllers/publishing_controllers.dart';
 import 'package:talktohumanity/model/post_model.dart';
 import 'package:talktohumanity/services/helper_methods.dart';
 import 'package:talktohumanity/services/navigation/routing.dart';
 import 'package:talktohumanity/views/screens/c_post_creator_screen.dart';
 import 'package:talktohumanity/views/screens/lab_screen.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_text.dart';
-import 'package:talktohumanity/views/widgets/post_creators/brief_post_creator,dart.dart';
+import 'package:talktohumanity/views/widgets/post_creators/brief_post_creator.dart';
 
 class HomeScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------

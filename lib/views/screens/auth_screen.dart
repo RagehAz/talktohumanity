@@ -106,10 +106,10 @@ class _AuthScreenState extends State<AuthScreen> {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  Future<void> _onAuthError(String error) async {
-
-  }
+  // /// TESTED : WORKS PERFECT
+  // Future<void> _onAuthError(String error) async {
+  //
+  // }
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

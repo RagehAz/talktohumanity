@@ -10,7 +10,9 @@ class PostRealOps {
   const PostRealOps();
 
   // -----------------------------------------------------------------------------
-  static const String publishedPosts = 'publishedPosts';
+  static const String publishedPostsColl = 'publishedPosts';
+  static const String pendingPostsColl = 'pendingPosts';
+  static const userPic = 'userPic';
   // -----------------------------------------------------------------------------
 
   /// CREATE
@@ -19,6 +21,7 @@ class PostRealOps {
   /// TESTED : WORKS PERFECT
   static Future<PostModel> createNewPost({
     @required PostModel post,
+    @required String collName,
   }) async {
 
     PostModel _output;
@@ -27,7 +30,7 @@ class PostRealOps {
 
       final Map<String, dynamic> _map =
       await Real.createDoc(
-        collName: publishedPosts,
+        collName: collName,
         map: post.toMap(toJSON: true),
         addDocIDToOutput: true, // DOESN'T ALWAYS SUCCESSFULLY REPLACE WITH NEW ID, DUNNO WHY
       );
@@ -50,7 +53,7 @@ class PostRealOps {
     final List<PostModel> _output = <PostModel>[];
 
     final dynamic _map = await Real.readPath(
-      path: publishedPosts,
+      path: publishedPostsColl,
     );
 
     if (_map != null){
@@ -99,7 +102,7 @@ class PostRealOps {
 
       await Real.incrementDocFields(
         context: getContext(),
-        collName: publishedPosts,
+        collName: publishedPostsColl,
         docName: post.id,
         isIncrementing: true,
         incrementationMap: {
@@ -117,7 +120,7 @@ class PostRealOps {
 
       await Real.incrementDocFields(
         context: getContext(),
-        collName: publishedPosts,
+        collName: publishedPostsColl,
         docName: post.id,
         isIncrementing: false,
         incrementationMap: {
@@ -135,7 +138,7 @@ class PostRealOps {
 
       await Real.incrementDocFields(
         context: getContext(),
-        collName: publishedPosts,
+        collName: publishedPostsColl,
         docName: post.id,
         isIncrementing: true,
         incrementationMap: {

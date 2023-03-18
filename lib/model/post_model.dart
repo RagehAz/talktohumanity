@@ -359,9 +359,8 @@ class PostModel {
           post.userID != null &&
           post.email != null &&
           post.bio != null &&
-          post.headline != null &&
-          post.body != null &&
-          post.pic != null
+          post.body != null
+          // post.pic != null
       ){
         _isPublishable = true;
       }

@@ -72,10 +72,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: b0705c8d19ab14769806b047418e98256336dd56
+      resolved-ref: "0d85a7b8eaf5e53464b6558949ee5ce3a3617625"
       url: "https://github.com/RagehAz/bubbles.git"
     source: git
-    version: "0.0.7"
+    version: "0.0.8"
   camera:
     dependency: transitive
     description:
@@ -676,10 +676,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "5e8a0e738a01d27f5f01781512027a0bec1a07ff"
+      resolved-ref: adcd0ef0662019fcd5c4f1cfdc936cae4dfcdb03
       url: "https://github.com/RagehAz/layouts.git"
     source: git
-    version: "0.0.8"
+    version: "0.0.9"
   ldb:
     dependency: "direct main"
     description:
@@ -1074,10 +1074,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: aa944cc7850819d7f3a385d2f78f8b1fd92763e4
+      resolved-ref: ff1cb76b01e17f31b0ff02ba5bde4649bb89a938
       url: "https://github.com/RagehAz/super_box.git"
     source: git
-    version: "1.0.6"
+    version: "1.0.7"
   super_image:
     dependency: "direct main"
     description:

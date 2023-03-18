@@ -81,10 +81,11 @@ class _LabScreenState extends State<LabScreen> {
             for (final PostModel post in PostModel.dummyPosts()){
 
               final PostModel _uploaded = await PostRealOps.createNewPost(
-                  post: post,
+                post: post,
+                collName: PostRealOps.publishedPostsColl,
               );
 
-              _uploaded.blogPost();
+              _uploaded?.blogPost();
 
             }
 

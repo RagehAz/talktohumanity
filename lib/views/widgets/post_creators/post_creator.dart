@@ -1,8 +1,10 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
+// import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:scale/scale.dart';
+import 'package:stringer/stringer.dart';
 import 'package:super_image/super_image.dart';
 import 'package:talktohumanity/services/helper_methods.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
@@ -14,6 +16,9 @@ class PostCreatorView extends StatelessWidget {
     @required this.bodyController,
     @required this.onPublish,
     @required this.onSkip,
+    @required this.canErrorize,
+    @required this.onSwitchTitle,
+    @required this.titleIsOn,
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
@@ -21,6 +26,9 @@ class PostCreatorView extends StatelessWidget {
   final TextEditingController bodyController;
   final Function onSkip;
   final Function onPublish;
+  final bool canErrorize;
+  final bool titleIsOn;
+  final Function(bool isOn) onSwitchTitle;
   // -----------------------------------------------------------------------------
   static double getBubbleWidth(){
     final double _screenWidth = Scale.screenWidth(getContext());
@@ -53,35 +61,53 @@ class PostCreatorView extends StatelessWidget {
           width: _screenWidth,
           height: _screenHeight,
           color: Colorz.black200,
+          alignment: Alignment.topCenter,
           child: FloatingList(
             physics: const NeverScrollableScrollPhysics(),
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             columnChildren: <Widget>[
+
+              // const SizedBox(
+              //   height: 10,
+              // ),
 
               /// POST TITLE FIELD
               TextFieldBubble(
-                bubbleHeaderVM: const BubbleHeaderVM(
-                    headlineText: 'Title',
-                    headlineHeight: 18,
-                    headlineColor: Colorz.white200,
+                bubbleHeaderVM: BubbleHeaderVM(
+                  headlineText: 'Title',
+                  headlineHeight: 18,
+                  headlineColor: titleIsOn == true ? Colorz.white200 : Colorz.white80,
+                  switchValue: titleIsOn,
+                  hasSwitch: true,
+                  onSwitchTap: onSwitchTitle,
+                  switchTrackColor: Colorz.white80,
+                  switchDisabledColor: Colorz.black200,
+                  // switchActiveColor: Colorz.white255,
+                  // appIsLTR: true,
+                  // textDirection: TextDirection.ltr,
+                  font: BldrsThemeFonts.fontBldrsBodyFont,
+                  switchDisabledTrackColor: Colorz.white20,
                 ),
                 bubbleWidth: _bubbleWidth,
                 textController: titleController,
+                bubbleColor: titleIsOn == true ? Colorz.white10 : Colorz.nothing,
                 maxLines: 2,
                 // maxLength: 10000,
                 keyboardTextInputType: TextInputType.multiline,
                 fieldTextFont: BldrsThemeFonts.fontBldrsHeadlineFont,
                 hintText: '...',
                 bulletPointsFont: BldrsThemeFonts.fontBldrsBodyFont,
-                minLines: 2,
+                // minLines: 1,
                 fieldTextCentered: true,
                 fieldTextHeight: 37,
+                isDisabled: !titleIsOn,
               ),
 
               /// POST BODY FIELD
               TextFieldBubble(
-                bubbleHeaderVM: const BubbleHeaderVM(
-                  headlineText: 'Body',
+                isFormField: true,
+                bubbleHeaderVM: BubbleHeaderVM(
+                  headlineText: titleIsOn ? 'Message' : 'Body',
                   headlineHeight: 18,
                   headlineColor: Colorz.white200
                 ),
@@ -96,6 +122,18 @@ class PostCreatorView extends StatelessWidget {
                 minLines: 6,
                 fieldTextCentered: true,
                 fieldTextHeight: 27,
+                autoValidate: canErrorize,
+                canErrorize: canErrorize,
+                validator: (String text){
+
+                  if (TextCheck.isEmpty(text) == true){
+                    return 'Write your message to the world';
+                  }
+                  else {
+                    return null;
+                  }
+
+                },
               ),
 
               /// BUTTONS
@@ -132,6 +170,7 @@ class PostCreatorView extends StatelessWidget {
 
       ],
     );
+
   }
   // -----------------------------------------------------------------------------
 }

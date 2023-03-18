@@ -1,11 +1,11 @@
 import 'dart:typed_data';
 
 import 'package:animators/animators.dart';
-import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
+import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/controllers/publishing_controllers.dart';
 import 'package:talktohumanity/model/post_model.dart';
@@ -30,11 +30,18 @@ class PostCreatorScreen extends StatefulWidget {
 
 class _PostCreatorScreenState extends State<PostCreatorScreen> {
   // -----------------------------------------------------------------------------
-  final PageController _pageController = PageController();
+  final GlobalKey<FormState> _formKeyA = GlobalKey();
+  bool _canErrorizeA = false;
+  bool _titleIsOn = true;
+  // --------------------
+  final GlobalKey<FormState> _formKeyB = GlobalKey();
+  bool _canErrorizeB = false;
   // -----------------------------------------------------------------------------
+  final PageController _pageController = PageController();
+  // --------------------
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _bodyController = TextEditingController();
-  // -----------------------------------------------------------------------------
+  // --------------------
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -134,23 +141,70 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
 
     if (_isSignedIn == true) {
 
-      await initializeUserVariables();
+      final bool isValid = _formKeyA.currentState.validate();
+
+      if (isValid == true){
+
+        await initializeUserVariables();
 
       await Sliders.slideToNext(
         pageController: _pageController,
         numberOfSlides: 2,
         currentSlide: 0,
       );
+
+      }
+      else {
+
+        setState(() {
+          _canErrorizeA = true;
+        });
+
+      }
+
+
     }
 
   }
-
   // --------------------
   ///
   Future<void> _onPublish() async {
 
+    FocusManager.instance.primaryFocus?.unfocus();
+
+    final bool isValid = _formKeyB.currentState.validate();
+
+    if (isValid == true){
+      await publishPostOps(
+        image: _imageBytes,
+        post: _generatePostModel(),
+      );
+
+    }
+    else {
+        setState(() {
+          _canErrorizeB = true;
+        });
+    }
 
 
+  }
+  // --------------------
+  ///
+  PostModel _generatePostModel(){
+    return PostModel(
+          body: _bodyController.text,
+          headline: _bodyController.text,
+          pic: Authing.getFirebaseUser()?.photoURL,
+          email: _emailController.text,
+          bio: _bioController.text,
+          name: _nameController.text,
+          time: DateTime.now(),
+          likes: 0,
+          views: 0,
+          id: Numeric.createUniqueID().toString(),
+          userID: Authing.getUserID(),
+        );
   }
   // --------------------------------------------------------------------------
   @override
@@ -160,40 +214,62 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
     final double _screenHeight = Scale.screenHeight(context);
     // --------------------
     return BasicLayout(
-      body: KeyboardSensor(
-        builder: (bool isVisible, Widget child) {
-          blog(' THE KEYBOARD isVisible : $isVisible');
-          return child;
-        },
-        child: SizedBox(
-            width: _screenWidth,
-            height: _screenHeight,
-            child: PageView(
-              physics: const BouncingScrollPhysics(),
-              controller: _pageController,
-              scrollDirection: Axis.vertical,
-              children: <Widget>[
+      body: SizedBox(
+          width: _screenWidth,
+          height: _screenHeight,
+          child: PageView(
+            physics: const NeverScrollableScrollPhysics(),
+            controller: _pageController,
+            scrollDirection: Axis.vertical,
+            children: <Widget>[
 
-                PostCreatorView(
+              Form(
+                key: _formKeyA,
+                child: PostCreatorView(
                   titleController: _titleController,
                   bodyController: _bodyController,
                   onPublish: _onNext,
+                  canErrorize: _canErrorizeA,
                   onSkip: () => Nav.goBack(context: context),
-                ),
+                  onSwitchTitle: (bool isOn){
 
-                UserCreatorView(
+                    setState(() {
+                      _titleIsOn = isOn;
+                    });
+
+                    if (_titleIsOn == false){
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    }
+
+                  },
+                  titleIsOn: _titleIsOn,
+                ),
+              ),
+
+              Form(
+                key: _formKeyB,
+                child: UserCreatorView(
                   nameController: _nameController,
                   emailController: _emailController,
                   bioController: _bioController,
                   imageBytes: _imageBytes,
                   onPickImage: _pickImage,
                   onPublish: _onPublish,
-                ),
+                  canErrorize: _canErrorizeB,
+                  onSlideBack: () async {
 
-              ],
-            ),
+                    await Sliders.slideToBackFrom(
+                        pageController: _pageController,
+                        currentSlide: 1,
+                    );
+
+                  },
+                ),
+              ),
+
+            ],
           ),
-      ),
+        ),
     );
     // --------------------
   }

@@ -1,48 +1,27 @@
+import 'dart:typed_data';
+
 import 'package:filers/filers.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:stringer/stringer.dart';
 import 'package:talktohumanity/model/post_model.dart';
 import 'package:talktohumanity/packages/authing/authing.dart';
+import 'package:talktohumanity/packages/mediators/mediators.dart';
+import 'package:talktohumanity/packages/storage/foundation/pic_meta_model.dart';
+import 'package:talktohumanity/packages/storage/storage.dart';
+import 'package:talktohumanity/providers/post_real_ops.dart';
 import 'package:talktohumanity/services/helper_methods.dart';
 import 'package:talktohumanity/services/navigation/routing.dart';
 import 'package:talktohumanity/views/screens/auth_screen.dart';
 import 'package:talktohumanity/views/widgets/dialogs/talk_dialogs.dart';
 // -----------------------------------------------------------------------------
-const bool mounted = true;
-// -----------------------------------------------------------------------------
-/// TASK : TEST ME
-Future<void> onSkipPublishing() async {
-  blog('_onSkipPublishing start');
-  await navToArchiveScreen();
-}
-// --------------------
-/// TASK : TEST ME
-Future<void> onPublishPost({
-  @required PostModel draft,
-}) async {
-  blog('onPublishPost start');
-  final PostModel _postToPublish = await prePublishCheckUps(
-    post: draft,
-  );
-
-  if (_postToPublish != null) {
-    final bool _published = await publishPostOps(
-      post: draft,
-    );
-
-    // await notifyAndNavigate(
-    //   published: _published,
-    // );
-  }
-}
-// --------------------
 /// TESTED : WORKS PERFECT
-Future<PostModel> prePublishCheckUps({
+Future<bool> prePublishCheckUps({
   @required PostModel post,
 }) async {
   blog('prePublishCheckUps start');
-  PostModel _output;
+  bool _output;
 
   if (TextCheck.isEmpty(post?.headline) == false && TextCheck.isEmpty(post?.body) == false){
 
@@ -57,7 +36,7 @@ Future<PostModel> prePublishCheckUps({
       final bool _canContinue = await confirmPublishDialog();
 
       if (_canContinue == true){
-        _output = post;
+        _output = true;
       }
 
     }
@@ -99,47 +78,105 @@ Future<bool> confirmPublishDialog() async {
   return _continue;
 }
 // --------------------
-/// TASK : WRITE ME
-Future<bool> publishPostOps({
+/// TESTED : WORKS PERFECT
+Future<void> publishPostOps({
   @required PostModel post,
+  @required Uint8List image,
 }) async {
   blog('publishPostOps start');
-  bool _isPublished = false;
-  if (mounted) {
-    blog('SHOULD PUBLISH POST NOOOW');
-    _isPublished = true;
+
+  final bool _canPublish = await prePublishCheckUps(
+      post: post,
+  );
+
+  if (_canPublish == true){
+
+    String _imageURL;
+
+    if (image != null){
+      _imageURL = await _uploadImageAndGetURL(
+        userID: post.userID,
+        image: image,
+      );
+    }
+
+    final PostModel _uploaded = await PostRealOps.createNewPost(
+      post: post.copyWith(
+        pic: _imageURL,
+      ),
+      collName: PostRealOps.pendingPostsColl,
+    );
+
+    /// SUCCESS
+    if (_uploaded != null){
+
+      await showPublishSuccessDialog();
+
+      await Nav.pushNamedAndRemoveAllBelow(
+          context: getContext(),
+          goToRoute: Routing.archiveRoute,
+      );
+
+    }
+
+    /// FAILURE
+    else {
+
+      await showPublishFailureDialog();
+
+    }
+
   }
-  return _isPublished;
+
 }
 // --------------------
-Future<void> notifyAndNavigate({
-  @required bool published,
+/// TESTED : WORKS PERFECT
+Future<String> _uploadImageAndGetURL({
+  @required Uint8List image,
+  @required String userID,
 }) async {
-  blog('notifyAndNavigate start');
+  String _output;
 
-  if (published == true) {
-    await showPublishSuccessDialog();
-    await navToArchiveScreen();
+  if (image != null) {
+    final Dimensions _dims = await Dimensions.superDimensions(image);
+
+    final Reference _ref = await Storage.uploadBytes(
+      bytes: image,
+      path: '${PostRealOps.userPic}/$userID',
+      metaData: PicMetaModel(
+        ownersIDs: [userID],
+        dimensions: _dims,
+      ).toSettableMetadata(),
+    );
+
+    _output = await Storage.createURLByRef(
+      ref: _ref,
+    );
   }
 
-  else {
-    await showPublishFailureDialog();
-  }
+  return _output;
 }
+
+
 // --------------------
-/// TASK : WRITE ME
+/// TESTED : WORKS PERFECT
 Future<void> showPublishSuccessDialog() async {
   blog('showPublishSuccessDialog start');
+
+  await TalkDialog.centerDialog(
+    title: 'Post has been submitted',
+    body: 'Thank you, your post will be reviewed before publishing',
+  );
+
 }
 // --------------------
-/// TASK : WRITE ME
+/// TESTED : WORKS PERFECT
 Future<void> showPublishFailureDialog() async {
-  blog('showPublishFailureDialog start');
+
+  await TalkDialog.centerDialog(
+    title: 'Failed to publish',
+    body: 'Something went wrong, please try again',
+  );
+
 }
-// --------------------
-/// TASK : WRITE ME
-Future<void> navToArchiveScreen() async {
-  blog('navToArchiveScreen start');
-  await Nav.goToRoute(getContext(), Routing.archiveRoute);
-}
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------

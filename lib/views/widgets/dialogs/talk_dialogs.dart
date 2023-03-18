@@ -24,8 +24,9 @@ class TalkDialog {
           boolDialog: false,
           title: title,
           body: body,
-          titleTextHeight: 12,
-          bodyTextHeight: 18,
+          titleTextHeight: 30,
+          bodyTextHeight: 25,
+
           // bodyColor: Colorz.black255,
           // titleColor: Colorz.black255,
           // boxColor: Colorz.white255,
