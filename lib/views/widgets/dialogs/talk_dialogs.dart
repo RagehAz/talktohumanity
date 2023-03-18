@@ -90,3 +90,26 @@ class TalkDialog {
   // -----------------------------------------------------------------------------
 
 }
+
+Future<void> showTalkTopDialog({
+  @required GlobalKey flushbarKey,
+  @required String headline,
+  String secondLine,
+  Color dialogColor = Colorz.white255,
+  int milliseconds = 5000,
+}) async {
+
+  await TopDialog.showTopDialog(
+    flushbarKey: flushbarKey,
+    context: getContext(),
+    firstText: headline,
+    color: dialogColor,
+    firstFont: BldrsThemeFonts.fontBldrsHeadlineFont,
+    secondFont: BldrsThemeFonts.fontBldrsBodyFont,
+    milliseconds: milliseconds,
+    secondText: secondLine,
+    // appIsLTR: true,
+    // textColor: Colorz.black255,
+  );
+
+}

@@ -289,10 +289,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: e1d9e94568b9ef8c0f8291a4499c64bd2576ce7f
+      resolved-ref: "3544e4a8e9145934b1e8636c486052665d764f8f"
       url: "https://github.com/RagehAz/devicer.git"
     source: git
-    version: "0.0.4"
+    version: "0.0.6"
   dialogs:
     dependency: "direct main"
     description:
@@ -676,10 +676,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: fbec9cf9ac84199cae74df5a997a7825725658b5
+      resolved-ref: "5e8a0e738a01d27f5f01781512027a0bec1a07ff"
       url: "https://github.com/RagehAz/layouts.git"
     source: git
-    version: "0.0.5"
+    version: "0.0.8"
   ldb:
     dependency: "direct main"
     description:
@@ -1083,10 +1083,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: c4b3665e35548e6ebf601f60ee329de0330c463b
+      resolved-ref: becf6c4ab0029f89b9c1d665fb04801895c38f69
       url: "https://github.com/RagehAz/super_image.git"
     source: git
-    version: "1.0.0"
+    version: "1.0.1"
   super_text:
     dependency: "direct main"
     description:

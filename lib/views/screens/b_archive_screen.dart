@@ -9,7 +9,7 @@ import 'package:talktohumanity/model/post_model.dart';
 import 'package:talktohumanity/providers/post_ldb_ops.dart';
 import 'package:talktohumanity/providers/post_real_ops.dart';
 import 'package:talktohumanity/views/helpers/standards.dart';
-import 'package:talktohumanity/views/screens/post_creator_screen.dart';
+import 'package:talktohumanity/views/screens/c_post_creator_screen.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
 import 'package:talktohumanity/views/widgets/time_line/timeline_month_builder.dart';
 

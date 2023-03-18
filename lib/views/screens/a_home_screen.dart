@@ -6,9 +6,13 @@ import 'package:layouts/layouts.dart';
 import 'package:scale/scale.dart';
 import 'package:super_image/super_image.dart';
 import 'package:talktohumanity/controllers/publishing_controllers.dart';
+import 'package:talktohumanity/model/post_model.dart';
+import 'package:talktohumanity/services/helper_methods.dart';
+import 'package:talktohumanity/services/navigation/routing.dart';
+import 'package:talktohumanity/views/screens/c_post_creator_screen.dart';
 import 'package:talktohumanity/views/screens/lab_screen.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_text.dart';
-import 'package:talktohumanity/views/widgets/post_creator.dart';
+import 'package:talktohumanity/views/widgets/post_creators/brief_post_creator,dart.dart';
 
 class HomeScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -75,6 +79,25 @@ class _HomeScreenState extends State<HomeScreen> {
       numberOfSlides: 4,
       currentSlide: currentSlide,
     );
+  }
+  // --------------------
+  ///
+  Future<void> _onPublishMessage() async {
+
+    await Nav.goToNewScreen(
+      context: context,
+      screen: PostCreatorScreen(
+          draft: PostModel.generateDraft(
+            body: _bodyController.text,
+          ),
+      ),
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onImNotReady() async {
+      await Nav.goToRoute(getContext(), Routing.archiveRoute);
   }
   // --------------------------------------------------------------------------
   @override
@@ -192,11 +215,10 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () => _slideToNextPage(
                 currentSlide: 2,
               ),
-              child: PostCreatorView(
-                titleController: _textController,
+              child: BriefPostCreatorView(
                 bodyController: _bodyController,
-                onPublish: onPublishPost,
-                onSkip: onSkipPublishing,
+                onPublish: _onPublishMessage,
+                onSkip: _onImNotReady,
               ),
             ),
 

@@ -6,20 +6,22 @@ import 'package:filers/filers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
-import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/controllers/publishing_controllers.dart';
 import 'package:talktohumanity/model/post_model.dart';
 import 'package:talktohumanity/packages/authing/authing.dart';
 import 'package:talktohumanity/packages/mediators/mediators.dart';
-import 'package:talktohumanity/views/screens/user_editor_screen.dart';
-import 'package:talktohumanity/views/widgets/post_creator.dart';
+import 'package:talktohumanity/views/widgets/post_creators/post_creator.dart';
+import 'package:talktohumanity/views/widgets/post_creators/user_creator_page.dart';
 
 class PostCreatorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const PostCreatorScreen({
+    this.draft,
     Key key
   }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final PostModel draft;
   /// --------------------------------------------------------------------------
   @override
   _PostCreatorScreenState createState() => _PostCreatorScreenState();
@@ -52,7 +54,18 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
   @override
   void initState() {
     super.initState();
-      }
+
+    if (widget.draft != null){
+
+      _titleController.text = widget.draft.headline;
+      _bodyController.text = widget.draft.body;
+      _nameController.text = widget.draft.name;
+      _bioController.text = widget.draft.bio;
+      _emailController.text = widget.draft.email;
+
+    }
+
+  }
   // --------------------
   bool _isInit = true;
   @override
@@ -60,7 +73,7 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
     if (_isInit && mounted) {
       _triggerLoading(setTo: true).then((_) async {
 
-        await initializeVariables();
+        await initializeUserVariables();
 
         await _triggerLoading(setTo: false);
       });
@@ -83,15 +96,15 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
   }
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  Future<void> initializeVariables() async {
+  Future<void> initializeUserVariables() async {
 
     final User _user = Authing.getFirebaseUser();
     final Uint8List _uint8List = await Floaters.getUint8ListFromURL(_user?.photoURL);
 
     setState(() {
       _imageBytes = _uint8List;
-      _nameController.text = _user.displayName;
-      _emailController.text =  _user.email;
+      _nameController.text = _user?.displayName;
+      _emailController.text =  _user?.email;
     });
 
   }
@@ -114,30 +127,29 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
 
   }
   // --------------------
-  ///
-  PostModel _generateDraft(){
-    return PostModel(
-        body: _bodyController.text,
-        headline: _titleController.text,
-        id: Numeric.createUniqueID().toString(),
-        views: 0,
-        likes: 0,
-        time: DateTime.now(),
-        name: null,
-        bio: null,
-        email: null,
-        pic: null
-    );
-  }
-  // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onPublishTap() async {
+  Future<void> _onNext() async {
 
-    await Sliders.slideToNext(
-      pageController: _pageController,
-      numberOfSlides: 2,
-      currentSlide: 0,
-    );
+    final bool _isSignedIn = await signIn();
+
+    if (_isSignedIn == true) {
+
+      await initializeUserVariables();
+
+      await Sliders.slideToNext(
+        pageController: _pageController,
+        numberOfSlides: 2,
+        currentSlide: 0,
+      );
+    }
+
+  }
+
+  // --------------------
+  ///
+  Future<void> _onPublish() async {
+
+
 
   }
   // --------------------------------------------------------------------------
@@ -165,7 +177,7 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
                 PostCreatorView(
                   titleController: _titleController,
                   bodyController: _bodyController,
-                  onPublish: _onPublishTap,
+                  onPublish: _onNext,
                   onSkip: () => Nav.goBack(context: context),
                 ),
 
@@ -175,6 +187,7 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
                   bioController: _bioController,
                   imageBytes: _imageBytes,
                   onPickImage: _pickImage,
+                  onPublish: _onPublish,
                 ),
 
               ],

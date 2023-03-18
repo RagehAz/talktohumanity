@@ -5,12 +5,14 @@ import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
 import 'package:space_time/space_time.dart';
 import 'package:stringer/stringer.dart';
+import 'package:talktohumanity/packages/authing/authing.dart';
 
 @immutable
 class PostModel {
   // --------------------------------------------------------------------------
   const PostModel({
     @required this.id,
+    @required this.userID,
     @required this.name,
     @required this.email,
     @required this.bio,
@@ -23,6 +25,7 @@ class PostModel {
   });
   // --------------------------------------------------------------------------
   final String id;
+  final String userID;
   final String name;
   final String email;
   final String bio;
@@ -40,6 +43,7 @@ class PostModel {
   ///
   PostModel copyWith({
     String id,
+    String userID,
     String name,
     String email,
     String bio,
@@ -52,6 +56,7 @@ class PostModel {
   }) {
     return PostModel(
       id: id ?? this.id,
+      userID: userID ?? this.userID,
       name: name ?? this.name,
       email: email ?? this.email,
       bio: bio ?? this.bio,
@@ -61,6 +66,26 @@ class PostModel {
       time: time ?? this.time,
       likes: likes ?? this.likes,
       views: views ?? this.views,
+    );
+  }
+  // --------------------
+  ///
+  static PostModel generateDraft({
+    String body,
+    String headline,
+  }){
+    return PostModel(
+        userID: Authing.getUserID(),
+        body: body,
+        headline: headline,
+        id: Numeric.createUniqueID().toString(),
+        views: 0,
+        likes: 0,
+        time: DateTime.now(),
+        name: Authing.getFirebaseUser()?.displayName,
+        bio: null,
+        email: Authing.getFirebaseUser()?.email,
+        pic: Authing.getFirebaseUser()?.photoURL,
     );
   }
   // --------------------------------------------------------------------------
@@ -74,6 +99,7 @@ class PostModel {
   }){
     return {
       'id': id,
+      'userID': userID,
       'name': name,
       'email': email,
       'bio': bio,
@@ -97,6 +123,7 @@ class PostModel {
 
       _post = PostModel(
         id: map['id'],
+        userID: map['userID'],
         name: map['name'],
         email: map['email'],
         bio: map['bio'],
@@ -329,6 +356,7 @@ class PostModel {
 
       if (
           post.name != null &&
+          post.userID != null &&
           post.email != null &&
           post.bio != null &&
           post.headline != null &&
@@ -369,7 +397,8 @@ class PostModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogPost(){
-    blog('POST : ($time) : $id : $name : $email : $bio : $pic : likes: $likes : views: $views');
+    blog('POST : ($time) : $id : $userID : $name : $email : $bio : $pic : likes: $likes : views: '
+        '$views');
     blog('     : -> $headline : $body');
   }
   // -----------------------------------------------------------------------------
@@ -382,6 +411,7 @@ class PostModel {
     return <PostModel>[
       PostModel(
         id: 'a',
+        userID: 'aa',
         name: 'Niel Degras Tyson',
         email: 'Neil@hotmail.com',
         bio: 'Astophysicist',
@@ -394,6 +424,7 @@ class PostModel {
       ),
       PostModel(
         id: 'b',
+        userID: 'bb',
         name: 'Rageh Azzazy',
         email: 'rageh@hotmail.com',
         bio: 'Architect',
@@ -406,6 +437,7 @@ class PostModel {
       ),
       PostModel(
         id: 'c',
+        userID: 'cc',
         name: 'A7mad',
         email: 'a7mad@hotmail.com',
         bio: 'CEO',
@@ -418,6 +450,7 @@ class PostModel {
       ),
       PostModel(
         id: 'd',
+        userID: 'dd',
         name: 'Ada Lovelace',
         email: 'ada@hotmail.com',
         bio: 'Mathematician',
@@ -431,6 +464,7 @@ class PostModel {
       ),
       PostModel(
         id: 'e',
+        userID: 'ee',
         name: 'Stephen Hawking',
         email: 'stephen@hotmail.com',
         bio: 'Theoretical physicist',
@@ -443,6 +477,7 @@ class PostModel {
       ),
       PostModel(
         id: 'f',
+        userID: 'ff',
         name: 'Marie Curie',
         email: 'marie@hotmail.com',
         bio: 'Physicist and chemist',
@@ -455,6 +490,7 @@ class PostModel {
       ),
       PostModel(
         id: 'g',
+        userID: 'gg',
         name: 'John Doe',
         email: 'john.doe@example.com',
         bio: 'Software Engineer',
@@ -468,6 +504,7 @@ class PostModel {
       ),
       PostModel(
         id: 'h',
+        userID: 'hh',
         name: 'Jane Smith',
         email: 'jane.smith@example.com',
         bio: 'Marketing Specialist',
@@ -481,6 +518,7 @@ class PostModel {
       ),
       PostModel(
         id: 'i',
+        userID: 'ii',
         name: 'Samuel Lee',
         email: 'samuel.lee@example.com',
         bio: 'Financial Advisor',
@@ -494,6 +532,7 @@ class PostModel {
       ),
       PostModel(
         id: 'j',
+        userID: 'jj',
         name: 'Amanda Martinez',
         email: 'amanda.martinez@example.com',
         bio: 'Journalist',
@@ -507,6 +546,7 @@ class PostModel {
       ),
       PostModel(
         id: 'k',
+        userID: 'kk',
         name: 'William Johnson',
         email: 'william.johnson@example.com',
         bio: 'Data Analyst',
@@ -520,6 +560,7 @@ class PostModel {
       ),
       PostModel(
         id: 'l',
+        userID: 'll',
         name: 'Albert Einstein',
         email: 'einstein@hotmail.com',
         bio: 'Theoretical physicist',
@@ -532,6 +573,7 @@ class PostModel {
       ),
       PostModel(
         id: 'm',
+        userID: 'mm',
         name: 'Isaac Newton',
         email: 'newton@hotmail.com',
         bio: 'Physicist and mathematician',
@@ -544,6 +586,7 @@ class PostModel {
       ),
       PostModel(
         id: 'n',
+        userID: 'nn',
         name: 'Charles Darwin',
         email: 'darwin@hotmail.com',
         bio: 'Naturalist and biologist',
@@ -576,6 +619,7 @@ class PostModel {
 
       if (
       post1.id == post2.id &&
+      post1.userID == post2.userID &&
       post1.name == post2.name &&
       post1.email == post2.email &&
       post1.bio == post2.bio &&
@@ -622,6 +666,7 @@ class PostModel {
   @override
   int get hashCode =>
       id.hashCode^
+      userID.hashCode^
       name.hashCode^
       email.hashCode^
       bio.hashCode^

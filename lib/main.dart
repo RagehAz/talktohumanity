@@ -6,7 +6,7 @@ import 'package:provider/single_child_widget.dart';
 import 'package:talktohumanity/firebase_options.dart';
 import 'package:talktohumanity/providers/ui_provider.dart';
 import 'package:talktohumanity/services/navigation/routing.dart';
-import 'package:talktohumanity/views/screens/home_screen.dart';
+import 'package:talktohumanity/views/screens/a_home_screen.dart';
 
 Future<void> main() async {
   // --------------------------------------------------------------------------

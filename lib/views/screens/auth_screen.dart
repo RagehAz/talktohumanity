@@ -5,8 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:talktohumanity/packages/authing/authing.dart';
-import 'package:talktohumanity/services/helper_methods.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
+import 'package:talktohumanity/views/widgets/dialogs/talk_dialogs.dart';
 
 class AuthScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -82,12 +82,16 @@ class _AuthScreenState extends State<AuthScreen> {
       onError: (String error) => _error = error,
     );
 
-    if (_credential == null || _error != null){
-      await _onAuthError(_error);
+    if (_credential == null || _error != null) {
+      await showTalkTopDialog(
+        flushbarKey: _flushbarKey,
+        headline: 'Sing in failed',
+        milliseconds: 50000,
+        secondLine: _error,
+      );
     }
 
     else {
-
       await TopDialog.closeTopDialog(
           flushbarKey: _flushbarKey,
       );
@@ -104,12 +108,7 @@ class _AuthScreenState extends State<AuthScreen> {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onAuthError(String error) async {
-    await showTalkTopDialog(
-      flushbarKey: _flushbarKey,
-      headline: 'Sing in failed',
-      milliseconds: 50000,
-      secondLine: error,
-    );
+
   }
   // --------------------------------------------------------------------------
   @override
@@ -140,27 +139,4 @@ class _AuthScreenState extends State<AuthScreen> {
     // --------------------
   }
   // --------------------------------------------------------------------------
-}
-
-Future<void> showTalkTopDialog({
-  @required GlobalKey flushbarKey,
-  @required String headline,
-  String secondLine,
-  Color dialogColor = Colorz.white255,
-  int milliseconds = 5000,
-}) async {
-
-  await TopDialog.showTopDialog(
-    flushbarKey: flushbarKey,
-    context: getContext(),
-    firstText: headline,
-    color: dialogColor,
-    firstFont: BldrsThemeFonts.fontBldrsHeadlineFont,
-    secondFont: BldrsThemeFonts.fontBldrsBodyFont,
-    milliseconds: milliseconds,
-    secondText: secondLine,
-    // appIsLTR: true,
-    // textColor: Colorz.black255,
-  );
-
 }
