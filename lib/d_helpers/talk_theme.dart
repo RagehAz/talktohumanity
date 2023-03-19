@@ -19,4 +19,10 @@ class TalkTheme {
   // --------------------
   static const String talkFont = 'ArabicBody';
   // -----------------------------------------------------------------------------
+
+  /// VIDEOS
+
+  // --------------------
+  static const String earthLoop = 'assets/videos/earth_loop.mp4';
+  // -----------------------------------------------------------------------------
 }

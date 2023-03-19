@@ -7,6 +7,9 @@ class SuperVideoPlayer extends StatelessWidget {
     this.file,
     this.url,
     this.autoPlay = false,
+    this.asset,
+    this.loop = false,
+    this.aspectRatio,
     Key key
   }) : super(key: key);
   // --------------------
@@ -14,12 +17,27 @@ class SuperVideoPlayer extends StatelessWidget {
   final File file;
   final double width;
   final bool autoPlay;
+  final String asset;
+  final bool loop;
+  final double aspectRatio;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
+    /// ASSET OR FILE
+    if (asset != null || file != null){
+        return FileAndURLVideoPlayer(
+          width: width,
+          asset: asset,
+          file: file,
+          autoPlay: autoPlay,
+          loop: loop,
+          aspectRatio: aspectRatio,
+        );
+    }
+
     /// URL
-    if (url != null){
+    else if (url != null){
 
       final bool _isYoutubeLink = VideoModel.checkIsValidYoutubeLink(url);
 
@@ -29,6 +47,7 @@ class SuperVideoPlayer extends StatelessWidget {
           videoID: VideoModel.extractVideoIDFromYoutubeURL(url),
           width: width,
           autoPlay: autoPlay,
+          /// LOOPING WAS NOT CONNECTED HERE
         );
       }
 
@@ -38,24 +57,19 @@ class SuperVideoPlayer extends StatelessWidget {
           url: url,
           width: width,
           autoPlay: autoPlay,
+          loop: loop,
+          // height: height,
+          // aspectRatio: aspectRatio,
         );
       }
 
-    }
-
-    /// FILE
-    else if (file != null){
-      return FileAndURLVideoPlayer(
-        file: file,
-        width: width,
-        autoPlay: autoPlay,
-      );
     }
 
     /// NOTHING
     else {
       return VideoBox(
         width: width,
+        aspectRatio: aspectRatio,
       );
     }
 

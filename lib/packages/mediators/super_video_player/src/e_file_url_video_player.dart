@@ -4,18 +4,24 @@ class FileAndURLVideoPlayer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FileAndURLVideoPlayer({
     this.file,
+    this.asset,
     this.url,
     this.controller,
     this.width,
     this.autoPlay = false,
+    this.loop = false,
+    this.aspectRatio,
     Key key
   }) : super(key: key);
   // --------------------
   final String url;
+  final String asset;
   final File file;
   final VideoPlayerController controller;
   final double width;
   final bool autoPlay;
+  final bool loop;
+  final double aspectRatio;
   /// --------------------------------------------------------------------------
   @override
   _FileAndURLVideoPlayerState createState() => _FileAndURLVideoPlayerState();
@@ -25,9 +31,11 @@ class FileAndURLVideoPlayer extends StatefulWidget {
     @required ValueNotifier<VideoPlayerValue> videoValue,
     @required bool mounted,
     String url,
+    String asset,
     File file,
     bool addListener = true,
     bool autoPlay = false,
+    bool loop = false,
   }) {
     VideoPlayerController _output;
 
@@ -35,19 +43,35 @@ class FileAndURLVideoPlayer extends StatefulWidget {
         'https://commondatastorage.googleapis'
             '.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
 
+    final VideoPlayerOptions _options = VideoPlayerOptions(
+      mixWithOthers: true,
+      // allowBackgroundPlayback: false,
+    );
+
     if (url != null) {
       _output = VideoPlayerController.network(_link,
-          videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true))
-        ..initialize()
-        ..setVolume(1);
+          videoPlayerOptions: _options
+      );
+    }
+
+    if (asset != null) {
+      _output = VideoPlayerController.asset(asset,
+          videoPlayerOptions: _options
+      );
     }
 
     if (file != null) {
       _output = VideoPlayerController.file(file,
-          videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true))
-        ..initialize()
-        ..setVolume(1);
+          videoPlayerOptions: _options
+      );
     }
+
+    _output..initialize()..setVolume(1);
+
+    if (loop == true){
+      _output.setLooping(true);
+    }
+
 
     if (addListener == true) {
       _output.addListener(() => _listenToVideo(
@@ -101,6 +125,8 @@ class _FileAndURLVideoPlayerState extends State<FileAndURLVideoPlayer> {
       videoValue: _videoValue,
       mounted: mounted,
       autoPlay: widget.autoPlay,
+      asset: widget.asset,
+      loop: widget.loop,
       // addListener: true,
     );
 
@@ -213,6 +239,7 @@ class _FileAndURLVideoPlayerState extends State<FileAndURLVideoPlayer> {
           onPlay: _play,
           onPause: _pause,
           width: widget.width ?? Scale.screenWidth(context),
+          aspectRatio: widget.aspectRatio,
           videoPlayerController: _videoPlayerController,
           videoValue: _videoValue,
           onVolumeChanged: _setVolume,

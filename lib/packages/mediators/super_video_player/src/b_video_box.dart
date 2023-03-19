@@ -6,12 +6,16 @@ class VideoBox extends StatelessWidget {
     @required this.width,
     this.child,
     this.boxColor = Colorz.black255,
+    this.aspectRatio,
+    this.corners,
     Key key,
   }) : super(key: key);
   // --------------------------------------------------------------------------
   final double width;
   final Widget child;
   final Color boxColor;
+  final double aspectRatio;
+  final double corners;
   // --------------------------------------------------------------------------
     /// TESTED : WORKS PERFECT
   static double getHeightByAspectRatio({
@@ -35,21 +39,24 @@ class VideoBox extends StatelessWidget {
     /// TESTED : WORKS PERFECT
   static BorderRadius getCorners({
     @required double width,
+    double cornersOverride,
   }) {
-    return BorderRadius.circular(width * 0.03);
+    final double _value = cornersOverride ?? width * 0.03;
+    return BorderRadius.circular(_value);
   }
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final double _height = getHeightByAspectRatio(
-      aspectRatio: 16 / 9,
+      aspectRatio: aspectRatio,
       width: width,
-      force169: true,
+      force169: false,
     );
 
     final BorderRadius _borders = getCorners(
       width: width,
+      cornersOverride: corners,
     );
 
     return Container(

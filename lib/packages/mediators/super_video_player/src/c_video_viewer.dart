@@ -28,7 +28,6 @@ class VideoViewer extends StatelessWidget {
    final ValueChanged<double> onVolumeChanged;
    final ValueNotifier<bool> isChangingVolume;
   // --------------------
-  // --------------------
   /// TESTED : WORKS PERFECT
   static bool _videoIsLoading({
     @required VideoPlayerValue value,
@@ -113,8 +112,12 @@ class VideoViewer extends StatelessWidget {
     final double _boxHeight = VideoBox.getHeightByAspectRatio(
       width: width,
       aspectRatio: aspectRatio,
-      force169: true,
+      force169: false,
     );
+
+    // final double _boxWidth = 0;
+    // final double _videoWidth = 0;
+    // final double _videoHeight = 0;
 
     return ValueListenableBuilder(
       valueListenable: videoValue,
@@ -257,12 +260,16 @@ class VideoViewer extends StatelessWidget {
           ),
         );
       },
-      child: Card(
-          clipBehavior: Clip.antiAlias,
-          /// to clip the child corners to be circular forcefully
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(width * 0.02)),
-          // color: Colorz.black255,
-          child: VideoPlayer(videoPlayerController)
+      child: SizedBox(
+        width: width,
+        height: _boxHeight,
+        child: Card(
+            clipBehavior: Clip.antiAlias,
+            /// to clip the child corners to be circular forcefully
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(width * 0.02)),
+            // color: Colorz.black255,
+            child: VideoPlayer(videoPlayerController)
+        ),
       ),
     );
 

@@ -4,9 +4,12 @@ import 'package:scale/scale.dart';
 import 'package:talktohumanity/d_helpers/helper_methods.dart';
 
 class Standards {
+  // -----------------------------------------------------------------------------
 
   Standards();
 
+  // -----------------------------------------------------------------------------
+  static const String ragehID = 'ycqVppJgQDYCuMR72QY95zkXvmg1';
   // -----------------------------------------------------------------------------
   static const double timelineSideMargin = 10;
   static const double timelineLineThickness = 2;

@@ -10,6 +10,10 @@ import 'package:talktohumanity/b_views/a_screens/d_pending_posts_screen.dart';
 import 'package:talktohumanity/b_views/b_widgets/e_timeline/timeline_builder.dart';
 import 'package:talktohumanity/c_protocols/post_ldb_ops.dart';
 import 'package:talktohumanity/c_protocols/post_real_ops.dart';
+import 'package:talktohumanity/d_helpers/standards.dart';
+import 'package:talktohumanity/d_helpers/talk_theme.dart';
+import 'package:talktohumanity/packages/authing/authing.dart';
+import 'package:talktohumanity/packages/mediators/super_video_player/super_video_player.dart';
 
 class ArchiveScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -42,6 +46,7 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
   @override
   void initState() {
     super.initState();
+
   }
   // --------------------
   bool _isInit = true;
@@ -178,103 +183,69 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
     final double _screenWidth = Scale.screenWidth(context);
     final double _screenHeight = Scale.screenHeight(context);
     // --------------------
+    final double _longestSide = Scale.screenLongestSide(context);
+    // --------------------
     return BasicLayout(
-      body: SizedBox(
-        width: _screenWidth,
-        height: _screenHeight,
-        child: ValueListenableBuilder(
-          valueListenable: _loading,
-          child: Container(),
-          builder: (_, bool isLoading, Widget child) {
+      body: Stack(
+        children: <Widget>[
 
-            if (isLoading) {
-              return const Loading(
-                loading: true,
-                color: Colorz.white255,
-                size: 500,
-              );
-            }
+          /// PLANET VIDEO
+          OverflowBox(
+            maxWidth: _longestSide,
+            maxHeight: _longestSide,
+            child: SuperVideoPlayer(
+              width: _longestSide,
+              aspectRatio: 1,
+              autoPlay: true,
+              asset: TalkTheme.earthLoop,
+              loop: true,
+            ),
+          ),
 
-            else {
+          /// TIMELINE
+          SizedBox(
+            width: _screenWidth,
+            height: _screenHeight,
+            child: ValueListenableBuilder(
+              valueListenable: _loading,
+              child: Container(),
+              builder: (_, bool isLoading, Widget child) {
 
-              return TimeLineBuilder(
-                posts: _publishedPosts,
-                onDoubleTap: (PostModel post) async {
-                  await Nav.goToNewScreen(
-                    context: context,
-                    screen: const PendingPostsScreen(),
+                /// LOADING
+                if (isLoading) {
+                  return const Loading(
+                    loading: true,
+                    color: Colorz.white255,
+                    size: 500,
                   );
+                }
+
+                /// TIMELINES BUILDER
+                else {
+                  return TimeLineBuilder(
+                    posts: _publishedPosts,
+                    onDoubleTap: (PostModel post) async {
+
+                      if (Authing.getUserID() == Standards.ragehID){
+                        await Nav.goToNewScreen(
+                          context: context,
+                          screen: const PendingPostsScreen(),
+                        );
+                      }
+
+
+                      },
+                    controller: _scrollController,
+                    onLike: (PostModel post) => _onLike(post),
+                    onView: (PostModel post) => _onView(post),
+                  );
+                }
+
                 },
-                controller: _scrollController,
-                      onLike: (PostModel post) => _onLike(post),
-                      onView: (PostModel post) => _onView(post),
-                // goToPostCreatorButtonIsOn: true,
-              );
+            ),
+      ),
 
-              // return ListView.builder(
-              //   physics: const BouncingScrollPhysics(),
-              //   shrinkWrap: true,
-              //   padding: EdgeInsets.only(
-              //     top: Standards.getTimeLineTopMostMargin(),
-              //     bottom: Standards.timelineMinTileHeight,
-              //   ),
-              //   itemCount: _keys.length + 1,
-              //   itemBuilder: (_, i) {
-              //
-              //     if (i == _keys.length) {
-              //       return Column(
-              //         children: <Widget>[
-              //
-              //           const SeparatorLine(
-              //             width: 100,
-              //             withMargins: true,
-              //           ),
-              //
-              //           TalkBox(
-              //             height: 50,
-              //             text: 'Talk to Humanity',
-              //             // margins: const EdgeInsets.only(top: 50),
-              //             color: Colorz.white255,
-              //             textColor: Colorz.black255,
-              //             icon: Iconz.share,
-              //             iconColor: Colorz.black255,
-              //             iconSizeFactor: 0.5,
-              //             textScaleFactor: 0.8 / 0.5,
-              //             onTap: () async {
-              //               await Nav.goToNewScreen(
-              //                 context: context,
-              //                 screen: const PostCreatorScreen(),
-              //               );
-              //             },
-              //             onDoubleTap: ,
-              //           ),
-              //
-              //           const SeparatorLine(
-              //             width: 100,
-              //             withMargins: true,
-              //           ),
-              //
-              //         ],
-              //       );
-              //     }
-              //
-              //     else {
-              //       final String key = _keys[i];
-              //
-              //       return TimelineMonthBuilder(
-              //         onLike: (PostModel post) => _onLike(post),
-              //         onView: (PostModel post) => _onView(post),
-              //         posts: _postsMap[key],
-              //         isFirstMonth: i == 0,
-              //       );
-              //     }
-              //
-              //   },
-              // );
-            }
-
-          },
-        ),
+        ],
       ),
     );
     // --------------------

@@ -127,6 +127,7 @@ flutter:
   assets:
     - assets/
     - assets/icons/
+    - assets/videos/
   # ------------------------------------
   fonts:
     - family: BldrsHeadlineFont
