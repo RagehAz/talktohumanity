@@ -28,16 +28,13 @@ class PostRealOps {
 
     if (post != null){
 
-      final Map<String, dynamic> _map =
-      await Real.createDoc(
+      await Real.createNamedDoc(
         collName: collName,
+        docName: post.id,
         map: post.toMap(toJSON: true),
-        addDocIDToOutput: true, // DOESN'T ALWAYS SUCCESSFULLY REPLACE WITH NEW ID, DUNNO WHY
       );
 
-      _output = post.copyWith(
-        id: _map['id'],
-      );
+      _output = post;
 
     }
 
@@ -86,6 +83,27 @@ class PostRealOps {
         }
 
       }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<PostModel> readPost({
+    @required String collName,
+    @required String postID,
+  }) async {
+    PostModel _output;
+
+    if (collName != null && postID != null){
+
+      final Map<String, dynamic> _map = await Real.readDoc(
+          collName: collName,
+          docName: postID,
+      );
+
+      _output = PostModel.decipherPost(map: _map, fromJSON: true);
 
     }
 
@@ -147,11 +165,59 @@ class PostRealOps {
       );
     }
       }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> movePost({
+    @required String postID,
+    @required String fromColl,
+    @required String toColl,
+  }) async {
+
+    if (postID != null && fromColl != null && toColl != null){
+
+      final PostModel _post = await readPost(
+          collName: fromColl,
+          postID: postID
+      );
+
+      if (_post != null){
+
+        final PostModel _uploaded = await createNewPost(
+            post: _post,
+            collName: toColl,
+        );
+
+        if (_uploaded != null){
+
+          await deletePost(
+              postID: postID,
+              collName: fromColl,
+          );
+
+        }
+
+
+      }
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// DELETE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
+  static Future<void> deletePost({
+    @required String postID,
+    @required String collName,
+  }) async {
+    if (postID != null && collName != null) {
+      await Real.deleteDoc(
+        collName: collName,
+        docName: postID,
+      );
+    }
+  }
   // -----------------------------------------------------------------------------
 }

@@ -10,6 +10,7 @@ import 'package:talktohumanity/packages/authing/authing.dart';
 import 'package:talktohumanity/packages/mediators/mediators.dart';
 import 'package:talktohumanity/packages/storage/foundation/pic_meta_model.dart';
 import 'package:talktohumanity/packages/storage/storage.dart';
+import 'package:talktohumanity/packages/wait_dialog/wait_dialog.dart';
 import 'package:talktohumanity/providers/post_real_ops.dart';
 import 'package:talktohumanity/services/helper_methods.dart';
 import 'package:talktohumanity/services/navigation/routing.dart';
@@ -85,11 +86,19 @@ Future<void> publishPostOps({
 }) async {
   blog('publishPostOps start');
 
+
   final bool _canPublish = await prePublishCheckUps(
       post: post,
   );
 
   if (_canPublish == true){
+
+    final BuildContext context = getContext();
+
+    pushWaitDialog(
+        context: context,
+        text: 'Uploading post',
+    );
 
     String _imageURL;
 
@@ -106,6 +115,8 @@ Future<void> publishPostOps({
       ),
       collName: PostRealOps.pendingPostsColl,
     );
+
+    await WaitDialog.closeWaitDialog(context);
 
     /// SUCCESS
     if (_uploaded != null){
@@ -156,8 +167,6 @@ Future<String> _uploadImageAndGetURL({
 
   return _output;
 }
-
-
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> showPublishSuccessDialog() async {

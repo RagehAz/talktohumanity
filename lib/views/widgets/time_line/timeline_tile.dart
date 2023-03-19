@@ -23,6 +23,7 @@ class TimelineTile extends StatelessWidget {
     @required this.onLike,
     @required this.onView,
     @required this.firstIsExpanded,
+    @required this.onDoubleTap,
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
@@ -32,6 +33,7 @@ class TimelineTile extends StatelessWidget {
   final Function onLike;
   final Function onView;
   final bool firstIsExpanded;
+  final Function onDoubleTap;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -47,10 +49,11 @@ class TimelineTile extends StatelessWidget {
       margin: EdgeInsets.zero,
       corners: 0,
       collapsedHeight: Standards.timelineMinTileHeight,
+      onTileDoubleTap: onDoubleTap,
       onTileTap: (bool expanded){
         // blog('post : ${post.id} is expanded : $expanded');
 
-        if (expanded == true){
+        if (expanded == true && onView != null){
           onView();
         }
 

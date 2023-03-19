@@ -167,7 +167,7 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _onPublish() async {
 
     FocusManager.instance.primaryFocus?.unfocus();
@@ -190,7 +190,7 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   PostModel _generatePostModel(){
     return PostModel(
           body: _bodyController.text,
@@ -223,6 +223,7 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
             scrollDirection: Axis.vertical,
             children: <Widget>[
 
+              ///
               Form(
                 key: _formKeyA,
                 child: PostCreatorView(
@@ -246,6 +247,7 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
                 ),
               ),
 
+              ///
               Form(
                 key: _formKeyB,
                 child: UserCreatorView(

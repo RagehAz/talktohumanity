@@ -10,6 +10,7 @@ import 'package:talktohumanity/providers/post_ldb_ops.dart';
 import 'package:talktohumanity/providers/post_real_ops.dart';
 import 'package:talktohumanity/views/helpers/standards.dart';
 import 'package:talktohumanity/views/screens/c_post_creator_screen.dart';
+import 'package:talktohumanity/views/screens/d_pending_posts_screen.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
 import 'package:talktohumanity/views/widgets/time_line/timeline_month_builder.dart';
 
@@ -234,8 +235,10 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
                           height: 50,
                           text: 'Talk to Humanity',
                           // margins: const EdgeInsets.only(top: 50),
-                          color: Colorz.bloodTest,
+                          color: Colorz.white255,
+                          textColor: Colorz.black255,
                           icon: Iconz.share,
+                          iconColor: Colorz.black255,
                           iconSizeFactor: 0.5,
                           textScaleFactor: 0.8 / 0.5,
                           onTap: () async {
@@ -243,6 +246,14 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
                               context: context,
                               screen: const PostCreatorScreen(),
                             );
+                          },
+                          onDoubleTap: () async {
+
+                            await Nav.goToNewScreen(
+                              context: context,
+                              screen: const PendingPostsScreen(),
+                            );
+
                           },
                         ),
 
@@ -275,6 +286,99 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
       ),
     );
     // --------------------
+  }
+  // --------------------------------------------------------------------------
+}
+
+
+class TimeLineBuilder extends StatelessWidget {
+  // --------------------------------------------------------------------------
+  const TimeLineBuilder({
+    @required this.posts,
+    this.onView,
+    this.onLike,
+    this.controller,
+    this.goToPosterIsOn = true,
+    this.onMoreTap,
+    Key key
+  }) : super(key: key);
+  // --------------------------------------------------------------------------
+  final List<PostModel> posts;
+  final Function(PostModel post) onLike;
+  final Function(PostModel post) onView;
+  final ScrollController controller;
+  final bool goToPosterIsOn;
+  final Function(PostModel post) onMoreTap;
+  // --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    final Map<String, dynamic> _postsMap = PostModel.organizePostsInMap(
+        posts: posts,
+      );
+
+    final List<String> _keys = _postsMap?.keys?.toList();
+
+    return ListView.builder(
+      controller: controller,
+      physics: const BouncingScrollPhysics(),
+      shrinkWrap: true,
+      padding: EdgeInsets.only(
+        top: Standards.getTimeLineTopMostMargin(),
+        bottom: Standards.timelineMinTileHeight,
+      ),
+      itemCount: _keys.length + 1,
+      itemBuilder: (_, i) {
+
+        if (i == _keys.length) {
+
+          return goToPosterIsOn == false ? const SizedBox() : Column(
+            children: <Widget>[
+
+              const SeparatorLine(
+                width: 100,
+                withMargins: true,
+              ),
+
+              TalkBox(
+                height: 50,
+                text: 'Talk to Humanity',
+                // margins: const EdgeInsets.only(top: 50),
+                color: Colorz.bloodTest,
+                icon: Iconz.share,
+                iconSizeFactor: 0.5,
+                textScaleFactor: 0.8 / 0.5,
+                onTap: () async {
+                  await Nav.goToNewScreen(
+                    context: context,
+                    screen: const PostCreatorScreen(),
+                  );
+                },
+              ),
+
+              const SeparatorLine(
+                width: 100,
+                withMargins: true,
+              ),
+
+            ],
+          );
+
+        }
+
+        else {
+          final String key = _keys[i];
+
+          return TimelineMonthBuilder(
+            onLike: onLike == null ? null : (PostModel post) => onLike(post),
+            onView: onView == null ? null : (PostModel post) => onView(post),
+            posts: _postsMap[key],
+            isFirstMonth: i == 0,
+            onDoubleTap: onMoreTap,
+          );
+        }
+      },
+    );
   }
   // --------------------------------------------------------------------------
 }

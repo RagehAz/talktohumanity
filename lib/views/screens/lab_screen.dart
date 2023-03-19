@@ -7,6 +7,7 @@ import 'package:layouts/layouts.dart';
 import 'package:talktohumanity/model/post_model.dart';
 import 'package:talktohumanity/packages/authing/authing.dart';
 import 'package:talktohumanity/providers/post_real_ops.dart';
+import 'package:talktohumanity/views/screens/d_pending_posts_screen.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_box.dart';
 import 'package:talktohumanity/views/widgets/basics/talk_text.dart';
 import 'package:talktohumanity/views/widgets/dialogs/talk_dialogs.dart';
@@ -163,6 +164,22 @@ class _LabScreenState extends State<LabScreen> {
 
             },
           ),
+
+          /// GO TO PENDING POSTS
+          TalkBox(
+          height: 40,
+          text: 'Go to Pending posts',
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+                context: context,
+                screen: const PendingPostsScreen(),
+            );
+
+          },
+        ),
+
+
         ],
       ),
     );

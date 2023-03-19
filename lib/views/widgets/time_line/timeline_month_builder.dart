@@ -10,6 +10,7 @@ class TimelineMonthBuilder extends StatelessWidget {
     @required this.onLike,
     @required this.onView,
     @required this.isFirstMonth,
+    this.onDoubleTap,
     Key key
   }) : super(key: key);
   // --------------------------------------------------------------------------
@@ -17,6 +18,7 @@ class TimelineMonthBuilder extends StatelessWidget {
   final Function(PostModel post) onLike;
   final Function(PostModel post) onView;
   final bool isFirstMonth;
+  final Function(PostModel post) onDoubleTap;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -43,9 +45,10 @@ class TimelineMonthBuilder extends StatelessWidget {
             isFirst: index == 0,
             firstIsExpanded: isFirstMonth == true,
             isLast: index + 1 == posts.length,
-            onLike: () => onLike(post),
-            onView: () => onView(post),
+            onLike: onLike == null ? null : () => onLike(post),
+            onView: onView == null ? null : () => onView(post),
             post: post,
+            onDoubleTap: onDoubleTap == null ? null : () => onDoubleTap(post),
           );
         }
 
