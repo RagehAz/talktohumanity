@@ -1,20 +1,21 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:super_box/super_box.dart';
+import 'package:talktohumanity/d_helpers/talk_theme.dart';
 
 class TalkBox extends StatelessWidget {
   // --------------------------------------------------------------------------
   const TalkBox({
     @required this.height,
+    @required this.isBold,
     this.width,
     this.icon,
     this.iconSizeFactor = 1,
-    this.color = const Color.fromARGB(0, 255, 255, 255),
+    this.color = Colorz.white255,
     this.corners,
     this.iconColor,
     this.text,
-    this.textColor = const Color.fromARGB(255, 255, 255, 255),
-    this.textWeight = FontWeight.w400,
+    this.textColor = Colorz.black255,
     this.textScaleFactor = 1,
     this.textShadow,
     this.textItalic = false,
@@ -49,7 +50,6 @@ class TalkBox extends StatelessWidget {
     this.onDoubleTap,
     this.appIsLTR = true,
     this.package,
-    this.textFont,
     this.letterSpacing,
     Key key,
   }) : super(key: key);
@@ -64,7 +64,6 @@ class TalkBox extends StatelessWidget {
   final Color iconColor;
   final String text;
   final Color textColor;
-  final FontWeight textWeight;
   final double textScaleFactor;
   final bool textShadow;
   final bool textItalic;
@@ -99,7 +98,7 @@ class TalkBox extends StatelessWidget {
   final Function onDoubleTap;
   final bool appIsLTR;
   final String package;
-  final String textFont;
+  final bool isBold;
   final double letterSpacing;
   /// --------------------------------------------------------------------------
   @override
@@ -115,7 +114,7 @@ class TalkBox extends StatelessWidget {
       iconColor: iconColor,
       text: text,
       textColor: textColor,
-      textWeight: textWeight,
+      textWeight: isBold == true ? FontWeight.w600 : FontWeight.w200,
       textScaleFactor: textScaleFactor,
       textShadow: textShadow,
       textItalic: textItalic,
@@ -149,7 +148,7 @@ class TalkBox extends StatelessWidget {
       onDoubleTap: onDoubleTap,
       appIsLTR: appIsLTR ?? true,
       package: package,
-      textFont: textFont ?? BldrsThemeFonts.fontBldrsHeadlineFont,
+      textFont: isBold == true ? TalkTheme.talkFont : BldrsThemeFonts.fontBldrsBodyFont,
       letterSpacing: letterSpacing,
       subChild: subChild,
     );

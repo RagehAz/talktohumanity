@@ -96,6 +96,7 @@ class PhidButton extends StatelessWidget {
         secondTextMaxLines: 1,
         onTap: onPhidTap,
         onDoubleTap: onPhidDoubleTap,
+        isBold: true,
         onLongTap: onPhidLongTap,
       ),
     );

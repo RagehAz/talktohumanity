@@ -6,13 +6,10 @@ import 'package:mapper/mapper.dart';
 import 'package:scale/scale.dart';
 import 'package:super_box/super_box.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
+import 'package:talktohumanity/b_views/a_screens/d_pending_posts_screen.dart';
+import 'package:talktohumanity/b_views/b_widgets/e_timeline/timeline_builder.dart';
 import 'package:talktohumanity/c_protocols/post_ldb_ops.dart';
 import 'package:talktohumanity/c_protocols/post_real_ops.dart';
-import 'package:talktohumanity/d_helpers/standards.dart';
-import 'package:talktohumanity/b_views/a_screens/c_post_creator_screen.dart';
-import 'package:talktohumanity/b_views/a_screens/d_pending_posts_screen.dart';
-import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
-import 'package:talktohumanity/b_views/b_widgets/e_timeline/timeline_month_builder.dart';
 
 class ArchiveScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -28,11 +25,8 @@ class ArchiveScreen extends StatefulWidget {
 class _ArchiveScreenState extends State<ArchiveScreen> {
   // -----------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
-  final ScrollController _scrollControllerB = ScrollController();
   // --------------------
-  List<PostModel> posts = [];
-  // --------------------
-  Map<String, dynamic> _postsMap = {};
+  List<PostModel> _publishedPosts = [];
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(true);
@@ -48,11 +42,6 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
   @override
   void initState() {
     super.initState();
-
-    _scrollController.addListener(() {
-      _scrollControllerB.jumpTo(_scrollController.offset * 1.5);
-    });
-
   }
   // --------------------
   bool _isInit = true;
@@ -75,36 +64,33 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
   void dispose() {
     _loading.dispose();
     _scrollController.dispose();
-    _scrollControllerB.dispose();
     super.dispose();
   }
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   Future<void> fetchAllPublishedPosts() async {
 
-    posts = await PostLDBPOps.readAll(
+    List<PostModel> _posts = await PostLDBPOps.readAll(
       docName: PostLDBPOps.publishedPosts,
     );
 
-    if (Mapper.checkCanLoopList(posts) == false) {
-      posts = await PostRealOps.readAllPublishedPosts();
-      blog('${posts.length} posts found in REAL DB');
-      if (Mapper.checkCanLoopList(posts) == true) {
+    if (Mapper.checkCanLoopList(_posts) == false) {
+      _posts = await PostRealOps.readAllPublishedPosts();
+      blog('${_posts.length} posts found in REAL DB');
+      if (Mapper.checkCanLoopList(_posts) == true) {
         await PostLDBPOps.insertPosts(
-          posts: posts,
+          posts: _posts,
           docName: PostLDBPOps.publishedPosts,
         );
       }
     }
 
     else {
-      blog('${posts.length} posts found in LDB');
+      blog('${_posts.length} posts found in LDB');
     }
 
     setState(() {
-      _postsMap = PostModel.organizePostsInMap(
-        posts: posts,
-      );
+      _publishedPosts = _posts;
     });
   }
   // --------------------
@@ -192,8 +178,6 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
     final double _screenWidth = Scale.screenWidth(context);
     final double _screenHeight = Scale.screenHeight(context);
     // --------------------
-    final List<String> _keys = _postsMap?.keys?.toList();
-    // --------------------
     return BasicLayout(
       body: SizedBox(
         width: _screenWidth,
@@ -212,73 +196,81 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
             }
 
             else {
-              return ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                shrinkWrap: true,
-                padding: EdgeInsets.only(
-                  top: Standards.getTimeLineTopMostMargin(),
-                  bottom: Standards.timelineMinTileHeight,
-                ),
-                itemCount: _keys.length + 1,
-                itemBuilder: (_, i) {
 
-                  if (i == _keys.length) {
-                    return Column(
-                      children: <Widget>[
-
-                        const SeparatorLine(
-                          width: 100,
-                          withMargins: true,
-                        ),
-
-                        TalkBox(
-                          height: 50,
-                          text: 'Talk to Humanity',
-                          // margins: const EdgeInsets.only(top: 50),
-                          color: Colorz.white255,
-                          textColor: Colorz.black255,
-                          icon: Iconz.share,
-                          iconColor: Colorz.black255,
-                          iconSizeFactor: 0.5,
-                          textScaleFactor: 0.8 / 0.5,
-                          onTap: () async {
-                            await Nav.goToNewScreen(
-                              context: context,
-                              screen: const PostCreatorScreen(),
-                            );
-                          },
-                          onDoubleTap: () async {
-
-                            await Nav.goToNewScreen(
-                              context: context,
-                              screen: const PendingPostsScreen(),
-                            );
-
-                          },
-                        ),
-
-                        const SeparatorLine(
-                          width: 100,
-                          withMargins: true,
-                        ),
-
-                      ],
-                    );
-                  }
-
-                  else {
-                    final String key = _keys[i];
-
-                    return TimelineMonthBuilder(
+              return TimeLineBuilder(
+                posts: _publishedPosts,
+                onDoubleTap: (PostModel post) async {
+                  await Nav.goToNewScreen(
+                    context: context,
+                    screen: const PendingPostsScreen(),
+                  );
+                },
+                controller: _scrollController,
                       onLike: (PostModel post) => _onLike(post),
                       onView: (PostModel post) => _onView(post),
-                      posts: _postsMap[key],
-                      isFirstMonth: i == 0,
-                    );
-                  }
-
-                },
+                // goToPostCreatorButtonIsOn: true,
               );
+
+              // return ListView.builder(
+              //   physics: const BouncingScrollPhysics(),
+              //   shrinkWrap: true,
+              //   padding: EdgeInsets.only(
+              //     top: Standards.getTimeLineTopMostMargin(),
+              //     bottom: Standards.timelineMinTileHeight,
+              //   ),
+              //   itemCount: _keys.length + 1,
+              //   itemBuilder: (_, i) {
+              //
+              //     if (i == _keys.length) {
+              //       return Column(
+              //         children: <Widget>[
+              //
+              //           const SeparatorLine(
+              //             width: 100,
+              //             withMargins: true,
+              //           ),
+              //
+              //           TalkBox(
+              //             height: 50,
+              //             text: 'Talk to Humanity',
+              //             // margins: const EdgeInsets.only(top: 50),
+              //             color: Colorz.white255,
+              //             textColor: Colorz.black255,
+              //             icon: Iconz.share,
+              //             iconColor: Colorz.black255,
+              //             iconSizeFactor: 0.5,
+              //             textScaleFactor: 0.8 / 0.5,
+              //             onTap: () async {
+              //               await Nav.goToNewScreen(
+              //                 context: context,
+              //                 screen: const PostCreatorScreen(),
+              //               );
+              //             },
+              //             onDoubleTap: ,
+              //           ),
+              //
+              //           const SeparatorLine(
+              //             width: 100,
+              //             withMargins: true,
+              //           ),
+              //
+              //         ],
+              //       );
+              //     }
+              //
+              //     else {
+              //       final String key = _keys[i];
+              //
+              //       return TimelineMonthBuilder(
+              //         onLike: (PostModel post) => _onLike(post),
+              //         onView: (PostModel post) => _onView(post),
+              //         posts: _postsMap[key],
+              //         isFirstMonth: i == 0,
+              //       );
+              //     }
+              //
+              //   },
+              // );
             }
 
           },
@@ -286,99 +278,6 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
       ),
     );
     // --------------------
-  }
-  // --------------------------------------------------------------------------
-}
-
-
-class TimeLineBuilder extends StatelessWidget {
-  // --------------------------------------------------------------------------
-  const TimeLineBuilder({
-    @required this.posts,
-    this.onView,
-    this.onLike,
-    this.controller,
-    this.goToPosterIsOn = true,
-    this.onMoreTap,
-    Key key
-  }) : super(key: key);
-  // --------------------------------------------------------------------------
-  final List<PostModel> posts;
-  final Function(PostModel post) onLike;
-  final Function(PostModel post) onView;
-  final ScrollController controller;
-  final bool goToPosterIsOn;
-  final Function(PostModel post) onMoreTap;
-  // --------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-
-    final Map<String, dynamic> _postsMap = PostModel.organizePostsInMap(
-        posts: posts,
-      );
-
-    final List<String> _keys = _postsMap?.keys?.toList();
-
-    return ListView.builder(
-      controller: controller,
-      physics: const BouncingScrollPhysics(),
-      shrinkWrap: true,
-      padding: EdgeInsets.only(
-        top: Standards.getTimeLineTopMostMargin(),
-        bottom: Standards.timelineMinTileHeight,
-      ),
-      itemCount: _keys.length + 1,
-      itemBuilder: (_, i) {
-
-        if (i == _keys.length) {
-
-          return goToPosterIsOn == false ? const SizedBox() : Column(
-            children: <Widget>[
-
-              const SeparatorLine(
-                width: 100,
-                withMargins: true,
-              ),
-
-              TalkBox(
-                height: 50,
-                text: 'Talk to Humanity',
-                // margins: const EdgeInsets.only(top: 50),
-                color: Colorz.bloodTest,
-                icon: Iconz.share,
-                iconSizeFactor: 0.5,
-                textScaleFactor: 0.8 / 0.5,
-                onTap: () async {
-                  await Nav.goToNewScreen(
-                    context: context,
-                    screen: const PostCreatorScreen(),
-                  );
-                },
-              ),
-
-              const SeparatorLine(
-                width: 100,
-                withMargins: true,
-              ),
-
-            ],
-          );
-
-        }
-
-        else {
-          final String key = _keys[i];
-
-          return TimelineMonthBuilder(
-            onLike: onLike == null ? null : (PostModel post) => onLike(post),
-            onView: onView == null ? null : (PostModel post) => onView(post),
-            posts: _postsMap[key],
-            isFirstMonth: i == 0,
-            onDoubleTap: onMoreTap,
-          );
-        }
-      },
-    );
   }
   // --------------------------------------------------------------------------
 }

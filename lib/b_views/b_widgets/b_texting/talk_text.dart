@@ -1,12 +1,14 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:super_text/super_text.dart';
+import 'package:talktohumanity/d_helpers/talk_theme.dart';
 
 class TalkText extends StatelessWidget {
   // --------------------------------------------------------------------------
   const TalkText({
     /// TEXT
     @required this.text,
+    @required this.isBold,
     this.highlight,
     /// SCALES
     this.boxWidth,
@@ -23,10 +25,7 @@ class TalkText extends StatelessWidget {
     this.boxColor,
     this.highlightColor = const Color.fromARGB(100, 255, 0, 0),
     this.lineColor,
-    /// WEIGHT
-    this.weight,
     /// STYLE
-    this.font,
     this.italic = false,
     this.shadows,
     this.line,
@@ -65,10 +64,8 @@ class TalkText extends StatelessWidget {
   final Color boxColor;
   final Color highlightColor;
   final Color lineColor;
-  /// WEIGHT
-  final FontWeight weight;
   /// STYLE
-  final String font;
+  final bool isBold;
   final bool italic;
   final List<Shadow> shadows;
   final TextDecoration line;
@@ -103,8 +100,8 @@ class TalkText extends StatelessWidget {
       boxColor: boxColor,
       highlightColor: highlightColor,
       lineColor: lineColor,
-      weight: weight,
-      font: font ?? BldrsThemeFonts.fontBldrsHeadlineFont,
+      weight: isBold == true ? FontWeight.w600 : FontWeight.w200,
+      font: isBold == true ? TalkTheme.talkFont : BldrsThemeFonts.fontBldrsBodyFont,
       italic: italic,
       shadows: shadows,
       line: line,

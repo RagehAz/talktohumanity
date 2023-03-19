@@ -152,8 +152,9 @@ class PostCreatorView extends StatelessWidget {
                       height: 50,
                       textScaleFactor: 0.8,
                       text: 'Next',
-                      color: Colorz.white255,
-                      textColor: Colorz.black255,
+                      // color: Colorz.white255,
+                      // textColor: Colorz.black255,
+                      isBold: true,
                       onTap: onPublish,
                     ),
 

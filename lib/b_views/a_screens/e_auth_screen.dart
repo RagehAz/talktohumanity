@@ -124,6 +124,7 @@ class _AuthScreenState extends State<AuthScreen> {
             width: 50,
             icon: Iconz.comGooglePlus,
             onTap: _onGoogleTap,
+            isBold: false,
           ),
 
           TalkBox(
@@ -131,6 +132,7 @@ class _AuthScreenState extends State<AuthScreen> {
             text: 'Go Back',
             icon: Iconz.arrowLeft,
             onTap: _onBack,
+            isBold: false,
           ),
 
         ],

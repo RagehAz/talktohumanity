@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 import 'package:super_image/super_image.dart';
 import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text.dart';
-import 'package:talktohumanity/d_helpers/talk_theme.dart';
 
 class PlanetPageView extends StatelessWidget {
   // --------------------------------------------------------------------------
@@ -52,7 +51,7 @@ class PlanetPageView extends StatelessWidget {
               boxWidth: _screenWidth * 0.7,
               textHeight: 30,
               text: text,
-              font: TalkTheme.talkFont,
+              isBold: true,
               // italic: true,
               margins: 10,
               maxLines: 15,

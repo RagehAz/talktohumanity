@@ -73,77 +73,72 @@ class _LabScreenState extends State<LabScreen> {
       body: ListView(
         children: <Widget>[
 
-        /// CREATE DUMMIES
-        TalkBox(
-          height: 40,
-          text: 'Upload dummy posts',
-          onTap: () async {
+          /// CREATE DUMMIES
+          TalkBox(
+            height: 40,
+            text: 'Upload dummy posts',
+            isBold: true,
+            onTap: () async {
+              for (final PostModel post in PostModel.dummyPosts()){
 
-            for (final PostModel post in PostModel.dummyPosts()){
+                final PostModel _uploaded = await PostRealOps.createNewPost(
+                  post: post,
+                  collName: PostRealOps.publishedPostsColl,
+                );
 
-              final PostModel _uploaded = await PostRealOps.createNewPost(
-                post: post,
-                collName: PostRealOps.publishedPostsColl,
-              );
+                _uploaded?.blogPost();
 
-              _uploaded?.blogPost();
+              }
 
-            }
+              },
+          ),
 
-          },
-        ),
-
-        /// READ ALL POSTS
-        TalkBox(
-          height: 40,
-          text: 'Read all dummies',
-          onTap: () async {
-
-            final List<PostModel> _posts = await PostRealOps.readAllPublishedPosts();
-            blog('RECEIVED ----> ${_posts.length} POSTS HERE BABY');
-
-          },
-        ),
+          /// READ ALL POSTS
+          TalkBox(
+            height: 40,
+            text: 'Read all dummies',
+            isBold: true,
+            onTap: () async {
+              final List<PostModel> _posts = await PostRealOps.readAllPublishedPosts();
+              blog('RECEIVED ----> ${_posts.length} POSTS HERE BABY');
+              },
+          ),
 
           const DotSeparator(),
 
-        /// USER ID
-        TalkText(
+          /// USER ID
+          TalkText(
             text: 'user ID : ${Authing.getUserID()}',
             textHeight: 20,
             maxLines: 2,
             margins: 10,
+            isBold: false,
           ),
 
-        /// GOOGLE SIGN IN
-        TalkBox(
-          height: 40,
-          text: 'Google sign in',
-          onTap: () async {
+          /// GOOGLE SIGN IN
+          TalkBox(
+            height: 40,
+            text: 'Google sign in',
+            isBold: true,
+            onTap: () async {
+              final UserCredential _userCredential = await GoogleAuthing.emailSignIn();
+              Authing.blogUserCredential(credential: _userCredential);
+              setState(() {});
+              },
+          ),
 
-            final UserCredential _userCredential = await GoogleAuthing.emailSignIn();
+          /// GOOGLE SIGN OUT
+          TalkBox(
+            height: 40,
+            text: 'Sign out',
+            isBold: true,
+            onTap: () async {
+              await GoogleAuthing.signOut();
+              setState(() {});
+              },
+          ),
 
-            Authing.blogUserCredential(credential: _userCredential);
-
-            setState(() {});
-
-          },
-        ),
-
-        /// GOOGLE SIGN OUT
-        TalkBox(
-          height: 40,
-          text: 'Sign out',
-          onTap: () async {
-
-            await GoogleAuthing.signOut();
-
-            setState(() {});
-
-          },
-        ),
-
-       const DotSeparator(),
+          const DotSeparator(),
 
           /// SHOW CENTER DIALOG
           TalkBox(
@@ -151,34 +146,30 @@ class _LabScreenState extends State<LabScreen> {
             height: 50,
             textScaleFactor: 0.8,
             text: 'Center dialog',
+            isBold: true,
             color: Colorz.yellow255,
-            textColor: Colorz.black255,
+            // textColor: Colorz.black255,
             onTap: () async {
-
               final bool _ok = await TalkDialog.boolDialog(
                 body: 'Boool',
                 invertButtons: true,
               );
-
               blog('is : $_ok');
-
-            },
+              },
           ),
 
           /// GO TO PENDING POSTS
           TalkBox(
-          height: 40,
-          text: 'Go to Pending posts',
-          onTap: () async {
-
-            await Nav.goToNewScreen(
+            height: 40,
+            text: 'Go to Pending posts',
+            isBold: true,
+            onTap: () async {
+              await Nav.goToNewScreen(
                 context: context,
                 screen: const PendingPostsScreen(),
-            );
-
-          },
-        ),
-
+              );
+              },
+          ),
 
         ],
       ),
@@ -211,13 +202,14 @@ class DataStripWithHeadline extends StatelessWidget {
           textHeight: 20,
           centered: false,
           boxColor: Colorz.bloodTest,
+          isBold: true,
         ),
 
         TalkText(
           text: dataValue.toString(),
           textHeight: 20,
           centered: false,
-          font: BldrsThemeFonts.fontBldrsBodyFont,
+          isBold: false,
           margins: const EdgeInsets.only(bottom: 7),
           maxLines: 3,
           // boxWidth: 300,

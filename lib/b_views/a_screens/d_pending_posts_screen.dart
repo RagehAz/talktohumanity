@@ -7,12 +7,12 @@ import 'package:ldb/ldb.dart';
 import 'package:real/real.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
-import 'package:talktohumanity/packages/wait_dialog/wait_dialog.dart';
+import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
+import 'package:talktohumanity/b_views/b_widgets/e_timeline/timeline_builder.dart';
 import 'package:talktohumanity/c_protocols/post_ldb_ops.dart';
 import 'package:talktohumanity/c_protocols/post_real_ops.dart';
 import 'package:talktohumanity/d_helpers/routing.dart';
-import 'package:talktohumanity/b_views/a_screens/b_archive_screen.dart';
-import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
+import 'package:talktohumanity/packages/wait_dialog/wait_dialog.dart';
 
 class PendingPostsScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -109,8 +109,8 @@ class _PendingPostsScreenState extends State<PendingPostsScreen> {
               return TimeLineBuilder(
                 posts: _posts,
                 controller: _scrollController,
-                goToPosterIsOn: false,
-                onMoreTap: (PostModel post) async {
+                goToPostCreatorButtonIsOn: false,
+                onDoubleTap: (PostModel post) async {
 
                   final GlobalKey flushbarKey = GlobalKey();
 

@@ -65,6 +65,7 @@ class UserCreatorView extends StatelessWidget {
           const TalkText(
             text: 'Add more info about you',
             textHeight: 40,
+            isBold: true,
           ),
 
           const DotSeparator(),
@@ -246,6 +247,7 @@ class UserCreatorView extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
+
                 /// PUBLISH
                 TalkBox(
                   width: 100,
@@ -253,8 +255,8 @@ class UserCreatorView extends StatelessWidget {
                   textScaleFactor: 0.8,
                   text: 'Publish',
                   onTap: onPublish,
-                  color: Colorz.yellow255,
-                  textColor: Colorz.black255,
+                  isBold: true,
+
                 ),
               ],
             ),

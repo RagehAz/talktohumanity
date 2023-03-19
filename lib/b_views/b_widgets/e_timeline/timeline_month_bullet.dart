@@ -1,9 +1,8 @@
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
+import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
 import 'package:talktohumanity/d_helpers/helper_methods.dart';
 import 'package:talktohumanity/d_helpers/standards.dart';
-import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
 
 class TimeLineMonthBullet extends StatelessWidget {
   // --------------------------------------------------------------------------
@@ -42,8 +41,9 @@ class TimeLineMonthBullet extends StatelessWidget {
           ),
           bubble: false,
           textScaleFactor: 1.2,
-          color: Standards.timelineLineColor,
-          textColor: Colorz.black255,
+          // color: Standards.timelineLineColor,
+          // textColor: Colorz.black255,
+          isBold: true,
           corners: Borderers.cornerOnly(
             appIsLTR: true,
             enBottomLeft: Standards.yearBulletCorner,

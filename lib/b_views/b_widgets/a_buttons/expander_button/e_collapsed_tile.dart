@@ -64,6 +64,7 @@ class CollapsedTile extends StatelessWidget {
       icon: arrowDown ? Iconz.arrowDown : Iconz.arrowUp,
       iconSizeFactor: 0.2,
       iconColor: arrowColor ?? Colorz.white255,
+      isBold: false,
     );
 
   }
