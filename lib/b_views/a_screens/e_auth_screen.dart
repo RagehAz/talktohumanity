@@ -4,6 +4,7 @@ import 'package:filers/filers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
+import 'package:night_sky/night_sky.dart';
 import 'package:talktohumanity/packages/authing/authing.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
 import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
@@ -115,29 +116,41 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     // --------------------
     return BasicLayout(
-      body: FloatingList(
-        columnChildren: <Widget>[
+      body: Stack(
+        children: <Widget>[
 
-          TalkBox(
-            height: 50,
-            width: 300,
-            icon: Iconz.comGooglePlus,
-            text: ' SignIn by Google',
-            isBold: true,
-            onTap: _onGoogleTap,
-            color: Colorz.white200,
-            textCentered: false,
-            margins: const EdgeInsets.only(bottom: 10),
+          const Sky(
+            skyType: SkyType.blackStars,
+            skyColor: Colorz.black255,
           ),
 
-          TalkBox(
-            height: 50,
-            text: 'Go Back',
-            icon: Iconz.arrowLeft,
-            onTap: _onBack,
-            isBold: false,
-          ),
+          FloatingList(
+            columnChildren: <Widget>[
 
+              TalkBox(
+                height: 50,
+                width: 300,
+                icon: Iconz.comGooglePlus,
+                text: ' SignIn by Google',
+                isBold: true,
+                onTap: _onGoogleTap,
+                color: Colorz.white200,
+                textCentered: false,
+                margins: const EdgeInsets.only(bottom: 10),
+              ),
+
+              TalkBox(
+                height: 50,
+                text: 'Go Back',
+                icon: Iconz.arrowLeft,
+                iconSizeFactor: 0.3,
+                textScaleFactor: 0.5 / 0.3,
+                onTap: _onBack,
+                isBold: true,
+              ),
+
+            ],
+          ),
         ],
       ),
     );
