@@ -223,7 +223,7 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
             scrollDirection: Axis.vertical,
             children: <Widget>[
 
-              ///
+              /// POST CREATOR PAGE
               Form(
                 key: _formKeyA,
                 child: PostCreatorView(
@@ -247,7 +247,7 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
                 ),
               ),
 
-              ///
+              /// USER CREATOR PAGE
               Form(
                 key: _formKeyB,
                 child: UserCreatorView(

@@ -19,7 +19,6 @@ class TalkText extends StatelessWidget {
     this.lineThickness = 0.5,
     /// SPACING
     this.wordSpacing,
-    this.letterSpacing,
     /// COLORS
     this.textColor = const Color.fromARGB(255, 255, 255, 255),
     this.boxColor,
@@ -58,7 +57,6 @@ class TalkText extends StatelessWidget {
   final double lineThickness;
   /// SPACING
   final double wordSpacing;
-  final double letterSpacing;
   /// COLORS
   final Color textColor;
   final Color boxColor;
@@ -95,7 +93,7 @@ class TalkText extends StatelessWidget {
       margins: margins,
       lineThickness: lineThickness,
       wordSpacing: wordSpacing,
-      letterSpacing: letterSpacing,
+      letterSpacing: 1,
       textColor: textColor,
       boxColor: boxColor,
       highlightColor: highlightColor,

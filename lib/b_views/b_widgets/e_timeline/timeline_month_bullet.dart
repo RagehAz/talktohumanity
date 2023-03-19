@@ -33,7 +33,7 @@ class TimeLineMonthBullet extends StatelessWidget {
         /// YEAR
         TalkBox(
           height: Standards.yearBulletHeight,
-          width: Standards.timelineMinTileHeight,
+          width: Standards.timelineMinTileHeight + 40,
           text: '${getMonthName(month: month, shortForm: false,)} $year',
           // centered: false,
           margins: const EdgeInsets.only(

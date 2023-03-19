@@ -50,7 +50,6 @@ class TalkBox extends StatelessWidget {
     this.onDoubleTap,
     this.appIsLTR = true,
     this.package,
-    this.letterSpacing,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -99,7 +98,6 @@ class TalkBox extends StatelessWidget {
   final bool appIsLTR;
   final String package;
   final bool isBold;
-  final double letterSpacing;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -149,7 +147,7 @@ class TalkBox extends StatelessWidget {
       appIsLTR: appIsLTR ?? true,
       package: package,
       textFont: isBold == true ? TalkTheme.talkFont : BldrsThemeFonts.fontBldrsBodyFont,
-      letterSpacing: letterSpacing,
+      letterSpacing: 1,
       subChild: subChild,
     );
 

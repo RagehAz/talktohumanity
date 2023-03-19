@@ -118,13 +118,16 @@ class _AuthScreenState extends State<AuthScreen> {
       body: FloatingList(
         columnChildren: <Widget>[
 
-
           TalkBox(
             height: 50,
-            width: 50,
+            width: 300,
             icon: Iconz.comGooglePlus,
+            text: ' SignIn by Google',
+            isBold: true,
             onTap: _onGoogleTap,
-            isBold: false,
+            color: Colorz.white200,
+            textCentered: false,
+            margins: const EdgeInsets.only(bottom: 10),
           ),
 
           TalkBox(

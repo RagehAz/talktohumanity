@@ -14,6 +14,7 @@ import 'package:talktohumanity/d_helpers/standards.dart';
 import 'package:talktohumanity/d_helpers/talk_theme.dart';
 import 'package:talktohumanity/packages/authing/authing.dart';
 import 'package:talktohumanity/packages/mediators/super_video_player/super_video_player.dart';
+import 'package:widget_fader/widget_fader.dart';
 
 class ArchiveScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -190,60 +191,70 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
         children: <Widget>[
 
           /// PLANET VIDEO
-          OverflowBox(
-            maxWidth: _longestSide,
-            maxHeight: _longestSide,
-            child: SuperVideoPlayer(
-              width: _longestSide,
-              aspectRatio: 1,
-              autoPlay: true,
-              asset: TalkTheme.earthLoop,
-              loop: true,
+          WidgetFader(
+            fadeType: FadeType.fadeIn,
+            duration: const Duration(seconds: 5),
+            child: OverflowBox(
+              maxWidth: _longestSide,
+              maxHeight: _longestSide,
+              child: SuperVideoPlayer(
+                width: _longestSide,
+                aspectRatio: 1,
+                autoPlay: true,
+                asset: TalkTheme.earthLoop,
+                loop: true,
+              ),
             ),
           ),
 
           /// TIMELINE
-          SizedBox(
-            width: _screenWidth,
-            height: _screenHeight,
-            child: ValueListenableBuilder(
-              valueListenable: _loading,
-              child: Container(),
-              builder: (_, bool isLoading, Widget child) {
+          WidgetFader(
+            fadeType: FadeType.fadeIn,
+            duration: const Duration(seconds: 5),
+            child: Container(
+              width: _screenWidth,
+              height: _screenHeight,
+              color: Colorz.black125,
+              child: ValueListenableBuilder(
+                valueListenable: _loading,
+                child: Container(),
+                builder: (_, bool isLoading, Widget child) {
 
-                /// LOADING
-                if (isLoading) {
-                  return const Loading(
-                    loading: true,
-                    color: Colorz.white255,
-                    size: 500,
-                  );
-                }
+                  /// LOADING
+                  if (isLoading) {
+                    return const Loading(
+                      loading: true,
+                      color: Colorz.white255,
+                      size: 500,
+                    );
+                  }
 
-                /// TIMELINES BUILDER
-                else {
-                  return TimeLineBuilder(
-                    posts: _publishedPosts,
-                    onDoubleTap: (PostModel post) async {
+                  /// TIMELINES BUILDER
+                  else {
+                    return TimeLineBuilder(
+                      posts: _publishedPosts,
+                      onDoubleTap: Authing.getUserID() != Standards.ragehID ? null : (PostModel post)
+                      async {
 
-                      if (Authing.getUserID() == Standards.ragehID){
-                        await Nav.goToNewScreen(
-                          context: context,
-                          screen: const PendingPostsScreen(),
-                        );
-                      }
+                        if (Authing.getUserID() == Standards.ragehID){
+                          await Nav.goToNewScreen(
+                            context: context,
+                            screen: const PendingPostsScreen(),
+                          );
+                        }
 
 
-                      },
-                    controller: _scrollController,
-                    onLike: (PostModel post) => _onLike(post),
-                    onView: (PostModel post) => _onView(post),
-                  );
-                }
+                        },
+                      controller: _scrollController,
+                      onLike: (PostModel post) => _onLike(post),
+                      onView: (PostModel post) => _onView(post),
+                    );
+                  }
 
-                },
-            ),
+                  },
+              ),
       ),
+          ),
 
         ],
       ),

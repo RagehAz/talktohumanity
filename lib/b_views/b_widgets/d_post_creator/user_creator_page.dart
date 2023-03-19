@@ -10,7 +10,7 @@ import 'package:super_box/super_box.dart';
 import 'package:super_text_field/super_text_field.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
 import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text.dart';
-import 'package:talktohumanity/b_views/b_widgets/d_post_creator/post_creator.dart';
+import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text_field.dart';
 
 class UserCreatorView extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -38,7 +38,7 @@ class UserCreatorView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _bubbleWidth = PostCreatorView.getBubbleWidth();
+    final double _bubbleWidth = TalkTextField.getBubbleWidth();
     const double _fieldTextHeight = 28;
     final double _imageSize = SuperTextFieldController.getFieldHeight(
         context: context,
@@ -123,30 +123,12 @@ class UserCreatorView extends StatelessWidget {
                   ),
 
                   /// NAME FIELD
-                  TextFieldBubble(
-                    isFormField: true,
-                    bubbleColor: Colorz.white20,
-                    bubbleHeaderVM: const BubbleHeaderVM(
-                        headlineText: 'Name',
-                        headlineHeight: 18,
-                        headlineColor: Colorz.white200,
-                        redDot: true),
+                  TalkTextField(
+                    headlineText: 'Name',
+                    redDot: true,
                     bubbleWidth: _bubbleWidth - _imageBubbleWidth - 10,
                     textController: nameController,
-                    // maxLength: 10000,
-                    keyboardTextInputType: TextInputType.multiline,
-                    fieldTextFont: BldrsThemeFonts.fontBldrsBodyFont,
-                    hintText: '...',
-                    bulletPointsFont: BldrsThemeFonts.fontBldrsBodyFont,
-                    fieldTextCentered: true,
                     fieldTextHeight: _fieldTextHeight,
-                    // fieldTextPadding: EdgeInsets.only(
-                    //   bottom: 100,
-                    // ),
-                    fieldScrollPadding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom,
-                    ),
-                    autoValidate: canErrorize,
                     canErrorize: canErrorize,
                     validator: (String text){
                       if (TextCheck.isEmpty(text) == true){
@@ -156,8 +138,7 @@ class UserCreatorView extends StatelessWidget {
                         return null;
                       }
                       },
-                    // maxLines: 1,
-                    // minLines: 1,
+                    maxLines: 1,
                   ),
 
                 ],
@@ -166,23 +147,11 @@ class UserCreatorView extends StatelessWidget {
           ),
 
           /// EMAIL FIELD
-          TextFieldBubble(
-            isFormField: true,
-            bubbleColor: Colorz.white20,
-            bubbleHeaderVM: const BubbleHeaderVM(
-                headlineText: 'E-mail',
-                headlineHeight: 18,
-                headlineColor: Colorz.white200,
-                redDot: true),
-            bubbleWidth: _bubbleWidth,
+          TalkTextField(
+            headlineText: 'E-mail',
+            redDot: true,
             textController: emailController,
-            // maxLength: 10000,
-            keyboardTextInputType: TextInputType.multiline,
-            hintText: '...',
-            fieldTextCentered: true,
-            fieldTextFont: BldrsThemeFonts.fontBldrsBodyFont,
             fieldTextHeight: _fieldTextHeight,
-            autoValidate: canErrorize,
             canErrorize: canErrorize,
             validator: (String text) {
 
@@ -200,28 +169,16 @@ class UserCreatorView extends StatelessWidget {
           ),
 
           /// BIO FIELD
-          TextFieldBubble(
-            isFormField: true,
-            bubbleColor: Colorz.white20,
-            bubbleHeaderVM: const BubbleHeaderVM(
-                headlineText: 'Biography',
-                headlineHeight: 18,
-                headlineColor: Colorz.white200,
-                redDot: true),
-            bubbleWidth: _bubbleWidth,
+          TalkTextField(
+            headlineText: 'Biography',
+            redDot: true,
             textController: bioController,
             maxLines: 7,
-            // maxLength: 10000,
-            keyboardTextInputType: TextInputType.multiline,
-            hintText: '...',
             minLines: 3,
-            fieldTextCentered: true,
-            fieldTextFont: BldrsThemeFonts.fontBldrsBodyFont,
             fieldTextHeight: _fieldTextHeight,
             fieldScrollPadding: EdgeInsets.only(
               bottom: MediaQuery.of(context).viewInsets.bottom + 100,
             ),
-            autoValidate: canErrorize,
             canErrorize: canErrorize,
             validator: (String text) {
               if (TextCheck.isEmpty(text) == true) {

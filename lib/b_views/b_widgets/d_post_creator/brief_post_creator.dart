@@ -1,12 +1,12 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:scale/scale.dart';
 import 'package:stringer/stringer.dart';
 import 'package:super_image/super_image.dart';
-import 'package:talktohumanity/d_helpers/helper_methods.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/main_button.dart';
+import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text_field.dart';
+import 'package:talktohumanity/d_helpers/helper_methods.dart';
 import 'package:talktohumanity/d_helpers/talk_theme.dart';
 
 class BriefPostCreatorView extends StatelessWidget {
@@ -36,7 +36,6 @@ class BriefPostCreatorView extends StatelessWidget {
 
     final double _screenWidth = Scale.screenWidth(context);
     final double _screenHeight = Scale.screenHeight(context);
-    final double _bubbleWidth = BriefPostCreatorView.getBubbleWidth();
 
     return Stack(
       alignment: Alignment.center,
@@ -63,27 +62,12 @@ class BriefPostCreatorView extends StatelessWidget {
               /// POST BODY FIELD
               Form(
                 key: formKey,
-                child: TextFieldBubble(
-                  isFormField: true,
-                  bubbleHeaderVM: const BubbleHeaderVM(
-                    headlineText: 'My Message to the world',
-                    headlineHeight: 18,
-                    headlineColor: Colorz.white200
-                  ),
-                  bubbleWidth: _bubbleWidth,
+                child: TalkTextField(
+                  headlineText: 'My Message to the world',
                   bubbleColor: Colorz.nothing,
                   textController: bodyController,
-                  maxLines: 6,
-                  // maxLength: 10000,
-                  keyboardTextInputType: TextInputType.multiline,
-                  fieldTextFont: BldrsThemeFonts.fontBldrsBodyFont,
-                  hintText: '...',
-                  bulletPointsFont: BldrsThemeFonts.fontBldrsBodyFont,
                   minLines: 6,
-                  fieldTextCentered: true,
-                  fieldTextHeight: 27,
                   canErrorize: canErrorize,
-                  autoValidate: canErrorize,
                   validator: (String text){
 
                     if (TextCheck.isEmpty(text) == true){
@@ -119,7 +103,7 @@ class BriefPostCreatorView extends StatelessWidget {
                       color: Colorz.white20,
                       textColor: Colorz.white255,
                       smallText: true,
-                      width: 170,
+                      width: 220,
                     ),
 
                     /// PUBLISH

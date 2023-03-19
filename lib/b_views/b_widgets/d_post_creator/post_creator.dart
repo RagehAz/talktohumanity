@@ -1,13 +1,12 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 // import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:scale/scale.dart';
 import 'package:stringer/stringer.dart';
 import 'package:super_image/super_image.dart';
-import 'package:talktohumanity/d_helpers/helper_methods.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
+import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text_field.dart';
 
 class PostCreatorView extends StatelessWidget {
   // -----------------------------------------------------------------------------
@@ -30,17 +29,11 @@ class PostCreatorView extends StatelessWidget {
   final bool titleIsOn;
   final Function(bool isOn) onSwitchTitle;
   // -----------------------------------------------------------------------------
-  static double getBubbleWidth(){
-    final double _screenWidth = Scale.screenWidth(getContext());
-    return _screenWidth - 20;
-  }
-  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final double _screenWidth = Scale.screenWidth(context);
     final double _screenHeight = Scale.screenHeight(context);
-    final double _bubbleWidth = PostCreatorView.getBubbleWidth();
 
     return Stack(
       alignment: Alignment.center,
@@ -72,57 +65,20 @@ class PostCreatorView extends StatelessWidget {
               // ),
 
               /// POST TITLE FIELD
-              TextFieldBubble(
-                bubbleHeaderVM: BubbleHeaderVM(
-                  headlineText: 'Title',
-                  headlineHeight: 18,
-                  headlineColor: titleIsOn == true ? Colorz.white200 : Colorz.white80,
-                  switchValue: titleIsOn,
-                  hasSwitch: true,
-                  onSwitchTap: onSwitchTitle,
-                  switchTrackColor: Colorz.white80,
-                  switchDisabledColor: Colorz.black200,
-                  // switchActiveColor: Colorz.white255,
-                  // appIsLTR: true,
-                  // textDirection: TextDirection.ltr,
-                  font: BldrsThemeFonts.fontBldrsBodyFont,
-                  switchDisabledTrackColor: Colorz.white20,
-                ),
-                bubbleWidth: _bubbleWidth,
+              TalkTextField(
+                headlineText: 'Message Title',
                 textController: titleController,
-                bubbleColor: titleIsOn == true ? Colorz.white10 : Colorz.nothing,
-                maxLines: 2,
-                // maxLength: 10000,
-                keyboardTextInputType: TextInputType.multiline,
-                fieldTextFont: BldrsThemeFonts.fontBldrsHeadlineFont,
-                hintText: '...',
-                bulletPointsFont: BldrsThemeFonts.fontBldrsBodyFont,
-                // minLines: 1,
-                fieldTextCentered: true,
+                hasSwitch: true,
+                onSwitchTap: onSwitchTitle,
                 fieldTextHeight: 37,
                 isDisabled: !titleIsOn,
               ),
 
               /// POST BODY FIELD
-              TextFieldBubble(
-                isFormField: true,
-                bubbleHeaderVM: BubbleHeaderVM(
-                  headlineText: titleIsOn ? 'Message' : 'Body',
-                  headlineHeight: 18,
-                  headlineColor: Colorz.white200
-                ),
-                bubbleWidth: _bubbleWidth,
+              TalkTextField(
+                headlineText: 'Message',
                 textController: bodyController,
-                maxLines: 6,
-                // maxLength: 10000,
-                keyboardTextInputType: TextInputType.multiline,
-                fieldTextFont: BldrsThemeFonts.fontBldrsBodyFont,
-                hintText: '...',
-                bulletPointsFont: BldrsThemeFonts.fontBldrsBodyFont,
                 minLines: 6,
-                fieldTextCentered: true,
-                fieldTextHeight: 27,
-                autoValidate: canErrorize,
                 canErrorize: canErrorize,
                 validator: (String text){
 
@@ -143,8 +99,25 @@ class PostCreatorView extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 5,),
                 padding: const EdgeInsets.only(left: 10, right: 10,),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
+
+                    /// GO BACK
+                    TalkBox(
+                      // width: 200,
+                      height: 50,
+                      text: 'Back',
+                      color: Colorz.white10,
+                      textColor: Colorz.white255,
+                      icon: Iconz.arrowLeft,
+                      iconSizeFactor: 0.3,
+                      textScaleFactor: 0.6 / 0.3,
+                      iconColor: Colorz.white255,
+                      // textColor: Colorz.black255,
+                      isBold: true,
+                      textCentered: false,
+                      onTap: () => Nav.goBack(context: context),
+                    ),
 
                     /// PUBLISH
                     TalkBox(

@@ -44,8 +44,8 @@ class TimelineTile extends StatelessWidget {
       // scrollable: true
       // isDisabled: index.isOdd,
       width: Scale.screenWidth(context),
-      // initialColor: Colorz.bloodTest,
-      expansionColor: Colorz.white20,
+      initialColor: Colorz.black0,
+      expansionColor: Colorz.black150,
       margin: EdgeInsets.zero,
       corners: 0,
       collapsedHeight: Standards.timelineMinTileHeight,
@@ -97,6 +97,12 @@ class _TimelineHeadline extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final double _tileUserBoxWidth = Standards.getTimelineUserBoxWidth();
+    const List<Shadow> _textShadows = <Shadow>[
+      Shadow(
+        offset: Offset(1.5,1),
+        blurRadius: 1,
+      ),
+    ];
     // --------------------
     return SizedBox(
       width: _tileUserBoxWidth,
@@ -142,6 +148,7 @@ class _TimelineHeadline extends StatelessWidget {
                   // maxLines: 1,
                   textHeight: 25,
                   isBold: true,
+                  shadows: _textShadows,
                 ),
 
                 /// SECOND HEADLINE
@@ -149,10 +156,11 @@ class _TimelineHeadline extends StatelessWidget {
                   text: post.bio,
                   isBold: false,
                   italic: true,
-                  textHeight: 20,
-                  textColor: Colorz.white125,
+                  textHeight: 22,
+                  textColor: Colorz.white200,
                   maxLines: 2,
                   centered: false,
+                  shadows: _textShadows,
                 ),
 
               ],
@@ -246,7 +254,6 @@ class _TimelineCornerBox extends StatelessWidget {
               isBold: true,
               // boxColor: Colorz.bloodTest,
               centered: false,
-              letterSpacing: 1,
             ),
           ),
 
@@ -263,7 +270,6 @@ class _TimelineCornerBox extends StatelessWidget {
               isBold: false,
               // boxColor: Colorz.bloodTest,
               centered: false,
-              letterSpacing: 1,
             ),
           ),
 
