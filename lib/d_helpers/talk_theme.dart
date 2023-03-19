@@ -17,7 +17,6 @@ class TalkTheme {
   /// ICONS
 
   // --------------------
-  static const String talkFontBold = 'assets/fonts/tccb.ttf';
-  static const String talkFontMid = 'assets/fonts/tccm.ttf';
+  static const String talkFont = 'ArabicBody';
   // -----------------------------------------------------------------------------
 }

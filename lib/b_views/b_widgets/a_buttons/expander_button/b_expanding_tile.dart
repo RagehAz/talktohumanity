@@ -2,8 +2,7 @@ import 'package:mapper/mapper.dart';
 import 'package:scale/scale.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-
-import 'c_non_collabsable_tile.dart';
+import 'c_non_collapsable_tile.dart';
 import 'd_collapsable_tile.dart';
 
 class ExpandingTile extends StatelessWidget {

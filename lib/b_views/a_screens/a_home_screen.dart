@@ -1,17 +1,16 @@
 import 'package:animators/animators.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:scale/scale.dart';
-import 'package:super_image/super_image.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
-import 'package:talktohumanity/d_helpers/helper_methods.dart';
-import 'package:talktohumanity/d_helpers/routing.dart';
 import 'package:talktohumanity/b_views/a_screens/c_post_creator_screen.dart';
 import 'package:talktohumanity/b_views/a_screens/x_lab_screen.dart';
-import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text.dart';
 import 'package:talktohumanity/b_views/b_widgets/d_post_creator/brief_post_creator.dart';
+import 'package:talktohumanity/b_views/b_widgets/f_planet_page_view/planet_page_view.dart';
+import 'package:talktohumanity/d_helpers/helper_methods.dart';
+import 'package:talktohumanity/d_helpers/routing.dart';
+import 'package:talktohumanity/d_helpers/talk_theme.dart';
 
 class HomeScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -29,6 +28,9 @@ class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController();
   final TextEditingController _textController = TextEditingController();
   final TextEditingController _bodyController = TextEditingController();
+  // -----------------------------------------------------------------------------
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _canErrorize = false;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -80,17 +82,27 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _onPublishMessage() async {
 
-    await Nav.goToNewScreen(
-      context: context,
-      screen: PostCreatorScreen(
+    final bool _isValid = _formKey.currentState.validate();
+
+    if (_isValid == true) {
+      await Nav.goToNewScreen(
+        context: context,
+        screen: PostCreatorScreen(
           draft: PostModel.generateDraft(
             body: _bodyController.text,
           ),
-      ),
-    );
+        ),
+      );
+    }
+
+    else {
+      setState(() {
+        _canErrorize = true;
+      });
+    }
 
   }
   // --------------------
@@ -102,13 +114,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-
-    const String _s = 'And your message will be the only message visible to the entire world for '
-        '24 hours\n\nwill never be removed\n\nand shall never be forgotten';
-
     final double _screenWidth = Scale.screenWidth(context);
     final double _screenHeight = Scale.screenHeight(context);
-
+    // --------------------
     return BasicLayout(
       body: SizedBox(
         width: _screenWidth,
@@ -120,93 +128,26 @@ class _HomeScreenState extends State<HomeScreen> {
           children: <Widget>[
 
             /// 1
-            GestureDetector(
+            PlanetPageView(
+              text: 'If you have\none chance\nto speak\nto all Humanity\n',
+              icon: TalkTheme.logo_night,
               onTap: () => _slideToNextPage(currentSlide: 0),
               onLongPress: () => Nav.goToNewScreen(context: context, screen: const LabScreen()),
-              child: Container(
-                width: _screenWidth,
-                height: _screenHeight,
-                color: Colorz.black200,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const SuperImage(
-                      height: 100,
-                      width: 100,
-                      pic: Iconz.contAfrica,
-                    ),
-                    TalkText(
-                      boxWidth: _screenWidth * 0.7,
-                      textHeight: 40,
-                      text: 'If you have\none chance\nto speak to all Humanity\n',
-                      font: BldrsThemeFonts.fontBldrsBodyFont,
-                      italic: true,
-                      margins: 10,
-                      maxLines: 5,
-                    ),
-                  ],
-                ),
-              ),
             ),
 
             /// 2
-            GestureDetector(
-              onTap: () => _slideToNextPage(
-                currentSlide: 1,
-              ),
-              child: Container(
-                width: _screenWidth,
-                height: _screenHeight,
-                color: Colorz.black200,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-
-                    const SuperImage(
-                      height: 100,
-                      width: 100,
-                      pic: Iconz.contAfrica,
-                    ),
-
-                    TalkText(
-                      boxWidth: _screenWidth * 0.7,
-                      textHeight: 40,
-                      text: _s,
-                      font: BldrsThemeFonts.fontBldrsBodyFont,
-                      italic: true,
-                      margins: 10,
-                      maxLines: 20,
-                    ),
-
-                  ],
-                ),
-              ),
+            PlanetPageView(
+              text: 'And your message will be the only message visible to the entire world for '
+                    '24 hours\n\nIt will not be removed\n\nand shall never be forgotten',
+              icon: TalkTheme.logo_cloudy,
+              onTap: () => _slideToNextPage(currentSlide: 1,),
             ),
 
             /// 3
-            GestureDetector(
-              onTap: () => _slideToNextPage(
-                currentSlide: 2,
-              ),
-              child: Container(
-                width: _screenWidth,
-                height: _screenHeight,
-                color: Colorz.black200,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    TalkText(
-                      boxWidth: _screenWidth * 0.7,
-                      textHeight: 40,
-                      text: 'What shall you say ?',
-                      font: BldrsThemeFonts.fontBldrsBodyFont,
-                      italic: true,
-                      margins: 10,
-                      maxLines: 20,
-                    ),
-                  ],
-                ),
-              ),
+            PlanetPageView(
+              text: 'What shall you say ?',
+              icon: TalkTheme.logo_day,
+              onTap: () => _slideToNextPage(currentSlide: 2,),
             ),
 
             /// 4
@@ -216,6 +157,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               child: BriefPostCreatorView(
                 bodyController: _bodyController,
+                formKey: _formKey,
+                canErrorize: _canErrorize,
                 onPublish: _onPublishMessage,
                 onSkip: _onImNotReady,
               ),

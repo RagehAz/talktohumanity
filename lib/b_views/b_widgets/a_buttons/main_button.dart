@@ -1,6 +1,7 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
+import 'package:talktohumanity/d_helpers/talk_theme.dart';
 
 class MainButton extends StatelessWidget {
   // --------------------------------------------------------------------------
@@ -27,15 +28,16 @@ class MainButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return TalkBox(
-      width: 100,
+      width: width,
       height: height,
       textScaleFactor: smallText == true ? 0.6 : 0.8,
       text: text,
       onTap: onTap,
       color: color,
       textColor: textColor,
-      textFont: BldrsThemeFonts.fontBldrsHeadlineFont,
-      textItalic: true,
+      textFont: TalkTheme.talkFont,
+      textWeight: FontWeight.w600,
+      // textItalic: true,
       textMaxLines: 2,
     );
 
