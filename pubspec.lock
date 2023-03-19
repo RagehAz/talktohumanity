@@ -55,10 +55,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: a736e0fcad8db177c2432d665f78adfe64ae5688
+      resolved-ref: "55fd9b768761c2a8a8b2f441013b4aeb652d395e"
       url: "https://github.com/RagehAz/bldrs_theme.git"
     source: git
-    version: "1.0.4"
+    version: "1.0.5"
   boolean_selector:
     dependency: transitive
     description:
@@ -298,7 +298,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "9d54d46cbf6fa1bc57d328c31d57bd497a99be13"
+      resolved-ref: c7a5d1e29d9985425713a665afdcedde555074d8
       url: "https://github.com/RagehAz/dialogs.git"
     source: git
     version: "0.0.1"
@@ -1267,6 +1267,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.1.1"
+  youtube_metadata:
+    dependency: "direct main"
+    description:
+      name: youtube_metadata
+      sha256: f2ad59fb586ecddc8524692ca3f31ad7890ecbe064560adbfc2c9c2d071a5c93
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.1"
   youtube_player_flutter:
     dependency: "direct main"
     description:

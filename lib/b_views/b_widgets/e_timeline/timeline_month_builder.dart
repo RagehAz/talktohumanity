@@ -29,6 +29,7 @@ class TimelineMonthBuilder extends StatelessWidget {
       shrinkWrap: true,
       itemBuilder: (_, int i) {
 
+        /// MONTH BULLET
         if (i == posts.length) {
           return TimeLineMonthBullet(
             month: posts.first.time.month,
@@ -36,6 +37,7 @@ class TimelineMonthBuilder extends StatelessWidget {
           );
         }
 
+        /// MONTH TILES
         else {
 
           final int index = i ;
@@ -54,6 +56,7 @@ class TimelineMonthBuilder extends StatelessWidget {
 
       },
     );
+
   }
   // --------------------------------------------------------------------------
 }

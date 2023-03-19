@@ -113,6 +113,7 @@ class _TimelineHeadline extends StatelessWidget {
             corners: Standards.timelinePicSize * 0.5,
             icon: post.pic,
             isBold: true,
+            color: Colorz.nothing,
             margins: const EdgeInsets.only(
               top: Standards.postUserPicTopMargin,
               left: Standards.timelineSideMargin,
@@ -308,6 +309,12 @@ class _TimeLineBody extends StatelessWidget {
     final double _postBubbleWidth = Standards.getTimelinePostBubbleWidth();
     final double _bubbleHeight = Standards.getPostBubbleHeight();
     // --------------------
+    final String _viewsCount = Numeric.formatNumToCounterCaliber(
+      x: post.views,
+      thousand: 'K',
+      million: 'M',
+    );
+
     return Row(
       children: <Widget>[
 
@@ -326,7 +333,7 @@ class _TimeLineBody extends StatelessWidget {
           child: Column(
             children: <Widget>[
 
-              /// BUBBLE
+              /// MESSAGE BUBBLE
               Container(
                 height: _bubbleHeight,
                 width: _postBubbleWidth,
@@ -388,7 +395,7 @@ class _TimeLineBody extends StatelessWidget {
                     TalkBox(
                       height: Standards.postButtonsHeight,
                       icon: Iconz.viewsIcon,
-                      text: '${Numeric.formatNumToCounterCaliber(x: post.views)} views',
+                      text: '$_viewsCount   Views',
                       iconSizeFactor: 0.5,
                       textScaleFactor: 0.7 / 0.5,
                       bubble: false,
@@ -408,16 +415,21 @@ class _TimeLineBody extends StatelessWidget {
                           final bool _isLiked = snap.data;
 
                           final String _likesCount = Numeric.formatNumToCounterCaliber(
-                              x: post.likes
+                            x: post.likes,
+                            million: 'M',
+                            thousand: 'K'
                           );
 
                           return TalkBox(
                             height: Standards.postButtonsHeight,
-                            icon: Iconz.save,
+                            icon: Iconz.love
+
+
+                            ,
                             isBold: true,
-                            text: '$_likesCount likes',
-                            iconSizeFactor: 0.7,
-                            // textScaleFactor: 0.7 / 0.7,
+                            text: '$_likesCount   Likes',
+                            iconSizeFactor: 0.5,
+                            textScaleFactor: 0.7 / 0.5,
                             onTap: onLike,
                             color: _isLiked == true ? Colorz.white255 : Colorz.nothing,
                             textColor: _isLiked == true ? Colorz.black255 : Colorz.white255,
