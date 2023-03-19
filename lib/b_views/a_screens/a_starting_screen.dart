@@ -14,18 +14,18 @@ import 'package:talktohumanity/d_helpers/helper_methods.dart';
 import 'package:talktohumanity/d_helpers/routing.dart';
 import 'package:talktohumanity/d_helpers/talk_theme.dart';
 
-class HomeScreen extends StatefulWidget {
+class StartingScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const HomeScreen({Key key}) : super(key: key);
+  const StartingScreen({Key key}) : super(key: key);
 
   /// --------------------------------------------------------------------------
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _StartingScreenState createState() => _StartingScreenState();
 
   /// --------------------------------------------------------------------------
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _StartingScreenState extends State<StartingScreen> {
   // -----------------------------------------------------------------------------
   final PageController _pageController = PageController();
   final TextEditingController _textController = TextEditingController();
@@ -77,6 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _slideToNextPage({
     @required int currentSlide,
   }) async {
+    FocusManager.instance.primaryFocus?.unfocus();
     await Sliders.slideToNext(
       pageController: _pageController,
       numberOfSlides: 4,

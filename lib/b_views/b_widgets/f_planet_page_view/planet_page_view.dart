@@ -1,3 +1,4 @@
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 import 'package:super_image/super_image.dart';
@@ -28,9 +29,10 @@ class PlanetPageView extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       onLongPress: onLongPress,
-      child: SizedBox(
+      child: Container(
         width: _screenWidth,
         height: _screenHeight,
+        color: Colorz.nothing,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
