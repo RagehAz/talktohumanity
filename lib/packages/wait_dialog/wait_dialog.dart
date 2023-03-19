@@ -5,8 +5,8 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 import 'package:super_box/super_box.dart';
-import 'package:talktohumanity/services/helper_methods.dart';
-import 'package:talktohumanity/views/widgets/basics/talk_text.dart';
+import 'package:talktohumanity/d_helpers/helper_methods.dart';
+import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text.dart';
 import 'package:widget_fader/widget_fader.dart';
 
 void pushWaitDialog({

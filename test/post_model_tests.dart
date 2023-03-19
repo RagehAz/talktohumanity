@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:talktohumanity/model/post_model.dart';
+import 'package:talktohumanity/a_models/post_model.dart';
 
 void main() {
 
