@@ -66,6 +66,9 @@ dependencies:
   layouts:
     git:
       url: https://github.com/RagehAz/layouts.git
+  night_sky:
+    git:
+      url: https://github.com/RagehAz/night_sky.git
   # ---------------------------
   # MY BACK END PACKAGES
   rest:

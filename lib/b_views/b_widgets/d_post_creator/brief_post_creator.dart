@@ -44,7 +44,7 @@ class BriefPostCreatorView extends StatelessWidget {
 
         /// BACKGROUND WORLD
         Opacity(
-          opacity: 0.3,
+          opacity: 1,
           child: SuperImage(
             height: _screenWidth * 1.2,
             width: _screenWidth * 1.2,
