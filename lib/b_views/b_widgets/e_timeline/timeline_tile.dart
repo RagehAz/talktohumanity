@@ -363,7 +363,7 @@ class _TimeLineBody extends StatelessWidget {
                           text: post.headline,
                           textHeight: 35,
                           margins: 10,
-                          maxLines: 2,
+                          maxLines: 5,
                           isBold: true,
                         ),
 

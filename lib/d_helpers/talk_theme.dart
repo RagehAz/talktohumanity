@@ -25,4 +25,10 @@ class TalkTheme {
   // --------------------
   static const String earthLoop = 'assets/videos/earth_loop.mp4';
   // -----------------------------------------------------------------------------
+
+  /// SOUNDS
+
+  // --------------------
+  static const String serenityTrack = 'assets/sounds/serenity.mp3'; // 411 seconds
+  // -----------------------------------------------------------------------------
 }

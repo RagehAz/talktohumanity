@@ -3,6 +3,7 @@ import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:mapper/mapper.dart';
+import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
 import 'package:super_box/super_box.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
@@ -11,6 +12,7 @@ import 'package:talktohumanity/c_protocols/post_ldb_ops.dart';
 import 'package:talktohumanity/c_protocols/post_real_ops.dart';
 import 'package:talktohumanity/d_helpers/standards.dart';
 import 'package:talktohumanity/d_helpers/talk_theme.dart';
+import 'package:talktohumanity/packages/mediators/mediators.dart';
 import 'package:talktohumanity/packages/mediators/super_video_player/super_video_player.dart';
 import 'package:widget_fader/widget_fader.dart';
 
@@ -46,6 +48,20 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
   void initState() {
     super.initState();
 
+    Sounder.playSound(
+      mp3Asset: TalkTheme.serenityTrack,
+      loop: true,
+      initialPosition: Duration(
+          seconds: Numeric.createRandomIndex(
+            listLength: 410,
+          ),
+      ),
+      initialVolume: 0,
+      fadeIn: true,
+      fadeInMilliseconds: 5000,
+      mounted: mounted,
+    );
+
   }
   // --------------------
   bool _isInit = true;
@@ -68,6 +84,7 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
   void dispose() {
     _loading.dispose();
     _scrollController.dispose();
+    Sounder.dispose();
     super.dispose();
   }
   // --------------------------------------------------------------------------

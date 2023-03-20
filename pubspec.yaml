@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   # ------------------------------------
+  just_audio: ^0.9.24
   firebase_core: ^2.4.1
   page_transition: ^2.0.4
   provider: ^6.0.3
@@ -140,6 +141,7 @@ flutter:
     - assets/
     - assets/icons/
     - assets/videos/
+    - assets/sounds/
   # ------------------------------------
   fonts:
     - family: BldrsHeadlineFont
