@@ -394,7 +394,7 @@ class PostModel {
   /// MODIFIERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<PostModel> changeCounterCount({
     @required List<PostModel> posts,
     @required PostModel post,
@@ -441,7 +441,7 @@ class PostModel {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<PostModel> replacePostInPosts({
     @required List<PostModel> posts,
     @required PostModel post,

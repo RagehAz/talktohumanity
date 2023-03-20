@@ -4,18 +4,18 @@ import 'package:filers/filers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
+import 'package:mediators/mediators.dart';
+import 'package:storage/foundation/pic_meta_model.dart';
+import 'package:storage/storage.dart';
 import 'package:stringer/stringer.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
-import 'package:talktohumanity/packages/authing/authing.dart';
-import 'package:talktohumanity/packages/mediators/mediators.dart';
-import 'package:talktohumanity/packages/storage/foundation/pic_meta_model.dart';
-import 'package:talktohumanity/packages/storage/storage.dart';
-import 'package:talktohumanity/packages/wait_dialog/wait_dialog.dart';
+import 'package:talktohumanity/b_views/a_screens/e_auth_screen.dart';
+import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
 import 'package:talktohumanity/c_protocols/post_real_ops.dart';
 import 'package:talktohumanity/d_helpers/helper_methods.dart';
 import 'package:talktohumanity/d_helpers/routing.dart';
-import 'package:talktohumanity/b_views/a_screens/e_auth_screen.dart';
-import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
+import 'package:talktohumanity/packages/authing/authing.dart';
+import 'package:talktohumanity/packages/wait_dialog/wait_dialog.dart';
 // -----------------------------------------------------------------------------
 /// TESTED : WORKS PERFECT
 Future<bool> prePublishCheckUps({

@@ -41,8 +41,7 @@ dependencies:
   # Permitter
   permission_handler: ^10.0.0 # => needed for local contacts_service & sound recorder
   geolocator: ^9.0.1
-  # ------------------------------------
-  # STORAGE
+
   firebase_storage: ^11.0.3
   http: ^0.13.4
   # ------------------------------------
@@ -117,12 +116,18 @@ dependencies:
   dialogs:
     git:
       url: https://github.com/RagehAz/dialogs.git
-  # ------------------------------------
+  storage:
+    git:
+      url: https://github.com/RagehAz/storage.git
+  mediators:
+    git:
+      url: https://github.com/RagehAz/mediators.git
+# ------------------------------------
 dev_dependencies:
   flutter_test:
     sdk: flutter
   lint: ^1.0.0
-  # ------------------------------------
+# ------------------------------------
 flutter_native_splash:
 #  # -> run the following command in the terminal:
 #  # -> flutter pub run flutter_native_splash:create
@@ -136,7 +141,7 @@ flutter_native_splash:
   android: true
   ios: true
   web: true
-  # ------------------------------------
+# ------------------------------------
 #flutter_icons:
 #  android: "launcher_icon"
 #  ios: true
@@ -147,7 +152,7 @@ flutter_native_splash:
 #    image_path: "assets/icons/day.png"
 #    background_color: "#000000"
 #    theme_color: "#000000"
-  # ------------------------------------
+# ------------------------------------
 flutter:
   uses-material-design: true
   assets:
@@ -155,7 +160,7 @@ flutter:
     - assets/icons/
     - assets/videos/
     - assets/sounds/
-  # ------------------------------------
+# ------------------------------------
   fonts:
     - family: BldrsHeadlineFont
       fonts:

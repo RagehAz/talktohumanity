@@ -58,6 +58,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.1.13"
+  authing:
+    dependency: transitive
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "725f726045fce7ab2af9177e0b6863f89a733302"
+      url: "https://github.com/RagehAz/authing.git"
+    source: git
+    version: "0.0.1"
   bldrs_theme:
     dependency: "direct main"
     description:
@@ -762,6 +771,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.2.0"
+  mediators:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "3387bafad87ea519092e1cff49db3a773eff35ff"
+      url: "https://github.com/RagehAz/mediators.git"
+    source: git
+    version: "0.0.1"
   meta:
     dependency: transitive
     description:
@@ -1085,6 +1103,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.11.0"
+  storage:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: f71f47d49d44bec3f432c3e23a55a0e51562741d
+      url: "https://github.com/RagehAz/storage.git"
+    source: git
+    version: "0.0.1"
   stream_channel:
     dependency: transitive
     description:
