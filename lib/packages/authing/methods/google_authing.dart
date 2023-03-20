@@ -59,6 +59,8 @@ class GoogleAuthing {
         invoker: 'signInByGoogle',
         functions: () async {
 
+          await getGoogleSignIn().signOut();
+
           final FirebaseAuth _firebaseAuth = Authing.getFirebaseAuth();
 
           /// if on web

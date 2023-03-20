@@ -1,14 +1,18 @@
 import 'dart:typed_data';
 
 import 'package:animators/animators.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
+import 'package:night_sky/night_sky.dart';
 import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
+import 'package:super_image/super_image.dart';
 import 'package:talktohumanity/c_protocols/publishing_controllers.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
+import 'package:talktohumanity/d_helpers/talk_theme.dart';
 import 'package:talktohumanity/packages/authing/authing.dart';
 import 'package:talktohumanity/packages/mediators/mediators.dart';
 import 'package:talktohumanity/b_views/b_widgets/d_post_creator/post_creator.dart';
@@ -217,59 +221,82 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
       body: SizedBox(
           width: _screenWidth,
           height: _screenHeight,
-          child: PageView(
-            physics: const NeverScrollableScrollPhysics(),
-            controller: _pageController,
-            scrollDirection: Axis.vertical,
-            children: <Widget>[
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
 
-              /// POST CREATOR PAGE
-              Form(
-                key: _formKeyA,
-                child: PostCreatorView(
-                  titleController: _titleController,
-                  bodyController: _bodyController,
-                  onPublish: _onNext,
-                  canErrorize: _canErrorizeA,
-                  onSkip: () => Nav.goBack(context: context),
-                  onSwitchTitle: (bool isOn){
+            const Sky(
+              skyColor: Colorz.black255,
+              skyType: SkyType.blackStars,
+            ),
 
-                    setState(() {
-                      _titleIsOn = isOn;
-                    });
-
-                    if (_titleIsOn == false){
-                      FocusManager.instance.primaryFocus?.unfocus();
-                    }
-
-                  },
-                  titleIsOn: _titleIsOn,
-                ),
+            /// BACKGROUND WORLD
+            Opacity(
+              opacity: 0.9,
+              child: SuperImage(
+                height: _screenWidth * 1.2,
+                width: _screenWidth * 1.2,
+                pic: TalkTheme.logo_day,
               ),
+            ),
 
-              /// USER CREATOR PAGE
-              Form(
-                key: _formKeyB,
-                child: UserCreatorView(
-                  nameController: _nameController,
-                  emailController: _emailController,
-                  bioController: _bioController,
-                  imageBytes: _imageBytes,
-                  onPickImage: _pickImage,
-                  onPublish: _onPublish,
-                  canErrorize: _canErrorizeB,
-                  onSlideBack: () async {
+            /// PAGES
+            PageView(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: _pageController,
+              scrollDirection: Axis.vertical,
+              children: <Widget>[
 
-                    await Sliders.slideToBackFrom(
+                /// POST CREATOR PAGE
+                Form(
+                  key: _formKeyA,
+                  child: PostCreatorView(
+                    titleController: _titleController,
+                    bodyController: _bodyController,
+                    onPublish: _onNext,
+                    canErrorize: _canErrorizeA,
+                    onSkip: () => Nav.goBack(context: context),
+                    onSwitchTitle: (bool isOn){
+
+                      setState(() {
+                        _titleIsOn = isOn;
+                      });
+
+                      if (_titleIsOn == false){
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      }
+
+                      },
+                    titleIsOn: _titleIsOn,
+                  ),
+                ),
+
+                /// USER CREATOR PAGE
+                Form(
+                  key: _formKeyB,
+                  child: UserCreatorView(
+                    nameController: _nameController,
+                    emailController: _emailController,
+                    bioController: _bioController,
+                    imageBytes: _imageBytes,
+                    onPickImage: _pickImage,
+                    onPublish: _onPublish,
+                    canErrorize: _canErrorizeB,
+                    onSlideBack: () async {
+
+                      await Sliders.slideToBackFrom(
                         pageController: _pageController,
                         currentSlide: 1,
-                    );
+                      );
 
-                  },
+                      },
+                  ),
                 ),
-              ),
 
-            ],
+              ],
+            ),
+
+          ],
           ),
         ),
     );

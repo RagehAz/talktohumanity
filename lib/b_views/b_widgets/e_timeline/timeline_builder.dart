@@ -5,6 +5,7 @@ import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/b_views/a_screens/c_post_creator_screen.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
 import 'package:talktohumanity/b_views/b_widgets/e_timeline/timeline_month_builder.dart';
+import 'package:talktohumanity/d_helpers/routing.dart';
 import 'package:talktohumanity/d_helpers/standards.dart';
 
 class TimeLineBuilder extends StatelessWidget {
@@ -72,6 +73,11 @@ class TimeLineBuilder extends StatelessWidget {
                     context: context,
                     screen: const PostCreatorScreen(),
                   );
+                },
+                onLongTap: Standards.isRageh() == false ? null : () async {
+
+                  await Routing.goToLab();
+
                 },
               ),
 

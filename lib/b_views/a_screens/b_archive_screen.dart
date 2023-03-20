@@ -6,13 +6,11 @@ import 'package:mapper/mapper.dart';
 import 'package:scale/scale.dart';
 import 'package:super_box/super_box.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
-import 'package:talktohumanity/b_views/a_screens/d_pending_posts_screen.dart';
 import 'package:talktohumanity/b_views/b_widgets/e_timeline/timeline_builder.dart';
 import 'package:talktohumanity/c_protocols/post_ldb_ops.dart';
 import 'package:talktohumanity/c_protocols/post_real_ops.dart';
 import 'package:talktohumanity/d_helpers/standards.dart';
 import 'package:talktohumanity/d_helpers/talk_theme.dart';
-import 'package:talktohumanity/packages/authing/authing.dart';
 import 'package:talktohumanity/packages/mediators/super_video_player/super_video_player.dart';
 import 'package:widget_fader/widget_fader.dart';
 
@@ -233,18 +231,19 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
                   else {
                     return TimeLineBuilder(
                       posts: _publishedPosts,
-                      onDoubleTap: Authing.getUserID() != Standards.ragehID ? null : (PostModel post)
-                      async {
+                      onDoubleTap: Standards.isRageh() == false ?
+                      null : (PostModel post) async {
 
-                        if (Authing.getUserID() == Standards.ragehID){
-                          await Nav.goToNewScreen(
-                            context: context,
-                            screen: const PendingPostsScreen(),
-                          );
-                        }
+                        // if (Authing.getUserID() == Standards.ragehID){
+                        //   await Nav.goToNewScreen(
+                        //     context: context,
+                        //     screen: const PendingPostsScreen(),
+                        //   );
+                        // }
 
+                          blog('double tapping the fucking bitch : ${post.id}');
 
-                        },
+                          },
                       controller: _scrollController,
                       onLike: (PostModel post) => _onLike(post),
                       onView: (PostModel post) => _onView(post),

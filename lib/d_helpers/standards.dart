@@ -2,6 +2,7 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/d_helpers/helper_methods.dart';
+import 'package:talktohumanity/packages/authing/authing.dart';
 
 class Standards {
   // -----------------------------------------------------------------------------
@@ -10,6 +11,10 @@ class Standards {
 
   // -----------------------------------------------------------------------------
   static const String ragehID = 'ycqVppJgQDYCuMR72QY95zkXvmg1';
+  // --------------------
+  static bool isRageh(){
+    return Authing.getUserID() == ragehID;
+  }
   // -----------------------------------------------------------------------------
   static const double timelineSideMargin = 10;
   static const double timelineLineThickness = 2;

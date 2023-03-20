@@ -5,9 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:night_sky/night_sky.dart';
-import 'package:talktohumanity/packages/authing/authing.dart';
-import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
+import 'package:talktohumanity/b_views/b_widgets/a_buttons/auth_button.dart';
 import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
+import 'package:talktohumanity/packages/authing/authing.dart';
 
 class AuthScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -107,10 +107,15 @@ class _AuthScreenState extends State<AuthScreen> {
 
   }
   // --------------------
-  // /// TESTED : WORKS PERFECT
-  // Future<void> _onAuthError(String error) async {
-  //
-  // }
+  /// TASK : WRITE ME
+  Future<void> _onFacebookTap() async {
+    blog('go facebook');
+  }
+  // --------------------
+  /// TASK : WRITE ME
+  Future<void> _onAppleTap() async {
+    blog('go Apple');
+  }
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -127,27 +132,40 @@ class _AuthScreenState extends State<AuthScreen> {
           FloatingList(
             columnChildren: <Widget>[
 
-              TalkBox(
-                height: 50,
-                width: 300,
+              const DotSeparator(color: Colorz.white200),
+
+              /// GOOGLE SIGN IN
+              AuthButton(
                 icon: Iconz.comGooglePlus,
                 text: ' SignIn by Google',
-                isBold: true,
                 onTap: _onGoogleTap,
-                color: Colorz.white200,
-                textCentered: false,
-                margins: const EdgeInsets.only(bottom: 10),
               ),
 
-              TalkBox(
-                height: 50,
+              /// APPLE SIGN IN
+              AuthButton(
+                icon: Iconz.comApple,
+                text: ' SignIn by Apple',
+                onTap: _onAppleTap,
+              ),
+
+              /// FACEBOOK SIGN IN
+              AuthButton(
+                icon: Iconz.comFacebookWhite,
+                text: ' SignIn by Facebook',
+                onTap: _onFacebookTap,
+              ),
+
+              const DotSeparator(color: Colorz.white200),
+
+              /// GO BACK
+              AuthButton(
                 text: 'Go Back',
                 icon: Iconz.arrowLeft,
-                iconSizeFactor: 0.3,
-                textScaleFactor: 0.5 / 0.3,
                 onTap: _onBack,
-                isBold: true,
+                iconSizeFactor: 0.3,
               ),
+
+              const DotSeparator(color: Colorz.white200),
 
             ],
           ),

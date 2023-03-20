@@ -7,9 +7,8 @@ import 'package:night_sky/night_sky.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/b_views/a_screens/c_post_creator_screen.dart';
-import 'package:talktohumanity/b_views/a_screens/x_lab_screen.dart';
 import 'package:talktohumanity/b_views/b_widgets/d_post_creator/brief_post_creator.dart';
-import 'package:talktohumanity/b_views/b_widgets/f_planet_page_view/planet_page_view.dart';
+import 'package:talktohumanity/b_views/b_widgets/f_planet_page_view/starting_screen_planet_page_view.dart';
 import 'package:talktohumanity/d_helpers/helper_methods.dart';
 import 'package:talktohumanity/d_helpers/routing.dart';
 import 'package:talktohumanity/d_helpers/talk_theme.dart';
@@ -144,7 +143,7 @@ class _StartingScreenState extends State<StartingScreen> {
                   text: 'If you have\none chance\nto speak\nto all Humanity\n',
                   icon: TalkTheme.logo_night,
                   onTap: () => _slideToNextPage(currentSlide: 0),
-                  onLongPress: () => Nav.goToNewScreen(context: context, screen: const LabScreen()),
+                  onLongPress: () => Routing.goToLab(),
                 ),
 
                 /// 2

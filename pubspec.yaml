@@ -121,18 +121,18 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   lint: ^1.0.0
-  flutter_launcher_icons:
-  # ------------------------------------
-flutter_icons:
-  android: "launcher_icon"
-  ios: true
-  image_path: "assets/icons/night.png"
-  min_sdk_android: 21 # android min sdk min:16, default 21
-  web:
-    generate: true
-    image_path: "assets/icons/night.png"
-    background_color: "#000000"
-    theme_color: "#000000"
+#  flutter_launcher_icons:
+#  # ------------------------------------
+#flutter_icons:
+#  android: "launcher_icon"
+#  ios: true
+#  image_path: "assets/icons/night.png"
+#  min_sdk_android: 21 # android min sdk min:16, default 21
+#  web:
+#    generate: true
+#    image_path: "assets/icons/night.png"
+#    background_color: "#000000"
+#    theme_color: "#000000"
   # ------------------------------------
 flutter:
   uses-material-design: true

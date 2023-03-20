@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:scale/scale.dart';
 import 'package:stringer/stringer.dart';
-import 'package:super_image/super_image.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
 import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text_field.dart';
 
@@ -35,28 +34,13 @@ class PostCreatorView extends StatelessWidget {
     final double _screenWidth = Scale.screenWidth(context);
     final double _screenHeight = Scale.screenHeight(context);
 
-    return Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-
-        /// BACKGROUND WORLD
-        Opacity(
-          opacity: 0.3,
-          child: SuperImage(
-            height: _screenWidth * 1.2,
-            width: _screenWidth * 1.2,
-            pic: Iconz.contAfrica,
-          ),
-        ),
-
-        /// BUBBLE
-        Container(
+    return Container(
           width: _screenWidth,
           height: _screenHeight,
           color: Colorz.black200,
           alignment: Alignment.topCenter,
           child: FloatingList(
-            physics: const NeverScrollableScrollPhysics(),
+            // physics: const BouncingScrollPhysics(),
             mainAxisAlignment: MainAxisAlignment.start,
             columnChildren: <Widget>[
 
@@ -140,10 +124,7 @@ class PostCreatorView extends StatelessWidget {
 
             ],
           ),
-        ),
-
-      ],
-    );
+        );
 
   }
   // -----------------------------------------------------------------------------
