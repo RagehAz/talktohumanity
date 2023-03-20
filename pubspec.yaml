@@ -15,7 +15,7 @@ dependencies:
   firebase_core: ^2.4.1
   page_transition: ^2.0.4
   provider: ^6.0.3
-#  flutter_native_splash: ^2.2.9
+  flutter_native_splash: ^2.2.9
   path_provider: ^2.0.12
   segmented_circle_border: ^2.0.1
   # ------------------------------------
@@ -122,18 +122,31 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   lint: ^1.0.0
-  flutter_launcher_icons:
-#  # ------------------------------------
-flutter_icons:
-  android: "launcher_icon"
+  # ------------------------------------
+flutter_native_splash:
+#  # -> run the following command in the terminal:
+#  # -> flutter pub run flutter_native_splash:create
+  color: "#000000"
+  #background_image: "assets/background.png"
+  image: assets/icons/night.png
+  # branding: assets/aw/aw_bldrs_app_icon.png
+  # branding_mode: bottom #bottomRight / bottomLeft / The default values is bottom
+  #  color_dark: "#13244b"
+  #background_image_dark: "assets/dark-background.png"
+  android: true
   ios: true
-  image_path: "assets/icons/day.png"
-  min_sdk_android: 21 # android min sdk min:16, default 21
-  web:
-    generate: true
-    image_path: "assets/icons/day.png"
-    background_color: "#000000"
-    theme_color: "#000000"
+  web: true
+  # ------------------------------------
+#flutter_icons:
+#  android: "launcher_icon"
+#  ios: true
+#  image_path: "assets/icons/day.png"
+#  min_sdk_android: 21 # android min sdk min:16, default 21
+#  web:
+#    generate: true
+#    image_path: "assets/icons/day.png"
+#    background_color: "#000000"
+#    theme_color: "#000000"
   # ------------------------------------
 flutter:
   uses-material-design: true
