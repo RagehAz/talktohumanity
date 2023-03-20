@@ -140,6 +140,15 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
 
       ]);
 
+      setState(() {
+        _publishedPosts = PostModel.changeCounterCount(
+          posts: _publishedPosts,
+          post: post,
+          field: 'likes',
+          increment: -1,
+        );
+      });
+
     }
 
     /// IS NOT LIKED => CREATE A NEW LIKE
@@ -156,12 +165,22 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
         PostRealOps.likePost(post),
 
       ]);
+
+      setState(() {
+        _publishedPosts = PostModel.changeCounterCount(
+          posts: _publishedPosts,
+          post: post,
+          field: 'likes',
+          increment: 1,
+        );
+      });
+
     }
 
-    setState(() {});
 
     post.blogPost();
   }
+
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onView(PostModel post) async {
@@ -186,9 +205,19 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
 
       ]);
 
+      setState(() {
+        _publishedPosts = PostModel.changeCounterCount(
+          posts: _publishedPosts,
+          post: post,
+          field: 'views',
+          increment: 1,
+        );
+      });
     }
 
-    setState(() {});
+    else {
+      setState(() {});
+    }
 
     post.blogPost();
   }
@@ -248,19 +277,15 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
                   else {
                     return TimeLineBuilder(
                       posts: _publishedPosts,
-                      onDoubleTap: Standards.isRageh() == false ?
-                      null : (PostModel post) async {
-
+                      onDoubleTap: Standards.isRageh() == false ? null : (PostModel post) async {
                         // if (Authing.getUserID() == Standards.ragehID){
                         //   await Nav.goToNewScreen(
                         //     context: context,
                         //     screen: const PendingPostsScreen(),
                         //   );
                         // }
-
-                          blog('double tapping the fucking bitch : ${post.id}');
-
-                          },
+                        blog('double tapping the fucking bitch : ${post.id}');
+                        },
                       controller: _scrollController,
                       onLike: (PostModel post) => _onLike(post),
                       onView: (PostModel post) => _onView(post),

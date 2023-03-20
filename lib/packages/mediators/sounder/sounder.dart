@@ -157,7 +157,7 @@ class Sounder  {
         await Future.delayed(Duration(milliseconds: milliSeconds), () async {
           blog('i$i '
               ': initialVolume + (increment * i) '
-              '= $initialVolume + ($_increment * $i) '
+              '= $initialVolume + (${_increment*100} * $i) '
               '= currentVolume $_clean');
 
           await _getPlayer().setVolume(_clean);
@@ -167,6 +167,18 @@ class Sounder  {
     }
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// FCM SOUNDS
+
+  // --------------------
+  static String getFCMSoundFilePath(String fileNameWithoutExtension){
+    return 'resource://raw/$fileNameWithoutExtension';
+  }
+  // -----------------------------------------------------------------------------
+
+  /// FROM BLDRS THEME
+
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> playButtonClick() async {
@@ -185,14 +197,6 @@ class Sounder  {
       mp3Asset: _sounds[_index],
     );
 
-  }
-  // -----------------------------------------------------------------------------
-
-  /// FCM SOUNDS
-
-  // --------------------
-  static String getFCMSoundFilePath(String fileNameWithoutExtension){
-    return 'resource://raw/$fileNameWithoutExtension';
   }
   // -----------------------------------------------------------------------------
 }

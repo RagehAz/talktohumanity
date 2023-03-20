@@ -391,6 +391,80 @@ class PostModel {
   }
   // -----------------------------------------------------------------------------
 
+  /// MODIFIERS
+
+  // --------------------
+  ///
+  static List<PostModel> changeCounterCount({
+    @required List<PostModel> posts,
+    @required PostModel post,
+    @required String field,
+    @required int increment,
+  }){
+    List<PostModel> _output = posts;
+
+    if (
+        Mapper.checkCanLoopList(posts) &&
+        post != null &&
+        (field == 'likes' || field == 'views') &&
+        increment != 0
+    ){
+
+      final int _index = posts.indexWhere((element) => element.id == post.id);
+
+      if (_index != -1){
+
+        final PostModel _oldPost = posts[_index];
+        PostModel _updatedPost;
+
+        if (field == 'likes'){
+          _updatedPost = _oldPost.copyWith(
+            likes: _oldPost.likes + increment,
+          );
+        }
+        if (field == 'views'){
+          _updatedPost = _oldPost.copyWith(
+            likes: _oldPost.views + increment,
+          );
+        }
+
+        _output = replacePostInPosts(
+          posts: posts,
+          post: _updatedPost,
+        );
+
+      }
+
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  ///
+  static List<PostModel> replacePostInPosts({
+    @required List<PostModel> posts,
+    @required PostModel post,
+  }){
+    final List<PostModel> _output = <PostModel>[...?posts];
+
+    if (Mapper.checkCanLoopList(posts) == true && post != null){
+
+      final int _index = posts.indexWhere((element) => element.id == post.id);
+
+      if (_index != -1){
+
+        _output.removeAt(_index);
+        _output.insert(_index, post);
+
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
   /// BLOGGING
 
   // --------------------

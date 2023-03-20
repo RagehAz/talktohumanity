@@ -309,18 +309,61 @@ class _TimeLineBody extends StatelessWidget {
   final Function onView;
   final PostModel post;
   // -----------------------------------------------------------------------------
+  String _createLikesString(PostModel post){
+    String _likesCount = '';
+    if (post != null && post?.likes != 0){
+
+      if (post.likes > 1000000){
+        _likesCount = Numeric.formatNumToCounterCaliber(
+          x: post.likes,
+          thousand: 'K',
+          million: 'M',
+        );
+      }
+
+      else {
+        _likesCount = Numeric.formatNumToSeparatedKilos(
+          number: post.likes,
+        );
+      }
+
+    }
+
+    return _likesCount;
+  }
+  // --------------------
+  String _createViewsString(PostModel post){
+    String _viewsCount = '';
+    if (post != null && post?.views != 0){
+
+      if (post.views > 1000000){
+        _viewsCount = Numeric.formatNumToCounterCaliber(
+          x: post.views,
+          thousand: 'K',
+          million: 'M',
+        );
+      }
+
+      else {
+        _viewsCount = Numeric.formatNumToSeparatedKilos(
+          number: post.views,
+        );
+      }
+
+    }
+
+    return _viewsCount;
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     final double _postBubbleWidth = Standards.getTimelinePostBubbleWidth();
     final double _bubbleHeight = Standards.getPostBubbleHeight();
     // --------------------
-    final String _viewsCount = Numeric.formatNumToCounterCaliber(
-      x: post.views,
-      thousand: 'K',
-      million: 'M',
-    );
-
+    final String _likesCount = _createLikesString(post);
+    final String _viewsCount = _createViewsString(post);
+    // --------------------
     return Row(
       children: <Widget>[
 
@@ -418,20 +461,12 @@ class _TimeLineBody extends StatelessWidget {
                         ),
                         initialData: false,
                         builder: (_, AsyncSnapshot<bool> snap) {
-                          final bool _isLiked = snap.data;
 
-                          final String _likesCount = Numeric.formatNumToCounterCaliber(
-                            x: post.likes,
-                            million: 'M',
-                            thousand: 'K'
-                          );
+                          final bool _isLiked = snap.data;
 
                           return TalkBox(
                             height: Standards.postButtonsHeight,
-                            icon: Iconz.love
-
-
-                            ,
+                            icon: Iconz.love,
                             isBold: true,
                             text: '$_likesCount   Likes',
                             iconSizeFactor: 0.5,
