@@ -7,7 +7,7 @@ import 'package:layouts/layouts.dart';
 import 'package:night_sky/night_sky.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/auth_button.dart';
 import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
-import 'package:talktohumanity/packages/authing/authing.dart';
+import 'package:talktohumanity/packages/lib/authing.dart';
 
 class AuthScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------

@@ -19,6 +19,28 @@ class Authing {
   FirebaseAuth get auth => _auth ??= FirebaseAuth.instance;
   static FirebaseAuth getFirebaseAuth() => Authing.instance.auth;
   // -----------------------------------------------------------------------------
+
+  /// CREATE ANONYMOUS AUTH
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<UserCredential> anonymousSignin() async {
+    UserCredential _userCredential;
+
+    await tryAndCatch(
+        invoker: 'anonymousSignin',
+        functions: () async {
+          _userCredential = await getFirebaseAuth().signInAnonymously();
+        }
+        );
+
+    return _userCredential;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// READ AUTH
+
+  // --------------------
   /// TESTED : WORKS PERFECT
   static User getFirebaseUser() {
     return getFirebaseAuth()?.currentUser;
@@ -94,6 +116,7 @@ class Authing {
   /// BLOGGING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void blogUserCredential({
     @required UserCredential credential,
   }){
@@ -101,30 +124,31 @@ class Authing {
     if (credential == null){
       blog('blogUserCredential : USER CREDENTIAL IS NULL');
     }
+
     else {
       blog('FIRE BASE USER :----> ');
-      blog('credential.user.displayName : ${credential.user.displayName}');
-      blog('credential.user.email : ${credential.user.email}');
-      blog('credential.user.emailVerified : ${credential.user.emailVerified}');
-      blog('credential.user.isAnonymous : ${credential.user.isAnonymous}');
-      blog('credential.user.metadata : ${credential.user.metadata}');
-      blog('credential.user.phoneNumber : ${credential.user.phoneNumber}');
-      blog('credential.user.photoURL : ${credential.user.photoURL}');
-      blog('credential.user.providerData : ${credential.user.providerData}');
-      blog('credential.user.refreshToken : ${credential.user.refreshToken}');
-      blog('credential.user.tenantId : ${credential.user.tenantId}');
-      blog('credential.user.uid : ${credential.user.uid}');
-      blog('credential.user.multiFactor : ${credential.user.multiFactor}');
+      blog('credential.user.displayName : ${credential.user?.displayName}');
+      blog('credential.user.email : ${credential.user?.email}');
+      blog('credential.user.emailVerified : ${credential.user?.emailVerified}');
+      blog('credential.user.isAnonymous : ${credential.user?.isAnonymous}');
+      blog('credential.user.metadata : ${credential.user?.metadata}');
+      blog('credential.user.phoneNumber : ${credential.user?.phoneNumber}');
+      blog('credential.user.photoURL : ${credential.user?.photoURL}');
+      blog('credential.user.providerData : ${credential.user?.providerData}');
+      blog('credential.user.refreshToken : ${credential.user?.refreshToken}');
+      blog('credential.user.tenantId : ${credential.user?.tenantId}');
+      blog('credential.user.uid : ${credential.user?.uid}');
+      blog('credential.user.multiFactor : ${credential.user?.multiFactor}');
       blog('CREDENTIAL :-');
-      blog('credential.credential.accessToken : ${credential.credential.accessToken}');
-      blog('credential.credential.providerId : ${credential.credential.providerId}');
-      blog('credential.credential.signInMethod : ${credential.credential.signInMethod}');
-      blog('credential.credential.token : ${credential.credential.token}');
+      blog('credential.credential.accessToken : ${credential.credential?.accessToken}');
+      blog('credential.credential.providerId : ${credential.credential?.providerId}');
+      blog('credential.credential.signInMethod : ${credential.credential?.signInMethod}');
+      blog('credential.credential.token : ${credential.credential?.token}');
       blog('ADDITIONAL USER INFO :-');
-      blog('credential.additionalUserInfo.providerId : ${credential.additionalUserInfo.providerId}');
-      blog('credential.additionalUserInfo.isNewUser : ${credential.additionalUserInfo.isNewUser}');
-      blog('credential.additionalUserInfo.profile : ${credential.additionalUserInfo.profile}');
-      blog('credential.additionalUserInfo.username : ${credential.additionalUserInfo.username}');
+      blog('credential.additionalUserInfo.providerId : ${credential.additionalUserInfo?.providerId}');
+      blog('credential.additionalUserInfo.isNewUser : ${credential.additionalUserInfo?.isNewUser}');
+      blog('credential.additionalUserInfo.profile : ${credential.additionalUserInfo?.profile}');
+      blog('credential.additionalUserInfo.username : ${credential.additionalUserInfo?.username}');
       blog('blogUserCredential : USER CREDENTIAL BLOG END <-----');
     }
 

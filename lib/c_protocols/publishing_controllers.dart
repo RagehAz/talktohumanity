@@ -11,7 +11,7 @@ import 'package:talktohumanity/c_protocols/image_protocols/user_image_protocols.
 import 'package:talktohumanity/c_protocols/post_protocols/post_real_ops.dart';
 import 'package:talktohumanity/d_helpers/helper_methods.dart';
 import 'package:talktohumanity/d_helpers/routing.dart';
-import 'package:talktohumanity/packages/authing/authing.dart';
+import 'package:talktohumanity/packages/lib/authing.dart';
 import 'package:talktohumanity/packages/wait_dialog/wait_dialog.dart';
 // -----------------------------------------------------------------------------
 /// TESTED : WORKS PERFECT

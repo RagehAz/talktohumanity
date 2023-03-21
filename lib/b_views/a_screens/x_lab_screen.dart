@@ -5,12 +5,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
-import 'package:talktohumanity/packages/authing/authing.dart';
+import 'package:talktohumanity/b_views/b_widgets/a_buttons/lab_button.dart';
+import 'package:talktohumanity/b_views/b_widgets/b_texting/lab_title.dart';
 import 'package:talktohumanity/c_protocols/post_protocols/post_real_ops.dart';
 import 'package:talktohumanity/b_views/a_screens/d_pending_posts_screen.dart';
-import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
 import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text.dart';
 import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
+import 'package:talktohumanity/packages/lib/authing.dart';
 
 class LabScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -70,14 +71,17 @@ class _LabScreenState extends State<LabScreen> {
     // --------------------
 
     return BasicLayout(
-      body: ListView(
-        children: <Widget>[
+      body: FloatingList(
+
+        columnChildren: <Widget>[
+          /// -------------------------------------------->
+          const DotSeparator(),
+
+          const LabTitle(text: 'Dummy posts'),
 
           /// CREATE DUMMIES
-          TalkBox(
-            height: 40,
+          LabButton(
             text: 'Upload dummy posts',
-            isBold: true,
             onTap: () async {
               for (final PostModel post in PostModel.dummyPosts()){
 
@@ -94,32 +98,28 @@ class _LabScreenState extends State<LabScreen> {
           ),
 
           /// READ ALL POSTS
-          TalkBox(
-            height: 40,
+          LabButton(
             text: 'Read all dummies',
-            isBold: true,
             onTap: () async {
               final List<PostModel> _posts = await PostRealOps.readAllPublishedPosts();
               blog('RECEIVED ----> ${_posts.length} POSTS HERE BABY');
               },
           ),
 
+          /// -------------------------------------------->
           const DotSeparator(),
 
+          const LabTitle(text: 'Authing'),
+
           /// USER ID
-          TalkText(
+          LabButton(
             text: 'user ID : ${Authing.getUserID()}',
-            textHeight: 20,
-            maxLines: 2,
-            margins: 10,
-            isBold: false,
+            onTap: (){},
           ),
 
           /// GOOGLE SIGN IN
-          TalkBox(
-            height: 40,
+          LabButton(
             text: 'Google sign in',
-            isBold: true,
             onTap: () async {
               final UserCredential _userCredential = await GoogleAuthing.emailSignIn();
               Authing.blogUserCredential(credential: _userCredential);
@@ -128,27 +128,48 @@ class _LabScreenState extends State<LabScreen> {
           ),
 
           /// GOOGLE SIGN OUT
-          TalkBox(
-            height: 40,
+          LabButton(
             text: 'Sign out',
-            isBold: true,
             onTap: () async {
               await GoogleAuthing.signOut();
               setState(() {});
               },
           ),
 
+          /// ANONYMOUS SIGN IN
+          LabButton(
+            text: 'Anonymous SignIn',
+            onTap: () async {
+              final cred = await Authing.anonymousSignin();
+              setState(() {});
+
+              Authing.blogUserCredential(credential: cred);
+
+              },
+          ),
+
+          /// DELETE FIREBASE USER
+          LabButton(
+            text: 'Delete Firebase user',
+            onTap: () async {
+
+              await Authing.deleteFirebaseUser(
+                userID: Authing.getUserID(),
+              );
+
+              setState(() {});
+
+              },
+          ),
+
+          /// -------------------------------------------->
           const DotSeparator(),
 
+          const LabTitle(text: 'Dialogs'),
+
           /// SHOW CENTER DIALOG
-          TalkBox(
-            width: 300,
-            height: 50,
-            textScaleFactor: 0.8,
+          LabButton(
             text: 'Center dialog',
-            isBold: true,
-            color: Colorz.yellow255,
-            // textColor: Colorz.black255,
             onTap: () async {
               final bool _ok = await TalkDialog.boolDialog(
                 body: 'Boool',
@@ -158,11 +179,14 @@ class _LabScreenState extends State<LabScreen> {
               },
           ),
 
+          /// -------------------------------------------->
+          const DotSeparator(),
+
+          const LabTitle(text: 'DASHBOARD'),
+
           /// GO TO PENDING POSTS
-          TalkBox(
-            height: 40,
+          LabButton(
             text: 'Go to Pending posts',
-            isBold: true,
             onTap: () async {
               await Nav.goToNewScreen(
                 context: context,
@@ -170,6 +194,9 @@ class _LabScreenState extends State<LabScreen> {
               );
               },
           ),
+
+          /// -------------------------------------------->
+          const DotSeparator(),
 
         ],
       ),

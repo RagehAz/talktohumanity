@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/b_views/a_screens/c_post_creator_screen.dart';
+import 'package:talktohumanity/b_views/b_widgets/a_buttons/lab_button.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
 import 'package:talktohumanity/b_views/b_widgets/e_timeline/timeline_month_builder.dart';
 import 'package:talktohumanity/d_helpers/routing.dart';
@@ -74,10 +75,13 @@ class TimeLineBuilder extends StatelessWidget {
                     screen: const PostCreatorScreen(),
                   );
                 },
-                onLongTap: Standards.isRageh() == false ? null : () async {
+              ),
 
+              /// DEV_MODE
+              LabButton(
+                text: 'go to lab',
+                onTap: () async {
                   await Routing.goToLab();
-
                 },
               ),
 

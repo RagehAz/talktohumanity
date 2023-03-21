@@ -14,36 +14,6 @@ class UserProtocols {
 
   // --------------------
   ///
-  Future<void> changeUserID({
-    @required String newID,
-    @required String oldID,
-  }) async {
-
-    if (oldID != null && newID != null){
-
-      final UserModel _oldUser = await fetchUser(userID: oldID);
-
-      if (_oldUser != null){
-
-        await UserLDBOps.deleteMyUser();
-
-        final UserModel _uploaded = await composeUser(
-            userModel: _oldUser.copyWith(
-              id: newID,
-            )
-        );
-
-        if (_uploaded != null){
-
-          await UserFireOps.delete(userID: oldID);
-
-        }
-
-      }
-
-    }
-
-  }
   // -----------------------------------------------------------------------------
 
   /// OVERRIDES
@@ -105,26 +75,101 @@ class UserProtocols {
     @required UserModel oldUser,
   }) async {
 
-    if (newUser != null){
-      final bool _identical = UserModel.checkUsersAreIdentical(
+    final bool _identical = UserModel.checkUsersAreIdentical(
         user1: newUser,
         user2: oldUser,
       );
 
-      if (_identical == false) {
-        await Future.wait(<Future>[
+    if (newUser != null && _identical == false){
 
-          /// FIRE
-          UserFireOps.update(newUser: newUser, oldUser: oldUser),
-
-          /// LDB
-          UserLDBOps.insertMyUser(userModel: newUser,),
-
-        ]);
+      /// ID HAS CHANGED
+      if (oldUser != null && oldUser.id != newUser.id){
+        await _recreateUser(
+          oldUser: oldUser,
+          newUser: newUser,
+        );
       }
+
+      /// ID IS THE SAME
+      else {
+        await _updateUser(
+          oldUser: oldUser,
+          newUser: newUser,
+        );
+      }
+
     }
 
   }
+  // --------------------
+  ///
+  static Future<void> _recreateUser({
+    @required UserModel oldUser,
+    @required UserModel newUser,
+  }) async {
+
+    if (newUser != null){
+
+      await wipeUser(userID: oldUser.id);
+
+      await composeUser(userModel: newUser);
+
+    }
+
+  }
+  // --------------------
+  ///
+  static Future<void> _updateUser({
+    @required UserModel oldUser,
+    @required UserModel newUser,
+  }) async {
+
+    await Future.wait(<Future>[
+
+      /// FIRE
+      UserFireOps.update(newUser: newUser, oldUser: oldUser),
+
+      /// LDB
+      UserLDBOps.insertMyUser(
+        userModel: newUser,
+      ),
+
+    ]);
+
+  }
+
+  static Future<void> changeUserID({
+    @required String newID,
+    @required String oldID,
+  }) async {
+
+    if (oldID != null && newID != null){
+
+      final UserModel _oldUser = await fetchUser(userID: oldID);
+
+      if (_oldUser != null){
+
+        await UserLDBOps.deleteMyUser();
+
+        final UserModel _uploaded = await composeUser(
+            userModel: _oldUser.copyWith(
+              id: newID,
+            )
+        );
+
+        if (_uploaded != null){
+
+          await UserFireOps.delete(userID: oldID);
+
+        }
+
+      }
+
+    }
+
+  }
+
+
   // -----------------------------------------------------------------------------
 
   /// OVERRIDES

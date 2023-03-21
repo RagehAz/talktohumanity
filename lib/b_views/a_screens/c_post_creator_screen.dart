@@ -14,7 +14,7 @@ import 'package:talktohumanity/c_protocols/image_protocols/user_image_protocols.
 import 'package:talktohumanity/c_protocols/publishing_controllers.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/d_helpers/talk_theme.dart';
-import 'package:talktohumanity/packages/authing/authing.dart';
+import 'package:talktohumanity/packages/lib/authing.dart';
 import 'package:talktohumanity/packages/mediators/mediators.dart';
 import 'package:talktohumanity/b_views/b_widgets/d_post_creator/post_creator.dart';
 import 'package:talktohumanity/b_views/b_widgets/d_post_creator/user_creator_page.dart';

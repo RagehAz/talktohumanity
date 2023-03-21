@@ -1,5 +1,8 @@
+import 'package:devicer/devicer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:space_time/space_time.dart';
+import 'package:talktohumanity/c_protocols/zoning_protocols/zoning_protocols.dart';
 
 @immutable
 class UserModel {
@@ -100,6 +103,29 @@ class UserModel {
   /// CREATION
 
   // --------------------
+  static Future<UserModel> createAnonymousUserFromCredential({
+    @required UserCredential credential,
+    String imageURL,
+  }) async {
+    UserModel _output;
+
+    if (credential != null){
+
+    _output = UserModel(
+      id: credential.user.uid,
+      name: credential.user.displayName,
+      email: credential.user.email,
+      signinMethod: 'anonymous',
+      zone: await ZoningProtocols.getZoneByIPApi(),
+      deviceID: await DeviceChecker.getDeviceID(),
+      image: imageURL ?? credential.user.photoURL,
+      createdAt: DateTime.now(),
+    );
+
+    }
+    return _output;
+  }
+
   /*
   static Future<UserModel> createAno
 

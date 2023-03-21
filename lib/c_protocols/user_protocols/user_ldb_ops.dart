@@ -21,6 +21,8 @@ class UserLDBOps {
 
     if (userModel != null && userModel.id != null){
 
+      await LDBOps.deleteAllMapsAtOnce(docName: myUser);
+
       await LDBOps.insertMap(
           docName: myUser,
           primaryKey: 'id',
