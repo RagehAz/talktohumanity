@@ -9,7 +9,7 @@ class UserFireOps {
   const UserFireOps();
 
   // -----------------------------------------------------------------------------
-  static const String usersColl = 'usersColl';
+  static const String usersColl = 'users';
   // -----------------------------------------------------------------------------
 
   /// CREATE

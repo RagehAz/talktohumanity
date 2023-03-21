@@ -66,7 +66,7 @@ class Authing {
 
     final bool _success = await tryCatchAndReturnBool(
         invoker: 'deleteFirebaseUser',
-        functions: () => getFirebaseAuth().currentUser.delete(),
+        functions: () => getFirebaseAuth().currentUser?.delete(),
         onError: onError,
     );
 
@@ -150,6 +150,33 @@ class Authing {
       blog('credential.additionalUserInfo.profile : ${credential.additionalUserInfo?.profile}');
       blog('credential.additionalUserInfo.username : ${credential.additionalUserInfo?.username}');
       blog('blogUserCredential : USER CREDENTIAL BLOG END <-----');
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogFirebaseUser({
+    @required User user,
+  }){
+
+    if (user == null){
+      blog('blogUserCredential : USER CREDENTIAL IS NULL');
+    }
+
+    else {
+      blog('FIRE BASE USER :----> ');
+      blog('credential.user.displayName : ${user?.displayName}');
+      blog('credential.user.email : ${user?.email}');
+      blog('credential.user.emailVerified : ${user?.emailVerified}');
+      blog('credential.user.isAnonymous : ${user?.isAnonymous}');
+      blog('credential.user.metadata : ${user?.metadata}');
+      blog('credential.user.phoneNumber : ${user?.phoneNumber}');
+      blog('credential.user.photoURL : ${user?.photoURL}');
+      blog('credential.user.providerData : ${user?.providerData}');
+      blog('credential.user.refreshToken : ${user?.refreshToken}');
+      blog('credential.user.tenantId : ${user?.tenantId}');
+      blog('credential.user.uid : ${user?.uid}');
+      blog('credential.user.multiFactor : ${user?.multiFactor}');
     }
 
   }

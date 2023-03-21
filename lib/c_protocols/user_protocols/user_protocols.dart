@@ -30,7 +30,7 @@ class UserProtocols {
         userModel: userModel,
       );
 
-      await UserLDBOps.insertMyUser(
+      await UserLDBOps.insert(
         userModel: _uploaded,
       );
 
@@ -50,14 +50,16 @@ class UserProtocols {
     @required String userID,
   }) async {
 
-    UserModel _userModel = await UserLDBOps.readMyUser();
+    UserModel _userModel = await UserLDBOps.readMyUser(
+      userID: userID,
+    );
 
     if (_userModel == null){
 
       _userModel = await UserFireOps.read(userID: userID);
 
       if (_userModel != null){
-        await UserLDBOps.insertMyUser(userModel: _userModel);
+        await UserLDBOps.insert(userModel: _userModel);
       }
 
     }
@@ -130,46 +132,13 @@ class UserProtocols {
       UserFireOps.update(newUser: newUser, oldUser: oldUser),
 
       /// LDB
-      UserLDBOps.insertMyUser(
+      UserLDBOps.insert(
         userModel: newUser,
       ),
 
     ]);
 
   }
-
-  static Future<void> changeUserID({
-    @required String newID,
-    @required String oldID,
-  }) async {
-
-    if (oldID != null && newID != null){
-
-      final UserModel _oldUser = await fetchUser(userID: oldID);
-
-      if (_oldUser != null){
-
-        await UserLDBOps.deleteMyUser();
-
-        final UserModel _uploaded = await composeUser(
-            userModel: _oldUser.copyWith(
-              id: newID,
-            )
-        );
-
-        if (_uploaded != null){
-
-          await UserFireOps.delete(userID: oldID);
-
-        }
-
-      }
-
-    }
-
-  }
-
-
   // -----------------------------------------------------------------------------
 
   /// OVERRIDES
@@ -188,7 +157,7 @@ class UserProtocols {
         UserFireOps.delete(userID: userID),
 
         /// LDB
-        UserLDBOps.deleteMyUser(),
+        UserLDBOps.deleteMyUser(userID: userID),
 
       ]);
 

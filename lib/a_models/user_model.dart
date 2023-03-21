@@ -103,8 +103,10 @@ class UserModel {
   /// CREATION
 
   // --------------------
-  static Future<UserModel> createAnonymousUserFromCredential({
+  ///
+  static Future<UserModel> createUserModelFromCredential({
     @required UserCredential credential,
+    @required String signInMethod,
     String imageURL,
   }) async {
     UserModel _output;
@@ -112,66 +114,19 @@ class UserModel {
     if (credential != null){
 
     _output = UserModel(
-      id: credential.user.uid,
-      name: credential.user.displayName,
-      email: credential.user.email,
-      signinMethod: 'anonymous',
+      id: credential.user?.uid,
+      name: credential.user?.displayName,
+      email: credential.user?.email,
+      signinMethod: signInMethod,
       zone: await ZoningProtocols.getZoneByIPApi(),
       deviceID: await DeviceChecker.getDeviceID(),
-      image: imageURL ?? credential.user.photoURL,
+      image: imageURL ?? credential.user?.photoURL,
       createdAt: DateTime.now(),
     );
 
     }
     return _output;
   }
-
-  /*
-  static Future<UserModel> createAno
-
-  ///
-  static Future<UserModel> createUserWithAvailableResources() async {
-
-    final User _user = Authing.getFirebaseUser();
-    UserModel _output = await UserProtocols.fetchUser(userID: _user?.uid);
-
-    if (_output == null) {
-
-      final String _deviceID = await DeviceChecker.getDeviceID();
-      _output = await UserFireOps.findUserByDevice(deviceID: _deviceID);
-
-      if (_output == null){
-
-        final String _userID = _user?.uid ?? Numeric.createUniqueID().toString();
-
-        String _url = _user.photoURL;
-        if (_url == null) {
-          final Uint8List _bytes = await UserImageProtocols.downloadUserPic();
-          _url = await UserImageProtocols.uploadBytesAndGetURL(
-            userID: _userID,
-            bytes: _bytes,
-          );
-        }
-
-        _output = UserModel(
-          id: _userID,
-          name: _user?.displayName,
-          email: _user?.email,
-          signinMethod:,
-          zone:,
-          deviceID:,
-          image: _pic,
-          createdAt:,
-        );
-
-      }
-
-
-    }
-
-    return _output;
-  }
-   */
   // -----------------------------------------------------------------------------
 
   /// EQUALITY
@@ -212,10 +167,18 @@ class UserModel {
   /// OVERRIDES
 
   // --------------------
-  /*
+
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString() => '''
+   id : $id,
+   name : $name,
+   email : $email,
+   signinMethod : $signinMethod,
+   zone : $zone,
+   deviceID : $deviceID,
+   image : $image,
+   createdAt : $createdAt,
+   ''';
   // --------------------
   @override
   bool operator == (Object other){

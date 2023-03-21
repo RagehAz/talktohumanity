@@ -8,11 +8,13 @@ class LabButton extends StatelessWidget {
   const LabButton({
     @required this.text,
     @required this.onTap,
+    this.isOk = false,
     Key key
   }) : super(key: key);
   // --------------------------------------------------------------------------
   final String text;
   final Function onTap;
+  final bool isOk;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class LabButton extends StatelessWidget {
       text: text,
       isBold: true,
       onTap: onTap,
-      color: Colorz.white20,
+      color: isOk == true ? Colorz.green125 : Colorz.white20,
       textCentered: false,
       textColor: Colorz.white255,
     );

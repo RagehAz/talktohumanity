@@ -2,14 +2,14 @@ import 'dart:convert';
 import 'package:filers/filers.dart';
 import 'package:http/http.dart';
 import 'package:rest/rest.dart';
-
+/// => TAMAM
 class ZoningProtocols {
   // -----------------------------------------------------------------------------
 
   const ZoningProtocols();
 
   // -----------------------------------------------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<String> getZoneByIPApi() async  {
     String _output;
 

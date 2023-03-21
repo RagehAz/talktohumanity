@@ -10,7 +10,7 @@ class Standards {
   Standards();
 
   // -----------------------------------------------------------------------------
-  static const String ragehID = 'ycqVppJgQDYCuMR72QY95zkXvmg1';
+  static const String ragehID = 'N1B1unMO8kRS81CZNdMtqGmORYD2';
   // --------------------
   static bool isRageh(){
     return Authing.getUserID() == ragehID;

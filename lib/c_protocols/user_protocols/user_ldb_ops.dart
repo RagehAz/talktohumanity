@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ldb/ldb.dart';
-import 'package:mapper/mapper.dart';
 import 'package:talktohumanity/a_models/user_model.dart';
 
 class UserLDBOps {
@@ -15,13 +14,11 @@ class UserLDBOps {
 
   // --------------------
   ///
-  static Future<void> insertMyUser({
+  static Future<void> insert({
     @required UserModel userModel,
   }) async {
 
     if (userModel != null && userModel.id != null){
-
-      await LDBOps.deleteAllMapsAtOnce(docName: myUser);
 
       await LDBOps.insertMap(
           docName: myUser,
@@ -38,16 +35,20 @@ class UserLDBOps {
 
   // --------------------
   ///
-  static Future<UserModel> readMyUser() async {
+  static Future<UserModel> readMyUser({
+    @required String userID,
+}) async {
     UserModel _output;
 
-      final List<Map<String, dynamic>> _maps = await LDBOps.readAllMaps(
-          docName: myUser,
+      final Map<String, dynamic> _map = await LDBOps.readMap(
+        docName: myUser,
+        id: userID,
+        primaryKey: 'id',
       );
 
-      if (Mapper.checkCanLoopList(_maps) == true){
+      if (_map != null){
         _output = UserModel.decipher(
-            map: _maps.first,
+            map: _map,
             fromJSON: true,
         );
       }
@@ -60,8 +61,20 @@ class UserLDBOps {
 
   // --------------------
   ///
-  static Future<void> deleteMyUser() async {
-    await LDBOps.deleteAllMapsAtOnce(docName: myUser);
+  static Future<void> deleteMyUser({
+    @required String userID,
+  }) async {
+
+    if (userID != null){
+
+      await LDBOps.deleteMap(
+          objectID: userID,
+          docName: myUser,
+          primaryKey: 'id',
+      );
+
+    }
+
   }
   // -----------------------------------------------------------------------------
 
