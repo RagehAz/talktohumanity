@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/packages/authing/authing.dart';
-import 'package:talktohumanity/c_protocols/post_real_ops.dart';
+import 'package:talktohumanity/c_protocols/post_protocols/post_real_ops.dart';
 import 'package:talktohumanity/b_views/a_screens/d_pending_posts_screen.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
 import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text.dart';

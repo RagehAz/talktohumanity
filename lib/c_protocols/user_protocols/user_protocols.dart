@@ -25,6 +25,8 @@ class UserProtocols {
 
       if (_oldUser != null){
 
+        await UserLDBOps.deleteMyUser();
+
         final UserModel _uploaded = await composeUser(
             userModel: _oldUser.copyWith(
               id: newID,
@@ -33,9 +35,7 @@ class UserProtocols {
 
         if (_uploaded != null){
 
-          await wipeUser(
-              userID: oldID,
-          );
+          await UserFireOps.delete(userID: oldID);
 
         }
 
@@ -60,7 +60,7 @@ class UserProtocols {
         userModel: userModel,
       );
 
-      await UserLDBOps.insert(
+      await UserLDBOps.insertMyUser(
         userModel: _uploaded,
       );
 
@@ -80,14 +80,14 @@ class UserProtocols {
     @required String userID,
   }) async {
 
-    UserModel _userModel = await UserLDBOps.read(userID: userID);
+    UserModel _userModel = await UserLDBOps.readMyUser();
 
     if (_userModel == null){
 
       _userModel = await UserFireOps.read(userID: userID);
 
       if (_userModel != null){
-        await UserLDBOps.insert(userModel: _userModel);
+        await UserLDBOps.insertMyUser(userModel: _userModel);
       }
 
     }
@@ -118,7 +118,7 @@ class UserProtocols {
           UserFireOps.update(newUser: newUser, oldUser: oldUser),
 
           /// LDB
-          UserLDBOps.insert(userModel: newUser,),
+          UserLDBOps.insertMyUser(userModel: newUser,),
 
         ]);
       }
@@ -143,7 +143,7 @@ class UserProtocols {
         UserFireOps.delete(userID: userID),
 
         /// LDB
-        UserLDBOps.delete(userID: userID),
+        UserLDBOps.deleteMyUser(),
 
       ]);
 

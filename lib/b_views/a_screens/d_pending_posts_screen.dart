@@ -9,8 +9,8 @@ import 'package:scale/scale.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
 import 'package:talktohumanity/b_views/b_widgets/e_timeline/timeline_builder.dart';
-import 'package:talktohumanity/c_protocols/post_ldb_ops.dart';
-import 'package:talktohumanity/c_protocols/post_real_ops.dart';
+import 'package:talktohumanity/c_protocols/post_protocols/post_ldb_ops.dart';
+import 'package:talktohumanity/c_protocols/post_protocols/post_real_ops.dart';
 import 'package:talktohumanity/d_helpers/routing.dart';
 import 'package:talktohumanity/packages/wait_dialog/wait_dialog.dart';
 

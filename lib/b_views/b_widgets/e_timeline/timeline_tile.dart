@@ -6,7 +6,7 @@ import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
 import 'package:segmented_circle_border/segmented_circle_border.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
-import 'package:talktohumanity/c_protocols/post_ldb_ops.dart';
+import 'package:talktohumanity/c_protocols/post_protocols/post_ldb_ops.dart';
 import 'package:talktohumanity/d_helpers/helper_methods.dart';
 import 'package:talktohumanity/d_helpers/standards.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';

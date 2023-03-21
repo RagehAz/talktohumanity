@@ -10,6 +10,7 @@ import 'package:night_sky/night_sky.dart';
 import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
 import 'package:super_image/super_image.dart';
+import 'package:talktohumanity/c_protocols/image_protocols/user_image_protocols.dart';
 import 'package:talktohumanity/c_protocols/publishing_controllers.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/d_helpers/talk_theme.dart';
@@ -110,7 +111,7 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
   Future<void> initializeUserVariables() async {
 
     final User _user = Authing.getFirebaseUser();
-    final Uint8List _uint8List = await Floaters.getUint8ListFromURL(_user?.photoURL);
+    final Uint8List _uint8List = await UserImageProtocols.downloadUserPic();
 
     setState(() {
       _imageBytes = _uint8List;

@@ -1,17 +1,14 @@
 import 'dart:typed_data';
 
 import 'package:filers/filers.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
-import 'package:mediators/mediators.dart';
-import 'package:storage/foundation/pic_meta_model.dart';
-import 'package:storage/storage.dart';
 import 'package:stringer/stringer.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/b_views/a_screens/e_auth_screen.dart';
 import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
-import 'package:talktohumanity/c_protocols/post_real_ops.dart';
+import 'package:talktohumanity/c_protocols/image_protocols/user_image_protocols.dart';
+import 'package:talktohumanity/c_protocols/post_protocols/post_real_ops.dart';
 import 'package:talktohumanity/d_helpers/helper_methods.dart';
 import 'package:talktohumanity/d_helpers/routing.dart';
 import 'package:talktohumanity/packages/authing/authing.dart';
@@ -103,9 +100,9 @@ Future<void> publishPostOps({
     String _imageURL;
 
     if (image != null){
-      _imageURL = await _uploadImageAndGetURL(
+      _imageURL = await UserImageProtocols.uploadBytesAndGetURL(
         userID: post.userID,
-        image: image,
+        bytes: image,
       );
     }
 
@@ -139,33 +136,6 @@ Future<void> publishPostOps({
 
   }
 
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<String> _uploadImageAndGetURL({
-  @required Uint8List image,
-  @required String userID,
-}) async {
-  String _output;
-
-  if (image != null) {
-    final Dimensions _dims = await Dimensions.superDimensions(image);
-
-    final Reference _ref = await Storage.uploadBytes(
-      bytes: image,
-      path: '${PostRealOps.userPic}/$userID',
-      metaData: PicMetaModel(
-        ownersIDs: [userID],
-        dimensions: _dims,
-      ).toSettableMetadata(),
-    );
-
-    _output = await Storage.createURLByRef(
-      ref: _ref,
-    );
-  }
-
-  return _output;
 }
 // --------------------
 /// TESTED : WORKS PERFECT

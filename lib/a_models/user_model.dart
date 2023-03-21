@@ -28,7 +28,8 @@ class UserModel {
   /// CLONING
 
   // --------------------
-  UserModel copyWith ({
+  ///
+  UserModel copyWith({
     String id,
     String name,
     String email,
@@ -37,7 +38,7 @@ class UserModel {
     String deviceID,
     String image,
     DateTime createdAt,
-}){
+  }) {
     return UserModel(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -94,6 +95,57 @@ class UserModel {
 
     return _output;
   }
+  // -----------------------------------------------------------------------------
+
+  /// CREATION
+
+  // --------------------
+  /*
+  static Future<UserModel> createAno
+
+  ///
+  static Future<UserModel> createUserWithAvailableResources() async {
+
+    final User _user = Authing.getFirebaseUser();
+    UserModel _output = await UserProtocols.fetchUser(userID: _user?.uid);
+
+    if (_output == null) {
+
+      final String _deviceID = await DeviceChecker.getDeviceID();
+      _output = await UserFireOps.findUserByDevice(deviceID: _deviceID);
+
+      if (_output == null){
+
+        final String _userID = _user?.uid ?? Numeric.createUniqueID().toString();
+
+        String _url = _user.photoURL;
+        if (_url == null) {
+          final Uint8List _bytes = await UserImageProtocols.downloadUserPic();
+          _url = await UserImageProtocols.uploadBytesAndGetURL(
+            userID: _userID,
+            bytes: _bytes,
+          );
+        }
+
+        _output = UserModel(
+          id: _userID,
+          name: _user?.displayName,
+          email: _user?.email,
+          signinMethod:,
+          zone:,
+          deviceID:,
+          image: _pic,
+          createdAt:,
+        );
+
+      }
+
+
+    }
+
+    return _output;
+  }
+   */
   // -----------------------------------------------------------------------------
 
   /// EQUALITY
