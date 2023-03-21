@@ -23,7 +23,7 @@ class PostModel {
     @required this.likes,
     @required this.views,
   });
-  // --------------------------------------------------------------------------
+  // --------------------
   final String id;
   final String userID;
   final String name;

@@ -166,7 +166,7 @@ class PostRealOps {
     }
       }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> movePost({
     @required String postID,
     @required String fromColl,
