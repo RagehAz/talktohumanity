@@ -192,7 +192,7 @@ class _LabScreenState extends State<LabScreen> {
           /// SIMPLE GOOGLE SIGN IN
           LabButton(
             text: 'Simple google sign in',
-            isOk: false,
+            // isOk: false,
             onTap: () async {
 
               await AuthProtocols.simpleGoogleSignIn();
