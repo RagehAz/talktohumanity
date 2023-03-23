@@ -9,6 +9,8 @@ import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/b_views/a_screens/c_post_creator_screen.dart';
 import 'package:talktohumanity/b_views/b_widgets/d_post_creator/brief_post_creator.dart';
 import 'package:talktohumanity/b_views/b_widgets/f_planet_page_view/starting_screen_planet_page_view.dart';
+import 'package:talktohumanity/c_protocols/authing_protocols/auth_protocols.dart';
+import 'package:talktohumanity/c_protocols/timing_protocols/timing_protocols.dart';
 import 'package:talktohumanity/d_helpers/helper_methods.dart';
 import 'package:talktohumanity/d_helpers/routing.dart';
 import 'package:talktohumanity/d_helpers/talk_theme.dart';
@@ -54,7 +56,16 @@ class _StartingScreenState extends State<StartingScreen> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
       _triggerLoading(setTo: true).then((_) async {
-        /// FUCK
+
+        await TimingProtocols.checkDeviceTime();
+
+        await Future.wait(<Future>[
+
+          AuthProtocols.simpleAnonymousSignIn(),
+
+          TimingProtocols.refreshLDBPostsEveryDay(),
+
+        ]);
 
         await _triggerLoading(setTo: false);
       });

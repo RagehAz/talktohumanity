@@ -4,23 +4,24 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:talktohumanity/a_models/user_model.dart';
 import 'package:talktohumanity/c_protocols/image_protocols/user_image_protocols.dart';
+import 'package:talktohumanity/c_protocols/timing_protocols/timing_protocols.dart';
 import 'package:talktohumanity/c_protocols/user_protocols/user_protocols.dart';
 import 'package:talktohumanity/packages/lib/authing.dart';
 
 class AuthProtocols {
   // -----------------------------------------------------------------------------
 
- const AuthProtocols();
+  const AuthProtocols();
 
- // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
- /// ANONYMOUS
+  /// ANONYMOUS
 
- // --------------------
- /// TESTED : WORKS PERFECT
- static Future<void> simpleAnonymousSignIn() async {
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> simpleAnonymousSignIn() async {
 
-   if (Authing.getUserID() == null){
+    if (Authing.getUserID() == null){
 
       /// SIGN ANONYMOUS USER
       final UserCredential _cred = await Authing.anonymousSignin();
@@ -33,34 +34,38 @@ class AuthProtocols {
       /// COMPOSE ANONYMOUS USER
       await UserProtocols.composeUser(userModel: _userModel);
 
-   }
+    }
   }
   // --------------------
- /// TESTED : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static Future<void> simpleGoogleSignIn() async {
 
-    final UserCredential _cred = await GoogleAuthing.emailSignIn();
+    final bool _timeIsCorrect = await TimingProtocols.checkDeviceTime();
 
-    final UserModel _userModel = await UserProtocols.fetchUser(userID: _cred?.user?.uid);
+    if (_timeIsCorrect == true){
 
-    if (_userModel != null) {
-      final String _imageURL = await _stealUserImage(
-        user: _cred?.user,
-      );
+      final UserCredential _cred = await GoogleAuthing.emailSignIn();
 
-      final UserModel _userModel = await UserModel.createUserModelFromCredential(
-        credential: _cred,
-        signInMethod: 'google',
-        imageURL: _imageURL,
-      );
+      final UserModel _userModel = await UserProtocols.fetchUser(userID: _cred?.user?.uid);
 
-      /// COMPOSE ANONYMOUS USER
-      await UserProtocols.composeUser(userModel: _userModel);
+      if (_userModel != null) {
+        final String _imageURL = await _stealUserImage(
+          user: _cred?.user,
+        );
+        final UserModel _userModel = await UserModel.createUserModelFromCredential(
+          credential: _cred,
+          signInMethod: 'google',
+          imageURL: _imageURL,
+        );
+        /// COMPOSE ANONYMOUS USER
+        await UserProtocols.composeUser(userModel: _userModel);
+      }
+
     }
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<String> _stealUserImage({
     @required User user,
   }) async {
@@ -85,5 +90,5 @@ class AuthProtocols {
 
     return _newURL;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

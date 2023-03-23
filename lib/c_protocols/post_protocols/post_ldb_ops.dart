@@ -103,5 +103,10 @@ class PostLDBPOps {
     }
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> wipeAllPosts() async {
+    await LDBOps.deleteAllMapsAtOnce(docName: publishedPosts);
+  }
   // -----------------------------------------------------------------------------
 }

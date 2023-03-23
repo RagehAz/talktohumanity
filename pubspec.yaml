@@ -11,6 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
   # ------------------------------------
+  url_launcher: ^6.1.4
+  app_settings: ^4.2.0
+
   just_audio: ^0.9.24
   firebase_core: ^2.4.1
   page_transition: ^2.0.4
