@@ -3,10 +3,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-import 'package:talktohumanity/firebase_options.dart';
+import 'package:talktohumanity/b_views/a_screens/a_starting_screen.dart';
 import 'package:talktohumanity/c_protocols/providers/ui_provider.dart';
 import 'package:talktohumanity/d_helpers/routing.dart';
-import 'package:talktohumanity/b_views/a_screens/a_starting_screen.dart';
+import 'package:talktohumanity/firebase_options.dart';
 
 Future<void> main() async {
   // --------------------------------------------------------------------------
@@ -17,6 +17,12 @@ Future<void> main() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
   // }
+
+  // await FacebookAuth.instance.webInitialize(
+  //     appId: '727816559045136',
+  //     cookie: true, xfbml: true,
+  //     version: 'v11.0',
+  // );
   // --------------------
   return runApp(const AppStarter());
   // --------------------------------------------------------------------------

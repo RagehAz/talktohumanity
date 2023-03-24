@@ -73,6 +73,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
     // USED FOR GOOGLE ANALYTICS
     implementation 'com.google.firebase:firebase-analytics'
+    // USED_FOR_FACEBOOK_AUTH
+    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -1,4 +1,5 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:devicer/devicer.dart';
 import 'package:dialogs/dialogs.dart';
 import 'package:filers/filers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -83,18 +84,59 @@ class _AuthScreenState extends State<AuthScreen> {
       onError: (String error) => _error = error,
     );
 
-    if (_credential == null || _error != null) {
+    await _afterSignIn(
+        credential: _credential,
+        error: _error
+    );
+
+  }
+  // --------------------
+  /// TASK : WRITE ME
+  Future<void> _onFacebookTap() async {
+
+    String _error;
+
+    final UserCredential _credential = await FacebookAuthing.signIn(
+      onError: (String error) => _error = error,
+    );
+
+    await _afterSignIn(
+        credential: _credential,
+        error: _error
+    );
+
+  }
+  // --------------------
+  /// TASK : WRITE ME
+  Future<void> _onAppleTap() async {
+    // String _error;
+    //
+    // final UserCredential _credential = await AppleAuthing.signIn(
+    //   onError: (String error) => _error = error,
+    // );
+    //
+    // await _afterSignIn(
+    //     credential: _credential,
+    //     error: _error
+    // );
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _afterSignIn({
+    @required UserCredential credential,
+    @required String error,
+  }) async {
+
+    if (credential == null || error != null) {
       await showTalkTopDialog(
         flushbarKey: _flushbarKey,
         headline: 'Sing in failed',
         milliseconds: 50000,
-        secondLine: _error,
+        secondLine: error,
       );
-    }
-
-    else {
+    } else {
       await TopDialog.closeTopDialog(
-          flushbarKey: _flushbarKey,
+        flushbarKey: _flushbarKey,
       );
 
       await Nav.goBack(
@@ -102,20 +144,9 @@ class _AuthScreenState extends State<AuthScreen> {
         passedData: true,
         invoker: 'AuthScreen : signed in : userID : ${Authing.getUserID()}',
       );
-
     }
+  }
 
-  }
-  // --------------------
-  /// TASK : WRITE ME
-  Future<void> _onFacebookTap() async {
-    blog('go facebook');
-  }
-  // --------------------
-  /// TASK : WRITE ME
-  Future<void> _onAppleTap() async {
-    blog('go Apple');
-  }
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -142,6 +173,7 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
 
               /// APPLE SIGN IN
+              if (DeviceChecker.deviceIsIOS() == true)
               AuthButton(
                 icon: Iconz.comApple,
                 text: ' SignIn by Apple',

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Talk to Humanity</string>
+    <string name="facebook_app_id">727816559045136</string>
+    <string name="fb_login_protocol_scheme">fb727816559045136</string>
+    <string name="facebook_client_token">a3d7d27a39811e8c9608280453a8fd33</string>
+</resources>

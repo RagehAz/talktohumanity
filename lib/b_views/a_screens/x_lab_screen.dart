@@ -215,6 +215,25 @@ class _LabScreenState extends State<LabScreen> {
             },
           ),
 
+          /// FACEBOOK AUTH
+          LabButton(
+            text: 'Facebook Auth',
+            isOk: true,
+            onTap: () async {
+
+              // await FacebookAuth.instance.webInitialize(
+              //   appId: '727816559045136',
+              //   cookie: true, xfbml: true,
+              //   version: 'v11.0',
+              // );
+              await FacebookAuthing.signIn(
+              );
+
+              setState(() {});
+
+            },
+          ),
+
           /// -------------------------------------------->
           const DotSeparator(),
 

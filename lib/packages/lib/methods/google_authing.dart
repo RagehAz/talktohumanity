@@ -12,7 +12,7 @@ class GoogleAuthing {
   // --------------------
   GoogleSignIn _googleSignIn;
   GoogleSignIn get googleSignIn => _googleSignIn ??= GoogleSignIn();
-  static GoogleSignIn getGoogleSignIn() => GoogleAuthing.instance.googleSignIn;
+  static GoogleSignIn getGoogleSignInInstance() => GoogleAuthing.instance.googleSignIn;
   // -----------------------------------------------------------------------------
 
   /// SIGN IN
@@ -59,7 +59,7 @@ class GoogleAuthing {
         invoker: 'signInByGoogle',
         functions: () async {
 
-          await getGoogleSignIn().signOut();
+          await getGoogleSignInInstance().signOut();
 
           final FirebaseAuth _firebaseAuth = Authing.getFirebaseAuth();
 
@@ -78,7 +78,7 @@ class GoogleAuthing {
           else {
 
             /// get [google sign in account]
-            final GoogleSignInAccount _googleSignInAccount = await getGoogleSignIn().signIn();
+            final GoogleSignInAccount _googleSignInAccount = await getGoogleSignInInstance().signIn();
 
             if (_googleSignInAccount != null) {
 
@@ -121,7 +121,7 @@ class GoogleAuthing {
       invoker: 'googleSignOutOps',
       functions: () async {
         if (kIsWeb == false) {
-          await getGoogleSignIn().signOut();
+          await getGoogleSignInInstance().signOut();
         }
 
         await Authing.getFirebaseAuth().signOut();

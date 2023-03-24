@@ -1,108 +1,108 @@
 part of authing;
 
+/*
+
+1 - open new app facebook developer account
+2 - start doing Android
+3 - skip download the facebook SDK
+4 - assure u r using mavenCentral() under buildscript and allprojects in android/build.gradle
+5 - put [ implementation 'com.facebook.android:facebook-android-sdk:latest.release' ] in
+dependencies in  android/app/build.gradle,, ref : TalkToHumanity // USED_FOR_FACEBOOK_AUTH
+6 - add package name com.example.example and com.example.example.MainActivity in fc dashboard
+sequence
+7 - get your key hashes and put in in dashboard sequence
+  7a - download opensssl 64 from https://code.google.com/archive/p/openssl-for-windows/downloads
+  7b - extract openssl in C:\Users\rageh\openssl
+  7c - get android debugkey
+    7c1 - cd android "from project terminal" to run below line
+    7c2 - run this : D:\projects\bldrs\talktohumanity\android> .\gradlew signingreport
+    7c3 - make sure that C:\Users\rageh\.android\debug.keystore is correct path for debugKeystore
+  7d - run the below command in command prompt cmd
+    7d1 - keytool -exportcert -alias androiddebugkey -keystore "C:\Users\rageh\.android\debug.keystore" | "C:\Users\rageh\openssl\bin\openssl" sha1 -binary | "C:\Users\rageh\openssl\bin\openssl" base64
+    7d2 - enter keystore password : 'same as my windows pin'
+  7e - add the generated key Hash to 'Release Key Hashes' in facebook dashboard sequence
+8 - and set single sign on to "yes" in facebook dashboard sequence
+9 - create strings.xml in .../android/app/src/main/res/values/strings.xml
+  9a - see TalkToHumanity for reference.
+  9b - get AppID from facebookDev-dashboard-Settings-Basic
+  9c - get facebook_client_token from facebookDev-dashboard-Settings-Advanced-Security-Client Token
+
+10 - modify android/app/src/main/AndroidManifest.xml
+  10a - add xmlns:tools="http://schemas.android.com/tools" line 3,, see TalkToHumanity
+  10b - assure there are <uses-permission android:name="android.permission.INTERNET" /> line
+  10c - add this line under the "uses-permission" <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove"/>
+  10d - copy the last 16 lines in TalkToHumanity as is
+11 - add flutter_facebook_auth package in pubspec.yaml
+12 - add facebook sign-in method in authentication in firebase
+  12a - get App ID & App secret from facebookDev-dashboard-Settings-Basic
+
+ */
+
 class FacebookAuthing {
+  // --------------------
+  FacebookAuthing.singleton();
+  static final FacebookAuthing _singleton = FacebookAuthing.singleton();
+  static FacebookAuthing get instance => _singleton;
+  // -----------------------------------------------------------------------------
 
-  const FacebookAuthing();
+  /// AUDIO PLAYER SINGLETON
 
+  // --------------------
+  FacebookAuth _facebookAuth;
+  FacebookAuth get facebookAuth => _facebookAuth ??= FacebookAuth.instance;
+  static FacebookAuth getFacebookAuthInstance() => FacebookAuthing.instance.facebookAuth;
   // -----------------------------------------------------------------------------
 
   /// FACEBOOK AUTHENTICATION
 
   // --------------------
-  /// PLAN : FIX ME
-  /*
-  static Future<AuthModel> signInByFacebook({
-    @required BuildContext context,
-    @required ZoneModel currentZone,
+  ///
+  static Future<UserCredential> signIn({
+    Function(String error) onError,
+    Function(LoginResult loginResult) passLoginResult,
+    Function(FacebookAuthCredential facebookAuthCredential) passFacebookAuthCredential,
   }) async {
-    /*
-    // steps ----------
-    /// facebook sign in to get firebase user to check if it has a userModel or to
-    /// create a new one
-    ///
-    /// X1 - try get firebase user or return error
-    ///   xx - try catch return google auth on WEB & ANDROID-IOS
-    ///       B - get [accessToken]
-    ///       C - Create [credential] from the [access token]
-    ///       D - get [user credential] by [credential]
-    ///       E - get firebase [user] from [user credential]
-    ///
-    /// X2 - process firebase user to return UserModel or error
-    ///   xx - return error : if auth fails
-    ///   xx - return firebase user : if auth succeeds
-    ///      E - get Or Create UserModel From User
-    // ----------
-    AuthModel _authModel = const AuthModel();
-    LoginResult _facebookLoginResult;
     UserCredential _userCredential;
-    String _authError;
-    FacebookAuthCredential _facebookAuthCredential;
-    /// X1 - try get firebase user or return error
-    // -------------------------------------------------------
-    /// xx - try catch return facebook auth
-    final bool _authSucceeds = await tryCatchAndReturnBool(
-        invoker: 'signInByFacebook',
-        functions: () async {
 
-          final FirebaseAuth _firebaseAuth = FirebaseAuth?.instance;
+    await tryAndCatch(
+      invoker: 'signInByFacebook',
+      onError: onError,
+      functions: () async {
 
-          /// get [accessToken]
-          _facebookLoginResult = await FacebookAuth.instance.login();
-          final AccessToken _accessToken = _facebookLoginResult?.accessToken;
+        final LoginResult _loginResult = await  FacebookAuth.instance.login(
+          // loginBehavior: ,
+          // permissions: ['email'],
+        );
+        FacebookAuthCredential _facebookAuthCredential;
 
-          /// IF COULD LOGIN BY FACEBOOK
-          if (_accessToken != null) {
+        if (_loginResult?.accessToken != null) {
 
-            /// C - Create [credential] from the [access token]
-            _facebookAuthCredential = FacebookAuthProvider.credential(_accessToken.token);
+          _facebookAuthCredential = FacebookAuthProvider.credential(_loginResult.accessToken.token);
 
-            /// D - get [user credential] by [credential]
-            _userCredential = await _firebaseAuth.signInWithCredential(_facebookAuthCredential);
-
-          }
-
-          /// IF COULD NOT LOGIN AND ACCESS TOKEN == NULL
-          else {
-            blog('Facebook Access token is null');
-          }
-
-        },
-
-        onError: (String error) async {
-          _authError = error;
+          _userCredential = await Authing.getFirebaseAuth()
+              .signInWithCredential(_facebookAuthCredential);
         }
+
+        /// IF COULD NOT LOGIN AND ACCESS TOKEN == NULL
+        else {
+          blog('Facebook Access token is null');
+        }
+
+        /// PASS LOGIN RESULT
+        if (passLoginResult != null) {
+          passLoginResult(_loginResult);
+        }
+
+        /// PASS FACEBOOK AUTH CREDENTIAL
+        if (passFacebookAuthCredential != null) {
+          passFacebookAuthCredential(_facebookAuthCredential);
+        }
+      },
     );
-    // -----------------------------
-    _authModel = AuthModel.create(
-      authSucceeds: _authSucceeds,
-      authError: _authError,
-      userCredential: _userCredential,
-      facebookLoginResult: _facebookLoginResult,
-      facebookAuthCredential: _facebookAuthCredential,
 
-    );
-    // -----------------------------
-    /// xx - return firebase user : if auth succeeds
-    if (_authModel.authSucceeds == true) {
-
-      /// E - get Or Create UserModel From User
-      final UserModel _userModel = await UserFireOps.getOrCreateUserModelFromUser(
-        context: context,
-        zone: currentZone,
-        user: _userCredential.user,
-        authBy: AuthType.facebook,
-      );
-
-      _authModel = _authModel.copyWith(
-        userModel: _userModel,
-      );
-
-    }
-
-    return _authModel;
-
-     */
+    return _userCredential;
   }
-   */
   // -----------------------------------------------------------------------------
 }
+
+// https://amzn.to/40iInyA
