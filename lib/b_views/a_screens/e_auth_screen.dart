@@ -2,12 +2,11 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:devicer/devicer.dart';
 import 'package:dialogs/dialogs.dart';
 import 'package:filers/filers.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:night_sky/night_sky.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/auth_button.dart';
-import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
+import 'package:talktohumanity/c_protocols/authing_protocols/auth_protocols.dart';
 import 'package:talktohumanity/packages/lib/authing.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -78,63 +77,42 @@ class _AuthScreenState extends State<AuthScreen> {
   /// TESTED : WORKS PERFECT
   Future<void> _onGoogleTap() async {
 
-    String _error;
 
-    final UserCredential _credential = await GoogleAuthing.emailSignIn(
-      onError: (String error) => _error = error,
+    final bool _success = await AuthProtocols.simpleGoogleSignIn(
+      flushbarKey: _flushbarKey,
     );
 
     await _afterSignIn(
-        credential: _credential,
-        error: _error
+        success: _success,
     );
 
   }
   // --------------------
-  /// TASK : WRITE ME
+  /// TESTED : WORKS PERFECT
   Future<void> _onFacebookTap() async {
 
-    String _error;
-
-    final UserCredential _credential = await FacebookAuthing.signIn(
-      onError: (String error) => _error = error,
+    final bool _success = await AuthProtocols.simpleGoogleSignIn(
+      flushbarKey: _flushbarKey,
     );
 
     await _afterSignIn(
-        credential: _credential,
-        error: _error
+        success: _success,
     );
 
   }
   // --------------------
   /// TASK : WRITE ME
   Future<void> _onAppleTap() async {
-    // String _error;
-    //
-    // final UserCredential _credential = await AppleAuthing.signIn(
-    //   onError: (String error) => _error = error,
-    // );
-    //
-    // await _afterSignIn(
-    //     credential: _credential,
-    //     error: _error
-    // );
+
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   Future<void> _afterSignIn({
-    @required UserCredential credential,
-    @required String error,
+    @required bool success,
   }) async {
 
-    if (credential == null || error != null) {
-      await showTalkTopDialog(
-        flushbarKey: _flushbarKey,
-        headline: 'Sing in failed',
-        milliseconds: 50000,
-        secondLine: error,
-      );
-    } else {
+    if (success == true) {
+
       await TopDialog.closeTopDialog(
         flushbarKey: _flushbarKey,
       );
@@ -144,9 +122,9 @@ class _AuthScreenState extends State<AuthScreen> {
         passedData: true,
         invoker: 'AuthScreen : signed in : userID : ${Authing.getUserID()}',
       );
+
     }
   }
-
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

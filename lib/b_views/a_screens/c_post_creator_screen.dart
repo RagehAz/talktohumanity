@@ -3,21 +3,22 @@ import 'dart:typed_data';
 import 'package:animators/animators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:night_sky/night_sky.dart';
 import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
 import 'package:super_image/super_image.dart';
+import 'package:talktohumanity/a_models/post_model.dart';
+import 'package:talktohumanity/a_models/user_model.dart';
+import 'package:talktohumanity/b_views/b_widgets/d_post_creator/post_creator.dart';
+import 'package:talktohumanity/b_views/b_widgets/d_post_creator/user_creator_page.dart';
 import 'package:talktohumanity/c_protocols/image_protocols/user_image_protocols.dart';
 import 'package:talktohumanity/c_protocols/publishing_controllers.dart';
-import 'package:talktohumanity/a_models/post_model.dart';
+import 'package:talktohumanity/c_protocols/user_protocols/user_protocols.dart';
 import 'package:talktohumanity/d_helpers/talk_theme.dart';
 import 'package:talktohumanity/packages/lib/authing.dart';
 import 'package:talktohumanity/packages/mediators/mediators.dart';
-import 'package:talktohumanity/b_views/b_widgets/d_post_creator/post_creator.dart';
-import 'package:talktohumanity/b_views/b_widgets/d_post_creator/user_creator_page.dart';
 
 class PostCreatorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -110,12 +111,14 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
   /// TESTED : WORKS PERFECT
   Future<void> initializeUserVariables() async {
 
-    final User _user = Authing.getFirebaseUser();
-    final Uint8List _uint8List = await UserImageProtocols.downloadUserPic();
+    final UserModel _user = await UserProtocols.fetchUser(userID: Authing.getUserID());
+    final Uint8List _uint8List = await UserImageProtocols.downloadUserPic(
+      imageURL: _user.image
+    );
 
     setState(() {
       _imageBytes = _uint8List;
-      _nameController.text = _user?.displayName;
+      _nameController.text = _user?.name;
       _emailController.text =  _user?.email;
     });
 

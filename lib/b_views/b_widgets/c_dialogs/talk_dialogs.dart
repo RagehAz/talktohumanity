@@ -47,7 +47,7 @@ class TalkDialog {
       );
 
     }
-  // -----------------------------------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> boolDialog({
     String title,
@@ -88,29 +88,31 @@ class TalkDialog {
 
     return _result;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> topDialog({
+    @required GlobalKey flushbarKey,
+    @required String headline,
+    String secondLine,
+    Color dialogColor = Colorz.white255,
+    int milliseconds = 5000,
+  }) async {
+
+    if (flushbarKey != null) {
+      await TopDialog.showTopDialog(
+        flushbarKey: flushbarKey,
+        context: getContext(),
+        firstText: headline,
+        color: dialogColor,
+        firstFont: BldrsThemeFonts.fontBldrsHeadlineFont,
+        secondFont: BldrsThemeFonts.fontBldrsBodyFont,
+        milliseconds: milliseconds,
+        secondText: secondLine,
+        // appIsLTR: true,
+        // textColor: Colorz.black255,
+      );
+    }
+
+  }
   // -----------------------------------------------------------------------------
-
-}
-
-Future<void> showTalkTopDialog({
-  @required GlobalKey flushbarKey,
-  @required String headline,
-  String secondLine,
-  Color dialogColor = Colorz.white255,
-  int milliseconds = 5000,
-}) async {
-
-  await TopDialog.showTopDialog(
-    flushbarKey: flushbarKey,
-    context: getContext(),
-    firstText: headline,
-    color: dialogColor,
-    firstFont: BldrsThemeFonts.fontBldrsHeadlineFont,
-    secondFont: BldrsThemeFonts.fontBldrsBodyFont,
-    milliseconds: milliseconds,
-    secondText: secondLine,
-    // appIsLTR: true,
-    // textColor: Colorz.black255,
-  );
-
 }

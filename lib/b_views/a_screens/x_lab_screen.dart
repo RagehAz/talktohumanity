@@ -1,13 +1,16 @@
 import 'dart:typed_data';
 
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:layouts/layouts.dart';
 import 'package:mediators/mediators.dart';
 import 'package:storage/foundation/pic_meta_model.dart';
 import 'package:storage/storage.dart';
+import 'package:super_image/super_image.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/b_views/a_screens/d_pending_posts_screen.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/lab_button.dart';
@@ -73,6 +76,8 @@ class _LabScreenState extends State<LabScreen> {
     _loading.dispose();
     super.dispose();
   }
+  // --------------------------------------------------------------------------
+  String _image = Iconz.achievement;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -217,7 +222,7 @@ class _LabScreenState extends State<LabScreen> {
 
           /// FACEBOOK AUTH
           LabButton(
-            text: 'Facebook Auth',
+            text: 'Facebook  Auth',
             isOk: true,
             onTap: () async {
 
@@ -226,10 +231,34 @@ class _LabScreenState extends State<LabScreen> {
               //   cookie: true, xfbml: true,
               //   version: 'v11.0',
               // );
-              await FacebookAuthing.signIn(
+              final UserCredential cred = await FacebookAuthing.signIn(
+                onError: (String error){
+                  blog('error : $error');
+                },
+                passLoginResult: (LoginResult loginResult){
+                  FacebookAuthing.blogLoginResult(
+                      loginResult: loginResult
+                  );
+                },
+                passFacebookAuthCredential: (FacebookAuthCredential cred){
+                  FacebookAuthing.blogFacebookAuthCredential(facebookAuthCredential: cred);
+                }
+              );
+              Authing.blogUserCredential(credential: cred);
+
+              final String _url = FacebookAuthing.getUserFacebookImageURLFromUserCredential(cred);
+
+              final Uint8List bytes = await Floaters.getUint8ListFromURL(_url);
+
+              final String bo = await UserImageProtocols.uploadBytesAndGetURL(
+                  bytes: bytes,
+                  userID: cred.user.uid,
               );
 
-              setState(() {});
+
+              setState(() {
+                _image = bo;
+              });
 
             },
           ),
@@ -309,7 +338,7 @@ class _LabScreenState extends State<LabScreen> {
               Authing.blogFirebaseUser(user: user);
 
               final Uint8List _bytes = await UserImageProtocols.downloadUserPic(
-                user: user,
+                imageURL: user.photoURL,
               );
               String _newURL;
               blog('2 steal user Image : _bytes : ${_bytes.length} bytes');
@@ -335,6 +364,11 @@ class _LabScreenState extends State<LabScreen> {
             },
           ),
 
+          SuperImage(
+            width: 200,
+            height: 200,
+            pic: _image,
+          ),
 
         ],
       ),

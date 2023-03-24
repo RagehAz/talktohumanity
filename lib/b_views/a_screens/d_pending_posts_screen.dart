@@ -155,7 +155,7 @@ class _PendingPostsScreenState extends State<PendingPostsScreen> {
 
                                 await WaitDialog.closeWaitDialog(context);
 
-                                await showTalkTopDialog(
+                                await TalkDialog.topDialog(
                                     flushbarKey: flushbarKey,
                                     headline: 'Post is Moved',
                                 );
@@ -199,7 +199,7 @@ class _PendingPostsScreenState extends State<PendingPostsScreen> {
 
                                 await WaitDialog.closeWaitDialog(context);
 
-                                await showTalkTopDialog(
+                                await TalkDialog.topDialog(
                                     flushbarKey: flushbarKey,
                                     headline: 'Post is deleted',
                                 );

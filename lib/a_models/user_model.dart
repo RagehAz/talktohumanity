@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:space_time/space_time.dart';
 import 'package:talktohumanity/c_protocols/zoning_protocols/zoning_protocols.dart';
+import 'package:talktohumanity/packages/lib/authing.dart';
 
 @immutable
 class UserModel {
@@ -105,22 +106,21 @@ class UserModel {
   // --------------------
   ///
   static Future<UserModel> createUserModelFromCredential({
-    @required UserCredential credential,
-    @required String signInMethod,
-    String imageURL,
+    @required UserCredential cred,
+    String imageOverride,
   }) async {
     UserModel _output;
 
-    if (credential != null){
+    if (cred != null){
 
     _output = UserModel(
-      id: credential.user?.uid,
-      name: credential.user?.displayName,
-      email: credential.user?.email,
-      signinMethod: signInMethod,
+      id: cred.user?.uid,
+      name: cred.user?.displayName,
+      email: cred.user?.email,
+      signinMethod: cred.additionalUserInfo?.providerId ?? 'anonymous',
       zone: await ZoningProtocols.getZoneByIPApi(),
       deviceID: await DeviceChecker.getDeviceID(),
-      image: imageURL ?? credential.user?.photoURL,
+      image: imageOverride ?? Authing.getUserImageURLFromCredential(cred),
       createdAt: DateTime.now(),
     );
 

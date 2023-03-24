@@ -2,6 +2,8 @@ part of authing;
 
 /*
 
+/// SETUP ON ANDROID
+
 1 - open new app facebook developer account
 2 - start doing Android
 3 - skip download the facebook SDK
@@ -103,6 +105,87 @@ class FacebookAuthing {
     return _userCredential;
   }
   // -----------------------------------------------------------------------------
-}
 
-// https://amzn.to/40iInyA
+  /// FACEBOOK USER DATA
+
+  // --------------------
+  ///
+  static String getUserFacebookImageURLFromUserCredential(UserCredential cred){
+    String _output;
+
+    if (cred != null){
+
+      if (cred.additionalUserInfo.providerId == 'facebook.com'){
+        final Map<String, dynamic> profileMap = cred.additionalUserInfo?.profile;
+        if (profileMap != null){
+          final picture = profileMap['picture'];
+          if (picture != null){
+            final data = picture['data'];
+            if (data != null){
+              _output = data['url'];
+            }
+          }
+        }
+      }
+
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// BLOGGING
+
+  // --------------------
+  ///
+  static void blogLoginResult({
+    @required LoginResult loginResult,
+    String invoker = 'blogLoginResult',
+  }){
+
+    if (loginResult == null){
+      blog('blogLoginResult : the Facebook login result is null');
+    }
+    else {
+      blog('blogLoginResult : the Facebook login result is :- ');
+      blog('loginResult.status.name : ${loginResult.status?.name}');
+      blog('loginResult.status.index : ${loginResult.status?.index}');
+      blog('loginResult.accessToken.expires : ${loginResult.accessToken?.expires}');
+      blog('loginResult.accessToken.lastRefresh : ${loginResult.accessToken?.lastRefresh}');
+      blog('loginResult.accessToken.userId : ${loginResult.accessToken?.userId}');
+      blog('loginResult.accessToken.token : ${loginResult.accessToken?.token}');
+      blog('loginResult.accessToken.applicationId : ${loginResult.accessToken?.applicationId}');
+      blog('loginResult.accessToken.graphDomain : ${loginResult.accessToken?.graphDomain}');
+      blog('loginResult.accessToken.declinedPermissions : ${loginResult.accessToken?.declinedPermissions}');
+      blog('loginResult.accessToken.grantedPermissions : ${loginResult.accessToken?.grantedPermissions}');
+      blog('loginResult.accessToken.isExpired : ${loginResult.accessToken?.isExpired}');
+      blog('loginResult.message : ${loginResult.message}');
+    }
+
+  }
+  // --------------------
+  ///
+  static void blogFacebookAuthCredential({
+    @required FacebookAuthCredential facebookAuthCredential,
+    String invoker = 'blogFacebookAuthCredential',
+  }){
+
+    if (facebookAuthCredential == null){
+      blog('blogLoginResult : the Facebook login result is null');
+    }
+    else {
+      blog('blogLoginResult : the Facebook login result is :-');
+      blog('facebookAuthCredential.idToken : ${facebookAuthCredential.idToken}');
+      blog('facebookAuthCredential.rawNonce : ${facebookAuthCredential.rawNonce}');
+      blog('facebookAuthCredential.secret : ${facebookAuthCredential.secret}');
+      blog('facebookAuthCredential.token : ${facebookAuthCredential.token}');
+      blog('facebookAuthCredential.accessToken : ${facebookAuthCredential.accessToken}');
+      blog('facebookAuthCredential.providerId : ${facebookAuthCredential.providerId}');
+      blog('facebookAuthCredential.signInMethod : ${facebookAuthCredential.signInMethod}');
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+}

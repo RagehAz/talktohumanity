@@ -1,12 +1,11 @@
 import 'dart:typed_data';
+
 import 'package:filers/filers.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:mediators/mediators.dart';
 import 'package:storage/foundation/pic_meta_model.dart';
 import 'package:storage/storage.dart';
-import 'package:talktohumanity/packages/lib/authing.dart';
 
 class UserImageProtocols {
   // -----------------------------------------------------------------------------
@@ -53,15 +52,13 @@ class UserImageProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Uint8List> downloadUserPic({
-    User user,
+    @required String imageURL,
   }) async {
     Uint8List _output;
 
-    final User _user = user ?? Authing.getFirebaseUser();
+    if (imageURL != null){
 
-    if (_user != null && _user.photoURL != null){
-
-      _output = await Floaters.getUint8ListFromURL(_user?.photoURL);
+      _output = await Floaters.getUint8ListFromURL(imageURL);
 
     }
 

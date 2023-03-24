@@ -24,15 +24,18 @@ class Authing {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<UserCredential> anonymousSignin() async {
+  static Future<UserCredential> anonymousSignin({
+    Function(String error) onError,
+  }) async {
     UserCredential _userCredential;
 
     await tryAndCatch(
-        invoker: 'anonymousSignin',
-        functions: () async {
-          _userCredential = await getFirebaseAuth().signInAnonymously();
-        }
-        );
+      invoker: 'anonymousSignin',
+      onError: onError,
+      functions: () async {
+        _userCredential = await getFirebaseAuth().signInAnonymously();
+      },
+    );
 
     return _userCredential;
   }
@@ -110,6 +113,34 @@ class Authing {
   // }
   // -----------------------------------------------------------------------------
      */
+  }
+  // -----------------------------------------------------------------------------
+
+  /// USER IMAGE
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getUserImageURLFromCredential(UserCredential cred){
+    String _output;
+
+    if (cred != null){
+
+      if (cred.additionalUserInfo.providerId == 'google.com'){
+        _output = cred.user?.photoURL;
+      }
+      else if (cred.additionalUserInfo.providerId == 'facebook.com'){
+        _output = FacebookAuthing.getUserFacebookImageURLFromUserCredential(cred);
+      }
+      else if (cred.additionalUserInfo.providerId == '     APPLE      '){
+        /// TASK : DO ME
+      }
+      else {
+        _output = cred.user?.photoURL;
+      }
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
