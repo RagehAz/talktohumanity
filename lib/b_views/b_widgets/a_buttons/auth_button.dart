@@ -9,6 +9,7 @@ class AuthButton extends StatelessWidget {
     @required this.icon,
     @required this.onTap,
     this.iconSizeFactor = 0.5,
+    this.isInverted = false,
     Key key
   }) : super(key: key);
   // --------------------------------------------------------------------------
@@ -16,13 +17,17 @@ class AuthButton extends StatelessWidget {
   final String icon;
   final double iconSizeFactor;
   final Function onTap;
+  final bool isInverted;
+  // --------------------------------------------------------------------------
+  static const double width = 300;
+  static const double height = 45;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return TalkBox(
-      height: 50,
-      width: 300,
+      height: height,
+      width: width,
       text: text,
       icon: icon,
       iconColor: Colorz.black255,
@@ -33,6 +38,8 @@ class AuthButton extends StatelessWidget {
       color: Colorz.white200,
       textCentered: false,
       margins: const EdgeInsets.only(bottom: 10),
+      appIsLTR: !isInverted,
+      textDirection: isInverted == true ? TextDirection.rtl : TextDirection.ltr,
     );
 
   }

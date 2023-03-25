@@ -197,7 +197,7 @@ class AuthProtocols {
         flushbarKey: flushbarKey,
         headline: 'Sing in failed',
         milliseconds: 10000,
-        secondLine: error,
+        secondLine: AuthError.getErrorReply(error: error),
       );
     }
 

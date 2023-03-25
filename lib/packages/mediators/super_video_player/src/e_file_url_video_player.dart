@@ -109,8 +109,8 @@ class FileAndURLVideoPlayer extends StatefulWidget {
 
 class _FileAndURLVideoPlayerState extends State<FileAndURLVideoPlayer> {
   // --------------------------------------------------------------------------
-  final ValueNotifier<VideoPlayerValue> _videoValue = ValueNotifier(null);
-  final ValueNotifier<bool> _isChangingVolume = ValueNotifier(false);
+  ValueNotifier<VideoPlayerValue> _videoValue;
+  ValueNotifier<bool> _isChangingVolume;
   VideoPlayerController _videoPlayerController;
   // --------------------
   double _volume = 1;
@@ -118,6 +118,9 @@ class _FileAndURLVideoPlayerState extends State<FileAndURLVideoPlayer> {
   @override
   void initState() {
     super.initState();
+
+     _videoValue = ValueNotifier(null);
+    _isChangingVolume = ValueNotifier(false);
 
     _videoPlayerController = widget.controller ?? FileAndURLVideoPlayer.initializeVideoController(
       url: widget.url,

@@ -15,4 +15,6 @@ part 'methods/authing.dart';
 part 'methods/email_authing.dart';
 part 'methods/facebook_authing.dart';
 part 'methods/google_authing.dart';
+part 'methods/auth_error.dart';
+part 'methods/sign_in_method.dart';
 // -----------------------------------------------------------------------------

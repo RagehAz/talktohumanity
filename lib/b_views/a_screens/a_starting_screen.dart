@@ -7,6 +7,7 @@ import 'package:night_sky/night_sky.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/b_views/a_screens/c_post_creator_screen.dart';
+import 'package:talktohumanity/b_views/a_screens/e_auth_screen.dart';
 import 'package:talktohumanity/b_views/b_widgets/d_post_creator/brief_post_creator.dart';
 import 'package:talktohumanity/b_views/b_widgets/f_planet_page_view/starting_screen_planet_page_view.dart';
 import 'package:talktohumanity/c_protocols/authing_protocols/auth_protocols.dart';
@@ -14,15 +15,16 @@ import 'package:talktohumanity/c_protocols/timing_protocols/timing_protocols.dar
 import 'package:talktohumanity/d_helpers/helper_methods.dart';
 import 'package:talktohumanity/d_helpers/routing.dart';
 import 'package:talktohumanity/d_helpers/talk_theme.dart';
+import 'package:talktohumanity/packages/lib/authing.dart';
 
 class StartingScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const StartingScreen({Key key}) : super(key: key);
-
+  const StartingScreen({
+    Key key
+  }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
   _StartingScreenState createState() => _StartingScreenState();
-
   /// --------------------------------------------------------------------------
 }
 
@@ -60,8 +62,6 @@ class _StartingScreenState extends State<StartingScreen> {
         await TimingProtocols.checkDeviceTime();
 
         await Future.wait(<Future>[
-
-          AuthProtocols.simpleAnonymousSignIn(),
 
           TimingProtocols.refreshLDBPostsEveryDay(),
 
@@ -101,6 +101,16 @@ class _StartingScreenState extends State<StartingScreen> {
     final bool _isValid = _formKey.currentState.validate();
 
     if (_isValid == true) {
+
+      if (Authing.getUserID() == null){
+        await Nav.goToNewScreen(
+        context: context,
+        screen: const AuthScreen(
+            backButtonIsSkipButton: false,
+        ),
+      );
+      }
+
       await Nav.goToNewScreen(
         context: context,
         screen: PostCreatorScreen(
@@ -109,6 +119,7 @@ class _StartingScreenState extends State<StartingScreen> {
           ),
         ),
       );
+
     }
 
     else {
@@ -121,7 +132,8 @@ class _StartingScreenState extends State<StartingScreen> {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onImNotReady() async {
-      await Nav.goToRoute(getContext(), Routing.archiveRoute);
+    await AuthProtocols.simpleAnonymousSignIn();
+    await Nav.goToRoute(getContext(), Routing.archiveRoute);
   }
   // --------------------------------------------------------------------------
   @override

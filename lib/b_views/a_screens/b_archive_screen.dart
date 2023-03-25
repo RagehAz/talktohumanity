@@ -180,7 +180,6 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
 
     post.blogPost();
   }
-
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onView(PostModel post) async {

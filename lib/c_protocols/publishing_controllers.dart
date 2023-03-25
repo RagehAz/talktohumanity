@@ -50,10 +50,12 @@ Future<bool> prePublishCheckUps({
 Future<bool> signIn() async {
   blog('signIn start');
 
-  if (Authing.getFirebaseUser()?.isAnonymous == true) {
+  if (Authing.getUserID() == null || Authing.getFirebaseUser()?.isAnonymous == true) {
     final bool _success = await Nav.goToNewScreen(
       context: getContext(),
-      screen: const AuthScreen(),
+      screen: const AuthScreen(
+        backButtonIsSkipButton: false,
+      ),
     );
 
     return _success;

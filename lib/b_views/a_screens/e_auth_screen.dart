@@ -6,14 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:night_sky/night_sky.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/auth_button.dart';
+import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text_field.dart';
 import 'package:talktohumanity/c_protocols/authing_protocols/auth_protocols.dart';
 import 'package:talktohumanity/packages/lib/authing.dart';
 
 class AuthScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const AuthScreen({
+    @required this.backButtonIsSkipButton,
     Key key
   }) : super(key: key);
+
+  final bool backButtonIsSkipButton;
   /// --------------------------------------------------------------------------
   @override
   _AuthScreenState createState() => _AuthScreenState();
@@ -23,6 +27,11 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   // -----------------------------------------------------------------------------
   final GlobalKey _flushbarKey = GlobalKey();
+  // --------------------
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  bool _canErrorize = false;
+  final ValueNotifier<bool> isObscured = ValueNotifier(true);
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -141,6 +150,31 @@ class _AuthScreenState extends State<AuthScreen> {
           FloatingList(
             columnChildren: <Widget>[
 
+              TalkTextField(
+                headlineText: 'E-mail',
+                textController: emailController,
+                canErrorize: _canErrorize,
+                bubbleWidth: AuthButton.width,
+                fieldTextCentered: false,
+                bubbleColor: Colorz.white20,
+              ),
+
+              TalkTextField(
+                headlineText: 'Password',
+                textController: passwordController,
+                canErrorize: _canErrorize,
+                bubbleWidth: AuthButton.width,
+                isObscured: isObscured,
+                fieldTextCentered: false,
+                bubbleColor: Colorz.white20,
+              ),
+
+              Container(
+                width: AuthButton.width,
+                height: AuthButton.height,
+                color: Colorz.bloodTest,
+              ),
+
               const DotSeparator(color: Colorz.white200),
 
               /// GOOGLE SIGN IN
@@ -169,8 +203,9 @@ class _AuthScreenState extends State<AuthScreen> {
 
               /// GO BACK
               AuthButton(
-                text: 'Go Back',
-                icon: Iconz.arrowLeft,
+                text: widget.backButtonIsSkipButton == true ? 'Skip' : 'Go Back',
+                icon: widget.backButtonIsSkipButton == true ? Iconz.arrowRight : Iconz.arrowLeft,
+                isInverted: widget.backButtonIsSkipButton,
                 onTap: _onBack,
                 iconSizeFactor: 0.3,
               ),
@@ -179,6 +214,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
             ],
           ),
+
         ],
       ),
     );

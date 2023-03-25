@@ -132,7 +132,7 @@ class FacebookAuthing {
 
     if (cred != null){
 
-      if (cred.additionalUserInfo.providerId == 'facebook.com'){
+      if (cred.additionalUserInfo?.providerId == 'facebook.com'){
         final Map<String, dynamic> profileMap = cred.additionalUserInfo?.profile;
         if (profileMap != null){
           final picture = profileMap['picture'];

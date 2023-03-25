@@ -22,6 +22,8 @@ class TalkTextField extends StatelessWidget {
     this.onSwitchTap,
     this.redDot = false,
     this.fieldScrollPadding,
+    this.isObscured,
+    this.fieldTextCentered = true,
     Key key,
   }) : super(key: key);
   // -----------------------------------------------------------------------------
@@ -40,6 +42,8 @@ class TalkTextField extends StatelessWidget {
   final void Function(bool) onSwitchTap;
   final bool redDot;
   final EdgeInsets fieldScrollPadding;
+  final ValueNotifier<bool> isObscured;
+  final bool fieldTextCentered;
   // -----------------------------------------------------------------------------
   static double getBubbleWidth(){
     final double _screenWidth = Scale.screenWidth(getContext());
@@ -76,7 +80,7 @@ class TalkTextField extends StatelessWidget {
       hintText: '...',
       bulletPointsFont: BldrsThemeFonts.fontBldrsBodyFont,
       minLines: minLines,
-      fieldTextCentered: true,
+      fieldTextCentered: fieldTextCentered,
       fieldTextHeight: fieldTextHeight,
       autoValidate: canErrorize,
       canErrorize: canErrorize,
@@ -84,6 +88,8 @@ class TalkTextField extends StatelessWidget {
       fieldScrollPadding: fieldScrollPadding ?? EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
+      isObscured: isObscured,
+
     );
   }
 }
