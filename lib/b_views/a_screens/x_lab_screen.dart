@@ -148,7 +148,7 @@ class _LabScreenState extends State<LabScreen> {
             text: 'Sign out',
             isOk: true,
             onTap: () async {
-              await GoogleAuthing.signOut();
+              await Authing.signOut();
               setState(() {});
               },
           ),
@@ -252,7 +252,7 @@ class _LabScreenState extends State<LabScreen> {
 
               final String bo = await UserImageProtocols.uploadBytesAndGetURL(
                   bytes: bytes,
-                  userID: cred.user.uid,
+                  userID: cred?.user?.uid,
               );
 
 
@@ -327,7 +327,6 @@ class _LabScreenState extends State<LabScreen> {
             },
           ),
 
-
           /// STEAL USER IMAGE
           LabButton(
             text: 'Steal image',
@@ -368,6 +367,20 @@ class _LabScreenState extends State<LabScreen> {
             width: 200,
             height: 200,
             pic: _image,
+          ),
+
+          /// -------------------------------------------->
+          const DotSeparator(),
+
+          /// CHECK DEVICE TIME
+          LabButton(
+            text: 'blog current firebase user',
+            isOk: true,
+            onTap: () async {
+
+              Authing.blogCurrentFirebaseUser();
+
+            },
           ),
 
         ],

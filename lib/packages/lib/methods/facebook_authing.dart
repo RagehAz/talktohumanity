@@ -58,7 +58,7 @@ class FacebookAuthing {
   /// FACEBOOK AUTHENTICATION
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<UserCredential> signIn({
     Function(String error) onError,
     Function(LoginResult loginResult) passLoginResult,
@@ -71,7 +71,7 @@ class FacebookAuthing {
       onError: onError,
       functions: () async {
 
-        final LoginResult _loginResult = await  FacebookAuth.instance.login(
+        final LoginResult _loginResult = await  getFacebookAuthInstance().login(
           // loginBehavior: ,
           // permissions: ['email'],
         );
@@ -104,12 +104,29 @@ class FacebookAuthing {
 
     return _userCredential;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> signOut({
+    Function(String error) onError,
+  }) async {
+
+    await tryAndCatch(
+      invoker: 'Facebook signOut',
+      onError: onError,
+      functions: () async {
+
+        await getFacebookAuthInstance().logOut();
+
+        },
+    );
+
+  }
   // -----------------------------------------------------------------------------
 
   /// FACEBOOK USER DATA
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String getUserFacebookImageURLFromUserCredential(UserCredential cred){
     String _output;
 
@@ -138,7 +155,7 @@ class FacebookAuthing {
   /// BLOGGING
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static void blogLoginResult({
     @required LoginResult loginResult,
     String invoker = 'blogLoginResult',
@@ -165,7 +182,7 @@ class FacebookAuthing {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static void blogFacebookAuthCredential({
     @required FacebookAuthCredential facebookAuthCredential,
     String invoker = 'blogFacebookAuthCredential',

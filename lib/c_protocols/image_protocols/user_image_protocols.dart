@@ -26,7 +26,7 @@ class UserImageProtocols {
   }) async {
   String _output;
 
-  if (bytes != null) {
+  if (bytes != null && userID != null) {
     final Dimensions _dims = await Dimensions.superDimensions(bytes);
 
     final Reference _ref = await Storage.uploadBytes(

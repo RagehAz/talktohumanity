@@ -113,7 +113,7 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
 
     final UserModel _user = await UserProtocols.fetchUser(userID: Authing.getUserID());
     final Uint8List _uint8List = await UserImageProtocols.downloadUserPic(
-      imageURL: _user.image
+      imageURL: _user?.image
     );
 
     setState(() {

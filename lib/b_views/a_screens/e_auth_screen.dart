@@ -91,7 +91,7 @@ class _AuthScreenState extends State<AuthScreen> {
   /// TESTED : WORKS PERFECT
   Future<void> _onFacebookTap() async {
 
-    final bool _success = await AuthProtocols.simpleGoogleSignIn(
+    final bool _success = await AuthProtocols.simpleFacebookSignIn(
       flushbarKey: _flushbarKey,
     );
 

@@ -131,7 +131,7 @@ class AuthProtocols {
     bool _success = false;
     final UserModel _userModel = await UserProtocols.fetchUser(userID: cred?.user?.uid);
 
-    if (_userModel != null) {
+    if (_userModel == null) {
       final String _imageURL = await _stealUserImage(
         cred: cred,
       );
