@@ -8,11 +8,11 @@ import 'package:real/real.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
+import 'package:talktohumanity/b_views/b_widgets/c_dialogs/wait_dialog.dart';
 import 'package:talktohumanity/b_views/b_widgets/e_timeline/timeline_builder.dart';
 import 'package:talktohumanity/c_protocols/post_protocols/post_ldb_ops.dart';
 import 'package:talktohumanity/c_protocols/post_protocols/post_real_ops.dart';
 import 'package:talktohumanity/d_helpers/routing.dart';
-import 'package:talktohumanity/packages/wait_dialog/wait_dialog.dart';
 
 class PendingPostsScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -136,7 +136,7 @@ class _PendingPostsScreenState extends State<PendingPostsScreen> {
 
                                 await Nav.goBack(context: context);
 
-                                pushWaitDialog(context: context, text: 'Moving');
+                                pushTalkWaitDialog(context: context, text: 'Moving');
 
                                 await PostRealOps.movePost(
                                   postID: post.id,
@@ -185,7 +185,7 @@ class _PendingPostsScreenState extends State<PendingPostsScreen> {
 
                                 await Nav.goBack(context: context);
 
-                                pushWaitDialog(context: context, text: 'Deleting');
+                                pushTalkWaitDialog(context: context, text: 'Deleting');
 
                                 await PostRealOps.deletePost(
                                   postID: post.id,

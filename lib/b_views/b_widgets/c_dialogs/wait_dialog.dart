@@ -1,33 +1,31 @@
 import 'dart:async';
-
-import 'package:layouts/layouts.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 import 'package:scale/scale.dart';
 import 'package:super_box/super_box.dart';
-import 'package:talktohumanity/d_helpers/helper_methods.dart';
 import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text.dart';
 import 'package:widget_fader/widget_fader.dart';
 
-void pushWaitDialog({
+void pushTalkWaitDialog({
   @required BuildContext context,
   @required String text,
   bool canManuallyGoBack = false,
 }){
-  WaitDialog.showUnawaitedWaitDialog(
+  TalkWaitDialog.showUnawaitedWaitDialog(
     context: context,
     text: text,
     canManuallyGoBack: canManuallyGoBack,
   );
 }
 
-void closeWaitDialog(BuildContext context){
-  unawaited(WaitDialog.closeWaitDialog(context));
+void closeTalkWaitDialog(BuildContext context){
+  unawaited(TalkWaitDialog.closeWaitDialog(context));
 }
 
-class WaitDialog extends StatelessWidget {
+class TalkWaitDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const WaitDialog({
+  const TalkWaitDialog({
     this.canManuallyGoBack = false,
     this.loadingText,
     Key key
@@ -60,7 +58,7 @@ class WaitDialog extends StatelessWidget {
 
     await showDialog(
       context: context,
-      builder: (BuildContext ctx) => WaitDialog(
+      builder: (BuildContext ctx) => TalkWaitDialog(
         canManuallyGoBack: canManuallyGoBack,
         loadingText: loadingText,
       ),
@@ -69,9 +67,8 @@ class WaitDialog extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> closeWaitDialog(BuildContext context) async {
-    final BuildContext _context = getContext();
     await Nav.goBack(
-      context: _context,
+      context: context,
       invoker: 'closeWaitDialog',
     );
   }

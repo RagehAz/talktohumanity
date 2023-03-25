@@ -21,6 +21,7 @@ class AuthButton extends StatelessWidget {
   // --------------------------------------------------------------------------
   static const double width = 300;
   static const double height = 45;
+  static const Color color = Colorz.white200;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class AuthButton extends StatelessWidget {
       textScaleFactor: 0.7 / iconSizeFactor,
       onTap: onTap,
       isBold: true,
-      color: Colorz.white200,
+      color: color,
       textCentered: false,
       margins: const EdgeInsets.only(bottom: 10),
       appIsLTR: !isInverted,

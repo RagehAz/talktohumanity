@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:night_sky/night_sky.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/auth_button.dart';
+import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
 import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text_field.dart';
 import 'package:talktohumanity/c_protocols/authing_protocols/auth_protocols.dart';
 import 'package:talktohumanity/packages/lib/authing.dart';
@@ -133,6 +134,7 @@ class _AuthScreenState extends State<AuthScreen> {
       );
 
     }
+
   }
   // --------------------------------------------------------------------------
   @override
@@ -150,6 +152,7 @@ class _AuthScreenState extends State<AuthScreen> {
           FloatingList(
             columnChildren: <Widget>[
 
+              /// EMAIL
               TalkTextField(
                 headlineText: 'E-mail',
                 textController: emailController,
@@ -159,6 +162,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 bubbleColor: Colorz.white20,
               ),
 
+              /// PASSWORD
               TalkTextField(
                 headlineText: 'Password',
                 textController: passwordController,
@@ -173,6 +177,35 @@ class _AuthScreenState extends State<AuthScreen> {
                 width: AuthButton.width,
                 height: AuthButton.height,
                 color: Colorz.bloodTest,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+
+                    // Container(
+                    //   height: 20,
+                    //   color: Colorz.white20,
+                    //   child: TalkText(
+                    //     text: 'Forgot password',
+                    //     textHeight: 20,
+                    //     boxColor: Colorz.white20,
+                    //     isBold: false,
+                    //     centered: false,
+                    //     onTap: () {},
+                    //   ),
+                    // ),
+
+                    TalkBox(
+                      height: AuthButton.height,
+                      text: 'SignIn',
+                      isBold: true,
+                      textScaleFactor: 0.7,
+                      color: AuthButton.color,
+                      onTap: (){},
+                    ),
+
+                  ],
+                ),
               ),
 
               const DotSeparator(color: Colorz.white200),

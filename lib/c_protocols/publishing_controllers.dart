@@ -7,12 +7,12 @@ import 'package:stringer/stringer.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/b_views/a_screens/e_auth_screen.dart';
 import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
+import 'package:talktohumanity/b_views/b_widgets/c_dialogs/wait_dialog.dart';
 import 'package:talktohumanity/c_protocols/image_protocols/user_image_protocols.dart';
 import 'package:talktohumanity/c_protocols/post_protocols/post_real_ops.dart';
 import 'package:talktohumanity/d_helpers/helper_methods.dart';
 import 'package:talktohumanity/d_helpers/routing.dart';
 import 'package:talktohumanity/packages/lib/authing.dart';
-import 'package:talktohumanity/packages/wait_dialog/wait_dialog.dart';
 // -----------------------------------------------------------------------------
 /// TESTED : WORKS PERFECT
 Future<bool> prePublishCheckUps({
@@ -94,7 +94,7 @@ Future<void> publishPostOps({
 
     final BuildContext context = getContext();
 
-    pushWaitDialog(
+    pushTalkWaitDialog(
         context: context,
         text: 'Uploading post',
     );
@@ -115,7 +115,7 @@ Future<void> publishPostOps({
       collName: PostRealOps.pendingPostsColl,
     );
 
-    await WaitDialog.closeWaitDialog(context);
+    await TalkWaitDialog.closeWaitDialog(context);
 
     /// SUCCESS
     if (_uploaded != null){

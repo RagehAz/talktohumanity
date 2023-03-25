@@ -323,10 +323,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: c7a5d1e29d9985425713a665afdcedde555074d8
+      resolved-ref: "2cde0e243d87a6e74a0b37402430d0658bf4589d"
       url: "https://github.com/RagehAz/dialogs.git"
     source: git
-    version: "0.0.1"
+    version: "0.0.2"
   extended_image:
     dependency: transitive
     description:
