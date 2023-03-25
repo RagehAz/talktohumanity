@@ -2,7 +2,7 @@ name: talktohumanity
 description: A platform designed to say something to humanity
 publish_to: "none"
 # --------------------------------------------------------------------------------
-version: 1.0.0+1
+version: 1.2.0
 # --------------------------------------------------------------------------------
 environment:
   sdk: ">=2.10.5 <3.0.0"
@@ -126,6 +126,9 @@ dependencies:
   mediators:
     git:
       url: https://github.com/RagehAz/mediators.git
+  legalizer:
+    git:
+      url: https://github.com/RagehAz/legalizer.git
 # ------------------------------------
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
+import 'package:legalizer/legalizer.dart';
 import 'package:talktohumanity/b_views/a_screens/a_starting_screen.dart';
 import 'package:talktohumanity/b_views/a_screens/b_archive_screen.dart';
 import 'package:talktohumanity/b_views/a_screens/d_pending_posts_screen.dart';
@@ -14,12 +15,16 @@ class Routing {
   const Routing();
 
   // -----------------------------------------------------------------------------
+  static const String _domain = 'talktohumanity.com';
+  // -----------------------------------------------------------------------------
 
   /// ROUTE NAMES
 
   // --------------------
   static const String startingRoute = '/starting';
   static const String archiveRoute = '/archive';
+  static const String terms = '/terms';
+  static const String privacy = '/privacy';
   // -----------------------------------------------------------------------------
 
   /// ROUTER
@@ -39,6 +44,15 @@ class Routing {
         return Nav.fadeToScreen(const ArchiveScreen(), settings);
         break;
 
+    /// TERMS
+      case terms:
+        return Nav.fadeToScreen(const TermsScreen(domain: _domain,), settings);
+        break;
+    /// PRIVACY
+      case privacy:
+        return Nav.fadeToScreen(const PrivacyScreen(domain: _domain,), settings);
+        break;
+
     }
     return Nav.fadeToScreen(const StartingScreen(), settings);
   }
@@ -50,8 +64,8 @@ class Routing {
   static Map<String, Widget Function(BuildContext)> routesMap = {
     startingRoute: (context) => const StartingScreen(),
     archiveRoute: (context) => const ArchiveScreen(),
-    // translator: (context) => const TranslatorPage(),
-    // youtubeWebpage: (context) => const YoutubeWebPage(),
+    terms: (context) => const TermsScreen(domain: _domain),
+    privacy: (context) => const PrivacyScreen(domain: _domain),
   };
   // -----------------------------------------------------------------------------
 
@@ -71,5 +85,24 @@ class Routing {
       await Nav.goToNewScreen(context: getContext(), screen: const PendingPostsScreen());
     }
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> goToPrivacyScreen() async {
+    await Nav.goToNewScreen(
+      context: getContext(),
+      screen: const PrivacyScreen(
+        domain: _domain,
+      ),
+    );
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> goToTermsScreen() async {
+    await Nav.goToNewScreen(
+      context: getContext(),
+      screen: const TermsScreen(
+        domain: _domain,
+      ),
+    );  }
   // -----------------------------------------------------------------------------
 }

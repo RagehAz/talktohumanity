@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:layouts/layouts.dart';
+import 'package:legalizer/legalizer.dart';
 import 'package:mediators/mediators.dart';
 import 'package:storage/foundation/pic_meta_model.dart';
 import 'package:storage/storage.dart';
@@ -379,6 +380,41 @@ class _LabScreenState extends State<LabScreen> {
             onTap: () async {
 
               Authing.blogCurrentFirebaseUser();
+
+            },
+          ),
+
+          /// -------------------------------------------->
+          const DotSeparator(),
+
+          /// GO TO TERMS
+          LabButton(
+            text: 'go to Terms screen',
+            isOk: true,
+            onTap: () async {
+
+              await Nav.goToNewScreen(
+                  context: context,
+                  screen: const TermsScreen(
+                    domain: 'talktohumanity.com',
+                  ),
+              );
+
+            },
+          ),
+
+          /// GO TO PRIVACY POLICY
+          LabButton(
+            text: 'Go to Privacy Policy',
+            isOk: true,
+            onTap: () async {
+
+              await Nav.goToNewScreen(
+                  context: context,
+                  screen: const PrivacyScreen(
+                    domain: 'talktohumanity.com',
+                  ),
+              );
 
             },
           ),

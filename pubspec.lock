@@ -749,10 +749,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: adcd0ef0662019fcd5c4f1cfdc936cae4dfcdb03
+      resolved-ref: a672742280fe87cb3881e75893ffdf55174609ea
       url: "https://github.com/RagehAz/layouts.git"
     source: git
-    version: "0.0.9"
+    version: "0.0.10"
   ldb:
     dependency: "direct main"
     description:
@@ -760,6 +760,15 @@ packages:
       ref: HEAD
       resolved-ref: "5fc992474b12cc7c60528fcc492a02ec1bc4b717"
       url: "https://github.com/RagehAz/ldb.git"
+    source: git
+    version: "0.0.2"
+  legalizer:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "4e743eee38f0d1a94efa775a2e1f24ce18c7c38e"
+      url: "https://github.com/RagehAz/legalizer.git"
     source: git
     version: "0.0.2"
   lint:
@@ -970,10 +979,10 @@ packages:
     dependency: transitive
     description:
       name: permission_handler_apple
-      sha256: "9c370ef6a18b1c4b2f7f35944d644a56aa23576f23abee654cf73968de93f163"
+      sha256: ee96ac32f5a8e6f80756e25b25b9f8e535816c8e6665a96b6d70681f8c4f7e85
       url: "https://pub.dev"
     source: hosted
-    version: "9.0.7"
+    version: "9.0.8"
   permission_handler_platform_interface:
     dependency: transitive
     description:
@@ -1002,10 +1011,10 @@ packages:
     dependency: transitive
     description:
       name: photo_manager
-      sha256: "55d50ad1b8f984c57fa7c4bd4980f4760e80d3d9355263cf72624a6ff1bf2b5b"
+      sha256: bdc4ab1fa9fb064d8ccfea6ab44119f55b220293d7ce2e19eb5a5f998db86c88
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.2"
+    version: "2.6.0"
   platform:
     dependency: transitive
     description:
@@ -1026,10 +1035,10 @@ packages:
     dependency: transitive
     description:
       name: pointycastle
-      sha256: ae73e842cdd27a3467a71d70cefd9b198538aab4fc7dde1d0e8c78c96225abf0
+      sha256: c3120a968135aead39699267f4c74bc9a08e4e909e86bc1b0af5bfd78691123c
       url: "https://pub.dev"
     source: hosted
-    version: "3.7.1"
+    version: "3.7.2"
   process:
     dependency: transitive
     description:
@@ -1101,10 +1110,10 @@ packages:
     dependency: transitive
     description:
       name: sembast
-      sha256: "82f89201b98597ed13253a5fa750ac6b6bba3a9d4a91db7f07c9470baac33a4e"
+      sha256: "24829715d11c2c437e67b413f29ff91b5325daa9632f851d44deeea7a29bde9e"
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.3"
+    version: "3.4.3+1"
   sky_engine:
     dependency: transitive
     description: flutter

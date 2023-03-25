@@ -3,6 +3,7 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
+import 'package:legalizer/legalizer.dart';
 import 'package:night_sky/night_sky.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
@@ -142,6 +143,7 @@ class _StartingScreenState extends State<StartingScreen> {
     final double _screenWidth = Scale.screenWidth(context);
     final double _screenHeight = Scale.screenHeight(context);
     // --------------------
+
     return BasicLayout(
       body: SizedBox(
         width: _screenWidth,
@@ -193,12 +195,30 @@ class _StartingScreenState extends State<StartingScreen> {
                   onTap: () => _slideToNextPage(
                     currentSlide: 2,
                   ),
-                  child: BriefPostCreatorView(
+                  child: Stack(
+                    children: <Widget>[
+
+                      /// BRIEF MESSAGE BUBBLE
+                      BriefPostCreatorView(
                     bodyController: _bodyController,
                     formKey: _formKey,
                     canErrorize: _canErrorize,
                     onPublish: _onPublishMessage,
                     onSkip: _onImNotReady,
+                  ),
+
+                      /// LEGAL DISCLAIMER LINE
+                      Container(
+                        width: Scale.screenWidth(context),
+                        height: Scale.screenHeight(context),
+                        alignment: Alignment.bottomCenter,
+                        child: LegalDisclaimerLine(
+                          onPolicyTap: () => Routing.goToPrivacyScreen(),
+                          onTermsTap: () => Routing.goToTermsScreen(),
+                        ),
+                      ),
+
+                    ],
                   ),
                 ),
 
