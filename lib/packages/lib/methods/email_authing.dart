@@ -11,7 +11,7 @@ class EmailAuthing {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<UserCredential> emailSignIn({
+  static Future<UserCredential> signIn({
     @required String email,
     @required String password,
     Function(String error) onError,
@@ -45,7 +45,7 @@ class EmailAuthing {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<UserCredential> emailRegister({
+  static Future<UserCredential> register({
     @required String email,
     @required String password,
     Function(String error) onError,

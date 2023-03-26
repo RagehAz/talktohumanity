@@ -24,6 +24,7 @@ class TalkTextField extends StatelessWidget {
     this.fieldScrollPadding,
     this.isObscured,
     this.fieldTextCentered = true,
+    this.keyboardTextInputAction,
     Key key,
   }) : super(key: key);
   // -----------------------------------------------------------------------------
@@ -44,6 +45,7 @@ class TalkTextField extends StatelessWidget {
   final EdgeInsets fieldScrollPadding;
   final ValueNotifier<bool> isObscured;
   final bool fieldTextCentered;
+  final TextInputAction keyboardTextInputAction;
   // -----------------------------------------------------------------------------
   static double getBubbleWidth(){
     final double _screenWidth = Scale.screenWidth(getContext());
@@ -76,6 +78,7 @@ class TalkTextField extends StatelessWidget {
       maxLines: maxLines,
       // maxLength: 10000,
       keyboardTextInputType: keyboardTextInputType,
+      keyboardTextInputAction: keyboardTextInputAction,
       fieldTextFont: BldrsThemeFonts.fontBldrsBodyFont,
       hintText: '...',
       bulletPointsFont: BldrsThemeFonts.fontBldrsBodyFont,

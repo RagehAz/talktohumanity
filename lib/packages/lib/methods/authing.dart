@@ -51,7 +51,7 @@ class Authing {
 
     final SignInMethod signInMethod = SignMethod.getSignInMethod();
 
-    if (signInMethod != null) {
+    // if (signInMethod != null) {
 
       if (signInMethod == SignInMethod.google) {
         await GoogleAuthing.signOut(
@@ -77,7 +77,7 @@ class Authing {
       // }
 
       await getFirebaseAuth().signOut();
-    }
+    // }
 
   }
   // -----------------------------------------------------------------------------

@@ -327,6 +327,14 @@ packages:
       url: "https://github.com/RagehAz/dialogs.git"
     source: git
     version: "0.0.2"
+  email_validator:
+    dependency: "direct main"
+    description:
+      name: email_validator
+      sha256: e9a90f27ab2b915a27d7f9c2a7ddda5dd752d6942616ee83529b686fc086221b
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.17"
   extended_image:
     dependency: transitive
     description:
@@ -1132,10 +1140,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: bd84420ec5352a99f1896b9114624f281f9f8624
+      resolved-ref: "80c1233b854b4ea44e9ce47903ecf6a0ad2129a2"
       url: "https://github.com/RagehAz/space_time.git"
     source: git
-    version: "0.0.4"
+    version: "0.0.7"
   stack_trace:
     dependency: transitive
     description:

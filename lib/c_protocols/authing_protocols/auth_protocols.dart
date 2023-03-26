@@ -1,4 +1,4 @@
-import 'dart:typed_data';
+  import 'dart:typed_data';
 
 import 'package:filers/filers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -47,12 +47,98 @@ class AuthProtocols {
   }
   // -----------------------------------------------------------------------------
 
+  /// EMAIL
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> simpleEmailSignin({
+    @required String email,
+    @required String password,
+    @required GlobalKey flushbarKey,
+  }) async {
+       bool _success = false;
+
+    if (email != null && password != null){
+
+      final bool _timeIsCorrect = await TimingProtocols.checkDeviceTime();
+
+      if (_timeIsCorrect == true){
+
+      final UserCredential _cred = await EmailAuthing.signIn(
+        email: email,
+        password: password,
+        onError: (String error) => showAuthFailureDialog(
+          error: error,
+          flushbarKey: flushbarKey,
+        ),
+      );
+
+      _success = await _composeUserByNewCredential(
+        cred: _cred,
+      );
+
+      await showAuthSuccessDialog(
+        success: _success,
+        flushbarKey: flushbarKey,
+        userName: _cred?.user?.displayName,
+      );
+
+    }
+
+    }
+
+
+    return _success;
+  }
+  // --------------------
+  ///
+  static Future<bool> simpleEmailSignUp({
+    @required String email,
+    @required String password,
+    @required GlobalKey flushbarKey,
+  }) async {
+       bool _success = false;
+
+    if (email != null && password != null){
+
+      final bool _timeIsCorrect = await TimingProtocols.checkDeviceTime();
+
+      if (_timeIsCorrect == true){
+
+      final UserCredential _cred = await EmailAuthing.register(
+        email: email,
+        password: password,
+        onError: (String error) => showAuthFailureDialog(
+          error: error,
+          flushbarKey: flushbarKey,
+        ),
+      );
+
+      _success = await _composeUserByNewCredential(
+        cred: _cred,
+      );
+
+      await showAuthSuccessDialog(
+        success: _success,
+        flushbarKey: flushbarKey,
+        userName: _cred?.user?.displayName,
+      );
+
+    }
+
+    }
+
+
+    return _success;
+  }
+  // -----------------------------------------------------------------------------
+
   /// GOOGLE
 
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> simpleGoogleSignIn({
-    GlobalKey flushbarKey,
+    @required GlobalKey flushbarKey,
   }) async {
     bool _success = false;
 
@@ -88,7 +174,7 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> simpleFacebookSignIn({
-    GlobalKey flushbarKey,
+    @required GlobalKey flushbarKey,
   }) async {
     bool _success = false;
 
@@ -129,20 +215,26 @@ class AuthProtocols {
     @required UserCredential cred,
   }) async {
     bool _success = false;
-    final UserModel _userModel = await UserProtocols.fetchUser(userID: cred?.user?.uid);
 
-    if (_userModel == null) {
-      final String _imageURL = await _stealUserImage(
-        cred: cred,
-      );
-      final UserModel _userModel = await UserModel.createUserModelFromCredential(
-        cred: cred,
-        imageOverride: _imageURL,
-      );
+    if (cred != null) {
 
-      /// COMPOSE ANONYMOUS USER
-      await UserProtocols.composeUser(userModel: _userModel);
-      _success = true;
+      final UserModel _userModel = await UserProtocols.fetchUser(userID: cred?.user?.uid);
+
+      if (_userModel == null) {
+
+        final String _imageURL = await _stealUserImage(
+          cred: cred,
+        );
+        final UserModel _userModel = await UserModel.createUserModelFromCredential(
+          cred: cred,
+          imageOverride: _imageURL,
+        );
+
+        /// COMPOSE ANONYMOUS USER
+        await UserProtocols.composeUser(userModel: _userModel);
+        _success = true;
+      }
+
     }
 
     return _success;
@@ -210,7 +302,7 @@ class AuthProtocols {
     @required GlobalKey flushbarKey,
   }) async {
 
-    if (userName != null && flushbarKey != null && success == true){
+    if (flushbarKey != null && success == true){
 
       await TalkDialog.topDialog(
         flushbarKey: flushbarKey,

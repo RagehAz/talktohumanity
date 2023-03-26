@@ -1,8 +1,10 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:app_settings/app_settings.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:ldb/ldb.dart';
+import 'package:numeric/numeric.dart';
 import 'package:space_time/space_time.dart';
 import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
 import 'package:talktohumanity/c_protocols/post_protocols/post_ldb_ops.dart';
@@ -124,26 +126,52 @@ class TimingProtocols {
   /// TESTED : WORKS PERFECT
   static Future<bool> checkDeviceTime() async {
 
-    bool _correct = true;
+    bool _correct = false;
 
     final InternetTime _internetTime = await InternetTime.getInternetUTCTime();
 
-    final bool _isCorrect = await InternetTime.checkDeviceTimeIsCorrect(
-        internetTime: _internetTime?.utc_datetime,
+    final DateTime _now = DateTime.now();
+    _correct = await InternetTime.checkDeviceTimeIsCorrect(
+        internetTime: _internetTime?.utc_datetime ?? _now,
     );
 
-    if (_isCorrect == false){
+    if (_correct == false){
 
-      final DateTime _now = DateTime.now();
       final DateTime _actual = _internetTime.utc_datetime;
 
       final bool _differenceIsBig = Timers.checkTimeDifferenceIsBiggerThan(
         time1: _actual,
         time2: _now,
-        maxDifferenceInMinutes: 2,
+        maxDifferenceInMinutes: 3,
       );
 
+      blog('_differenceIsBig : $_differenceIsBig');
+
       if (_differenceIsBig == true){
+
+
+        final int _diff = Timers.calculateTimeDifferenceInMinutes(
+        from: _actual,
+        to: _now,
+      );
+
+      final double _num = Numeric.modulus(_diff.toDouble());
+
+      blog('_differenceIsBig : $_differenceIsBig : _diff : $_diff : _num : $_num : _num > '
+          'maxDifferenceInMinutes : ${_num > 3}');
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         await _showTimeDifferenceDialog(
           internetTime: _actual,
@@ -157,7 +185,7 @@ class TimingProtocols {
 
       else {
         // blog('checkDeviceTime : device time is correct');
-        _correct = false;
+        _correct = true;
       }
 
     }

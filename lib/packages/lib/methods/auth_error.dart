@@ -84,4 +84,24 @@ class AuthError {
     return _output;
   }
   // -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+  // --------------------
+  ///
+  static bool checkIsUserNotFound(String error){
+    bool _output;
+
+    if (TextCheck.isEmpty(error) == false){
+
+      _output = TextCheck.stringContainsSubString(
+          string: error,
+          subString: '[firebase_auth/user-not-found]',
+        );
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
 }
