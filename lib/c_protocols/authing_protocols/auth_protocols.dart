@@ -56,78 +56,70 @@ class AuthProtocols {
     @required String password,
     @required GlobalKey flushbarKey,
   }) async {
-       bool _success = false;
+    bool _success = false;
 
-    if (email != null && password != null){
+    if (email != null && password != null) {
 
       final bool _timeIsCorrect = await TimingProtocols.checkDeviceTime();
 
-      if (_timeIsCorrect == true){
+      if (_timeIsCorrect == true) {
 
-      final UserCredential _cred = await EmailAuthing.signIn(
-        email: email,
-        password: password,
-        onError: (String error) => showAuthFailureDialog(
-          error: error,
+        final UserCredential _cred = await EmailAuthing.signIn(
+          email: email,
+          password: password,
+          onError: (String error) => showAuthFailureDialog(
+            error: error,
+            flushbarKey: flushbarKey,
+          ),
+        );
+
+        _success = await _composeUserByNewCredential(
+          cred: _cred,
+        );
+
+        await showAuthSuccessDialog(
+          success: _success,
           flushbarKey: flushbarKey,
-        ),
-      );
-
-      _success = await _composeUserByNewCredential(
-        cred: _cred,
-      );
-
-      await showAuthSuccessDialog(
-        success: _success,
-        flushbarKey: flushbarKey,
-        userName: _cred?.user?.displayName,
-      );
-
+          userName: _cred?.user?.displayName,
+        );
+      }
     }
-
-    }
-
 
     return _success;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<bool> simpleEmailSignUp({
     @required String email,
     @required String password,
     @required GlobalKey flushbarKey,
   }) async {
-       bool _success = false;
+    bool _success = false;
 
-    if (email != null && password != null){
-
+    if (email != null && password != null) {
       final bool _timeIsCorrect = await TimingProtocols.checkDeviceTime();
 
-      if (_timeIsCorrect == true){
+      if (_timeIsCorrect == true) {
+        final UserCredential _cred = await EmailAuthing.register(
+          email: email,
+          password: password,
+          onError: (String error) => showAuthFailureDialog(
+            error: error,
+            flushbarKey: flushbarKey,
+          ),
+        );
 
-      final UserCredential _cred = await EmailAuthing.register(
-        email: email,
-        password: password,
-        onError: (String error) => showAuthFailureDialog(
-          error: error,
+        _success = await _composeUserByNewCredential(
+          cred: _cred,
+        );
+
+        await showAuthSuccessDialog(
+          success: _success,
           flushbarKey: flushbarKey,
-        ),
-      );
-
-      _success = await _composeUserByNewCredential(
-        cred: _cred,
-      );
-
-      await showAuthSuccessDialog(
-        success: _success,
-        flushbarKey: flushbarKey,
-        userName: _cred?.user?.displayName,
-      );
-
+          userName: _cred?.user?.displayName,
+        );
+      }
     }
-
-    }
-
 
     return _success;
   }
@@ -234,6 +226,9 @@ class AuthProtocols {
         await UserProtocols.composeUser(userModel: _userModel);
         _success = true;
       }
+      else {
+        _success = true;
+      }
 
     }
 
@@ -308,7 +303,7 @@ class AuthProtocols {
         flushbarKey: flushbarKey,
         headline: 'Successfully signed in',
         milliseconds: 10000,
-        secondLine: 'Welcome $userName',
+        secondLine: 'Welcome ${userName ?? '...'}',
       );
 
     }

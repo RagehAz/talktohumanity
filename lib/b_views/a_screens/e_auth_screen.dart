@@ -7,6 +7,7 @@ import 'package:layouts/layouts.dart';
 import 'package:night_sky/night_sky.dart';
 import 'package:scale/scale.dart';
 import 'package:stringer/stringer.dart';
+import 'package:super_box/super_box.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/auth_button.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
 import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text.dart';
@@ -401,6 +402,27 @@ class _AuthScreenState extends State<AuthScreen> {
 
               ],
             ),
+          ),
+
+          /// LOADING LAYER
+          ValueListenableBuilder(
+              valueListenable: _loading,
+              child: Container(
+                width: Scale.screenWidth(context),
+                height: Scale.screenHeight(context),
+                color: Colorz.black50,
+                child: const Loading(loading: true),
+              ),
+              builder: (_, bool loading, Widget child){
+
+                if (loading == true){
+                  return child;
+                }
+                else {
+                  return const SizedBox();
+                }
+
+              }
           ),
 
         ],
