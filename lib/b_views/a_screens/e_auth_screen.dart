@@ -79,7 +79,7 @@ class _AuthScreenState extends State<AuthScreen> {
     super.dispose();
   }
   // --------------------------------------------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _onEmailSignIn() async {
 
     FocusManager.instance.primaryFocus?.unfocus();
@@ -127,7 +127,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   Future<bool> _preEmailSignCheckUps() async {
 
     setState(() {

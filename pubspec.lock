@@ -314,10 +314,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "3544e4a8e9145934b1e8636c486052665d764f8f"
+      resolved-ref: "32f317072d457d710f56ec8fbb1b3f50e5994e76"
       url: "https://github.com/RagehAz/devicer.git"
     source: git
-    version: "0.0.6"
+    version: "0.0.7"
   dialogs:
     dependency: "direct main"
     description:
@@ -766,10 +766,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "5fc992474b12cc7c60528fcc492a02ec1bc4b717"
+      resolved-ref: "7ab3678e47bc0bc364d44ed58b7fa3f18d57118b"
       url: "https://github.com/RagehAz/ldb.git"
     source: git
-    version: "0.0.2"
+    version: "0.0.3"
   legalizer:
     dependency: "direct main"
     description:
