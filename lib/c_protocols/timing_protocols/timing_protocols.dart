@@ -4,7 +4,6 @@ import 'package:app_settings/app_settings.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:ldb/ldb.dart';
-import 'package:numeric/numeric.dart';
 import 'package:space_time/space_time.dart';
 import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
 import 'package:talktohumanity/c_protocols/post_protocols/post_ldb_ops.dart';
@@ -126,71 +125,40 @@ class TimingProtocols {
   /// TESTED : WORKS PERFECT
   static Future<bool> checkDeviceTime() async {
 
-    bool _correct = false;
+    DateTime _internet;
+    String _timeZone;
+    DateTime _now;
+    int _diff;
 
-    final InternetTime _internetTime = await InternetTime.getInternetUTCTime();
-
-    final DateTime _now = DateTime.now();
-    _correct = await InternetTime.checkDeviceTimeIsCorrect(
-        internetTime: _internetTime?.utc_datetime ?? _now,
+    final bool _isAcceptable = await InternetTime.checkDeviceTimeIsAcceptable(
+      internetTime: (InternetTime internet) {
+        _internet = internet?.utc_datetime?.toLocal();
+        _timeZone = internet?.timezone;
+      },
+      deviceTime: (DateTime device) {
+        _now = device;
+      },
+      diff: (int diff) {
+        _diff = diff;
+      },
     );
 
-    if (_correct == false){
+    if (_isAcceptable == false){
 
-      final DateTime _actual = _internetTime.utc_datetime;
-
-      final bool _differenceIsBig = Timers.checkTimeDifferenceIsBiggerThan(
-        time1: _actual,
-        time2: _now,
-        maxDifferenceInMinutes: 3,
-      );
-
-      blog('_differenceIsBig : $_differenceIsBig');
-
-      if (_differenceIsBig == true){
-
-
-        final int _diff = Timers.calculateTimeDifferenceInMinutes(
-        from: _actual,
-        to: _now,
-      );
-
-      final double _num = Numeric.modulus(_diff.toDouble());
-
-      blog('_differenceIsBig : $_differenceIsBig : _diff : $_diff : _num : $_num : _num > '
-          'maxDifferenceInMinutes : ${_num > 3}');
-
-
-
-
-
-
-
-
-
-
-
-
-
+      blog('time diff is : $_diff minutes');
 
         await _showTimeDifferenceDialog(
-          internetTime: _actual,
+          internetTime: _internet,
           nowTime: _now,
-          timezone: _internetTime.timezone,
+          timezone: _timeZone,
         );
 
         await AppSettings.openDateSettings();
 
       }
 
-      else {
-        // blog('checkDeviceTime : device time is correct');
-        _correct = true;
-      }
 
-    }
-
-    return _correct;
+    return _isAcceptable;
   }
   // --------------------
   /// TESTED : WORKS PERFECT

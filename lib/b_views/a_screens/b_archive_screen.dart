@@ -3,7 +3,6 @@ import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:mapper/mapper.dart';
-import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
 import 'package:super_box/super_box.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
@@ -48,19 +47,19 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
   void initState() {
     super.initState();
 
-    Sounder.playSound(
-      mp3Asset: TalkTheme.serenityTrack,
-      loop: true,
-      initialPosition: Duration(
-          seconds: Numeric.createRandomIndex(
-            listLength: 410,
-          ),
-      ),
-      initialVolume: 0,
-      fadeIn: true,
-      fadeInMilliseconds: 5000,
-      mounted: mounted,
-    );
+    // Sounder.playSound(
+    //   mp3Asset: TalkTheme.serenityTrack,
+    //   loop: true,
+    //   initialPosition: Duration(
+    //       seconds: Numeric.createRandomIndex(
+    //         listLength: 410,
+    //       ),
+    //   ),
+    //   initialVolume: 0,
+    //   fadeIn: true,
+    //   fadeInMilliseconds: 5000,
+    //   mounted: mounted,
+    // );
 
   }
   // --------------------

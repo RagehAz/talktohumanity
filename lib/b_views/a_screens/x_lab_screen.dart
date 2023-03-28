@@ -362,7 +362,8 @@ class _LabScreenState extends State<LabScreen> {
               isOk: true,
               onTap: () async {
 
-                await TimingProtocols.checkDeviceTime();
+                final bool _isCorrect = await TimingProtocols.checkDeviceTime();
+                blog('device time is correct? : $_isCorrect');
 
               },
             ),
