@@ -219,6 +219,7 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
   Widget build(BuildContext context) {
     // --------------------
     final double _screenWidth = Scale.screenWidth(context);
+    final double _shortest = Scale.screenShortestSide(context);
     final double _screenHeight = Scale.screenHeight(context);
     // --------------------
     return BasicLayout(
@@ -238,8 +239,8 @@ class _PostCreatorScreenState extends State<PostCreatorScreen> {
             Opacity(
               opacity: 0.9,
               child: SuperImage(
-                height: _screenWidth * 1.2,
-                width: _screenWidth * 1.2,
+                height: _shortest * 1.2,
+                width: _shortest * 1.2,
                 pic: TalkTheme.logo_day,
               ),
             ),

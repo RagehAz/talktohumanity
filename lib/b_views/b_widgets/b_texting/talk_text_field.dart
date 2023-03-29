@@ -48,8 +48,8 @@ class TalkTextField extends StatelessWidget {
   final TextInputAction keyboardTextInputAction;
   // -----------------------------------------------------------------------------
   static double getBubbleWidth(){
-    final double _screenWidth = Scale.screenWidth(getContext());
-    return _screenWidth - 20;
+    final double _shortest = Scale.screenShortestSide(getContext());
+    return _shortest - 20;
   }
   // -----------------------------------------------------------------------------
   @override

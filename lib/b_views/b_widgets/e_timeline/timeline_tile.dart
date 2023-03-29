@@ -43,7 +43,7 @@ class TimelineTile extends StatelessWidget {
       // isCollapsable: true,
       // scrollable: true
       // isDisabled: index.isOdd,
-      width: Scale.screenWidth(context),
+      width: Scale.screenShortestSide(context),
       initialColor: Colorz.black0,
       expansionColor: Colorz.black150,
       margin: EdgeInsets.zero,

@@ -323,10 +323,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "2cde0e243d87a6e74a0b37402430d0658bf4589d"
+      resolved-ref: "3b647f47c0303fe8eb4fba145095f307e89dc45b"
       url: "https://github.com/RagehAz/dialogs.git"
     source: git
-    version: "0.0.2"
+    version: "0.0.3"
   email_validator:
     dependency: "direct main"
     description:
@@ -939,10 +939,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_foundation
-      sha256: "12eee51abdf4d34c590f043f45073adbb45514a108bd9db4491547a2fd891059"
+      sha256: "818b2dc38b0f178e0ea3f7cf3b28146faab11375985d815942a68eee11c2d0f7"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0"
+    version: "2.2.1"
   path_provider_linux:
     dependency: transitive
     description:
@@ -1362,10 +1362,10 @@ packages:
     dependency: transitive
     description:
       name: video_player_android
-      sha256: dc31c60ae591aa3ccb2d460c3690ceceb86cbb826e73428d817a37650dc4e229
+      sha256: e7de6fabe5d96048cd8f4d710f25c3df84bb3cab8b22da6c082bd8f39e316984
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.2"
+    version: "2.4.3"
   video_player_avfoundation:
     dependency: transitive
     description:

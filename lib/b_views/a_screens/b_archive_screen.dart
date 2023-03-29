@@ -230,6 +230,7 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
     // --------------------
     return BasicLayout(
       body: Stack(
+        alignment: Alignment.topCenter,
         children: <Widget>[
 
           /// PLANET VIDEO
@@ -257,6 +258,7 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
               width: _screenWidth,
               height: _screenHeight,
               color: Colorz.black125,
+              alignment: Alignment.topCenter,
               child: ValueListenableBuilder(
                 valueListenable: _loading,
                 child: Container(),

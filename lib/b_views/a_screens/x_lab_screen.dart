@@ -89,6 +89,13 @@ class _LabScreenState extends State<LabScreen> {
           padding: const EdgeInsets.only(bottom: 100),
           columnChildren: <Widget>[
             /// -------------------------------------------->
+
+            /// SPACING
+            const SizedBox(
+              width: 5,
+              height: 50,
+            ),
+
             const DotSeparator(),
 
             const LabTitle(text: 'Dummy posts'),

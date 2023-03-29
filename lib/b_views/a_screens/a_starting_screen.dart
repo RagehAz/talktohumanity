@@ -200,12 +200,12 @@ class _StartingScreenState extends State<StartingScreen> {
 
                       /// BRIEF MESSAGE BUBBLE
                       BriefPostCreatorView(
-                    bodyController: _bodyController,
-                    formKey: _formKey,
-                    canErrorize: _canErrorize,
-                    onPublish: _onPublishMessage,
-                    onSkip: _onImNotReady,
-                  ),
+                        bodyController: _bodyController,
+                        formKey: _formKey,
+                        canErrorize: _canErrorize,
+                        onPublish: _onPublishMessage,
+                        onSkip: _onImNotReady,
+                      ),
 
                       /// LEGAL DISCLAIMER LINE
                       Container(

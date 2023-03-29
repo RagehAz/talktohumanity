@@ -31,7 +31,7 @@ class Standards {
   }
   // --------------------
   static double getTimelineUserBoxWidth(){
-    final double _screenWidth = Scale.screenWidth(getContext());
+    final double _screenWidth = Scale.screenShortestSide(getContext());
     return _screenWidth - timelineMinTileWidth;
   }
   // --------------------

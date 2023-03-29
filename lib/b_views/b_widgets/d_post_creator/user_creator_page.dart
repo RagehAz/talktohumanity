@@ -51,14 +51,17 @@ class UserCreatorView extends StatelessWidget {
     // --------------------
     final double _screenWidth = Scale.screenWidth(context);
     final double _screenHeight = Scale.screenHeight(context);
+    final double _shortest = Scale.screenShortestSide(context);
     // --------------------
     return MaxBounceNavigator(
       onNavigate: onSlideBack,
       child: Container(
+        width: _screenWidth,
         color: Colorz.black200,
+        alignment: Alignment.center,
         child: FloatingList(
           height: _screenHeight + MediaQuery.of(context).viewInsets.bottom,
-          width: _screenWidth,
+          width: _shortest,
           columnChildren: <Widget>[
 
             const DotSeparator(bottomMarginIsOn: false),
@@ -193,7 +196,7 @@ class UserCreatorView extends StatelessWidget {
 
             /// BUTTONS
             Container(
-              width: _screenWidth,
+              width: _shortest,
               height: 50,
               margin: const EdgeInsets.only(
                 top: 5,

@@ -22,7 +22,7 @@ class LabButton extends StatelessWidget {
     return TalkBox(
       height: 30,
       margins: const EdgeInsets.only(bottom: 5),
-      width: Scale.screenWidth(context) - 40,
+      width: Scale.screenShortestSide(context) - 40,
       text: text,
       isBold: true,
       onTap: onTap,

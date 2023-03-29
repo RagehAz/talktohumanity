@@ -34,8 +34,7 @@ class BriefPostCreatorView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _screenWidth = Scale.screenWidth(context);
-    final double _screenHeight = Scale.screenHeight(context);
+    final double _shortest = Scale.screenShortestSide(context);
 
     return Stack(
       alignment: Alignment.center,
@@ -43,84 +42,81 @@ class BriefPostCreatorView extends StatelessWidget {
 
         /// BACKGROUND WORLD
         Opacity(
-          opacity: 1,
+          opacity: 0.7,
           child: SuperImage(
-            height: _screenWidth * 1.2,
-            width: _screenWidth * 1.2,
+            height: _shortest * 1.1,
+            width: _shortest * 1.1,
             pic: TalkTheme.logo_night,
           ),
         ),
 
         /// BUBBLE
-        SizedBox(
-          width: _screenWidth,
-          height: _screenHeight,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
 
-              /// POST BODY FIELD
-              Form(
-                key: formKey,
-                child: TalkTextField(
-                  headlineText: 'My Message to the world',
-                  bubbleColor: Colorz.nothing,
-                  textController: bodyController,
-                  minLines: 6,
-                  canErrorize: canErrorize,
-                  validator: (String text){
+            /// POST BODY FIELD
+            Form(
+              key: formKey,
+              child: TalkTextField(
+                bubbleWidth: _shortest * 0.8,
+                headlineText: 'My Message to the world',
+                bubbleColor: Colorz.nothing,
+                textController: bodyController,
+                minLines: 6,
+                canErrorize: canErrorize,
+                validator: (String text){
 
-                    if (TextCheck.isEmpty(text) == true){
-                      return 'Write your message here';
-                    }
-                    else {
-                      return null;
-                    }
+                  if (TextCheck.isEmpty(text) == true){
+                    return 'Write your message here';
+                  }
+                  else {
+                    return null;
+                  }
 
-                  },
-                ),
+                },
               ),
+            ),
 
-              /// BUTTONS
-              Container(
-                width: _screenWidth,
-                height: 50,
-                margin: const EdgeInsets.only(
-                  top: 5,
-                ),
-                padding: const EdgeInsets.only(
-                  left: 10,
-                  right: 10,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-
-                    /// SKIP
-                    MainButton(
-                      text: "I'm not ready\nfor this responsibility",
-                      onTap: onSkip,
-                      color: Colorz.white20,
-                      textColor: Colorz.white255,
-                      smallText: true,
-                      width: 220,
-                    ),
-
-                    /// PUBLISH
-                    MainButton(
-                      text: 'Next',
-                      onTap: onPublish,
-                    ),
-
-                  ],
-                ),
+            /// BUTTONS
+            Container(
+              width: _shortest * 0.8,
+              height: 50,
+              margin: const EdgeInsets.only(
+                top: 5,
               ),
+              padding: const EdgeInsets.only(
+                left: 10,
+                right: 10,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
 
-              /// LIST PUSHER
-              const KeyboardPusher(),
+                  /// SKIP
+                  MainButton(
+                    text: "I'm not ready\nfor this responsibility",
+                    onTap: onSkip,
+                    color: Colorz.white20,
+                    textColor: Colorz.white255,
+                    smallText: true,
+                    width: 220,
+                  ),
 
-            ],
-          ),
+                  /// PUBLISH
+                  MainButton(
+                    text: 'Next',
+                    onTap: onPublish,
+                  ),
+
+                ],
+              ),
+            ),
+
+            /// LIST PUSHER
+            const KeyboardPusher(),
+
+          ],
         ),
 
       ],

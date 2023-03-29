@@ -31,11 +31,11 @@ class PostCreatorView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _screenWidth = Scale.screenWidth(context);
+    final double _shortest = Scale.screenShortestSide(context);
     final double _screenHeight = Scale.screenHeight(context);
 
     return Container(
-          width: _screenWidth,
+          width: _shortest,
           height: _screenHeight,
           color: Colorz.black200,
           alignment: Alignment.topCenter,
@@ -78,7 +78,7 @@ class PostCreatorView extends StatelessWidget {
 
               /// BUTTONS
               Container(
-                width: _screenWidth,
+                width: _shortest,
                 height: 50,
                 margin: const EdgeInsets.only(top: 5,),
                 padding: const EdgeInsets.only(left: 10, right: 10,),
