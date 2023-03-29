@@ -312,9 +312,8 @@ class _AuthScreenState extends State<AuthScreen> {
                     children: <Widget>[
 
                       /// FORGOT PASSWORD
-                      Container(
+                      SizedBox(
                         height: 20,
-                        color: Colorz.white20,
                         child: TalkText(
                           text: 'Forgot password',
                           textHeight: 20,

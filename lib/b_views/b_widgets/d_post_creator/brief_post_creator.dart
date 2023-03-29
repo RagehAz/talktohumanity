@@ -42,10 +42,10 @@ class BriefPostCreatorView extends StatelessWidget {
 
         /// BACKGROUND WORLD
         Opacity(
-          opacity: 0.7,
+          opacity: 0.3,
           child: SuperImage(
-            height: _shortest * 1.1,
-            width: _shortest * 1.1,
+            height: _shortest * 0.6,
+            width: _shortest * 0.6,
             pic: TalkTheme.logo_night,
           ),
         ),
