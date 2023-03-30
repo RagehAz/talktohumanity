@@ -9,6 +9,11 @@ import 'package:super_box/super_box.dart';
 import 'package:talktohumanity/main.dart';
 import 'package:talktohumanity/packages/lib/authing.dart';
 
+/*
+DOCUMENTATION
+https://github.com/firebase/flutterfire/blob/master/packages/firebase_ui_auth/doc/providers/oauth.md#custom-screens
+ */
+
 class SocialAuthButton extends StatelessWidget {
   // --------------------------------------------------------------------------
   const SocialAuthButton({
@@ -16,7 +21,7 @@ class SocialAuthButton extends StatelessWidget {
     @required this.socialKeys,
     this.onUserCreated,
     this.inAuthCredLinked,
-    this.inAuthCredReceived,
+    this.onAuthCredReceived,
     this.onAuthFailed,
     this.onSignedIn,
     this.onDifferentSignInMethodsFound,
@@ -26,7 +31,7 @@ class SocialAuthButton extends StatelessWidget {
   final SignInMethod signInMethod;
   final SocialKey socialKeys;
   final Function(UserCredential cred) onUserCreated;
-  final Function(AuthCredential authCred) inAuthCredReceived;
+  final Function(AuthCredential authCred) onAuthCredReceived;
   final Function(AuthCredential authCred) inAuthCredLinked;
   final Function(String error) onAuthFailed;
   final Function(User user) onSignedIn;
@@ -81,9 +86,9 @@ class SocialAuthButton extends StatelessWidget {
 
     /// AUTH CRED RECEIVED
     else if (newState is CredentialReceived){
-      if (inAuthCredReceived != null){
+      if (onAuthCredReceived != null){
         final CredentialReceived cred = newState;
-        inAuthCredReceived(cred.credential);
+        onAuthCredReceived(cred.credential);
       }
       blog('SocialAuthButton : is CredentialReceived');
     }

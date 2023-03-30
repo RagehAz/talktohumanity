@@ -466,28 +466,25 @@ class _LabScreenState extends State<LabScreen> {
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const <Widget>[
+              children: <Widget>[
 
-                /// APPLE
-                SocialAuthButton(
-                  signInMethod: SignInMethod.apple,
-                  onSignedIn: onSignedIn,
-                  socialKeys: SocialKey.talkToHumanityKeys,
-                ),
+                ...List.generate(3, (index){
 
-                /// GOOGLE
-                SocialAuthButton(
-                  signInMethod: SignInMethod.google,
-                  onSignedIn: onSignedIn,
-                  socialKeys: SocialKey.talkToHumanityKeys,
-                ),
+                  const List<SignInMethod> methods = [SignInMethod.apple, SignInMethod.google, SignInMethod.facebook];
 
-                /// FACEBOOK
-                SocialAuthButton(
-                  signInMethod: SignInMethod.facebook,
-                  onSignedIn: onSignedIn,
-                  socialKeys: SocialKey.talkToHumanityKeys,
-                ),
+                  return SocialAuthButton(
+                    signInMethod: methods[index],
+                    socialKeys: SocialKey.talkToHumanityKeys,
+                    onSignedIn: onSignedIn,
+                    onAuthCredReceived: onAuthCredReceived,
+                    inAuthCredLinked: inAuthCredLinked,
+                    onAuthFailed: onAuthFailed,
+                    onDifferentSignInMethodsFound: onDifferentSignInMethodsFound,
+                    onUserCreated: onUserCreated,
+                  );
+
+                }),
+
               ],
 
             ),
@@ -515,6 +512,31 @@ class _LabScreenState extends State<LabScreen> {
 }
 
 Future<void> onSignedIn(User user) async {
-
+  blog('onSignedIn:-');
   Authing.blogFirebaseUser(user: user);
+}
+
+Future<void> onAuthCredReceived(AuthCredential authCred) async {
+  blog('onAuthCredReceived:-');
+  Authing.blogAuthCred(authCred);
+}
+
+Future<void> onUserCreated(UserCredential cred) async {
+  blog('onUserCreated:-');
+  Authing.blogUserCredential(credential: cred);
+}
+
+Future<void> inAuthCredLinked(AuthCredential authCred) async {
+  blog('inAuthCredLinked:-');
+  Authing.blogAuthCred(authCred);
+}
+
+Future<void> onAuthFailed(String error) async {
+  blog('onAuthFailed: error : $error');
+}
+
+Future<void> onDifferentSignInMethodsFound(AuthCredential authCred, String email, List<String>methods) async {
+  blog('onDifferentSignInMethodsFound:-');
+  blog('email $email : methods : $methods');
+  Authing.blogAuthCred(authCred);
 }

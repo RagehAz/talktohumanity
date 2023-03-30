@@ -1,5 +1,27 @@
 part of authing;
 
+/*
+
+APPLE WEB         : ...
+APPLE IOS         : ...
+APPLE ANDROID     : ...
+
+GOOGLE WEB        : DONE
+GOOGLE IOS        : ...
+GOOGLE ANDROID    : DONE
+
+FACEBOOK WEB      : DONE
+FACEBOOK IOS      : ...
+FACEBOOK ANDROID  : DONE
+
+ANONYMOUS         : DONE
+
+EMAIL WEB         : DONE
+EMAIL IOS         : DONE
+EMAIL ANDROID     : DONE
+
+ */
+
 class Authing {
   // -----------------------------------------------------------------------------
 
@@ -200,7 +222,7 @@ class Authing {
     }
 
     else {
-      blog('FIRE BASE USER :----> ');
+      blog('USER CREDENTIAL :----> ');
       blog('credential.user.displayName : ${credential.user?.displayName}');
       blog('credential.user.email : ${credential.user?.email}');
       blog('credential.user.emailVerified : ${credential.user?.emailVerified}');
@@ -234,7 +256,7 @@ class Authing {
   }){
 
     if (user == null){
-      blog('blogUserCredential : USER CREDENTIAL IS NULL');
+      blog('blogUserCredential : FIRE BASE USER IS NULL');
     }
 
     else {
@@ -265,6 +287,24 @@ class Authing {
     }
     else {
       blogFirebaseUser(user: _user);
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogAuthCred(AuthCredential authCred){
+
+    if (authCred == null){
+      blog('blogAuthCred : AUTH CREDENTIAL IS NULL');
+    }
+
+    else {
+      blog('AUTH CREDENTIAL :----> ');
+      blog('authCred.signInMethod : ${authCred.signInMethod}');
+      blog('authCred.providerId : ${authCred.providerId}');
+      blog('authCred.accessToken : ${authCred.accessToken}');
+      blog('authCred.token : ${authCred.token}');
+
     }
 
   }
