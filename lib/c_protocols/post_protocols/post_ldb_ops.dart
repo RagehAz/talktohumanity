@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ldb/ldb.dart';
+import 'package:talktohumanity/packages/ldb/lib/ldb.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
 
 class PostLDBPOps {

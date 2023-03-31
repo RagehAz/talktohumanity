@@ -19,11 +19,13 @@ import 'package:talktohumanity/b_views/b_widgets/b_texting/lab_title.dart';
 import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
 import 'package:talktohumanity/c_protocols/authing_protocols/auth_protocols.dart';
 import 'package:talktohumanity/c_protocols/image_protocols/user_image_protocols.dart';
+import 'package:talktohumanity/c_protocols/post_protocols/post_ldb_ops.dart';
 import 'package:talktohumanity/c_protocols/post_protocols/post_real_ops.dart';
 import 'package:talktohumanity/c_protocols/timing_protocols/timing_protocols.dart';
 import 'package:talktohumanity/c_protocols/zoning_protocols/zoning_protocols.dart';
 import 'package:talktohumanity/d_helpers/talk_theme.dart';
 import 'package:talktohumanity/main.dart';
+import 'package:talktohumanity/packages/ldb/lib/ldb.dart';
 import 'package:talktohumanity/packages/lib/authing.dart';
 import 'package:talktohumanity/packages/lib/firebase_ui_auther/fire_auther_screen.dart';
 import 'package:talktohumanity/packages/lib/firebase_ui_auther/social_auth_button.dart';
@@ -489,18 +491,62 @@ class _LabScreenState extends State<LabScreen> {
 
             ),
 
-            // / GET CREDENTIALS
-            // LabButton(
-            //   text: 'GET CREDENTIALS',
-            //   isOk: true,
-            //   onTap: () async {
-            //
-            //
-            //
-            //     Authing.blogUserCredential(credential: cred);
-            //
-            //   },
-            // ),
+            /// -------------------------------------------->
+            const DotSeparator(),
+
+            const LabTitle(text: 'LDB OPS'),
+
+            /// LDB VIEWERS
+            LabButton(
+              text: 'Go to LDB VIEWERS Screen',
+              isOk: true,
+              onTap: () async {
+
+                await Nav.goToNewScreen(
+                  context: context,
+                  screen: const LDBBrowserScreen(
+                      docs: [
+                        'headline: Records',
+                        PostLDBPOps.myViews,
+                        PostLDBPOps.myLikes,
+                        'headline: posts',
+                        PostLDBPOps.publishedPosts,
+                      ],
+                  ),
+                );
+
+              },
+            ),
+
+            /// LDB VIEWER
+            LabButton(
+              text: 'Go to LDB VIEWER Screen',
+              isOk: true,
+              onTap: () async {
+
+                await Nav.goToNewScreen(
+                  context: context,
+                  screen: const LDBViewerScreen(
+                    ldbDocName: PostLDBPOps.myViews,
+                  ),
+                );
+
+              },
+            ),
+
+            /// LDB TEST
+            LabButton(
+              text: 'Go to LDB TEST Screen',
+              isOk: true,
+              onTap: () async {
+
+                await Nav.goToNewScreen(
+                  context: context,
+                  screen: const SembastTestScreen(),
+                );
+
+              },
+            ),
 
           ],
         ),

@@ -6,7 +6,10 @@ import 'package:layouts/layouts.dart';
 import 'package:talktohumanity/packages/lib/authing.dart';
 
 class FireAutherScreen extends StatelessWidget {
-  const FireAutherScreen({Key key}) : super(key: key);
+
+  const FireAutherScreen({
+    Key key
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
