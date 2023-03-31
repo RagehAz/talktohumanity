@@ -1,5 +1,16 @@
 part of authing;
 
+/*
+
+FOR WEB INTEGRATION
+
+- add the following line to ./web/index.html
+
+<meta name="google-signin-client_id" content="YOUR_GOOGLE_SIGN_IN_OAUTH_CLIENT_ID.apps.googleusercontent.com">
+
+
+ */
+
 class GoogleAuthing {
   // --------------------
   GoogleAuthing.singleton();
@@ -121,6 +132,7 @@ class GoogleAuthing {
       invoker: 'googleSignOutOps',
       functions: () async {
         if (kIsWeb == false) {
+          await getGoogleSignInInstance().disconnect();
           await getGoogleSignInInstance().signOut();
         }
 

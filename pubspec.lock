@@ -293,6 +293,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.8"
+  desktop_webview_auth:
+    dependency: transitive
+    description:
+      name: desktop_webview_auth
+      sha256: "9de17601e1521b7cc2de1c5538e92f64833da668cba101bf11b2f61ce652becc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.11"
   device_info_plus:
     dependency: transitive
     description:
@@ -473,6 +481,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.1+25"
+  firebase_dynamic_links:
+    dependency: transitive
+    description:
+      name: firebase_dynamic_links
+      sha256: db17ff7ba5d5be5c2359e48346a5304f62d6480446643fb86a96c461b80c7b66
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.17"
+  firebase_dynamic_links_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_dynamic_links_platform_interface
+      sha256: f7e63a6a1f38852b76196d49004e7dd10c4058ced975dcc6e967d35f5867f67b
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.3+32"
   firebase_storage:
     dependency: "direct main"
     description:
@@ -497,6 +521,54 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.25"
+  firebase_ui_auth:
+    dependency: "direct main"
+    description:
+      name: firebase_ui_auth
+      sha256: "6a7ad488298dead2eac65c9c81263c18d7373638204701fe766e13adebe217c4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.17"
+  firebase_ui_localizations:
+    dependency: transitive
+    description:
+      name: firebase_ui_localizations
+      sha256: "8ab06ef14bbad6c2f8af63aa2995016996c205fd05db7912df18838a51d023e4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
+  firebase_ui_oauth:
+    dependency: transitive
+    description:
+      name: firebase_ui_oauth
+      sha256: ba8cc7ced034f1ce7f2c4e8fb41cea791de7db716d5910a2ea1b99e17c7b02d0
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.17"
+  firebase_ui_oauth_apple:
+    dependency: "direct main"
+    description:
+      name: firebase_ui_oauth_apple
+      sha256: "38b3291cefb601285525a2e61b75586344f9c81ad36fecc2a7a69d70604eb535"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.24"
+  firebase_ui_oauth_facebook:
+    dependency: "direct main"
+    description:
+      name: firebase_ui_oauth_facebook
+      sha256: "2c4ccc7ee576bb973c56ba89a394fb351b53b2cb4dd05551c4495f30a112c0c3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.24"
+  firebase_ui_oauth_google:
+    dependency: "direct main"
+    description:
+      name: firebase_ui_oauth_google
+      sha256: "668361377e0330e9060203279d4dfca999011a0fde2125174eff6ee6e701016e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.21"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -534,6 +606,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.7.2+3"
+  flutter_localizations:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_native_splash:
     dependency: "direct main"
     description:
@@ -1122,6 +1199,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.4.3+1"
+  sign_in_with_apple:
+    dependency: "direct main"
+    description:
+      name: sign_in_with_apple
+      sha256: ac3b113767dfdd765078c507dad9d4d9fe96b669cc7bd88fc36fc15376fb3400
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.3.0"
+  sign_in_with_apple_platform_interface:
+    dependency: transitive
+    description:
+      name: sign_in_with_apple_platform_interface
+      sha256: a5883edee09ed6be19de19e7d9f618a617fe41a6fa03f76d082dfb787e9ea18d
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
+  sign_in_with_apple_web:
+    dependency: transitive
+    description:
+      name: sign_in_with_apple_web
+      sha256: "44b66528f576e77847c14999d5e881e17e7223b7b0625a185417829e5306f47a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   sky_engine:
     dependency: transitive
     description: flutter

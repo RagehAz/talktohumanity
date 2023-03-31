@@ -1,5 +1,9 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
+import 'package:firebase_ui_oauth_apple/firebase_ui_oauth_apple.dart';
+import 'package:firebase_ui_oauth_facebook/firebase_ui_oauth_facebook.dart';
+import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
@@ -7,6 +11,24 @@ import 'package:talktohumanity/b_views/a_screens/a_starting_screen.dart';
 import 'package:talktohumanity/c_protocols/providers/ui_provider.dart';
 import 'package:talktohumanity/d_helpers/routing.dart';
 import 'package:talktohumanity/firebase_options.dart';
+
+class SocialKey{
+
+  const SocialKey({
+    this.facebookAppID,
+    this.googleClientID,
+});
+
+  /// FROM FIREBASE CONSOLE - AUTH - GOOGLE - EDIT CONFIG
+  final String googleClientID;
+  final String facebookAppID;
+
+  static const SocialKey talkToHumanityKeys = SocialKey(
+    facebookAppID: '569221317127-vuhsubfo4si5sjqfjjbg5ciugof17h1i.apps.googleusercontent.com',
+    googleClientID: '727816559045136',
+  );
+
+}
 
 Future<void> main() async {
   // --------------------------------------------------------------------------
@@ -17,6 +39,23 @@ Future<void> main() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
   // }
+
+  FirebaseUIAuth.configureProviders([
+    EmailAuthProvider(),
+    GoogleProvider(
+      clientId: SocialKey.talkToHumanityKeys.googleClientID,
+      // redirectUri: ,
+      // scopes: ,
+      // iOSPreferPlist: ,
+    ),
+    FacebookProvider(
+      clientId: SocialKey.talkToHumanityKeys.facebookAppID,
+      // redirectUri: '',
+    ),
+    AppleProvider(
+      // scopes: ,
+    ),
+  ]);
 
   // await FacebookAuth.instance.webInitialize(
   //     appId: '727816559045136',

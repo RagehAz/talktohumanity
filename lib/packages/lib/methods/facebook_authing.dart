@@ -2,6 +2,10 @@ part of authing;
 
 /*
 
+
+/// FACEBOOK DEVELOPER DASHBOARD URL
+https://developers.facebook.com/apps/?show_reminder=true
+
 /// SETUP ON ANDROID
 
 1 - open new app facebook developer account

@@ -23,7 +23,10 @@ import 'package:talktohumanity/c_protocols/post_protocols/post_real_ops.dart';
 import 'package:talktohumanity/c_protocols/timing_protocols/timing_protocols.dart';
 import 'package:talktohumanity/c_protocols/zoning_protocols/zoning_protocols.dart';
 import 'package:talktohumanity/d_helpers/talk_theme.dart';
+import 'package:talktohumanity/main.dart';
 import 'package:talktohumanity/packages/lib/authing.dart';
+import 'package:talktohumanity/packages/lib/firebase_ui_auther/fire_auther_screen.dart';
+import 'package:talktohumanity/packages/lib/firebase_ui_auther/social_auth_button.dart';
 
 class LabScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -430,6 +433,78 @@ class _LabScreenState extends State<LabScreen> {
               },
             ),
 
+            /// -------------------------------------------->
+            const DotSeparator(),
+
+            const LabTitle(text: 'FIRE SIGN IN'),
+
+
+            /// GO TO FIRE SIGN IN
+            LabButton(
+              text: 'Go TO FIRE SIGN IN SCREEN',
+              isOk: true,
+              onTap: () async {
+
+                await Nav.goToNewScreen(
+                    context: context,
+                    screen: const FireAutherScreen(),
+                );
+
+              },
+            ),
+
+            /// PRINT CURRENT USER ID
+            LabButton(
+              text: 'PRINT CURRENT USER ID',
+              isOk: true,
+              onTap: () async {
+
+                blog(Authing.getUserID());
+
+              },
+            ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: const <Widget>[
+
+                /// APPLE
+                SocialAuthButton(
+                  signInMethod: SignInMethod.apple,
+                  onSignedIn: onSignedIn,
+                  socialKeys: SocialKey.talkToHumanityKeys,
+                ),
+
+                /// GOOGLE
+                SocialAuthButton(
+                  signInMethod: SignInMethod.google,
+                  onSignedIn: onSignedIn,
+                  socialKeys: SocialKey.talkToHumanityKeys,
+                ),
+
+                /// FACEBOOK
+                SocialAuthButton(
+                  signInMethod: SignInMethod.facebook,
+                  onSignedIn: onSignedIn,
+                  socialKeys: SocialKey.talkToHumanityKeys,
+                ),
+              ],
+
+            ),
+
+            // / GET CREDENTIALS
+            // LabButton(
+            //   text: 'GET CREDENTIALS',
+            //   isOk: true,
+            //   onTap: () async {
+            //
+            //
+            //
+            //     Authing.blogUserCredential(credential: cred);
+            //
+            //   },
+            // ),
+
           ],
         ),
       ),
@@ -437,4 +512,9 @@ class _LabScreenState extends State<LabScreen> {
     // --------------------
   }
   // --------------------------------------------------------------------------
+}
+
+Future<void> onSignedIn(User user) async {
+
+  Authing.blogFirebaseUser(user: user);
 }

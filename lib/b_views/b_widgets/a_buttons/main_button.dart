@@ -21,7 +21,7 @@ class MainButton extends StatelessWidget {
   final Color textColor;
   final bool smallText;
   // --------------------------------------------------------------------------
-  static const double height = 50;
+  static const double height = 60;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -29,13 +29,13 @@ class MainButton extends StatelessWidget {
     return TalkBox(
       width: width,
       height: height,
-      textScaleFactor: smallText == true ? 0.6 : 0.8,
+      textScaleFactor: smallText == true ? 0.5 : 0.8,
       text: text,
       onTap: onTap,
       color: color,
       textColor: textColor,
       isBold: true,
-      textMaxLines: 2,
+      textMaxLines: 3,
     );
 
   }

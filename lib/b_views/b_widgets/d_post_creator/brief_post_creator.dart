@@ -44,8 +44,8 @@ class BriefPostCreatorView extends StatelessWidget {
         Opacity(
           opacity: 0.3,
           child: SuperImage(
-            height: _shortest * 0.6,
-            width: _shortest * 0.6,
+            height: _shortest * 0.7,
+            width: _shortest * 0.7,
             pic: TalkTheme.logo_night,
           ),
         ),
@@ -81,7 +81,7 @@ class BriefPostCreatorView extends StatelessWidget {
             /// BUTTONS
             Container(
               width: _shortest * 0.8,
-              height: 50,
+              height: MainButton.height,
               margin: const EdgeInsets.only(
                 top: 5,
               ),
@@ -100,7 +100,7 @@ class BriefPostCreatorView extends StatelessWidget {
                     color: Colorz.white20,
                     textColor: Colorz.white255,
                     smallText: true,
-                    width: 220,
+                    width: _shortest * 0.4,
                   ),
 
                   /// PUBLISH
