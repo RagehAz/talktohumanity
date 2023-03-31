@@ -26,7 +26,6 @@ import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 
 import 'pic_maker/cropping_screen/cropper_footer.dart';
 import 'pic_maker/cropping_screen/cropper_pages.dart';
-
 // -----------------------------------------------------------------------------
 part 'models/caption_model.dart';
 part 'models/dimension_model.dart';

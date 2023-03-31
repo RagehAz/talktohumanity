@@ -3,6 +3,7 @@ import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:mapper/mapper.dart';
+import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
 import 'package:super_box/super_box.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
@@ -10,7 +11,9 @@ import 'package:talktohumanity/b_views/b_widgets/e_timeline/timeline_builder.dar
 import 'package:talktohumanity/c_protocols/post_protocols/post_ldb_ops.dart';
 import 'package:talktohumanity/c_protocols/post_protocols/post_real_ops.dart';
 import 'package:talktohumanity/d_helpers/standards.dart';
+import 'package:talktohumanity/d_helpers/talk_theme.dart';
 import 'package:talktohumanity/packages/mediators/mediators.dart';
+import 'package:talktohumanity/packages/mediators/super_video_player/super_video_player.dart';
 import 'package:widget_fader/widget_fader.dart';
 
 class ArchiveScreen extends StatefulWidget {
@@ -45,19 +48,19 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
   void initState() {
     super.initState();
 
-    // Sounder.playSound(
-    //   mp3Asset: TalkTheme.serenityTrack,
-    //   loop: true,
-    //   initialPosition: Duration(
-    //       seconds: Numeric.createRandomIndex(
-    //         listLength: 410,
-    //       ),
-    //   ),
-    //   initialVolume: 0,
-    //   fadeIn: true,
-    //   fadeInMilliseconds: 5000,
-    //   mounted: mounted,
-    // );
+    Sounder.playSound(
+      mp3Asset: TalkTheme.serenityTrack,
+      loop: true,
+      initialPosition: Duration(
+          seconds: Numeric.createRandomIndex(
+            listLength: 410,
+          ),
+      ),
+      initialVolume: 0,
+      fadeIn: true,
+      fadeInMilliseconds: 5000,
+      mounted: mounted,
+    );
 
   }
   // --------------------
@@ -223,28 +226,29 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
     // --------------------
     final double _screenWidth = Scale.screenWidth(context);
     final double _screenHeight = Scale.screenHeight(context);
+    final double _longSide = Scale.screenLongestSide(context);
     // --------------------
     return BasicLayout(
       body: Stack(
         alignment: Alignment.topCenter,
         children: <Widget>[
 
-          // /// PLANET VIDEO
-          // WidgetFader(
-          //   fadeType: FadeType.fadeIn,
-          //   duration: const Duration(seconds: 5),
-          //   child: OverflowBox(
-          //     maxWidth: _longestSide,
-          //     maxHeight: _longestSide,
-          //     child: SuperVideoPlayer(
-          //       width: _longestSide,
-          //       aspectRatio: 1,
-          //       autoPlay: true,
-          //       asset: TalkTheme.earthLoop,
-          //       loop: true,
-          //     ),
-          //   ),
-          // ),
+          /// PLANET VIDEO
+          WidgetFader(
+            fadeType: FadeType.fadeIn,
+            duration: const Duration(seconds: 5),
+            child: OverflowBox(
+              maxWidth: _longSide,
+              maxHeight: _longSide,
+              child: SuperVideoPlayer(
+                width: _longSide,
+                aspectRatio: 1,
+                autoPlay: true,
+                asset: TalkTheme.earthLoop,
+                loop: true,
+              ),
+            ),
+          ),
 
           /// TIMELINE
           WidgetFader(
