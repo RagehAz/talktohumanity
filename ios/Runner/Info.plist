@@ -2,52 +2,189 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
-		<key>CFBundleDevelopmentRegion</key>
-		<string>$(DEVELOPMENT_LANGUAGE)</string>
-		<key>CFBundleDisplayName</key>
-		<string>Talktohumanity</string>
-		<key>CFBundleExecutable</key>
-		<string>$(EXECUTABLE_NAME)</string>
-		<key>CFBundleIdentifier</key>
-		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-		<key>CFBundleInfoDictionaryVersion</key>
-		<string>6.0</string>
-		<key>CFBundleName</key>
-		<string>Talk to Humanity</string>
-		<key>CFBundlePackageType</key>
-		<string>APPL</string>
-		<key>CFBundleShortVersionString</key>
-		<string>$(FLUTTER_BUILD_NAME)</string>
-		<key>CFBundleSignature</key>
-		<string>????</string>
-		<key>CFBundleVersion</key>
-		<string>$(FLUTTER_BUILD_NUMBER)</string>
-		<key>LSRequiresIPhoneOS</key>
-		<true/>
-		<key>UILaunchStoryboardName</key>
-		<string>LaunchScreen</string>
-		<key>UIMainStoryboardFile</key>
-		<string>Main</string>
-		<key>UISupportedInterfaceOrientations</key>
-		<array>
-			<string>UIInterfaceOrientationPortrait</string>
-			<string>UIInterfaceOrientationLandscapeLeft</string>
-			<string>UIInterfaceOrientationLandscapeRight</string>
-		</array>
-		<key>UISupportedInterfaceOrientations~ipad</key>
-		<array>
-			<string>UIInterfaceOrientationPortrait</string>
-			<string>UIInterfaceOrientationPortraitUpsideDown</string>
-			<string>UIInterfaceOrientationLandscapeLeft</string>
-			<string>UIInterfaceOrientationLandscapeRight</string>
-		</array>
-		<key>UIViewControllerBasedStatusBarAppearance</key>
-		<false/>
-		<key>CADisableMinimumFrameDurationOnPhone</key>
-		<true/>
-		<key>UIApplicationSupportsIndirectInputEvents</key>
-		<true/>
-		<key>UIStatusBarHidden</key>
-		<false/>
+        <!- =============================================================== ->
+
+        <!- APP IDs ->
+
+        <!- ================================ ->
+	    <key>CFBundleIdentifier</key>
+	    <string>com.talktohumanity.talktohumanity</string>
+        <!- ================================ ->
+        <key>CFBundleName</key>
+        <string>talktohumanity</string>
+        <!- =============================================================== ->
+
+        <!- APP NAME ->
+
+        <!- ================================ ->
+        <key>CFBundleDisplayName</key>
+        <string>Talk to Humanity</string>
+        <!- =============================================================== ->
+
+        <!- APP VERSION ->
+
+        <!- ================================ ->
+	    <key>CFBundleVersion</key>
+        <string>1.2.13</string>
+        <!- ================================ ->
+        <key>CFBundleShortVersionString</key>
+        <string>1.2</string>
+        <!- =============================================================== ->
+
+        <!- APP LANGUAGE ->
+
+        <!- ================================ ->
+        <key>CFBundleDevelopmentRegion</key>
+        <string>en</string>
+        <!- =============================================================== ->
+
+        <!- SYSTEM ->
+
+        <!- ================================ ->
+	    <key>CADisableMinimumFrameDurationOnPhone</key>
+	    <true/>
+        <!- ================================ ->
+	    <key>CFBundleExecutable</key>
+	    <string>$(EXECUTABLE_NAME)</string>
+	    <!- ================================ ->
+	    <key>CFBundleInfoDictionaryVersion</key>
+	    <string>6.0</string>
+	    <!- ================================ ->
+	    <key>CFBundlePackageType</key>
+	    <string>APPL</string>
+	    <!- ================================ ->
+	    <key>CFBundleSignature</key>
+	    <string>????</string>
+	    <!- ================================ ->
+	    <key>LSRequiresIPhoneOS</key>
+   	    <true/>
+        <!- =============================================================== ->
+
+        <!- URL TYPES ->
+
+        <!- ================================ ->
+	    <key>CFBundleURLTypes</key>
+	    <array>
+	    	<dict>
+	    		<key>CFBundleTypeRole</key>
+	    		<string>Editor</string>
+	    		<key>CFBundleURLName</key>
+	    		<string>com.talktohumanity.talktohumanity</string>
+	    		<key>CFBundleURLSchemes</key>
+	    		<array>
+	    			<string>com.googleusercontent.apps.569221317127-apg6rskk26v2mbkccslo2nqughb75h8r</string>
+	    		</array>
+	    	</dict>
+	    	<dict/>
+	    </array>
+        <!- =============================================================== ->
+
+        <!- NOTIFICATIONS ->
+
+        <!- ================================ ->
+	    <key>FIRMessagingAutoRegisterEnabledflag</key>
+	    <true/>
+        <!- =============================================================== ->
+
+        <!- FIREBASE APP DELEGATE ->
+
+        <!- ================================ ->
+	    <key>FirebaseAppDelegateProxyEnabled</key>
+	    <true/>
+        <!- =============================================================== ->
+
+	    <!-- VIDEO PLAYER -->
+
+	    <!- ================================ ->
+	    <key>NSAppTransportSecurity</key>
+	    <dict>
+	    	<key>NSAllowsArbitraryLoads</key>
+	    	<true/>
+	    </dict>
+        <!- =============================================================== ->
+
+	    <!-- CAMERA PERMISSION -->
+
+	    <!- ================================ ->
+	    <key>NSCameraUsageDescription</key>
+	    <string>Talk to Humanity requires access to device's Camera</string>
+        <!- =============================================================== ->
+
+	    <!-- PHOTO LIBRARY PERMISSION -->
+
+	    <!- ================================ ->
+        <key>NSPhotoLibraryAddUsageDescription</key>
+        <string>Talk to Humanity requires access to add Images to your photos</string>
+	    <!- ================================ ->
+        <key>NSPhotoLibraryUsageDescription</key>
+        <string>Talk to Humanity requires access to device's photo library</string>
+        <!- =============================================================== ->
+
+	    <!-- MEDIA LIBRARY PERMISSION -->
+
+	    <!- ================================ ->
+        <key>NSAppleMusicUsageDescription</key>
+        <string>Talk to Humanity requires access to your music files</string>
+	    <!- ================================ ->
+        <key>kTCCServiceMediaLibrary</key>
+        <string>Talk to Humanity requires access to Media Libraries</string>
+        <!- =============================================================== ->
+
+	    <!-- UI -->
+
+	    <!- ================================ ->
+	    <key>UIApplicationSupportsIndirectInputEvents</key>
+	    <true/>
+	    <!- ================================ ->
+	    <key>UIBackgroundModes</key>
+	    <array>
+	    	<string>fetch</string>
+	    	<string>remote-notification</string>
+	    </array>
+        <!- =============================================================== ->
+
+	    <!-- SPLASH SCREEN-->
+
+	    <!- ================================ ->
+	    <key>UILaunchStoryboardName</key>
+	    <string>LaunchScreen</string>
+	    <!- ================================ ->
+	    <key>UIMainStoryboardFile</key>
+	    <string>Main</string>
+        <!- =============================================================== ->
+
+	    <!-- ORIENTATION -->
+
+	    <!- ================================ ->
+	    <key>UISupportedInterfaceOrientations</key>
+	    <array>
+	    		<string>UIInterfaceOrientationPortrait</string>
+	    		<string>UIInterfaceOrientationLandscapeLeft</string>
+	    		<string>UIInterfaceOrientationLandscapeRight</string>
+	    </array>
+        <!- =============================================================== ->
+
+	    <!-- IPAD ORIENTATION -->
+
+	    <!- ================================ ->
+	    <key>UISupportedInterfaceOrientations~ipad</key>
+	    <array>
+	    	<string>UIInterfaceOrientationPortrait</string>
+	    	<string>UIInterfaceOrientationPortraitUpsideDown</string>
+	    	<string>UIInterfaceOrientationLandscapeLeft</string>
+	    	<string>UIInterfaceOrientationLandscapeRight</string>
+	    </array>
+        <!- =============================================================== ->
+
+	    <!-- STATUS BAR-->
+
+	    <!- ================================ ->
+	    <key>UIViewControllerBasedStatusBarAppearance</key>
+	    <false/>
+	    <!- ================================ ->
+	    <key>UIStatusBarHidden</key>
+        <false/>
+        <!- =============================================================== ->
+
 	</dict>
 </plist>
