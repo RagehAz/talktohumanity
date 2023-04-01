@@ -1186,10 +1186,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: a3337c69ab40369c5a0be3d75cf9d41bb9d59d8a
+      resolved-ref: d7b5c9f2a7c11cec97ba009cbf3f9bd05451e3fd
       url: "https://github.com/RagehAz/stringer.git"
     source: git
-    version: "1.0.3"
+    version: "1.0.4"
   super_box:
     dependency: "direct main"
     description:
