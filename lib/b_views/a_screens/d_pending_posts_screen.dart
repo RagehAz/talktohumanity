@@ -3,7 +3,7 @@ import 'package:filers/filers.dart';
 import 'package:fire/fire.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
-import 'package:talktohumanity/packages/ldb/lib/ldb.dart';
+import 'package:ldb/ldb.dart';
 import 'package:real/real.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/a_models/post_model.dart';

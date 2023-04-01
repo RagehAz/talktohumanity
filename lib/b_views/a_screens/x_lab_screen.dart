@@ -25,7 +25,7 @@ import 'package:talktohumanity/c_protocols/timing_protocols/timing_protocols.dar
 import 'package:talktohumanity/c_protocols/zoning_protocols/zoning_protocols.dart';
 import 'package:talktohumanity/d_helpers/talk_theme.dart';
 import 'package:talktohumanity/main.dart';
-import 'package:talktohumanity/packages/ldb/lib/ldb.dart';
+import 'package:ldb/ldb.dart';
 import 'package:talktohumanity/packages/lib/authing.dart';
 import 'package:talktohumanity/packages/lib/firebase_ui_auther/fire_auther_screen.dart';
 import 'package:talktohumanity/packages/lib/firebase_ui_auther/social_auth_button.dart';

@@ -88,17 +88,9 @@ dependencies:
   fire:
     git:
       url: https://github.com/RagehAz/fire.git
-#  ldb:
-#    git:
-#      url: https://github.com/RagehAz/ldb.git
-
-  sembast: ^3.1.1
-  path: ^1.8.0
-  package_info_plus: ^3.0.1
-  colorizer:
+  ldb:
     git:
-      url: https://github.com/RagehAz/colorizer.git
-
+      url: https://github.com/RagehAz/ldb.git
   real:
     git:
       url: https://github.com/RagehAz/real.git

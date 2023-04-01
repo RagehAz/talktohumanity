@@ -2,7 +2,7 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/foundation.dart';
-import 'package:talktohumanity/packages/ldb/lib/ldb.dart';
+import 'package:ldb/ldb.dart';
 import 'package:space_time/space_time.dart';
 import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
 import 'package:talktohumanity/c_protocols/post_protocols/post_ldb_ops.dart';
