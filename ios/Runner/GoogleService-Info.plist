@@ -32,5 +32,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:569221317127:ios:d09f9949e7246766ce20a2</string>
+	<key>DATABASE_URL</key>
+	<string>https://talktohumanity-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>
