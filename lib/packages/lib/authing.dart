@@ -3,11 +3,13 @@ library authing;
 import 'package:extension_google_sign_in_as_googleapis_auth/extension_google_sign_in_as_googleapis_auth.dart';
 import 'package:filers/filers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis_auth/googleapis_auth.dart'; // as gapis;
 import 'package:mapper/mapper.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:stringer/stringer.dart';
 // -----------------------------------------------------------------------------
 part 'methods/apple_authing.dart';

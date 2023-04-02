@@ -24,8 +24,10 @@ class SocialKey{
   final String facebookAppID;
 
   static const SocialKey talkToHumanityKeys = SocialKey(
-    facebookAppID: '569221317127-vuhsubfo4si5sjqfjjbg5ciugof17h1i.apps.googleusercontent.com',
-    googleClientID: '727816559045136',
+    /// GET FACEBOOK ID FROM FACEBOOK DEV DASHBOARD
+    facebookAppID: '727816559045136',
+    /// GET CLIENT_ID TAG FROM GoogleService-info.plist
+    googleClientID: '569221317127-apg6rskk26v2mbkccslo2nqughb75h8r.apps.googleusercontent.com',
   );
 
 }

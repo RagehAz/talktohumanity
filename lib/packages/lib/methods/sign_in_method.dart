@@ -25,6 +25,7 @@ class SignMethod {
       case SignInMethod.google: return 'google.com'; break;
       case SignInMethod.facebook: return 'facebook.com'; break;
       case SignInMethod.anonymous: return 'anonymous'; break;
+      case SignInMethod.apple: return 'apple.com'; break;
       default: return null;
     }
   }
@@ -37,6 +38,7 @@ class SignMethod {
       case 'google.com': return SignInMethod.google; break;
       case 'facebook.com': return SignInMethod.facebook; break;
       case 'anonymous': return SignInMethod.anonymous; break;
+      case 'apple.com': return SignInMethod.apple; break;
       default: return Authing.getUserID() == null ? null : SignInMethod.anonymous;
     }
 

@@ -1,5 +1,14 @@
 part of authing;
 
+/*
+
+- IOS 13+
+- add Apple as auth provider in firebase console
+- add "Sign in with Apple" in xCode/Runner/Signing & Capabilities/+ Capability/Sign in with Apple
+- make sure it is addedunder all - debug - release - profile
+
+ */
+
 class AppleAuthing {
   // -----------------------------------------------------------------------------
 
@@ -10,22 +19,27 @@ class AppleAuthing {
   /// APPLE AUTHENTICATION
 
   // --------------------
-  /// PLAN : FIX ME
-  /*
-
-  static Future<AuthModel> signInByApple({
+  /// WORKS ON IOS DEVICE
+  static Future<void> signInByApple({
     @required BuildContext context,
-    @required ZoneModel currentZone,
   }) async {
 
-    const AuthModel _authModel = AuthModel();
 
     blog('starting apple auth ops');
 
+    final AuthorizationCredentialAppleID credential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+      // state: ,
+      // nonce: ,
+      // webAuthenticationOptions: ,
+    );
 
-    return _authModel;
+    Authing.blogAppleCred(credential);
 
   }
-   */
+
   // -----------------------------------------------------------------------------
 }

@@ -343,6 +343,18 @@ class _LabScreenState extends State<LabScreen> {
               },
             ),
 
+
+            /// APPLE AUTH
+            LabButton(
+              text: 'Apple Auth',
+              isOk: true,
+              onTap: () async {
+
+                await AppleAuthing.signInByApple(context: context);
+
+              },
+            ),
+
             /// STEAL USER IMAGE
             LabButton(
               text: 'Steal image',

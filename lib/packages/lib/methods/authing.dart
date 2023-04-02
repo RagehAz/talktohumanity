@@ -2,16 +2,16 @@ part of authing;
 
 /*
 
-APPLE WEB         : x
-APPLE IOS         : ...
-APPLE ANDROID     : x
+APPLE WEB         : ignore
+APPLE IOS         : DONE
+APPLE ANDROID     : ignore
 
 GOOGLE WEB        : DONE
-GOOGLE IOS        : ...
+GOOGLE IOS        : DONE
 GOOGLE ANDROID    : DONE
 
 FACEBOOK WEB      : DONE
-FACEBOOK IOS      : ...
+FACEBOOK IOS      : DONE
 FACEBOOK ANDROID  : DONE
 
 ANONYMOUS         : DONE
@@ -305,6 +305,25 @@ class Authing {
       blog('authCred.accessToken : ${authCred.accessToken}');
       blog('authCred.token : ${authCred.token}');
 
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogAppleCred(AuthorizationCredentialAppleID credential){
+
+    if (credential == null){
+      blog('blogAppleCred : AUTH CREDENTIAL IS NULL');
+    }
+    else {
+      blog('APPLE CREDENTIAL :----> ');
+      blog('credential.authorizationCode : ${credential.authorizationCode}');
+      blog('credential.email : ${credential.email}');
+      blog('credential.familyName : ${credential.familyName}');
+      blog('credential.givenName : ${credential.givenName}');
+      blog('credential.identityToken : ${credential.identityToken}');
+      blog('credential.state : ${credential.state}');
+      blog('credential.userIdentifier : ${credential.userIdentifier}');
     }
 
   }

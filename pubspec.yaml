@@ -2,7 +2,8 @@ name: talktohumanity
 description: A platform designed to say something to humanity
 publish_to: "none"
 # --------------------------------------------------------------------------------
-version: 1.3.0
+# remember to change CFBundleVersion in ios/runner/info.plist
+version: 1.3.1
 # --------------------------------------------------------------------------------
 environment:
   sdk: ">=2.10.5 <3.0.0"

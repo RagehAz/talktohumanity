@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:legalizer/legalizer.dart';
@@ -74,9 +73,9 @@ class Routing {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> goToLab() async {
-    if (Standards.isRageh() == true || kDebugMode == true){
+    // if (Standards.isRageh() == true || kDebugMode == true){
       await Nav.goToNewScreen(context: getContext(), screen: const LabScreen());
-    }
+    // }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
