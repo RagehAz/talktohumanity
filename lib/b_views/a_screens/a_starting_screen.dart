@@ -7,15 +7,15 @@ import 'package:legalizer/legalizer.dart';
 import 'package:night_sky/night_sky.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
-import 'package:talktohumanity/b_views/a_screens/c_post_creator_screen.dart';
-import 'package:talktohumanity/b_views/a_screens/e_auth_screen.dart';
+import 'package:talktohumanity/b_views/a_screens/b_0_home_screen.dart';
 import 'package:talktohumanity/b_views/b_widgets/d_post_creator/brief_post_creator.dart';
 import 'package:talktohumanity/b_views/b_widgets/f_planet_page_view/starting_screen_planet_page_view.dart';
-import 'package:talktohumanity/c_protocols/authing_protocols/auth_protocols.dart';
-import 'package:talktohumanity/c_protocols/timing_protocols/timing_protocols.dart';
-import 'package:talktohumanity/d_helpers/helper_methods.dart';
-import 'package:talktohumanity/d_helpers/routing.dart';
-import 'package:talktohumanity/d_helpers/talk_theme.dart';
+import 'package:talktohumanity/c_services/protocols/auth_protocols.dart';
+import 'package:talktohumanity/c_services/protocols/timing_protocols.dart';
+import 'package:talktohumanity/c_services/helpers/helper_methods.dart';
+import 'package:talktohumanity/c_services/helpers/routing.dart';
+import 'package:talktohumanity/c_services/helpers/talk_theme.dart';
+import 'package:talktohumanity/c_services/providers/ui_provider.dart';
 import 'package:talktohumanity/packages/lib/authing.dart';
 
 class StartingScreen extends StatefulWidget {
@@ -104,17 +104,15 @@ class _StartingScreenState extends State<StartingScreen> {
     if (_isValid == true) {
 
       if (Authing.getUserID() == null){
-        await Nav.goToNewScreen(
-        context: context,
-        screen: const AuthScreen(
-            backButtonIsSkipButton: false,
-        ),
-      );
+        UiProvider.proSetHomeView(view: HomeScreenView.auth, notify: true,);
+      }
+      else {
+        UiProvider.proSetHomeView(view: HomeScreenView.creator, notify: true,);
       }
 
       await Nav.goToNewScreen(
         context: context,
-        screen: PostCreatorScreen(
+        screen: HomeScreen(
           draft: PostModel.generateDraft(
             body: _bodyController.text,
           ),

@@ -2,7 +2,7 @@ import 'package:devicer/devicer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:space_time/space_time.dart';
-import 'package:talktohumanity/c_protocols/zoning_protocols/zoning_protocols.dart';
+import 'package:talktohumanity/c_services/protocols/zoning_protocols.dart';
 import 'package:talktohumanity/packages/lib/authing.dart';
 
 @immutable

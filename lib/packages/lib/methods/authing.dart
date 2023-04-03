@@ -33,6 +33,38 @@ class Authing {
   static Authing get instance => _singleton;
   // -----------------------------------------------------------------------------
 
+  /// INITIALIZE SOCIAL AUTHING
+
+  // --------------------
+  static void initializeSocialAuthing({
+    @required SocialKeys socialKeys,
+  }) {
+
+    if (socialKeys != null) {
+      fireUI.FirebaseUIAuth.configureProviders([
+        if (socialKeys.supportEmail == true) fireUI.EmailAuthProvider(),
+        if (socialKeys.googleClientID != null)
+          GoogleProvider(
+            clientId: socialKeys.googleClientID,
+            // redirectUri: ,
+            // scopes: ,
+            // iOSPreferPlist: ,
+          ),
+        if (socialKeys.facebookAppID != null)
+          FacebookProvider(
+            clientId: socialKeys.facebookAppID,
+            // redirectUri: '',
+          ),
+        if (socialKeys.supportApple == true)
+          AppleProvider(
+              // scopes: ,
+              ),
+      ]);
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
   /// FIREBASE AUTH
 
   // --------------------

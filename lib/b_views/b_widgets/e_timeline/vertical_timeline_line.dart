@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talktohumanity/d_helpers/standards.dart';
+import 'package:talktohumanity/c_services/helpers/standards.dart';
 
 class VerticalLineLayer extends StatelessWidget {
   // --------------------------------------------------------------------------

@@ -2,12 +2,12 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
-import 'package:talktohumanity/b_views/a_screens/c_post_creator_screen.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/lab_button.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
 import 'package:talktohumanity/b_views/b_widgets/e_timeline/timeline_month_builder.dart';
-import 'package:talktohumanity/d_helpers/routing.dart';
-import 'package:talktohumanity/d_helpers/standards.dart';
+import 'package:talktohumanity/c_services/controllers/home_view_controllers.dart';
+import 'package:talktohumanity/c_services/helpers/routing.dart';
+import 'package:talktohumanity/c_services/helpers/standards.dart';
 
 class TimeLineBuilder extends StatelessWidget {
   // --------------------------------------------------------------------------
@@ -59,7 +59,7 @@ class TimeLineBuilder extends StatelessWidget {
                 color: Colorz.white50,
               ),
 
-              TalkBox(
+              const TalkBox(
                 height: 50,
                 text: 'Talk to Humanity',
                 // margins: const EdgeInsets.only(top: 50),
@@ -69,12 +69,7 @@ class TimeLineBuilder extends StatelessWidget {
                 iconSizeFactor: 0.5,
                 iconColor: Colorz.black255,
                 textScaleFactor: 0.8 / 0.5,
-                onTap: () async {
-                  await Nav.goToNewScreen(
-                    context: context,
-                    screen: const PostCreatorScreen(),
-                  );
-                },
+                onTap: onTalkToHumanityButtonTap,
               ),
 
               /// DEV_MODE

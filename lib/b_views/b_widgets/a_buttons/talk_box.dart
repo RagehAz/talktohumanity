@@ -1,7 +1,7 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:super_box/super_box.dart';
-import 'package:talktohumanity/d_helpers/talk_theme.dart';
+import 'package:talktohumanity/c_services/helpers/talk_theme.dart';
 
 class TalkBox extends StatelessWidget {
   // --------------------------------------------------------------------------

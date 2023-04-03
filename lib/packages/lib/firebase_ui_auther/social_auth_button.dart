@@ -6,8 +6,8 @@ import 'package:firebase_ui_oauth_facebook/firebase_ui_oauth_facebook.dart';
 import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:flutter/material.dart';
 import 'package:super_box/super_box.dart';
-import 'package:talktohumanity/main.dart';
 import 'package:talktohumanity/packages/lib/authing.dart';
+import 'package:talktohumanity/packages/lib/models/social_keys.dart';
 
 /*
 DOCUMENTATION
@@ -29,7 +29,7 @@ class SocialAuthButton extends StatelessWidget {
   }) : super(key: key);
   // --------------------------------------------------------------------------
   final SignInMethod signInMethod;
-  final SocialKey socialKeys;
+  final SocialKeys socialKeys;
   final Function(UserCredential cred) onUserCreated;
   final Function(AuthCredential authCred) onAuthCredReceived;
   final Function(AuthCredential authCred) inAuthCredLinked;
@@ -42,7 +42,7 @@ class SocialAuthButton extends StatelessWidget {
 
       case SignInMethod.google:
         return GoogleProvider(
-          clientId: SocialKey.talkToHumanityKeys.googleClientID,
+          clientId: socialKeys.googleClientID,
           // redirectUri: ,
           // scopes: ,
           // iOSPreferPlist: ,
@@ -51,7 +51,7 @@ class SocialAuthButton extends StatelessWidget {
 
       case SignInMethod.facebook:
         return FacebookProvider(
-          clientId: SocialKey.talkToHumanityKeys.facebookAppID,
+          clientId: socialKeys.facebookAppID,
           // redirectUri: '',
         );
         break;

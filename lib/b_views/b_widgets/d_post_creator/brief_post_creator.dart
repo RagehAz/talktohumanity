@@ -6,8 +6,8 @@ import 'package:stringer/stringer.dart';
 import 'package:super_image/super_image.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/main_button.dart';
 import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text_field.dart';
-import 'package:talktohumanity/d_helpers/helper_methods.dart';
-import 'package:talktohumanity/d_helpers/talk_theme.dart';
+import 'package:talktohumanity/c_services/helpers/helper_methods.dart';
+import 'package:talktohumanity/c_services/helpers/talk_theme.dart';
 
 class BriefPostCreatorView extends StatelessWidget {
   // -----------------------------------------------------------------------------

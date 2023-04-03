@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
-import 'package:talktohumanity/d_helpers/helper_methods.dart';
-import 'package:talktohumanity/d_helpers/standards.dart';
+import 'package:talktohumanity/c_services/helpers/helper_methods.dart';
+import 'package:talktohumanity/c_services/helpers/standards.dart';
 
 class TimeLineMonthBullet extends StatelessWidget {
   // --------------------------------------------------------------------------

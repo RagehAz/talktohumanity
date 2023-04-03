@@ -6,6 +6,7 @@ import 'package:scale/scale.dart';
 import 'package:stringer/stringer.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
 import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text_field.dart';
+import 'package:talktohumanity/c_services/providers/ui_provider.dart';
 
 class PostCreatorView extends StatelessWidget {
   // -----------------------------------------------------------------------------
@@ -100,7 +101,7 @@ class PostCreatorView extends StatelessWidget {
                       // textColor: Colorz.black255,
                       isBold: true,
                       textCentered: false,
-                      onTap: () => Nav.goBack(context: context),
+                      onTap: () => UiProvider.goBack(),
                     ),
 
                     /// PUBLISH

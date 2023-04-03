@@ -1,69 +1,35 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
-import 'package:firebase_ui_oauth_apple/firebase_ui_oauth_apple.dart';
-import 'package:firebase_ui_oauth_facebook/firebase_ui_oauth_facebook.dart';
-import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:talktohumanity/b_views/a_screens/a_starting_screen.dart';
-import 'package:talktohumanity/c_protocols/providers/ui_provider.dart';
-import 'package:talktohumanity/d_helpers/routing.dart';
+import 'package:talktohumanity/c_services/providers/ui_provider.dart';
+import 'package:talktohumanity/c_services/helpers/routing.dart';
 import 'package:talktohumanity/firebase_options.dart';
+import 'package:talktohumanity/packages/lib/authing.dart';
+import 'package:talktohumanity/packages/lib/models/social_keys.dart';
 
-class SocialKey{
-
-  const SocialKey({
-    this.facebookAppID,
-    this.googleClientID,
-});
-
-  /// FROM FIREBASE CONSOLE - AUTH - GOOGLE - EDIT CONFIG
-  final String googleClientID;
-  final String facebookAppID;
-
-  static const SocialKey talkToHumanityKeys = SocialKey(
+const SocialKeys talkToHumanityKeys = SocialKeys(
     /// GET FACEBOOK ID FROM FACEBOOK DEV DASHBOARD
     facebookAppID: '727816559045136',
     /// GET CLIENT_ID TAG FROM GoogleService-info.plist
     googleClientID: '569221317127-apg6rskk26v2mbkccslo2nqughb75h8r.apps.googleusercontent.com',
-  );
-
-}
+    supportApple: true,
+    supportEmail: true
+);
 
 Future<void> main() async {
   // --------------------------------------------------------------------------
   WidgetsFlutterBinding.ensureInitialized();
   // --------------------
-  // if (kIsWeb == false){
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-  // }
-
-  FirebaseUIAuth.configureProviders([
-    EmailAuthProvider(),
-    GoogleProvider(
-      clientId: SocialKey.talkToHumanityKeys.googleClientID,
-      // redirectUri: ,
-      // scopes: ,
-      // iOSPreferPlist: ,
-    ),
-    FacebookProvider(
-      clientId: SocialKey.talkToHumanityKeys.facebookAppID,
-      // redirectUri: '',
-    ),
-    AppleProvider(
-      // scopes: ,
-    ),
-  ]);
-
-  // await FacebookAuth.instance.webInitialize(
-  //     appId: '727816559045136',
-  //     cookie: true, xfbml: true,
-  //     version: 'v11.0',
-  // );
+  // --------------------
+  Authing.initializeSocialAuthing(
+      socialKeys: talkToHumanityKeys
+  );
   // --------------------
   return runApp(const AppStarter());
   // --------------------------------------------------------------------------
