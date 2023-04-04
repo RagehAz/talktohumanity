@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:authing/authing.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
@@ -17,6 +18,7 @@ import 'package:talktohumanity/b_views/b_widgets/a_buttons/lab_button.dart';
 import 'package:talktohumanity/b_views/b_widgets/b_texting/lab_title.dart';
 import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
 import 'package:talktohumanity/b_views/x_dashboard_screens/d_pending_posts_screen.dart';
+import 'package:talktohumanity/c_services/helpers/standards.dart';
 import 'package:talktohumanity/c_services/helpers/talk_theme.dart';
 import 'package:talktohumanity/c_services/protocols/auth_protocols.dart';
 import 'package:talktohumanity/c_services/protocols/post_protocols/post_ldb_ops.dart';
@@ -24,8 +26,6 @@ import 'package:talktohumanity/c_services/protocols/post_protocols/post_real_ops
 import 'package:talktohumanity/c_services/protocols/timing_protocols.dart';
 import 'package:talktohumanity/c_services/protocols/user_image_protocols.dart';
 import 'package:talktohumanity/c_services/protocols/zoning_protocols.dart';
-import 'package:talktohumanity/main.dart';
-import 'package:authing/authing.dart';
 
 class LabScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -462,13 +462,13 @@ class _LabScreenState extends State<LabScreen> {
 
                   return SocialAuthButton(
                     signInMethod: methods[index],
-                    socialKeys: talkToHumanityKeys,
-                    onSignedIn: onSignedIn,
-                    onAuthCredReceived: onAuthCredReceived,
-                    inAuthCredLinked: inAuthCredLinked,
-                    onAuthFailed: onAuthFailed,
-                    onDifferentSignInMethodsFound: onDifferentSignInMethodsFound,
-                    onUserCreated: onUserCreated,
+                    socialKeys: Standards.talkToHumanitySocialKeys,
+                    onSuccess: (AuthModel authModel){
+                      AuthModel.blogAuthModel(authModel: authModel);
+                    },
+                    onError: (String error){
+                      blog('error is : $error');
+                    },
                   );
 
                 }),

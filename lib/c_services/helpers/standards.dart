@@ -11,7 +11,17 @@ class Standards {
 
   // -----------------------------------------------------------------------------
   static const String ragehID = 'N1B1unMO8kRS81CZNdMtqGmORYD2';
-  // --------------------
+  // -----------------------------------------------------------------------------
+  static const SocialKeys talkToHumanitySocialKeys = SocialKeys(
+
+      /// GET FACEBOOK ID FROM FACEBOOK DEV DASHBOARD
+      facebookAppID: '727816559045136',
+
+      /// GET CLIENT_ID TAG FROM GoogleService-info.plist
+      googleClientID: '569221317127-apg6rskk26v2mbkccslo2nqughb75h8r.apps.googleusercontent.com',
+      supportApple: true,
+      supportEmail: true);
+  // -----------------------------------------------------------------------------
   static bool isRageh(){
     return Authing.getUserID() == ragehID;
   }

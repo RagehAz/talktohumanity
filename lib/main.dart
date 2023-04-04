@@ -4,19 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:talktohumanity/b_views/a_screens/a_starting_screen.dart';
+import 'package:talktohumanity/c_services/helpers/standards.dart';
 import 'package:talktohumanity/c_services/providers/ui_provider.dart';
 import 'package:talktohumanity/c_services/helpers/routing.dart';
 import 'package:talktohumanity/firebase_options.dart';
 import 'package:authing/authing.dart';
 
-const SocialKeys talkToHumanityKeys = SocialKeys(
-    /// GET FACEBOOK ID FROM FACEBOOK DEV DASHBOARD
-    facebookAppID: '727816559045136',
-    /// GET CLIENT_ID TAG FROM GoogleService-info.plist
-    googleClientID: '569221317127-apg6rskk26v2mbkccslo2nqughb75h8r.apps.googleusercontent.com',
-    supportApple: true,
-    supportEmail: true
-);
+
 
 Future<void> main() async {
   // --------------------------------------------------------------------------
@@ -27,7 +21,7 @@ Future<void> main() async {
     );
   // --------------------
   Authing.initializeSocialAuthing(
-      socialKeys: talkToHumanityKeys
+      socialKeys: Standards.talkToHumanitySocialKeys
   );
   // --------------------
   return runApp(const AppStarter());

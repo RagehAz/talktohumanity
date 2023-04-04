@@ -71,10 +71,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "227719c8cc66a9727a5ef748279213997f35f1ed"
+      resolved-ref: a7f90523239ca7d8e8c596b032e111e2e167b8bf
       url: "https://github.com/RagehAz/authing.git"
     source: git
-    version: "0.0.3"
+    version: "0.0.4"
   bldrs_theme:
     dependency: "direct main"
     description:
