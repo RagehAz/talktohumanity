@@ -8,6 +8,7 @@ import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/b_views/a_screens/b_1_posts_view.dart';
 import 'package:talktohumanity/b_views/a_screens/b_2_auth_view.dart';
 import 'package:talktohumanity/b_views/a_screens/b_3_creator_view.dart';
+import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
 import 'package:talktohumanity/b_views/b_widgets/f_planet_page_view/rotating_planet_video_view.dart';
 import 'package:talktohumanity/c_services/helpers/talk_theme.dart';
 import 'package:talktohumanity/c_services/providers/ui_provider.dart';
@@ -92,6 +93,25 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     // --------------------
     return BasicLayout(
+      canGoBack: false,
+      onBack: () async {
+
+        final bool _exit = await TalkDialog.boolDialog(
+          title: 'Exit ?',
+          body: 'Do you want to close and exit ?',
+          invertButtons: true,
+        );
+
+        if (_exit == true){
+
+          await Future.delayed(const Duration(milliseconds: 500), () async {
+            await Nav.closeApp(context);
+          });
+
+        }
+
+      },
+
       body: Stack(
         alignment: Alignment.topCenter,
         children: <Widget>[

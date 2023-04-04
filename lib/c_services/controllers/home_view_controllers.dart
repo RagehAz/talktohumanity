@@ -5,8 +5,10 @@ import 'package:authing/authing.dart';
 void onTalkToHumanityButtonTap(){
 
   final String _userID = Authing.getUserID();
+  final SignInMethod _signInMethod = Authing.getCurrentSignInMethod();
+  final bool _isAnonymous = _signInMethod == null || _signInMethod == SignInMethod.anonymous;
 
-  if (_userID == null){
+  if (_userID == null || _isAnonymous == true){
     UiProvider.proSetHomeView(view: HomeScreenView.auth, notify: true);
   }
 

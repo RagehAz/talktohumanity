@@ -11,7 +11,6 @@ import 'package:super_box/super_box.dart';
 import 'package:talktohumanity/b_views/a_screens/b_0_home_screen.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/auth_button.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
-import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text.dart';
 import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text_field.dart';
 import 'package:talktohumanity/c_services/helpers/standards.dart';
 import 'package:talktohumanity/c_services/protocols/auth_protocols.dart';
@@ -148,14 +147,23 @@ class _AuthViewState extends State<AuthView> {
   }
   // --------------------
   /// TASK : WRITE ME
-  Future<void> _onForgetPassword() async {
-
-  }
+  // Future<void> _onForgetPassword() async {
+  //
+  // }
   // --------------------
   /// TASK : WRITE ME
   Future<void> _onAppleTap() async {
 
     FocusManager.instance.primaryFocus?.unfocus();
+    await _triggerLoading(setTo: true);
+    final bool _success = await AuthProtocols.simpleAppleSignIn(
+      flushbarKey: _flushbarKey,
+    );
+
+    await _afterSignIn(
+        success: _success,
+    );
+
 
   }
   // --------------------
@@ -227,6 +235,7 @@ class _AuthViewState extends State<AuthView> {
         child: Stack(
             children: <Widget>[
 
+              /// SKY
               ValueListenableBuilder(
                 valueListenable: _loading,
                 builder: (_, bool loading, Widget child) {
@@ -308,18 +317,18 @@ class _AuthViewState extends State<AuthView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
 
-                          /// FORGOT PASSWORD
-                          SizedBox(
-                            height: 20,
-                            child: TalkText(
-                              text: 'Forgot password',
-                              textHeight: 20,
-                              boxColor: Colorz.white20,
-                              isBold: false,
-                              centered: false,
-                              onTap: _onForgetPassword,
-                            ),
-                          ),
+                          // /// FORGOT PASSWORD
+                          // SizedBox(
+                          //   height: 20,
+                          //   child: TalkText(
+                          //     text: 'Forgot password',
+                          //     textHeight: 20,
+                          //     boxColor: Colorz.white20,
+                          //     isBold: false,
+                          //     centered: false,
+                          //     onTap: _onForgetPassword,
+                          //   ),
+                          // ),
 
                           /// EXPANDER
                           const Expander(),

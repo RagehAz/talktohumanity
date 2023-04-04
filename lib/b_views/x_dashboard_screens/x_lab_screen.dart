@@ -40,6 +40,7 @@ class _LabScreenState extends State<LabScreen> {
   bool _canShowDashboard = false;
   final TextEditingController _passwordController = TextEditingController();
   static const String _password = '1235';
+  final ValueNotifier<bool> _isObscured = ValueNotifier(true);
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -101,6 +102,7 @@ class _LabScreenState extends State<LabScreen> {
                     textController: _passwordController,
                     keyboardTextInputType: TextInputType.number,
                     headlineCentered: true,
+                    isObscured: _isObscured,
                     onChanged: (String text){
                       if (text == _password){
                         setState(() {
@@ -114,9 +116,9 @@ class _LabScreenState extends State<LabScreen> {
               );
             }
 
-            /// DASHBOARD
-            else {
-              return FloatingList(
+          /// DASHBOARD
+          else {
+            return FloatingList(
               padding: const EdgeInsets.only(bottom: 100),
               columnChildren: <Widget>[
                 /// -------------------------------------------->
@@ -146,8 +148,7 @@ class _LabScreenState extends State<LabScreen> {
                     //   _uploaded?.blogPost();
                     //
                     // }
-
-                    },
+                  },
                 ),
 
                 /// READ ALL POSTS
@@ -157,7 +158,7 @@ class _LabScreenState extends State<LabScreen> {
                   onTap: () async {
                     final List<PostModel> _posts = await PostRealOps.readAllPublishedPosts();
                     blog('RECEIVED ----> ${_posts.length} POSTS HERE BABY');
-                    },
+                  },
                 ),
 
                 /// -------------------------------------------->
@@ -168,7 +169,7 @@ class _LabScreenState extends State<LabScreen> {
                 /// USER ID
                 LabButton(
                   text: 'user ID : ${Authing.getUserID()}',
-                  onTap: (){},
+                  onTap: () {},
                   isOk: true,
                 ),
 
@@ -177,12 +178,10 @@ class _LabScreenState extends State<LabScreen> {
                   text: 'Google sign in',
                   isOk: true,
                   onTap: () async {
-
                     final AuthModel _authModel = await GoogleAuthing.emailSignIn();
                     AuthModel.blogAuthModel(authModel: _authModel);
                     setState(() {});
-
-                    },
+                  },
                 ),
 
                 /// GOOGLE SIGN OUT
@@ -192,7 +191,7 @@ class _LabScreenState extends State<LabScreen> {
                   onTap: () async {
                     await Authing.signOut();
                     setState(() {});
-                    },
+                  },
                 ),
 
                 /// ANONYMOUS SIGN IN
@@ -200,12 +199,10 @@ class _LabScreenState extends State<LabScreen> {
                   text: 'Anonymous SignIn method',
                   isOk: true,
                   onTap: () async {
-
                     final AuthModel _authModel = await Authing.anonymousSignin();
                     AuthModel.blogAuthModel(authModel: _authModel);
                     setState(() {});
-
-                    },
+                  },
                 ),
 
                 /// DELETE FIREBASE USER
@@ -213,14 +210,12 @@ class _LabScreenState extends State<LabScreen> {
                   text: 'Delete Firebase user',
                   isOk: true,
                   onTap: () async {
-
                     await Authing.deleteFirebaseUser(
                       userID: Authing.getUserID(),
                     );
 
                     setState(() {});
-
-                    },
+                  },
                 ),
 
                 /// ANONYMOUS SIGN IN
@@ -228,12 +223,10 @@ class _LabScreenState extends State<LabScreen> {
                   text: 'GET ZONE',
                   isOk: true,
                   onTap: () async {
-
                     final String _zone = await ZoningProtocols.getZoneByIPApi();
 
                     blog('zone is : $_zone');
-
-                    },
+                  },
                 ),
 
                 /// SIMPLE GOOGLE SIGN IN
@@ -241,14 +234,12 @@ class _LabScreenState extends State<LabScreen> {
                   text: 'Simple google sign in',
                   // isOk: false,
                   onTap: () async {
-
                     await AuthProtocols.simpleGoogleSignIn(
                       flushbarKey: null,
                     );
 
                     setState(() {});
-
-                    },
+                  },
                 ),
 
                 /// SIMPLE ANONYMOUS AUTH
@@ -256,11 +247,9 @@ class _LabScreenState extends State<LabScreen> {
                   text: 'Simple Anonymous Auth',
                   isOk: true,
                   onTap: () async {
-
                     await AuthProtocols.simpleAnonymousSignIn();
 
                     setState(() {});
-
                   },
                 ),
 
@@ -269,7 +258,6 @@ class _LabScreenState extends State<LabScreen> {
                   text: 'Facebook  Auth',
                   isOk: true,
                   onTap: () async {
-
                     // await FacebookAuth.instance.webInitialize(
                     //   appId: '727816559045136',
                     //   cookie: true, xfbml: true,
@@ -279,7 +267,6 @@ class _LabScreenState extends State<LabScreen> {
                     AuthModel.blogAuthModel(authModel: _authModel);
 
                     if (_authModel != null) {
-
                       final String _url = _authModel.imageURL;
 
                       final Uint8List bytes = await Floaters.getUint8ListFromURL(_url);
@@ -311,7 +298,7 @@ class _LabScreenState extends State<LabScreen> {
                       invertButtons: true,
                     );
                     blog('is : $_ok');
-                    },
+                  },
                 ),
 
                 /// -------------------------------------------->
@@ -328,7 +315,7 @@ class _LabScreenState extends State<LabScreen> {
                       context: context,
                       screen: const PendingPostsScreen(),
                     );
-                    },
+                  },
                 ),
 
                 /// -------------------------------------------->
@@ -339,7 +326,6 @@ class _LabScreenState extends State<LabScreen> {
                   text: 'Upload image',
                   isOk: true,
                   onTap: () async {
-
                     // final Uint8List _bytes = await Floaters.getBytesFromLocalRasterAsset(
                     //     localAsset: TalkTheme.logo_night,
                     // );
@@ -356,19 +342,15 @@ class _LabScreenState extends State<LabScreen> {
                     // );
                     //
                     // setState(() {});
-
                   },
                 ),
-
 
                 /// APPLE AUTH
                 LabButton(
                   text: 'Apple Auth',
                   isOk: true,
                   onTap: () async {
-
                     await AppleAuthing.signInByApple();
-
                   },
                 ),
 
@@ -402,10 +384,8 @@ class _LabScreenState extends State<LabScreen> {
                   text: 'CHECK DEVICE TIME',
                   isOk: true,
                   onTap: () async {
-
                     final bool _isCorrect = await TimingProtocols.checkDeviceTime();
                     blog('device time is correct? : $_isCorrect');
-
                   },
                 ),
 
@@ -423,9 +403,7 @@ class _LabScreenState extends State<LabScreen> {
                   text: 'blog current firebase user',
                   isOk: true,
                   onTap: () async {
-
                     AuthBlog.blogCurrentFirebaseUser();
-
                   },
                 ),
 
@@ -437,14 +415,12 @@ class _LabScreenState extends State<LabScreen> {
                   text: 'go to Terms screen',
                   isOk: true,
                   onTap: () async {
-
                     await Nav.goToNewScreen(
-                        context: context,
-                        screen: const TermsScreen(
-                          domain: 'talktohumanity.com',
-                        ),
+                      context: context,
+                      screen: const TermsScreen(
+                        domain: 'talktohumanity.com',
+                      ),
                     );
-
                   },
                 ),
 
@@ -453,14 +429,12 @@ class _LabScreenState extends State<LabScreen> {
                   text: 'Go to Privacy Policy',
                   isOk: true,
                   onTap: () async {
-
                     await Nav.goToNewScreen(
-                        context: context,
-                        screen: const PrivacyScreen(
-                          domain: 'talktohumanity.com',
-                        ),
+                      context: context,
+                      screen: const PrivacyScreen(
+                        domain: 'talktohumanity.com',
+                      ),
                     );
-
                   },
                 ),
 
@@ -469,41 +443,37 @@ class _LabScreenState extends State<LabScreen> {
 
                 const LabTitle(text: 'FIRE SIGN IN'),
 
-
                 /// PRINT CURRENT USER ID
                 LabButton(
                   text: 'PRINT CURRENT USER ID',
                   isOk: true,
                   onTap: () async {
-
                     blog(Authing.getUserID());
-
                   },
                 ),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-
-                    ...List.generate(3, (index){
-
-                      const List<SignInMethod> methods = [SignInMethod.apple, SignInMethod.google, SignInMethod.facebook];
+                    ...List.generate(3, (index) {
+                      const List<SignInMethod> methods = [
+                        SignInMethod.apple,
+                        SignInMethod.google,
+                        SignInMethod.facebook
+                      ];
 
                       return SocialAuthButton(
                         signInMethod: methods[index],
                         socialKeys: Standards.talkToHumanitySocialKeys,
-                        onSuccess: (AuthModel authModel){
+                        onSuccess: (AuthModel authModel) {
                           AuthModel.blogAuthModel(authModel: authModel);
                         },
-                        onError: (String error){
+                        onError: (String error) {
                           blog('error is : $error');
                         },
                       );
-
                     }),
-
                   ],
-
                 ),
 
                 /// -------------------------------------------->
@@ -516,20 +486,18 @@ class _LabScreenState extends State<LabScreen> {
                   text: 'Go to LDB VIEWERS Screen',
                   isOk: true,
                   onTap: () async {
-
                     await Nav.goToNewScreen(
                       context: context,
                       screen: const LDBBrowserScreen(
-                          docs: [
-                            'headline: Records',
-                            PostLDBPOps.myViews,
-                            PostLDBPOps.myLikes,
-                            'headline: posts',
-                            PostLDBPOps.publishedPosts,
-                          ],
+                        docs: [
+                          'headline: Records',
+                          PostLDBPOps.myViews,
+                          PostLDBPOps.myLikes,
+                          'headline: posts',
+                          PostLDBPOps.publishedPosts,
+                        ],
                       ),
                     );
-
                   },
                 ),
 
@@ -538,14 +506,12 @@ class _LabScreenState extends State<LabScreen> {
                   text: 'Go to LDB VIEWER Screen',
                   isOk: true,
                   onTap: () async {
-
                     await Nav.goToNewScreen(
                       context: context,
                       screen: const LDBViewerScreen(
                         ldbDocName: PostLDBPOps.myViews,
                       ),
                     );
-
                   },
                 ),
 
@@ -554,54 +520,19 @@ class _LabScreenState extends State<LabScreen> {
                   text: 'Go to LDB TEST Screen',
                   isOk: true,
                   onTap: () async {
-
                     await Nav.goToNewScreen(
                       context: context,
                       screen: const SembastTestScreen(),
                     );
-
                   },
                 ),
-
               ],
             );
-            }
-
           }
-        ),
+        }),
       ),
     );
     // --------------------
   }
   // --------------------------------------------------------------------------
-}
-
-Future<void> onSignedIn(User user) async {
-  blog('onSignedIn:-');
-  AuthBlog.blogFirebaseUser(user: user);
-}
-
-Future<void> onAuthCredReceived(AuthCredential authCred) async {
-  blog('onAuthCredReceived:-');
-  AuthBlog.blogAuthCred(authCred);
-}
-
-Future<void> onUserCreated(UserCredential cred) async {
-  blog('onUserCreated:-');
-  AuthBlog.blogUserCredential(cred: cred);
-}
-
-Future<void> inAuthCredLinked(AuthCredential authCred) async {
-  blog('inAuthCredLinked:-');
-  AuthBlog.blogAuthCred(authCred);
-}
-
-Future<void> onAuthFailed(String error) async {
-  blog('onAuthFailed: error : $error');
-}
-
-Future<void> onDifferentSignInMethodsFound(AuthCredential authCred, String email, List<String>methods) async {
-  blog('onDifferentSignInMethodsFound:-');
-  blog('email $email : methods : $methods');
-  AuthBlog.blogAuthCred(authCred);
 }

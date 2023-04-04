@@ -159,6 +159,42 @@ class AuthProtocols {
   }
   // -----------------------------------------------------------------------------
 
+  /// APPLE
+
+  // --------------------
+  ///
+  static Future<bool> simpleAppleSignIn({
+    @required GlobalKey flushbarKey,
+  }) async {
+    bool _success = false;
+
+    final bool _timeIsCorrect = await TimingProtocols.checkDeviceTime();
+
+    if (_timeIsCorrect == true){
+
+      final AuthModel _authModel = await AppleAuthing.signInByApple(
+        onError: (String error) => showAuthFailureDialog(
+          error: error,
+          flushbarKey: flushbarKey,
+        ),
+      );
+
+      _success = await _composeUserByAuthModel(
+        authModel: _authModel,
+      );
+
+      await showAuthSuccessDialog(
+        success: _success,
+        flushbarKey: flushbarKey,
+        userName: _authModel?.name,
+      );
+
+    }
+
+    return _success;
+  }
+  // -----------------------------------------------------------------------------
+
   /// FACEBOOK
 
   // --------------------

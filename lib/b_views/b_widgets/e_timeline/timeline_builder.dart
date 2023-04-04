@@ -1,12 +1,17 @@
+import 'package:authing/authing.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:scale/scale.dart';
+import 'package:super_box/super_box.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
+import 'package:talktohumanity/a_models/user_model.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
 import 'package:talktohumanity/b_views/b_widgets/e_timeline/timeline_month_builder.dart';
 import 'package:talktohumanity/c_services/controllers/home_view_controllers.dart';
+import 'package:talktohumanity/c_services/helpers/routing.dart';
 import 'package:talktohumanity/c_services/helpers/standards.dart';
+import 'package:talktohumanity/c_services/protocols/user_protocols/user_protocols.dart';
 
 class TimeLineBuilder extends StatelessWidget {
   // --------------------------------------------------------------------------
@@ -58,18 +63,26 @@ class TimeLineBuilder extends StatelessWidget {
                 color: Colorz.white50,
               ),
 
-              TalkBox(
+              FutureBuilder(
+                future: UserProtocols.fetchUser(userID: Authing.getUserID()),
+                builder: (_, AsyncSnapshot<UserModel> snap){
+
+                  final UserModel _user = snap.data;
+
+                  return TalkBox(
                 height: 50,
-                width: Scale.screenWidth(context) - 20,
+                width: Scale.screenWidth(context) - 60,
                 text: 'Talk to Humanity',
                 // margins: const EdgeInsets.only(top: 50),
                 // color: Colorz.white255,
                 isBold: true,
-                // icon: TalkTheme.logo_cloudy,
-                iconSizeFactor: 0.7,
+                icon: _user?.image,
                 iconColor: Colorz.black255,
-                textScaleFactor: 0.8 / 0.7,
+                textScaleFactor: 0.8,
                 onTap: onTalkToHumanityButtonTap,
+              );
+
+                }
               ),
 
               const SeparatorLine(
@@ -78,7 +91,18 @@ class TimeLineBuilder extends StatelessWidget {
                 color: Colorz.white50,
               ),
 
-            ],
+              SuperBox(
+                width: 30,
+                height: 30,
+                icon: Iconz.dvRagehIcon,
+                iconColor: Colorz.white10,
+                bubble: false,
+                onDoubleTap: () async {
+                  await Routing.goToLab();
+                  },
+              ),
+
+                  ],
           );
 
         }

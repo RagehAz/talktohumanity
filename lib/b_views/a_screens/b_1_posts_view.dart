@@ -1,12 +1,21 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:dialogs/dialogs.dart';
 import 'package:filers/filers.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
+import 'package:ldb/ldb.dart';
 import 'package:mapper/mapper.dart';
+import 'package:mediators/mediators.dart';
 import 'package:scale/scale.dart';
 import 'package:super_box/super_box.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
+import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
+import 'package:talktohumanity/b_views/b_widgets/c_dialogs/wait_dialog.dart';
 import 'package:talktohumanity/b_views/b_widgets/e_timeline/timeline_builder.dart';
+import 'package:talktohumanity/c_services/helpers/routing.dart';
 import 'package:talktohumanity/c_services/protocols/post_protocols/post_ldb_ops.dart';
+import 'package:talktohumanity/c_services/protocols/post_protocols/post_protocols.dart';
 import 'package:talktohumanity/c_services/protocols/post_protocols/post_real_ops.dart';
 import 'package:talktohumanity/c_services/helpers/standards.dart';
 import 'package:widget_fader/widget_fader.dart';
@@ -200,6 +209,157 @@ class _PostsViewState extends State<PostsView> {
     post.blogPost();
   }
   // --------------------------------------------------------------------------
+  Future<void> _onEditPost(PostModel post) async {
+
+    if (Standards.isRageh() == true) {
+      final GlobalKey flushbarKey = GlobalKey();
+
+      await BottomDialog.showBottomDialog(
+        context: context,
+        draggable: true,
+        height: 300,
+        child: Column(
+          children: [
+
+            /// CHANGE POSTER IMAGE
+            BottomDialog.wideButton(
+                context: context,
+                text: 'Change Image',
+                onTap: () async {
+
+                  final Uint8List _bytes = await PicMaker.pickAndCropSinglePic(
+                    context: context,
+                    cropAfterPick: true,
+                    aspectRatio: 1,
+                    resizeToWidth: 200,
+                  );
+
+                  if (_bytes != null) {
+                    final bool _go = await TalkDialog.boolDialog(
+                      title: 'Update pic ?',
+                      invertButtons: true,
+                    );
+
+                    if (_go == true) {
+                      await Nav.goBack(context: context);
+
+                      pushTalkWaitDialog(context: context, text: 'Moving');
+
+                      final String _newURL = await PostProtocols.uploadPosterImageAndGetURL(
+                        bytes: _bytes,
+                        ownerID: Standards.ragehID,
+                        postID: post.id,
+                      );
+
+                      await PostProtocols.renovate(
+                        post: post.copyWith(
+                          pic: _newURL,
+                        ),
+                        realCollName: PostRealOps.publishedPostsColl,
+                        ldbDocName: PostLDBPOps.publishedPosts,
+                      );
+
+                      await WaitDialog.closeWaitDialog(context);
+
+                      await TalkDialog.topDialog(
+                        flushbarKey: flushbarKey,
+                        headline: 'Post is updated',
+                      );
+
+                      await Nav.pushNamedAndRemoveAllBelow(
+                        context: context,
+                        goToRoute: Routing.archiveRoute,
+                      );
+                    }
+                  }
+                }),
+
+            /// SUSPEND
+            BottomDialog.wideButton(
+                context: context,
+                text: 'Approve',
+                onTap: () async {
+
+                  final bool _go = await TalkDialog.boolDialog(
+                    title: 'Suspend ?',
+                    invertButtons: true,
+                  );
+
+                  if (_go == true) {
+                    await Nav.goBack(context: context);
+
+                    pushTalkWaitDialog(context: context, text: 'Moving');
+
+                    await PostRealOps.movePost(
+                      postID: post.id,
+                      fromColl: PostRealOps.publishedPostsColl,
+                      toColl: PostLDBPOps.suspendedPosts,
+                    );
+
+                    await LDBOps.deleteAllMapsAtOnce(
+                      docName: PostLDBPOps.publishedPosts,
+                    );
+
+                    await WaitDialog.closeWaitDialog(context);
+
+                    await TalkDialog.topDialog(
+                      flushbarKey: flushbarKey,
+                      headline: 'Post is Moved',
+                    );
+
+                    await Nav.pushNamedAndRemoveAllBelow(
+                      context: context,
+                      goToRoute: Routing.archiveRoute,
+                    );
+                  }
+                }),
+
+            /// DELETE
+            BottomDialog.wideButton(
+                context: context,
+                text: 'Delete',
+                onTap: () async {
+                  final bool _go = await TalkDialog.boolDialog(
+                    title: 'Delete ?',
+                    invertButtons: true,
+                  );
+
+                  if (_go == true) {
+                    await Nav.goBack(context: context);
+
+                    pushTalkWaitDialog(context: context, text: 'Deleting');
+
+                    await PostRealOps.deletePost(
+                      postID: post.id,
+                      collName: PostRealOps.publishedPostsColl,
+                    );
+
+                    await LDBOps.deleteAllMapsAtOnce(
+                      docName: PostLDBPOps.publishedPosts,
+                    );
+
+                    await WaitDialog.closeWaitDialog(context);
+
+                    await TalkDialog.topDialog(
+                      flushbarKey: flushbarKey,
+                      headline: 'Post is deleted',
+                    );
+
+                    await Nav.pushNamedAndRemoveAllBelow(
+                      context: context,
+                      goToRoute: Routing.archiveRoute,
+                    );
+
+                  }
+                }),
+
+          ],
+        ),
+      );
+    }
+
+  }
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
@@ -232,15 +392,7 @@ class _PostsViewState extends State<PostsView> {
             else {
               return TimeLineBuilder(
                 posts: _publishedPosts,
-                onDoubleTap: Standards.isRageh() == false ? null : (PostModel post) async {
-                        // if (Authing.getUserID() == Standards.ragehID){
-                        //   await Nav.goToNewScreen(
-                        //     context: context,
-                        //     screen: const PendingPostsScreen(),
-                        //   );
-                        // }
-                        blog('double tapping the fucking bitch : ${post.id}');
-                        },
+                onDoubleTap: _onEditPost,
                 controller: _scrollController,
                 onLike: (PostModel post) => _onLike(post),
                 onView: (PostModel post) => _onView(post),

@@ -1,12 +1,15 @@
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:dialogs/dialogs.dart';
 import 'package:filers/filers.dart';
 import 'package:fire/fire.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:ldb/ldb.dart';
+import 'package:mapper/mapper.dart';
 import 'package:real/real.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
+import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text.dart';
 import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
 import 'package:talktohumanity/b_views/b_widgets/c_dialogs/wait_dialog.dart';
 import 'package:talktohumanity/b_views/b_widgets/e_timeline/timeline_builder.dart';
@@ -106,7 +109,8 @@ class _PendingPostsScreenState extends State<PendingPostsScreen> {
                   fromJSON: true,
               );
 
-              return TimeLineBuilder(
+              if (Mapper.checkCanLoopList(_posts) == true){
+                return TimeLineBuilder(
                 posts: _posts,
                 controller: _scrollController,
                 goToPostCreatorButtonIsOn: false,
@@ -215,6 +219,24 @@ class _PendingPostsScreenState extends State<PendingPostsScreen> {
 
                 },
               );
+              }
+
+              else {
+
+                return const Center(
+                  child: TalkText(
+                    isBold: true,
+                    text: 'No posts are pending',
+                    maxLines: 2,
+                    margins: 60,
+                    // textHeight: 50,
+                    italic: true,
+                    textColor: Colorz.white200,
+                  ),
+                );
+
+              }
+
 
             }
         ),

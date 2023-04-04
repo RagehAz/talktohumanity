@@ -11,6 +11,7 @@ class PostLDBPOps {
   static const String myViews = 'myViews';
   static const String myLikes = 'myLikes';
   static const String publishedPosts = 'publishedPosts';
+  static const String suspendedPosts = 'suspendedPosts';
   // -----------------------------------------------------------------------------
 
   /// CREATE

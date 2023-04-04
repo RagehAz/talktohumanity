@@ -8,6 +8,7 @@ import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/a_models/user_model.dart';
+import 'package:talktohumanity/b_views/a_screens/b_0_home_screen.dart';
 import 'package:talktohumanity/b_views/b_widgets/d_post_creator/post_creator.dart';
 import 'package:talktohumanity/b_views/b_widgets/d_post_creator/user_creator_page.dart';
 import 'package:talktohumanity/c_services/controllers/publishing_controllers.dart';
@@ -215,7 +216,8 @@ class _CreatorViewState extends State<CreatorView> {
   }
   // --------------------
   void onBack(){
-    UiProvider.goBack();
+    blog('a77a');
+    UiProvider.proSetHomeView(view: HomeScreenView.posts, notify: true);
   }
   // --------------------------------------------------------------------------
   @override
@@ -245,7 +247,7 @@ class _CreatorViewState extends State<CreatorView> {
                 bodyController: _bodyController,
                 onPublish: _onNext,
                 canErrorize: _canErrorizeA,
-                onSkip: onBack,
+                onBack: onBack,
                 onSwitchTitle: (bool isOn){
                   setState(() {
                     _titleIsOn = isOn;

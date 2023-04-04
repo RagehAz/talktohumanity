@@ -10,7 +10,7 @@ class Standards {
   Standards();
 
   // -----------------------------------------------------------------------------
-  static const String ragehID = 'N1B1unMO8kRS81CZNdMtqGmORYD2';
+  static const String ragehID = '1zVOGp4iQXbTVsXydDNYkRMN8Iv1';
   // -----------------------------------------------------------------------------
   static const SocialKeys talkToHumanitySocialKeys = SocialKeys(
 

@@ -1,12 +1,10 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
-// import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:scale/scale.dart';
 import 'package:stringer/stringer.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
 import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text_field.dart';
-import 'package:talktohumanity/c_services/providers/ui_provider.dart';
 
 class PostCreatorView extends StatelessWidget {
   // -----------------------------------------------------------------------------
@@ -14,7 +12,7 @@ class PostCreatorView extends StatelessWidget {
     @required this.titleController,
     @required this.bodyController,
     @required this.onPublish,
-    @required this.onSkip,
+    @required this.onBack,
     @required this.canErrorize,
     @required this.onSwitchTitle,
     @required this.titleIsOn,
@@ -23,7 +21,7 @@ class PostCreatorView extends StatelessWidget {
   // -----------------------------------------------------------------------------
   final TextEditingController titleController;
   final TextEditingController bodyController;
-  final Function onSkip;
+  final Function onBack;
   final Function onPublish;
   final bool canErrorize;
   final bool titleIsOn;
@@ -97,7 +95,7 @@ class PostCreatorView extends StatelessWidget {
                   // textColor: Colorz.black255,
                   isBold: true,
                   textCentered: false,
-                  onTap: () => UiProvider.goBack(),
+                  onTap: onBack,
                 ),
                 /// PUBLISH
                 TalkBox(
