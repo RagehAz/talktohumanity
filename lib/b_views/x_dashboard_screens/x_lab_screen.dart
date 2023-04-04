@@ -25,10 +25,7 @@ import 'package:talktohumanity/c_services/protocols/timing_protocols.dart';
 import 'package:talktohumanity/c_services/protocols/user_image_protocols.dart';
 import 'package:talktohumanity/c_services/protocols/zoning_protocols.dart';
 import 'package:talktohumanity/main.dart';
-import 'package:talktohumanity/packages/lib/authing.dart';
-import 'package:talktohumanity/packages/lib/firebase_ui_auther/social_auth_button.dart';
-import 'package:talktohumanity/packages/lib/helpers/auth_blog.dart';
-import 'package:talktohumanity/packages/lib/models/auth_model.dart';
+import 'package:authing/authing.dart';
 
 class LabScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------

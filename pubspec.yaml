@@ -136,6 +136,9 @@ dependencies:
   legalizer:
     git:
       url: https://github.com/RagehAz/legalizer.git
+  authing:
+    git:
+      url: https://github.com/RagehAz/authing.git
 # ------------------------------------
 dev_dependencies:
   flutter_test:

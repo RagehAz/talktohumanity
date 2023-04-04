@@ -18,7 +18,7 @@ import 'package:talktohumanity/c_services/helpers/routing.dart';
 import 'package:talktohumanity/c_services/helpers/talk_theme.dart';
 import 'package:talktohumanity/c_services/protocols/user_protocols/user_protocols.dart';
 import 'package:talktohumanity/c_services/providers/ui_provider.dart';
-import 'package:talktohumanity/packages/lib/authing.dart';
+import 'package:authing/authing.dart';
 
 class StartingScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -110,7 +110,7 @@ class _StartingScreenState extends State<StartingScreen> {
           userID: Authing.getUserID(),
       );
 
-      if (Authing.getUserID() == null){
+      if (_user == null){
         UiProvider.proSetHomeView(view: HomeScreenView.auth, notify: true,);
       }
       else {

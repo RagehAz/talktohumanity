@@ -7,8 +7,7 @@ import 'package:talktohumanity/b_views/a_screens/a_starting_screen.dart';
 import 'package:talktohumanity/c_services/providers/ui_provider.dart';
 import 'package:talktohumanity/c_services/helpers/routing.dart';
 import 'package:talktohumanity/firebase_options.dart';
-import 'package:talktohumanity/packages/lib/authing.dart';
-import 'package:talktohumanity/packages/lib/models/social_keys.dart';
+import 'package:authing/authing.dart';
 
 const SocialKeys talkToHumanityKeys = SocialKeys(
     /// GET FACEBOOK ID FROM FACEBOOK DEV DASHBOARD

@@ -2,21 +2,20 @@ import 'package:devicer/devicer.dart';
 import 'package:flutter/material.dart';
 import 'package:space_time/space_time.dart';
 import 'package:talktohumanity/c_services/protocols/zoning_protocols.dart';
-import 'package:talktohumanity/packages/lib/authing.dart';
-import 'package:talktohumanity/packages/lib/models/auth_model.dart';
-
+import 'package:authing/authing.dart';
+/// => TAMAM
 @immutable
 class UserModel {
   // --------------------------------------------------------------------------
   const UserModel({
-    this.id,
-    this.name,
-    this.email,
-    this.signinMethod,
-    this.zone,
-    this.deviceID,
-    this.image,
-    this.createdAt,
+    @required this.id,
+    @required this.name,
+    @required this.email,
+    @required this.signinMethod,
+    @required this.zone,
+    @required this.deviceID,
+    @required this.image,
+    @required this.createdAt,
   });
   // --------------------
   final String id;
@@ -32,7 +31,7 @@ class UserModel {
   /// CLONING
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   UserModel copyWith({
     String id,
     String name,
@@ -59,7 +58,7 @@ class UserModel {
   /// CYPHER
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }){
@@ -75,7 +74,7 @@ class UserModel {
     };
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static UserModel decipher({
     @required Map<String, dynamic> map,
     @required bool fromJSON,
@@ -104,7 +103,7 @@ class UserModel {
   /// CREATION
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<UserModel> createUserModelFromAuthModel({
     @required AuthModel authModel,
     String imageOverride,
@@ -167,7 +166,6 @@ class UserModel {
   /// OVERRIDES
 
   // --------------------
-
    @override
    String toString() => '''
    id : $id,

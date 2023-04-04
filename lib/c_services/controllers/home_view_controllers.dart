@@ -1,6 +1,6 @@
 import 'package:talktohumanity/b_views/a_screens/b_0_home_screen.dart';
 import 'package:talktohumanity/c_services/providers/ui_provider.dart';
-import 'package:talktohumanity/packages/lib/authing.dart';
+import 'package:authing/authing.dart';
 
 void onTalkToHumanityButtonTap(){
 

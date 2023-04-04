@@ -14,7 +14,7 @@ import 'package:talktohumanity/c_services/controllers/publishing_controllers.dar
 import 'package:talktohumanity/c_services/protocols/user_image_protocols.dart';
 import 'package:talktohumanity/c_services/protocols/user_protocols/user_protocols.dart';
 import 'package:talktohumanity/c_services/providers/ui_provider.dart';
-import 'package:talktohumanity/packages/lib/authing.dart';
+import 'package:authing/authing.dart';
 
 class CreatorView extends StatefulWidget {
   /// --------------------------------------------------------------------------

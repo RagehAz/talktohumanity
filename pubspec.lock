@@ -67,14 +67,14 @@ packages:
     source: hosted
     version: "0.1.13"
   authing:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "725f726045fce7ab2af9177e0b6863f89a733302"
+      resolved-ref: "227719c8cc66a9727a5ef748279213997f35f1ed"
       url: "https://github.com/RagehAz/authing.git"
     source: git
-    version: "0.0.1"
+    version: "0.0.3"
   bldrs_theme:
     dependency: "direct main"
     description:
@@ -927,7 +927,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "446cef85a8497b0b827682689bebf9914baed317"
+      resolved-ref: b8b90c1a98ee01fe198ad21579c73016efe8cf1f
       url: "https://github.com/RagehAz/mediators.git"
     source: git
     version: "0.0.4"

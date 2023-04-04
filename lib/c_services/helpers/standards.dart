@@ -2,7 +2,7 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/c_services/helpers/helper_methods.dart';
-import 'package:talktohumanity/packages/lib/authing.dart';
+import 'package:authing/authing.dart';
 
 class Standards {
   // -----------------------------------------------------------------------------
