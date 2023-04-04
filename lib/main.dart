@@ -10,8 +10,6 @@ import 'package:talktohumanity/c_services/helpers/routing.dart';
 import 'package:talktohumanity/firebase_options.dart';
 import 'package:authing/authing.dart';
 
-
-
 Future<void> main() async {
   // --------------------------------------------------------------------------
   WidgetsFlutterBinding.ensureInitialized();

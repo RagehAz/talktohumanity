@@ -25,6 +25,8 @@ class TalkTextField extends StatelessWidget {
     this.isObscured,
     this.fieldTextCentered = true,
     this.keyboardTextInputAction,
+    this.onChanged,
+    this.headlineCentered = false,
     Key key,
   }) : super(key: key);
   // -----------------------------------------------------------------------------
@@ -46,6 +48,8 @@ class TalkTextField extends StatelessWidget {
   final ValueNotifier<bool> isObscured;
   final bool fieldTextCentered;
   final TextInputAction keyboardTextInputAction;
+  final Function(String text) onChanged;
+  final bool headlineCentered;
   // -----------------------------------------------------------------------------
   static double getBubbleWidth(){
     final double _shortest = Scale.screenShortestSide(getContext());
@@ -67,10 +71,11 @@ class TalkTextField extends StatelessWidget {
         hasSwitch: hasSwitch,
         onSwitchTap: onSwitchTap,
         switchTrackColor: Colorz.white80,
-        switchDisabledColor: Colorz.black200,
+        switchDisabledColor: Colorz.white50,
         font: BldrsThemeFonts.fontBldrsBodyFont,
         switchDisabledTrackColor: Colorz.white20,
         redDot: redDot,
+        centered: headlineCentered,
       ),
       bubbleWidth: _bubbleWidth,
       bubbleColor: bubbleColor ?? (isDisabled == true ? Colorz.nothing : Colorz.white10),
@@ -92,7 +97,8 @@ class TalkTextField extends StatelessWidget {
         bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
       isObscured: isObscured,
-
+      onTextChanged: onChanged,
+      isDisabled: isDisabled,
     );
   }
 }

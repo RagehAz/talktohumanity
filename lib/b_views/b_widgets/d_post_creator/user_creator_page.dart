@@ -57,7 +57,6 @@ class UserCreatorView extends StatelessWidget {
       onNavigate: onSlideBack,
       child: Container(
         width: _screenWidth,
-        color: Colorz.black200,
         alignment: Alignment.center,
         child: FloatingList(
           height: _screenHeight + MediaQuery.of(context).viewInsets.bottom,

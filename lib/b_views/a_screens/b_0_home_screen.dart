@@ -125,6 +125,23 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
 
+          /// TESTING : RE NAV BUTTON
+          // Align(
+          //   alignment: Alignment.topLeft,
+          //   child: TalkBox(
+          //     height: 40,
+          //     isBold: true,
+          //     icon: Iconz.dvRageh,
+          //     onTap: () async {
+          //       UiProvider.proSetHomeView(view: HomeScreenView.posts, notify: true);
+          //       await Nav.pushNamedAndRemoveAllBelow(
+          //         context: getContext(),
+          //         goToRoute: Routing.archiveRoute,
+          //       );
+          //     },
+          //   ),
+          // ),
+
         ],
       ),
     );

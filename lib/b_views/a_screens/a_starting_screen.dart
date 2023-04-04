@@ -1,4 +1,5 @@
 import 'package:animators/animators.dart';
+import 'package:authing/authing.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
@@ -6,19 +7,19 @@ import 'package:layouts/layouts.dart';
 import 'package:legalizer/legalizer.dart';
 import 'package:night_sky/night_sky.dart';
 import 'package:scale/scale.dart';
+import 'package:super_box/super_box.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/a_models/user_model.dart';
 import 'package:talktohumanity/b_views/a_screens/b_0_home_screen.dart';
 import 'package:talktohumanity/b_views/b_widgets/d_post_creator/brief_post_creator.dart';
 import 'package:talktohumanity/b_views/b_widgets/f_planet_page_view/starting_screen_planet_page_view.dart';
-import 'package:talktohumanity/c_services/protocols/auth_protocols.dart';
-import 'package:talktohumanity/c_services/protocols/timing_protocols.dart';
 import 'package:talktohumanity/c_services/helpers/helper_methods.dart';
 import 'package:talktohumanity/c_services/helpers/routing.dart';
 import 'package:talktohumanity/c_services/helpers/talk_theme.dart';
+import 'package:talktohumanity/c_services/protocols/auth_protocols.dart';
+import 'package:talktohumanity/c_services/protocols/timing_protocols.dart';
 import 'package:talktohumanity/c_services/protocols/user_protocols/user_protocols.dart';
 import 'package:talktohumanity/c_services/providers/ui_provider.dart';
-import 'package:authing/authing.dart';
 
 class StartingScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -224,6 +225,21 @@ class _StartingScreenState extends State<StartingScreen> {
                         canErrorize: _canErrorize,
                         onPublish: _onPublishMessage,
                         onSkip: _onImNotReady,
+                      ),
+
+                      Positioned(
+                        bottom: 50,
+                        left: (_screenWidth / 2) - 15,
+                        child: SuperBox(
+                          width: 30,
+                          height: 30,
+                          icon: Iconz.dvRagehIcon,
+                          iconColor: Colorz.blue125,
+                          bubble: false,
+                          onDoubleTap: () async {
+                            await Routing.goToLab();
+                          },
+                        ),
                       ),
 
                       /// LEGAL DISCLAIMER LINE

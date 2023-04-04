@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 
 import 'package:animators/animators.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mediators/mediators.dart';
 import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
@@ -11,10 +11,13 @@ import 'package:talktohumanity/a_models/user_model.dart';
 import 'package:talktohumanity/b_views/b_widgets/d_post_creator/post_creator.dart';
 import 'package:talktohumanity/b_views/b_widgets/d_post_creator/user_creator_page.dart';
 import 'package:talktohumanity/c_services/controllers/publishing_controllers.dart';
+import 'package:talktohumanity/c_services/helpers/standards.dart';
 import 'package:talktohumanity/c_services/protocols/user_image_protocols.dart';
 import 'package:talktohumanity/c_services/protocols/user_protocols/user_protocols.dart';
 import 'package:talktohumanity/c_services/providers/ui_provider.dart';
 import 'package:authing/authing.dart';
+import 'package:mediators/mediators.dart';
+import 'package:widget_fader/widget_fader.dart';
 
 class CreatorView extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -221,57 +224,62 @@ class _CreatorViewState extends State<CreatorView> {
     final double _screenWidth = Scale.screenWidth(context);
     final double _screenHeight = Scale.screenHeight(context);
     // --------------------
-    return SizedBox(
-      width: _screenWidth,
-      height: _screenHeight,
-      child: PageView(
-        physics: const NeverScrollableScrollPhysics(),
-        controller: _pageController,
-        scrollDirection: Axis.vertical,
-        children: <Widget>[
+    return WidgetFader(
+      fadeType: FadeType.fadeIn,
+      duration: Standards.homeViewFadeDuration,
+      child: Container(
+        width: _screenWidth,
+        height: _screenHeight,
+        color: Colorz.black125,
+        child: PageView(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: _pageController,
+          scrollDirection: Axis.vertical,
+          children: <Widget>[
 
-          /// POST CREATOR PAGE
-          Form(
-            key: _formKeyA,
-            child: PostCreatorView(
-              titleController: _titleController,
-              bodyController: _bodyController,
-              onPublish: _onNext,
-              canErrorize: _canErrorizeA,
-              onSkip: onBack,
-              onSwitchTitle: (bool isOn){
-                setState(() {
-                  _titleIsOn = isOn;
-                });
-                if (_titleIsOn == false){
-                  FocusManager.instance.primaryFocus?.unfocus();
-                }
-                },
-              titleIsOn: _titleIsOn,
+            /// POST CREATOR PAGE
+            Form(
+              key: _formKeyA,
+              child: PostCreatorView(
+                titleController: _titleController,
+                bodyController: _bodyController,
+                onPublish: _onNext,
+                canErrorize: _canErrorizeA,
+                onSkip: onBack,
+                onSwitchTitle: (bool isOn){
+                  setState(() {
+                    _titleIsOn = isOn;
+                  });
+                  if (_titleIsOn == false){
+                    FocusManager.instance.primaryFocus?.unfocus();
+                  }
+                  },
+                titleIsOn: _titleIsOn,
+              ),
             ),
-          ),
 
-          /// USER CREATOR PAGE
-          Form(
-            key: _formKeyB,
-            child: UserCreatorView(
-              nameController: _nameController,
-              emailController: _emailController,
-              bioController: _bioController,
-              imageBytes: _imageBytes,
-              onPickImage: _pickImage,
-              onPublish: _onPublish,
-              canErrorize: _canErrorizeB,
-              onSlideBack: () async {
-                await Sliders.slideToBackFrom(
-                  pageController: _pageController,
-                  currentSlide: 1,
-                );
-                },
+            /// USER CREATOR PAGE
+            Form(
+              key: _formKeyB,
+              child: UserCreatorView(
+                nameController: _nameController,
+                emailController: _emailController,
+                bioController: _bioController,
+                imageBytes: _imageBytes,
+                onPickImage: _pickImage,
+                onPublish: _onPublish,
+                canErrorize: _canErrorizeB,
+                onSlideBack: () async {
+                  await Sliders.slideToBackFrom(
+                    pageController: _pageController,
+                    currentSlide: 1,
+                  );
+                  },
+              ),
             ),
-          ),
 
-        ],
+          ],
+        ),
       ),
     );
     // --------------------

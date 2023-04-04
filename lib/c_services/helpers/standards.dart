@@ -35,6 +35,8 @@ class Standards {
   static const double timelineLineRadius = 10;
   static const double timelinePicSize = 40;
   // --------------------
+  static const Duration homeViewFadeDuration = Duration(seconds: 2);
+  // --------------------
   static double getMaxTimelineTileHeight() {
     final double _screenHeight = Scale.screenHeight(getContext());
     return _screenHeight - 200;

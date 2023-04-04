@@ -208,7 +208,7 @@ class _PostsViewState extends State<PostsView> {
     // --------------------
     return WidgetFader(
       fadeType: FadeType.fadeIn,
-      duration: const Duration(seconds: 5),
+      duration: Standards.homeViewFadeDuration,
       child: Container(
         width: _screenWidth,
         height: _screenHeight,

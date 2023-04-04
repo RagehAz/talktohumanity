@@ -13,6 +13,7 @@ import 'package:talktohumanity/b_views/b_widgets/a_buttons/auth_button.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
 import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text.dart';
 import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text_field.dart';
+import 'package:talktohumanity/c_services/helpers/standards.dart';
 import 'package:talktohumanity/c_services/protocols/auth_protocols.dart';
 import 'package:talktohumanity/c_services/providers/ui_provider.dart';
 import 'package:widget_fader/widget_fader.dart';
@@ -218,205 +219,212 @@ class _AuthViewState extends State<AuthView> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    return Stack(
-        children: <Widget>[
+    return WidgetFader(
+      fadeType: FadeType.fadeIn,
+      duration: Standards.homeViewFadeDuration,
+      child: Container(
+        color: Colorz.black125,
+        child: Stack(
+            children: <Widget>[
 
-          ValueListenableBuilder(
-            valueListenable: _loading,
-            builder: (_, bool loading, Widget child) {
-              return WidgetFader(
-                fadeType: loading == true ? FadeType.stillAtMax : FadeType.repeatAndReverse,
-                child: Sky(
-                  skyType: SkyType.blackStars,
-                  skyColor: loading == true ? Colorz.white20 : Colorz.black255,
-                ),
-              );
-            }
-          ),
-
-          Form(
-            key: _formKey,
-            child: FloatingList(
-              columnChildren: <Widget>[
-
-                const DotSeparator(color: Colorz.yellow200),
-
-                /// EMAIL
-                TalkTextField(
-                  headlineText: 'E-mail',
-                  textController: _emailController,
-                  canErrorize: _canErrorize,
-                  bubbleWidth: AuthButton.width,
-                  fieldTextCentered: false,
-                  bubbleColor: Colorz.white20,
-                  validator: (String text) {
-                    String _output;
-
-                    if (_canErrorize == true) {
-                      if (TextCheck.isEmpty(text) == true) {
-                        _output = 'Enter your E-mail';
-                      } else {
-                        if (EmailValidator.validate(text) == false) {
-                          _output = 'Email format is not correct';
-                        }
-                      }
-                    }
-
-                    return _output;
-                  },
-                  keyboardTextInputAction: TextInputAction.next,
-                  keyboardTextInputType: TextInputType.emailAddress,
-                ),
-
-                /// PASSWORD
-                TalkTextField(
-                  headlineText: 'Password',
-                  textController: _passwordController,
-                  canErrorize: _canErrorize,
-                  bubbleWidth: AuthButton.width,
-                  isObscured: isObscured,
-                  fieldTextCentered: false,
-                  bubbleColor: Colorz.white20,
-                  keyboardTextInputType: TextInputType.text,
-                  validator: (String text) {
-                    String _output;
-
-                    if (_canErrorize == true) {
-                      if (text.isEmpty == true) {
-                        _output = 'Enter your password';
-                      } else if (text.length < 6) {
-                        _output = 'Password should atleast be 6 characters long';
-                      }
-                    }
-
-                    return _output;
-                  },
-                ),
-
-                /// EMAIL SIGN IN BUTTONS
-                SizedBox(
-                  width: AuthButton.width,
-                  height: AuthButton.height,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-
-                      /// FORGOT PASSWORD
-                      SizedBox(
-                        height: 20,
-                        child: TalkText(
-                          text: 'Forgot password',
-                          textHeight: 20,
-                          boxColor: Colorz.white20,
-                          isBold: false,
-                          centered: false,
-                          onTap: _onForgetPassword,
-                        ),
-                      ),
-
-                      /// EXPANDER
-                      const Expander(),
-
-                      /// REGISTER
-                      TalkBox(
-                        height: AuthButton.height,
-                        text: 'Register',
-                        isBold: true,
-                        textScaleFactor: 0.7,
-                        color: AuthButton.color,
-                        onTap: _onEmailSignUp,
-                      ),
-
-                      const SizedBox(
-                        width: 5,
-                        height: 5,
-                      ),
-
-                      /// SIGN IN
-                      TalkBox(
-                        height: AuthButton.height,
-                        text: 'SignIn',
-                        isBold: true,
-                        textScaleFactor: 0.7,
-                        color: AuthButton.color,
-                        onTap: _onEmailSignIn,
-                      ),
-
-                    ],
-                  ),
-                ),
-
-                const SeparatorLine(
-                  width: AuthButton.width,
-                  withMargins: true,
-                  thickness: 2,
-                ),
-
-                const DotSeparator(color: Colorz.white200),
-
-                /// APPLE SIGN IN
-                if (DeviceChecker.deviceIsIOS() == true)
-                AuthButton(
-                  icon: Iconz.comApple,
-                  text: ' SignIn by Apple',
-                  onTap: _onAppleTap,
-                ),
-
-                /// GOOGLE SIGN IN
-                AuthButton(
-                  icon: Iconz.comGooglePlus,
-                  text: ' SignIn by Google',
-                  onTap: _onGoogleTap,
-                ),
-
-                /// FACEBOOK SIGN IN
-                AuthButton(
-                  icon: Iconz.comFacebookWhite,
-                  text: ' SignIn by Facebook',
-                  onTap: _onFacebookTap,
-                ),
-
-                const DotSeparator(color: Colorz.white200),
-
-                /// GO BACK
-                AuthButton(
-                  text: widget.backButtonIsSkipButton == true ? 'Skip' : 'Go Back',
-                  icon: widget.backButtonIsSkipButton == true ? Iconz.arrowRight : Iconz.arrowLeft,
-                  isInverted: widget.backButtonIsSkipButton,
-                  onTap: _onBack,
-                  iconSizeFactor: 0.3,
-                ),
-
-                const DotSeparator(color: Colorz.yellow200),
-
-              ],
-            ),
-          ),
-
-          /// LOADING LAYER
-          ValueListenableBuilder(
-              valueListenable: _loading,
-              child: Container(
-                width: Scale.screenWidth(context),
-                height: Scale.screenHeight(context),
-                color: Colorz.black50,
-                child: const Loading(loading: true),
+              ValueListenableBuilder(
+                valueListenable: _loading,
+                builder: (_, bool loading, Widget child) {
+                  return WidgetFader(
+                    fadeType: loading == true ? FadeType.stillAtMax : FadeType.repeatAndReverse,
+                    child: Sky(
+                      skyType: SkyType.blackStars,
+                      skyColor: loading == true ? Colorz.white20 : Colorz.black255,
+                    ),
+                  );
+                }
               ),
-              builder: (_, bool loading, Widget child){
 
-                if (loading == true){
-                  return child;
-                }
-                else {
-                  return const SizedBox();
-                }
+              Form(
+                key: _formKey,
+                child: FloatingList(
+                  columnChildren: <Widget>[
 
-              }
+                    const DotSeparator(color: Colorz.yellow200),
+
+                    /// EMAIL
+                    TalkTextField(
+                      headlineText: 'E-mail',
+                      textController: _emailController,
+                      canErrorize: _canErrorize,
+                      bubbleWidth: AuthButton.width,
+                      fieldTextCentered: false,
+                      bubbleColor: Colorz.white20,
+                      validator: (String text) {
+                        String _output;
+
+                        if (_canErrorize == true) {
+                          if (TextCheck.isEmpty(text) == true) {
+                            _output = 'Enter your E-mail';
+                          } else {
+                            if (EmailValidator.validate(text) == false) {
+                              _output = 'Email format is not correct';
+                            }
+                          }
+                        }
+
+                        return _output;
+                      },
+                      keyboardTextInputAction: TextInputAction.next,
+                      keyboardTextInputType: TextInputType.emailAddress,
+                    ),
+
+                    /// PASSWORD
+                    TalkTextField(
+                      headlineText: 'Password',
+                      textController: _passwordController,
+                      canErrorize: _canErrorize,
+                      bubbleWidth: AuthButton.width,
+                      isObscured: isObscured,
+                      fieldTextCentered: false,
+                      bubbleColor: Colorz.white20,
+                      keyboardTextInputType: TextInputType.text,
+                      validator: (String text) {
+                        String _output;
+
+                        if (_canErrorize == true) {
+                          if (text.isEmpty == true) {
+                            _output = 'Enter your password';
+                          } else if (text.length < 6) {
+                            _output = 'Password should atleast be 6 characters long';
+                          }
+                        }
+
+                        return _output;
+                      },
+                    ),
+
+                    /// EMAIL SIGN IN BUTTONS
+                    SizedBox(
+                      width: AuthButton.width,
+                      height: AuthButton.height,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+
+                          /// FORGOT PASSWORD
+                          SizedBox(
+                            height: 20,
+                            child: TalkText(
+                              text: 'Forgot password',
+                              textHeight: 20,
+                              boxColor: Colorz.white20,
+                              isBold: false,
+                              centered: false,
+                              onTap: _onForgetPassword,
+                            ),
+                          ),
+
+                          /// EXPANDER
+                          const Expander(),
+
+                          /// REGISTER
+                          TalkBox(
+                            height: AuthButton.height,
+                            text: 'Register',
+                            isBold: true,
+                            textScaleFactor: 0.7,
+                            color: AuthButton.color,
+                            onTap: _onEmailSignUp,
+                          ),
+
+                          const SizedBox(
+                            width: 5,
+                            height: 5,
+                          ),
+
+                          /// SIGN IN
+                          TalkBox(
+                            height: AuthButton.height,
+                            text: 'SignIn',
+                            isBold: true,
+                            textScaleFactor: 0.7,
+                            color: AuthButton.color,
+                            onTap: _onEmailSignIn,
+                          ),
+
+                        ],
+                      ),
+                    ),
+
+                    const SeparatorLine(
+                      width: AuthButton.width,
+                      withMargins: true,
+                      thickness: 2,
+                    ),
+
+                    const DotSeparator(color: Colorz.white200),
+
+                    /// APPLE SIGN IN
+                    if (DeviceChecker.deviceIsIOS() == true)
+                    AuthButton(
+                      icon: Iconz.comApple,
+                      text: ' SignIn by Apple',
+                      onTap: _onAppleTap,
+                    ),
+
+                    /// GOOGLE SIGN IN
+                    AuthButton(
+                      icon: Iconz.comGooglePlus,
+                      text: ' SignIn by Google',
+                      onTap: _onGoogleTap,
+                    ),
+
+                    /// FACEBOOK SIGN IN
+                    AuthButton(
+                      icon: Iconz.comFacebookWhite,
+                      text: ' SignIn by Facebook',
+                      onTap: _onFacebookTap,
+                    ),
+
+                    const DotSeparator(color: Colorz.white200),
+
+                    /// GO BACK
+                    AuthButton(
+                      text: widget.backButtonIsSkipButton == true ? 'Skip' : 'Go Back',
+                      icon: widget.backButtonIsSkipButton == true ? Iconz.arrowRight : Iconz.arrowLeft,
+                      isInverted: widget.backButtonIsSkipButton,
+                      onTap: _onBack,
+                      iconSizeFactor: 0.3,
+                    ),
+
+                    const DotSeparator(color: Colorz.yellow200),
+
+                  ],
+                ),
+              ),
+
+              /// LOADING LAYER
+              ValueListenableBuilder(
+                  valueListenable: _loading,
+                  child: Container(
+                    width: Scale.screenWidth(context),
+                    height: Scale.screenHeight(context),
+                    color: Colorz.black50,
+                    child: const Loading(loading: true),
+                  ),
+                  builder: (_, bool loading, Widget child){
+
+                    if (loading == true){
+                      return child;
+                    }
+                    else {
+                      return const SizedBox();
+                    }
+
+                  }
+              ),
+
+            ],
           ),
-
-        ],
-      );
+      ),
+    );
     // --------------------
   }
   // --------------------------------------------------------------------------

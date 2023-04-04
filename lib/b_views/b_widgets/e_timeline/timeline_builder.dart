@@ -1,12 +1,11 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
+import 'package:scale/scale.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
-import 'package:talktohumanity/b_views/b_widgets/a_buttons/lab_button.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
 import 'package:talktohumanity/b_views/b_widgets/e_timeline/timeline_month_builder.dart';
 import 'package:talktohumanity/c_services/controllers/home_view_controllers.dart';
-import 'package:talktohumanity/c_services/helpers/routing.dart';
 import 'package:talktohumanity/c_services/helpers/standards.dart';
 
 class TimeLineBuilder extends StatelessWidget {
@@ -59,25 +58,18 @@ class TimeLineBuilder extends StatelessWidget {
                 color: Colorz.white50,
               ),
 
-              const TalkBox(
+              TalkBox(
                 height: 50,
+                width: Scale.screenWidth(context) - 20,
                 text: 'Talk to Humanity',
                 // margins: const EdgeInsets.only(top: 50),
                 // color: Colorz.white255,
                 isBold: true,
-                icon: Iconz.share,
-                iconSizeFactor: 0.5,
+                // icon: TalkTheme.logo_cloudy,
+                iconSizeFactor: 0.7,
                 iconColor: Colorz.black255,
-                textScaleFactor: 0.8 / 0.5,
+                textScaleFactor: 0.8 / 0.7,
                 onTap: onTalkToHumanityButtonTap,
-              ),
-
-              /// DEV_MODE
-              LabButton(
-                text: 'go to lab',
-                onTap: () async {
-                  await Routing.goToLab();
-                },
               ),
 
               const SeparatorLine(
