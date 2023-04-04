@@ -1,14 +1,13 @@
-  import 'dart:typed_data';
-
+import 'dart:typed_data';
 import 'package:filers/filers.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:talktohumanity/a_models/user_model.dart';
 import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
-import 'package:talktohumanity/c_services/protocols/user_image_protocols.dart';
 import 'package:talktohumanity/c_services/protocols/timing_protocols.dart';
+import 'package:talktohumanity/c_services/protocols/user_image_protocols.dart';
 import 'package:talktohumanity/c_services/protocols/user_protocols/user_protocols.dart';
 import 'package:talktohumanity/packages/lib/authing.dart';
+import 'package:talktohumanity/packages/lib/models/auth_model.dart';
 
 class AuthProtocols {
   // -----------------------------------------------------------------------------
@@ -29,7 +28,7 @@ class AuthProtocols {
     if (Authing.getUserID() == null){
 
       /// SIGN ANONYMOUS USER
-      final UserCredential _cred = await Authing.anonymousSignin(
+      final AuthModel _authModel = await Authing.anonymousSignin(
         onError: (String error) => showAuthFailureDialog(
           error: error,
           flushbarKey: flushbarKey,
@@ -37,8 +36,8 @@ class AuthProtocols {
       );
 
       /// COMPOSE ANONYMOUS USER
-      _success = await _composeUserByNewCredential(
-        cred: _cred,
+      _success = await _composeUserByAuthModel(
+        authModel: _authModel,
       );
 
     }
@@ -64,7 +63,7 @@ class AuthProtocols {
 
       if (_timeIsCorrect == true) {
 
-        final UserCredential _cred = await EmailAuthing.signIn(
+        final AuthModel _authModel = await EmailAuthing.signIn(
           email: email,
           password: password,
           onError: (String error) => showAuthFailureDialog(
@@ -73,14 +72,14 @@ class AuthProtocols {
           ),
         );
 
-        _success = await _composeUserByNewCredential(
-          cred: _cred,
+        _success = await _composeUserByAuthModel(
+          authModel: _authModel,
         );
 
         await showAuthSuccessDialog(
           success: _success,
           flushbarKey: flushbarKey,
-          userName: _cred?.user?.displayName,
+          userName: _authModel?.name,
         );
       }
     }
@@ -100,7 +99,7 @@ class AuthProtocols {
       final bool _timeIsCorrect = await TimingProtocols.checkDeviceTime();
 
       if (_timeIsCorrect == true) {
-        final UserCredential _cred = await EmailAuthing.register(
+        final AuthModel _authModel = await EmailAuthing.register(
           email: email,
           password: password,
           onError: (String error) => showAuthFailureDialog(
@@ -109,14 +108,14 @@ class AuthProtocols {
           ),
         );
 
-        _success = await _composeUserByNewCredential(
-          cred: _cred,
+        _success = await _composeUserByAuthModel(
+          authModel: _authModel,
         );
 
         await showAuthSuccessDialog(
           success: _success,
           flushbarKey: flushbarKey,
-          userName: _cred?.user?.displayName,
+          userName: _authModel?.name,
         );
       }
     }
@@ -138,21 +137,21 @@ class AuthProtocols {
 
     if (_timeIsCorrect == true){
 
-      final UserCredential _cred = await GoogleAuthing.emailSignIn(
+      final AuthModel _authModel = await GoogleAuthing.emailSignIn(
         onError: (String error) => showAuthFailureDialog(
           error: error,
           flushbarKey: flushbarKey,
         ),
       );
 
-      _success = await _composeUserByNewCredential(
-        cred: _cred,
+      _success = await _composeUserByAuthModel(
+        authModel: _authModel,
       );
 
       await showAuthSuccessDialog(
         success: _success,
         flushbarKey: flushbarKey,
-        userName: _cred?.user?.displayName,
+        userName: _authModel?.name,
       );
 
     }
@@ -174,23 +173,21 @@ class AuthProtocols {
 
     if (_timeIsCorrect == true){
 
-      final UserCredential _cred = await FacebookAuthing.signIn(
+      final AuthModel _authModel = await FacebookAuthing.signIn(
         onError: (String error) => showAuthFailureDialog(
           error: error,
           flushbarKey: flushbarKey,
         ),
-        // passFacebookAuthCredential: (FacebookAuthCredential cred) => FacebookAuthing.blogFacebookAuthCredential(facebookAuthCredential: cred),
-        // passLoginResult: (LoginResult result) => FacebookAuthing.blogLoginResult(loginResult: result),
       );
 
-      _success = await _composeUserByNewCredential(
-        cred: _cred,
+      _success = await _composeUserByAuthModel(
+        authModel: _authModel,
       );
 
       await showAuthSuccessDialog(
         success: _success,
         flushbarKey: flushbarKey,
-        userName: _cred?.user?.displayName,
+        userName: _authModel?.name,
       );
 
     }
@@ -203,22 +200,22 @@ class AuthProtocols {
 
   // --------------------
   ///
-  static Future<bool> _composeUserByNewCredential({
-    @required UserCredential cred,
+  static Future<bool> _composeUserByAuthModel({
+    @required AuthModel authModel,
   }) async {
     bool _success = false;
 
-    if (cred != null) {
+    if (authModel != null) {
 
-      final UserModel _userModel = await UserProtocols.fetchUser(userID: cred?.user?.uid);
+      final UserModel _userModel = await UserProtocols.fetchUser(userID: authModel?.id);
 
       if (_userModel == null) {
 
         final String _imageURL = await _stealUserImage(
-          cred: cred,
+          authModel: authModel,
         );
-        final UserModel _userModel = await UserModel.createUserModelFromCredential(
-          cred: cred,
+        final UserModel _userModel = await UserModel.createUserModelFromAuthModel(
+          authModel: authModel,
           imageOverride: _imageURL,
         );
 
@@ -237,14 +234,14 @@ class AuthProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<String> _stealUserImage({
-    @required UserCredential cred,
+    @required AuthModel authModel,
   }) async {
     String _newURL;
 
     blog('1 steal user Image : start');
-    if (cred != null && cred.user?.uid != null) {
+    if (authModel != null && authModel.id != null) {
 
-      final String _thirdPartyURL = Authing.getUserImageURLFromCredential(cred);
+      final String _thirdPartyURL = authModel.imageURL;
 
       if (_thirdPartyURL != null) {
 
@@ -256,7 +253,7 @@ class AuthProtocols {
 
         if (_bytes != null) {
           _newURL = await UserImageProtocols.uploadBytesAndGetURL(
-            userID: cred.user?.uid,
+            userID: authModel.id,
             bytes: _bytes,
           );
           blog('3 steal user Image : _newURL : $_newURL');

@@ -11,12 +11,12 @@ class EmailAuthing {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<UserCredential> signIn({
+  static Future<AuthModel> signIn({
     @required String email,
     @required String password,
     Function(String error) onError,
   }) async {
-    UserCredential _userCredential;
+    AuthModel _output;
 
     if (
         TextCheck.isEmpty(email) == false
@@ -27,9 +27,14 @@ class EmailAuthing {
         invoker: 'signInByEmail',
         functions: () async {
 
-          _userCredential = await Authing.getFirebaseAuth().signInWithEmailAndPassword(
+          final UserCredential _userCredential = await Authing.getFirebaseAuth()
+              .signInWithEmailAndPassword(
             email: email.trim(),
             password: password,
+          );
+
+          _output = AuthModel.getAuthModelFromUserCredential(
+            cred: _userCredential,
           );
 
         },
@@ -37,7 +42,7 @@ class EmailAuthing {
       );
     }
 
-    return _userCredential;
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -45,12 +50,12 @@ class EmailAuthing {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<UserCredential> register({
+  static Future<AuthModel> register({
     @required String email,
     @required String password,
     Function(String error) onError,
   }) async {
-    UserCredential _userCredential;
+    AuthModel _output;
 
     if (
         TextCheck.isEmpty(email) == false
@@ -62,9 +67,13 @@ class EmailAuthing {
           invoker: 'registerByEmail',
           functions: () async {
 
-            _userCredential = await Authing.getFirebaseAuth().createUserWithEmailAndPassword(
+            final UserCredential _userCredential = await Authing.getFirebaseAuth().createUserWithEmailAndPassword(
               email: email.trim(),
               password: password,
+            );
+
+            _output = AuthModel.getAuthModelFromUserCredential(
+                cred: _userCredential,
             );
 
           },
@@ -73,7 +82,7 @@ class EmailAuthing {
 
     }
 
-    return _userCredential;
+    return _output;
   }
   // -----------------------------------------------------------------------------
 

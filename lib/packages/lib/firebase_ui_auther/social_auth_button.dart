@@ -37,7 +37,7 @@ class SocialAuthButton extends StatelessWidget {
   final Function(User user) onSignedIn;
   final Function(AuthCredential authCred, String email, List<String> methods) onDifferentSignInMethodsFound;
   // --------------------------------------------------------------------------
-  dynamic getProvider(SignInMethod signInMethod) {
+  dynamic _getProvider(SignInMethod signInMethod) {
     switch (signInMethod) {
 
       case SignInMethod.google:
@@ -72,7 +72,7 @@ class SocialAuthButton extends StatelessWidget {
     }
   }
   // --------------------
-  bool listen (AuthState oldState, AuthState newState, OAuthController ctrl){
+  bool _listen (AuthState oldState, AuthState newState, OAuthController ctrl){
 
     /// UN-INITIALIZED
     if (newState is Uninitialized){
@@ -157,139 +157,15 @@ class SocialAuthButton extends StatelessWidget {
 
     return AuthButtonBox(
         child: AuthStateListener<OAuthController>(
-          listener: listen,
+          listener: _listen,
           child: OAuthProviderButton(
-            provider: getProvider(signInMethod),
+            provider: _getProvider(signInMethod),
             auth: Authing.getFirebaseAuth(),
             action: AuthAction.signIn,
             variant: OAuthButtonVariant.icon,
           ),
         ),
       );
-
-    // const Widget loadingWidget = CircularProgressIndicator();
-    //
-    // const double textSize = 19; /// STANDARD,, DO NOT CHANGE THIS
-    //
-    // blog('wtf');
-
-    // /// APPLE
-    // if (signInMethod == SignInMethod.apple) {
-    //   return AuthButtonBox(
-    //     child: AppleSignInButton(
-    //       // key: ,
-    //       /// CONFIGURATIONS
-    //       auth: Authing.getFirebaseAuth(),
-    //       /// STYLING
-    //       label: 'Continue with Apple',
-    //       size: textSize,
-    //       loadingIndicator: loadingWidget,
-    //       /// STATE
-    //       // isLoading: ,
-    //       /// FUNCTIONS
-    //       onSignedIn: onSignedIn,
-    //       // onError: ,
-    //       // overrideDefaultTapAction: ,
-    //       // onTap: ,
-    //       // onDifferentProvidersFound: ,
-    //       // onCanceled: ,
-    //       // action: ,
-    //     ),
-    //   );
-    // }
-    //
-    // /// FACEBOOK
-    // else if (signInMethod == SignInMethod.facebook) {
-    //   return AuthButtonBox(
-    //     child: FacebookSignInButton(
-    //       // key: ,
-    //       /// CONFIGURATIONS
-    //       auth: Authing.getFirebaseAuth(),
-    //       clientId: socialKeys.facebookAppID,
-    //       // redirectUri: ,
-    //       /// STYLING
-    //       label: 'Continue with Facebook',
-    //       size: textSize,
-    //       loadingIndicator: loadingWidget,
-    //       /// STATE
-    //       // isLoading: ,
-    //       /// FUNCTIONS
-    //       // onSignedIn: onSignedIn,
-    //       // onError: ,
-    //       overrideDefaultTapAction: true,
-    //       onTap: (){
-    //         blog('a77a');
-    //       },
-    //       // onDifferentProvidersFound: ,
-    //       // onCanceled: ,
-    //       // action: ,
-    //     ),
-    //   );
-    // }
-    //
-    // /// GOOGLE
-    // else if (signInMethod == SignInMethod.google) {
-    //
-    //   return AuthButtonBox(
-    //     child: AuthStateListener<OAuthController>(
-    //       child: OAuthProviderButton(
-    //         // or any other OAuthProvider
-    //         provider: GoogleProvider(clientId: socialKeys.googleClientID),
-    //         auth: Authing.getFirebaseAuth(),
-    //         action: AuthAction.signIn,
-    //         // variant: OAuthButtonVariant.icon,
-    //       ),
-    //       listener: (oldState, newState, ctrl) {
-    //         if (newState is SignedIn) {
-    //           // Navigator.pushReplacementNamed(context, '/profile');
-    //
-    //           final User user = Authing.getFirebaseUser();
-    //           Authing.blogFirebaseUser(user: user);
-    //
-    //
-    //         }
-    //         return null;
-    //       },
-    //     ),
-    //   );
-    //
-    //   return AuthButtonBox(
-    //     child: GoogleSignInButton(
-    //       // key: ,
-    //       /// CONFIGURATIONS
-    //       auth: Authing.getFirebaseAuth(),
-    //       /// FROM FIREBASE CONSOLE - AUTH - GOOGLE - EDIT CONFIG
-    //       clientId: socialKeys.googleClientID,
-    //       // redirectUri: ,
-    //       // scopes: [],
-    //       /// STYLING
-    //       label: 'Continue with Google',
-    //       size: textSize,
-    //       loadingIndicator: loadingWidget,
-    //       /// STATE
-    //       // isLoading: ,
-    //       /// FUNCTIONS
-    //       onSignedIn: onSignedIn,
-    //       onError: (Exception exception){
-    //
-    //         blog('exception is google auth is : ${exception}');
-    //
-    //       },
-    //       overrideDefaultTapAction: false,
-    //       onTap: (){
-    //         blog('a77a');
-    //       },
-    //       // onDifferentProvidersFound: ,
-    //       // onCanceled: ,
-    //       action: AuthAction.signIn,
-    //     ),
-    //   );
-    // }
-    //
-    // /// OTHERWISE
-    // else {
-    //   return Container();
-    // }
 
   }
   // --------------------------------------------------------------------------

@@ -63,12 +63,10 @@ class FacebookAuthing {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<UserCredential> signIn({
+  static Future<AuthModel> signIn({
     Function(String error) onError,
-    Function(LoginResult loginResult) passLoginResult,
-    Function(FacebookAuthCredential facebookAuthCredential) passFacebookAuthCredential,
   }) async {
-    UserCredential _userCredential;
+    AuthModel _output;
 
     await tryAndCatch(
       invoker: 'signInByFacebook',
@@ -79,34 +77,61 @@ class FacebookAuthing {
           // loginBehavior: ,
           // permissions: ['email'],
         );
-        FacebookAuthCredential _facebookAuthCredential;
 
         if (_loginResult?.accessToken != null) {
 
-          _facebookAuthCredential = FacebookAuthProvider.credential(_loginResult.accessToken.token);
+          final FacebookAuthCredential _facebookAuthCredential =
+          FacebookAuthProvider.credential(_loginResult.accessToken.token);
 
-          _userCredential = await Authing.getFirebaseAuth()
-              .signInWithCredential(_facebookAuthCredential);
+          final UserCredential _userCredential =
+          await Authing.getFirebaseAuth().signInWithCredential(_facebookAuthCredential);
+
+          _output = AuthModel.getAuthModelFromUserCredential(
+            cred: _userCredential,
+            addData: _createFacebookAuthDataMap(
+              facebookAuthCredential: _facebookAuthCredential,
+              loginResult: _loginResult,
+            ),
+          );
+
         }
 
-        /// IF COULD NOT LOGIN AND ACCESS TOKEN == NULL
-        else {
-          blog('Facebook Access token is null');
-        }
-
-        /// PASS LOGIN RESULT
-        if (passLoginResult != null) {
-          passLoginResult(_loginResult);
-        }
-
-        /// PASS FACEBOOK AUTH CREDENTIAL
-        if (passFacebookAuthCredential != null) {
-          passFacebookAuthCredential(_facebookAuthCredential);
-        }
       },
     );
 
-    return _userCredential;
+    return _output;
+  }
+  // --------------------
+  ///
+  static Map<String, dynamic> _createFacebookAuthDataMap({
+    @required LoginResult loginResult,
+    @required FacebookAuthCredential facebookAuthCredential,
+  }) {
+    final Map<String, dynamic> _map = {
+      'loginResult.status.name': loginResult?.status?.name,
+      'loginResult.status.index': loginResult?.status?.index,
+      'loginResult.accessToken.expires':
+          Timers.cipherTime(time: loginResult?.accessToken?.expires, toJSON: false),
+      'loginResult.accessToken.lastRefresh':
+          Timers.cipherTime(time: loginResult?.accessToken?.lastRefresh, toJSON: true),
+      'loginResult.accessToken.userId': loginResult?.accessToken?.userId,
+      'loginResult.accessToken.token': loginResult?.accessToken?.token,
+      'loginResult.accessToken.applicationId': loginResult?.accessToken?.applicationId,
+      'loginResult.accessToken.graphDomain': loginResult?.accessToken?.graphDomain,
+      'loginResult.accessToken.declinedPermissions': loginResult?.accessToken?.declinedPermissions,
+      'loginResult.accessToken.grantedPermissions': loginResult?.accessToken?.grantedPermissions,
+      'loginResult.accessToken.isExpired': loginResult?.accessToken?.isExpired,
+      'loginResult.message': loginResult?.message,
+      'facebookAuthCredential.idToken': facebookAuthCredential?.idToken,
+      'facebookAuthCredential.rawNonce': facebookAuthCredential?.rawNonce,
+      'facebookAuthCredential.secret': facebookAuthCredential?.secret,
+      'facebookAuthCredential.token': facebookAuthCredential?.token,
+      'facebookAuthCredential.accessToken': facebookAuthCredential?.accessToken,
+      'facebookAuthCredential.providerId': facebookAuthCredential?.providerId,
+      'facebookAuthCredential.signInMethod': facebookAuthCredential?.signInMethod,
+    };
+
+    return Mapper.cleanNullPairs(map: _map);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -153,60 +178,6 @@ class FacebookAuthing {
     }
 
     return _output;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// BLOGGING
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static void blogLoginResult({
-    @required LoginResult loginResult,
-    String invoker = 'blogLoginResult',
-  }){
-
-    if (loginResult == null){
-      blog('blogLoginResult : the Facebook login result is null');
-    }
-    else {
-      blog('blogLoginResult : the Facebook login result is :- ');
-      blog('loginResult.status.name : ${loginResult.status?.name}');
-      blog('loginResult.status.index : ${loginResult.status?.index}');
-      blog('loginResult.accessToken.expires : ${loginResult.accessToken?.expires}');
-      blog('loginResult.accessToken.lastRefresh : ${loginResult.accessToken?.lastRefresh}');
-      blog('loginResult.accessToken.userId : ${loginResult.accessToken?.userId}');
-      blog('loginResult.accessToken.token : ${loginResult.accessToken?.token}');
-      blog('loginResult.accessToken.applicationId : ${loginResult.accessToken?.applicationId}');
-      blog('loginResult.accessToken.graphDomain : ${loginResult.accessToken?.graphDomain}');
-      blog('loginResult.accessToken.declinedPermissions : ${loginResult.accessToken?.declinedPermissions}');
-      blog('loginResult.accessToken.grantedPermissions : ${loginResult.accessToken?.grantedPermissions}');
-      blog('loginResult.accessToken.isExpired : ${loginResult.accessToken?.isExpired}');
-      blog('loginResult.message : ${loginResult.message}');
-    }
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static void blogFacebookAuthCredential({
-    @required FacebookAuthCredential facebookAuthCredential,
-    String invoker = 'blogFacebookAuthCredential',
-  }){
-
-    if (facebookAuthCredential == null){
-      blog('blogLoginResult : the Facebook login result is null');
-    }
-    else {
-      blog('blogLoginResult : the Facebook login result is :-');
-      blog('facebookAuthCredential.idToken : ${facebookAuthCredential.idToken}');
-      blog('facebookAuthCredential.rawNonce : ${facebookAuthCredential.rawNonce}');
-      blog('facebookAuthCredential.secret : ${facebookAuthCredential.secret}');
-      blog('facebookAuthCredential.token : ${facebookAuthCredential.token}');
-      blog('facebookAuthCredential.accessToken : ${facebookAuthCredential.accessToken}');
-      blog('facebookAuthCredential.providerId : ${facebookAuthCredential.providerId}');
-      blog('facebookAuthCredential.signInMethod : ${facebookAuthCredential.signInMethod}');
-
-    }
-
   }
   // -----------------------------------------------------------------------------
 }

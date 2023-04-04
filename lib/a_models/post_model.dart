@@ -40,7 +40,7 @@ class PostModel {
   /// CLONING
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   PostModel copyWith({
     String id,
     String userID,
@@ -69,7 +69,7 @@ class PostModel {
     );
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static PostModel generateDraft({
     String body,
     String headline,

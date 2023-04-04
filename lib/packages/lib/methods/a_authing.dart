@@ -33,9 +33,19 @@ class Authing {
   static Authing get instance => _singleton;
   // -----------------------------------------------------------------------------
 
+  /// FIREBASE AUTH
+
+  // --------------------
+  /// FIREBASE AUTH SINGLETON
+  FirebaseAuth _auth;
+  FirebaseAuth get auth => _auth ??= FirebaseAuth.instance;
+  static FirebaseAuth getFirebaseAuth() => Authing.instance.auth;
+  // -----------------------------------------------------------------------------
+
   /// INITIALIZE SOCIAL AUTHING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void initializeSocialAuthing({
     @required SocialKeys socialKeys,
   }) {
@@ -65,33 +75,30 @@ class Authing {
   }
   // -----------------------------------------------------------------------------
 
-  /// FIREBASE AUTH
-
-  // --------------------
-  /// FIREBASE AUTH SINGLETON
-  FirebaseAuth _auth;
-  FirebaseAuth get auth => _auth ??= FirebaseAuth.instance;
-  static FirebaseAuth getFirebaseAuth() => Authing.instance.auth;
-  // -----------------------------------------------------------------------------
-
   /// CREATE ANONYMOUS AUTH
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<UserCredential> anonymousSignin({
+  static Future<AuthModel> anonymousSignin({
     Function(String error) onError,
   }) async {
-    UserCredential _userCredential;
+    AuthModel _output;
 
     await tryAndCatch(
       invoker: 'anonymousSignin',
       onError: onError,
       functions: () async {
-        _userCredential = await getFirebaseAuth().signInAnonymously();
+
+        final UserCredential _userCredential = await getFirebaseAuth().signInAnonymously();
+
+        _output = AuthModel.getAuthModelFromUserCredential(
+            cred: _userCredential,
+        );
+
       },
     );
 
-    return _userCredential;
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -103,7 +110,7 @@ class Authing {
     Function(String error) onError,
   }) async {
 
-    final SignInMethod signInMethod = SignMethod.getSignInMethod();
+    final SignInMethod signInMethod = getCurrentSignInMethod();
 
     // if (signInMethod != null) {
 
@@ -215,12 +222,12 @@ class Authing {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getUserImageURLFromCredential(UserCredential cred){
+  static String getUserImageURLFromUserCredential(UserCredential cred){
     String _output;
 
     if (cred != null){
 
-      final SignInMethod signInMethod = SignMethod.getSignInMethod();
+      final SignInMethod signInMethod = Authing.getCurrentSignInMethod();
 
       if (signInMethod == SignInMethod.google){
         _output = cred.user?.photoURL;
@@ -239,127 +246,34 @@ class Authing {
 
     return _output;
   }
-  // -----------------------------------------------------------------------------
-
-  /// BLOGGING
-
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogUserCredential({
-    @required UserCredential credential,
-  }){
-
-    if (credential == null){
-      blog('blogUserCredential : USER CREDENTIAL IS NULL');
-    }
-
-    else {
-      blog('USER CREDENTIAL :----> ');
-      blog('credential.user.displayName : ${credential.user?.displayName}');
-      blog('credential.user.email : ${credential.user?.email}');
-      blog('credential.user.emailVerified : ${credential.user?.emailVerified}');
-      blog('credential.user.isAnonymous : ${credential.user?.isAnonymous}');
-      blog('credential.user.metadata : ${credential.user?.metadata}');
-      blog('credential.user.phoneNumber : ${credential.user?.phoneNumber}');
-      blog('credential.user.photoURL : ${credential.user?.photoURL}');
-      blog('credential.user.providerData : ${credential.user?.providerData}');
-      blog('credential.user.refreshToken : ${credential.user?.refreshToken}');
-      blog('credential.user.tenantId : ${credential.user?.tenantId}');
-      blog('credential.user.uid : ${credential.user?.uid}');
-      blog('credential.user.multiFactor : ${credential.user?.multiFactor}');
-      blog('CREDENTIAL :-');
-      blog('credential.credential.accessToken : ${credential.credential?.accessToken}');
-      blog('credential.credential.providerId : ${credential.credential?.providerId}');
-      blog('credential.credential.signInMethod : ${credential.credential?.signInMethod}');
-      blog('credential.credential.token : ${credential.credential?.token}');
-      blog('ADDITIONAL USER INFO :-');
-      blog('credential.additionalUserInfo.providerId : ${credential.additionalUserInfo?.providerId}');
-      blog('credential.additionalUserInfo.isNewUser : ${credential.additionalUserInfo?.isNewUser}');
-      blog('credential.additionalUserInfo.profile : ${credential.additionalUserInfo?.profile}');
-      blog('credential.additionalUserInfo.username : ${credential.additionalUserInfo?.username}');
-      blog('blogUserCredential : USER CREDENTIAL BLOG END <-----');
-    }
-
+  static SignInMethod getCurrentSignInMethod(){
+    return getSignInMethodFromUser(user: Authing.getFirebaseUser());
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogFirebaseUser({
+  static SignInMethod getSignInMethodFromUser({
     @required User user,
   }){
+    SignInMethod _output;
 
-    if (user == null){
-      blog('blogUserCredential : FIRE BASE USER IS NULL');
-    }
+    if (user != null){
 
-    else {
-      blog('FIRE BASE USER :----> ');
-      blog('credential.user.displayName : ${user?.displayName}');
-      blog('credential.user.email : ${user?.email}');
-      blog('credential.user.emailVerified : ${user?.emailVerified}');
-      blog('credential.user.isAnonymous : ${user?.isAnonymous}');
-      blog('credential.user.metadata : ${user?.metadata}');
-      blog('credential.user.phoneNumber : ${user?.phoneNumber}');
-      blog('credential.user.photoURL : ${user?.photoURL}');
-      blog('credential.user.providerData : ${user?.providerData}');
-      blog('credential.user.refreshToken : ${user?.refreshToken}');
-      blog('credential.user.tenantId : ${user?.tenantId}');
-      blog('credential.user.uid : ${user?.uid}');
-      blog('credential.user.multiFactor : ${user?.multiFactor}');
-    }
+      final List<UserInfo> providerData = user.providerData;
 
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static void blogCurrentFirebaseUser(){
-
-    final User _user = getFirebaseUser();
-
-    if (_user == null){
-      blog('blogCurrentFirebaseUser : user is null');
-    }
-    else {
-      blogFirebaseUser(user: _user);
-    }
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static void blogAuthCred(AuthCredential authCred){
-
-    if (authCred == null){
-      blog('blogAuthCred : AUTH CREDENTIAL IS NULL');
-    }
-
-    else {
-      blog('AUTH CREDENTIAL :----> ');
-      blog('authCred.signInMethod : ${authCred.signInMethod}');
-      blog('authCred.providerId : ${authCred.providerId}');
-      blog('authCred.accessToken : ${authCred.accessToken}');
-      blog('authCred.token : ${authCred.token}');
+      if (Mapper.checkCanLoopList(providerData) == true){
+        final UserInfo _info = providerData.first;
+        final String providerID = _info?.providerId;
+        _output = AuthModel.decipherSignInMethod(providerID);
+      }
 
     }
 
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static void blogAppleCred(AuthorizationCredentialAppleID credential){
-
-    if (credential == null){
-      blog('blogAppleCred : AUTH CREDENTIAL IS NULL');
-    }
-    else {
-      blog('APPLE CREDENTIAL :----> ');
-      blog('credential.authorizationCode : ${credential.authorizationCode}');
-      blog('credential.email : ${credential.email}');
-      blog('credential.familyName : ${credential.familyName}');
-      blog('credential.givenName : ${credential.givenName}');
-      blog('credential.identityToken : ${credential.identityToken}');
-      blog('credential.state : ${credential.state}');
-      blog('credential.userIdentifier : ${credential.userIdentifier}');
-    }
-
+    return _output;
   }
   // -----------------------------------------------------------------------------
+
 }
 
 /*

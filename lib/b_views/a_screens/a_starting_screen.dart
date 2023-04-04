@@ -7,6 +7,7 @@ import 'package:legalizer/legalizer.dart';
 import 'package:night_sky/night_sky.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
+import 'package:talktohumanity/a_models/user_model.dart';
 import 'package:talktohumanity/b_views/a_screens/b_0_home_screen.dart';
 import 'package:talktohumanity/b_views/b_widgets/d_post_creator/brief_post_creator.dart';
 import 'package:talktohumanity/b_views/b_widgets/f_planet_page_view/starting_screen_planet_page_view.dart';
@@ -15,6 +16,7 @@ import 'package:talktohumanity/c_services/protocols/timing_protocols.dart';
 import 'package:talktohumanity/c_services/helpers/helper_methods.dart';
 import 'package:talktohumanity/c_services/helpers/routing.dart';
 import 'package:talktohumanity/c_services/helpers/talk_theme.dart';
+import 'package:talktohumanity/c_services/protocols/user_protocols/user_protocols.dart';
 import 'package:talktohumanity/c_services/providers/ui_provider.dart';
 import 'package:talktohumanity/packages/lib/authing.dart';
 
@@ -99,9 +101,14 @@ class _StartingScreenState extends State<StartingScreen> {
   /// TESTED : WORKS PERFECT
   Future<void> _onPublishMessage() async {
 
+    FocusManager.instance.primaryFocus?.unfocus();
     final bool _isValid = _formKey.currentState.validate();
 
     if (_isValid == true) {
+
+      final UserModel _user = await UserProtocols.fetchUser(
+          userID: Authing.getUserID(),
+      );
 
       if (Authing.getUserID() == null){
         UiProvider.proSetHomeView(view: HomeScreenView.auth, notify: true,);
@@ -119,6 +126,7 @@ class _StartingScreenState extends State<StartingScreen> {
         ),
       );
 
+      await _slideToTop();
     }
 
     else {
@@ -131,8 +139,21 @@ class _StartingScreenState extends State<StartingScreen> {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onImNotReady() async {
+    FocusManager.instance.primaryFocus?.unfocus();
     await AuthProtocols.simpleAnonymousSignIn();
+    UiProvider.proSetHomeView(view: HomeScreenView.posts, notify: true);
     await Nav.goToRoute(getContext(), Routing.archiveRoute);
+    await _slideToTop();
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _slideToTop() async {
+
+    await Sliders.slideToIndex(
+      pageController: _pageController,
+      toIndex: 0,
+    );
+
   }
   // --------------------------------------------------------------------------
   @override
@@ -222,6 +243,7 @@ class _StartingScreenState extends State<StartingScreen> {
 
               ],
             ),
+
           ],
         ),
       ),

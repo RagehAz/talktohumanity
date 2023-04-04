@@ -5,16 +5,19 @@ import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:layouts/layouts.dart';
 import 'package:ldb/ldb.dart';
 import 'package:legalizer/legalizer.dart';
+import 'package:mediators/mediators.dart';
+import 'package:storage/foundation/pic_meta_model.dart';
+import 'package:storage/storage.dart';
 import 'package:super_image/super_image.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/lab_button.dart';
 import 'package:talktohumanity/b_views/b_widgets/b_texting/lab_title.dart';
 import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
 import 'package:talktohumanity/b_views/x_dashboard_screens/d_pending_posts_screen.dart';
+import 'package:talktohumanity/c_services/helpers/talk_theme.dart';
 import 'package:talktohumanity/c_services/protocols/auth_protocols.dart';
 import 'package:talktohumanity/c_services/protocols/post_protocols/post_ldb_ops.dart';
 import 'package:talktohumanity/c_services/protocols/post_protocols/post_real_ops.dart';
@@ -23,8 +26,9 @@ import 'package:talktohumanity/c_services/protocols/user_image_protocols.dart';
 import 'package:talktohumanity/c_services/protocols/zoning_protocols.dart';
 import 'package:talktohumanity/main.dart';
 import 'package:talktohumanity/packages/lib/authing.dart';
-import 'package:talktohumanity/packages/lib/firebase_ui_auther/fire_auther_screen.dart';
 import 'package:talktohumanity/packages/lib/firebase_ui_auther/social_auth_button.dart';
+import 'package:talktohumanity/packages/lib/helpers/auth_blog.dart';
+import 'package:talktohumanity/packages/lib/models/auth_model.dart';
 
 class LabScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -147,9 +151,11 @@ class _LabScreenState extends State<LabScreen> {
               text: 'Google sign in',
               isOk: true,
               onTap: () async {
-                final UserCredential _userCredential = await GoogleAuthing.emailSignIn();
-                Authing.blogUserCredential(credential: _userCredential);
+
+                final AuthModel _authModel = await GoogleAuthing.emailSignIn();
+                AuthModel.blogAuthModel(authModel: _authModel);
                 setState(() {});
+
                 },
             ),
 
@@ -168,10 +174,10 @@ class _LabScreenState extends State<LabScreen> {
               text: 'Anonymous SignIn method',
               isOk: true,
               onTap: () async {
-                final cred = await Authing.anonymousSignin();
-                setState(() {});
 
-                Authing.blogUserCredential(credential: cred);
+                final AuthModel _authModel = await Authing.anonymousSignin();
+                AuthModel.blogAuthModel(authModel: _authModel);
+                setState(() {});
 
                 },
             ),
@@ -243,35 +249,24 @@ class _LabScreenState extends State<LabScreen> {
                 //   cookie: true, xfbml: true,
                 //   version: 'v11.0',
                 // );
-                final UserCredential cred = await FacebookAuthing.signIn(
-                  onError: (String error){
-                    blog('error : $error');
-                  },
-                  passLoginResult: (LoginResult loginResult){
-                    FacebookAuthing.blogLoginResult(
-                        loginResult: loginResult
-                    );
-                  },
-                  passFacebookAuthCredential: (FacebookAuthCredential cred){
-                    FacebookAuthing.blogFacebookAuthCredential(facebookAuthCredential: cred);
-                  }
-                );
-                Authing.blogUserCredential(credential: cred);
+                final AuthModel _authModel = await FacebookAuthing.signIn();
+                AuthModel.blogAuthModel(authModel: _authModel);
 
-                final String _url = FacebookAuthing.getUserFacebookImageURLFromUserCredential(cred);
+                if (_authModel != null) {
 
-                final Uint8List bytes = await Floaters.getUint8ListFromURL(_url);
+                  final String _url = _authModel.imageURL;
 
-                final String bo = await UserImageProtocols.uploadBytesAndGetURL(
+                  final Uint8List bytes = await Floaters.getUint8ListFromURL(_url);
+
+                  final String bo = await UserImageProtocols.uploadBytesAndGetURL(
                     bytes: bytes,
-                    userID: cred?.user?.uid,
-                );
+                    userID: _authModel.id,
+                  );
 
-
-                setState(() {
-                  _image = bo;
-                });
-
+                  setState(() {
+                    _image = bo;
+                  });
+                }
               },
             ),
 
@@ -319,22 +314,22 @@ class _LabScreenState extends State<LabScreen> {
               isOk: true,
               onTap: () async {
 
-                // final Uint8List _bytes = await Floaters.getBytesFromLocalRasterAsset(
-                //     localAsset: TalkTheme.logo_night,
-                // );
-                //
-                // final Dimensions _dims = await Dimensions.superDimensions(_bytes);
-                //
-                // await Storage.uploadBytes(
-                //   bytes: _bytes,
-                //   path: 'test',
-                //   metaData: PicMetaModel(
-                //     ownersIDs: const ['fuckyou'],
-                //     dimensions: _dims,
-                //   ).toSettableMetadata(),
-                // );
+                final Uint8List _bytes = await Floaters.getBytesFromLocalRasterAsset(
+                    localAsset: TalkTheme.logo_night,
+                );
 
-                // setState(() {});
+                final Dimensions _dims = await Dimensions.superDimensions(_bytes);
+
+                await Storage.uploadBytes(
+                  bytes: _bytes,
+                  path: 'test',
+                  metaData: PicMetaModel(
+                    ownersIDs: const ['fuckyou'],
+                    dimensions: _dims,
+                  ).toSettableMetadata(),
+                );
+
+                setState(() {});
 
               },
             ),
@@ -346,7 +341,7 @@ class _LabScreenState extends State<LabScreen> {
               isOk: true,
               onTap: () async {
 
-                await AppleAuthing.signInByApple(context: context);
+                await AppleAuthing.signInByApple();
 
               },
             ),
@@ -358,7 +353,7 @@ class _LabScreenState extends State<LabScreen> {
               onTap: () async {
                 final User user = Authing.getFirebaseUser();
 
-                Authing.blogFirebaseUser(user: user);
+                AuthBlog.blogFirebaseUser(user: user);
 
                 final Uint8List _bytes = await UserImageProtocols.downloadUserPic(
                   imageURL: user.photoURL,
@@ -403,7 +398,7 @@ class _LabScreenState extends State<LabScreen> {
               isOk: true,
               onTap: () async {
 
-                Authing.blogCurrentFirebaseUser();
+                AuthBlog.blogCurrentFirebaseUser();
 
               },
             ),
@@ -448,20 +443,6 @@ class _LabScreenState extends State<LabScreen> {
 
             const LabTitle(text: 'FIRE SIGN IN'),
 
-
-            /// GO TO FIRE SIGN IN
-            LabButton(
-              text: 'Go TO FIRE SIGN IN SCREEN',
-              isOk: true,
-              onTap: () async {
-
-                await Nav.goToNewScreen(
-                    context: context,
-                    screen: const FireAutherScreen(),
-                );
-
-              },
-            ),
 
             /// PRINT CURRENT USER ID
             LabButton(
@@ -567,22 +548,22 @@ class _LabScreenState extends State<LabScreen> {
 
 Future<void> onSignedIn(User user) async {
   blog('onSignedIn:-');
-  Authing.blogFirebaseUser(user: user);
+  AuthBlog.blogFirebaseUser(user: user);
 }
 
 Future<void> onAuthCredReceived(AuthCredential authCred) async {
   blog('onAuthCredReceived:-');
-  Authing.blogAuthCred(authCred);
+  AuthBlog.blogAuthCred(authCred);
 }
 
 Future<void> onUserCreated(UserCredential cred) async {
   blog('onUserCreated:-');
-  Authing.blogUserCredential(credential: cred);
+  AuthBlog.blogUserCredential(cred: cred);
 }
 
 Future<void> inAuthCredLinked(AuthCredential authCred) async {
   blog('inAuthCredLinked:-');
-  Authing.blogAuthCred(authCred);
+  AuthBlog.blogAuthCred(authCred);
 }
 
 Future<void> onAuthFailed(String error) async {
@@ -592,5 +573,5 @@ Future<void> onAuthFailed(String error) async {
 Future<void> onDifferentSignInMethodsFound(AuthCredential authCred, String email, List<String>methods) async {
   blog('onDifferentSignInMethodsFound:-');
   blog('email $email : methods : $methods');
-  Authing.blogAuthCred(authCred);
+  AuthBlog.blogAuthCred(authCred);
 }

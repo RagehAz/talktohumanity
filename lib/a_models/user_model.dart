@@ -1,9 +1,9 @@
 import 'package:devicer/devicer.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:space_time/space_time.dart';
 import 'package:talktohumanity/c_services/protocols/zoning_protocols.dart';
 import 'package:talktohumanity/packages/lib/authing.dart';
+import 'package:talktohumanity/packages/lib/models/auth_model.dart';
 
 @immutable
 class UserModel {
@@ -22,7 +22,7 @@ class UserModel {
   final String id;
   final String name;
   final String email;
-  final String signinMethod;
+  final SignInMethod signinMethod;
   final String zone;
   final String deviceID;
   final String image;
@@ -37,7 +37,7 @@ class UserModel {
     String id,
     String name,
     String email,
-    String signinMethod,
+    SignInMethod signinMethod,
     String zone,
     String deviceID,
     String image,
@@ -67,7 +67,7 @@ class UserModel {
       'id': id,
       'name': name,
       'email': email,
-      'signinMethod': signinMethod,
+      'signinMethod': AuthModel.cipherSignInMethod(signinMethod),
       'zone': zone,
       'deviceID': deviceID,
       'image': image,
@@ -88,7 +88,7 @@ class UserModel {
           id: map['id'],
           name: map['name'],
           email: map['email'],
-          signinMethod: map['signinMethod'],
+          signinMethod: AuthModel.decipherSignInMethod(map['signinMethod']),
           zone: map['zone'],
           deviceID: map['deviceID'],
           image: map['image'],
@@ -105,22 +105,22 @@ class UserModel {
 
   // --------------------
   ///
-  static Future<UserModel> createUserModelFromCredential({
-    @required UserCredential cred,
+  static Future<UserModel> createUserModelFromAuthModel({
+    @required AuthModel authModel,
     String imageOverride,
   }) async {
     UserModel _output;
 
-    if (cred != null){
+    if (authModel != null){
 
     _output = UserModel(
-      id: cred.user?.uid,
-      name: cred.user?.displayName,
-      email: cred.user?.email,
-      signinMethod: cred.additionalUserInfo?.providerId ?? 'anonymous',
+      id: authModel.id,
+      name: authModel.name,
+      email: authModel.email,
+      signinMethod: authModel.signInMethod,
       zone: await ZoningProtocols.getZoneByIPApi(),
       deviceID: await DeviceChecker.getDeviceID(),
-      image: imageOverride ?? Authing.getUserImageURLFromCredential(cred),
+      image: imageOverride ?? authModel.imageURL,
       createdAt: DateTime.now(),
     );
 
