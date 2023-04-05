@@ -19,7 +19,7 @@ class DataStripWithHeadline extends StatelessWidget {
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: <Widget>[
 
         TalkText(
           text: dataKey,
