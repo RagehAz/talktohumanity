@@ -364,7 +364,7 @@ class _PostsViewState extends State<PostsView> {
   Widget build(BuildContext context) {
     // --------------------
     final double _screenWidth = Scale.screenWidth(context);
-    final double _screenHeight = Scale.screenHeight(context);
+    final double _screenHeight = Scale.screenHeightGross(context);
     // --------------------
     return WidgetFader(
       fadeType: FadeType.fadeIn,

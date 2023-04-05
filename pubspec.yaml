@@ -3,7 +3,7 @@ description: A platform designed to say something to humanity
 publish_to: "none"
 # --------------------------------------------------------------------------------
 # remember to change CFBundleVersion in ios/runner/info.plist
-version: 1.4.0
+version: 1.4.1
 # --------------------------------------------------------------------------------
 environment:
   sdk: ">=2.10.5 <3.0.0"
@@ -149,12 +149,12 @@ flutter_native_splash:
 #  # -> run the following command in the terminal:
 #  # -> flutter pub run flutter_native_splash:create
   color: "#000000"
-  #background_image: "assets/background.png"
+  #background_image: "assets/darkbackground.png"
   image: assets/icons/night.png
   # branding: assets/aw/aw_bldrs_app_icon.png
   # branding_mode: bottom #bottomRight / bottomLeft / The default values is bottom
   #  color_dark: "#13244b"
-  #background_image_dark: "assets/dark-background.png"
+  #background_image_dark: "assets/dark-darkbackground.png"
   android: true
   ios: true
   web: true

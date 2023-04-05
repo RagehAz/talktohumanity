@@ -1,6 +1,8 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:devicer/devicer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:talktohumanity/b_views/a_screens/a_starting_screen.dart';
@@ -12,11 +14,22 @@ import 'package:authing/authing.dart';
 
 Future<void> main() async {
   // --------------------------------------------------------------------------
-  WidgetsFlutterBinding.ensureInitialized();
+  final WidgetsBinding _binding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: _binding);
   // --------------------
+  if (DeviceChecker.deviceIsIOS() == true){
     await Firebase.initializeApp(
+      // name: 'talktohumanity',
+      // options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
+  else {
+    await Firebase.initializeApp(
+      // name: 'talktohumanity',
       options: DefaultFirebaseOptions.currentPlatform,
     );
+  }
+
   // --------------------
   Authing.initializeSocialAuthing(
       socialKeys: Standards.talkToHumanitySocialKeys
@@ -56,6 +69,7 @@ class _AppStarterState extends State<AppStarter> {
   // -----------------------------------------------------------------------------
   @override
   void initState() {
+    FlutterNativeSplash.remove();
     super.initState();
   }
   // --------------------

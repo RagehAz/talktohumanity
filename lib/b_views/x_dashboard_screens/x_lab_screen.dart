@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:ldb/ldb.dart';
 import 'package:legalizer/legalizer.dart';
+import 'package:real/real.dart';
 import 'package:super_image/super_image.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/lab_button.dart';
@@ -148,6 +149,11 @@ class _LabScreenState extends State<LabScreen> {
                     //   _uploaded?.blogPost();
                     //
                     // }
+
+                   await Real.createDoc(collName: 'fuck', map: {'teez': 'beez'}, addDocIDToOutput: true);
+                   blog('done');
+
+
                   },
                 ),
 

@@ -227,10 +227,13 @@ class _AuthViewState extends State<AuthView> {
   @override
   Widget build(BuildContext context) {
     // --------------------
+    final double _screenHeight = Scale.screenHeightGross(context);
+    // --------------------
     return WidgetFader(
       fadeType: FadeType.fadeIn,
       duration: Standards.homeViewFadeDuration,
       child: Container(
+        height: _screenHeight,
         color: Colorz.black125,
         child: Stack(
             children: <Widget>[
@@ -414,7 +417,7 @@ class _AuthViewState extends State<AuthView> {
                   valueListenable: _loading,
                   child: Container(
                     width: Scale.screenWidth(context),
-                    height: Scale.screenHeight(context),
+                    height: _screenHeight,
                     color: Colorz.black50,
                     child: const Loading(loading: true),
                   ),
