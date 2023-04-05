@@ -122,7 +122,7 @@ class AuthProtocols {
     return _success;
   }
   // -----------------------------------------------------------------------------
-
+  /*
   /// GOOGLE
 
   // --------------------
@@ -223,6 +223,31 @@ class AuthProtocols {
         success: _success,
         flushbarKey: flushbarKey,
         userName: _authModel?.name,
+      );
+
+    }
+
+    return _success;
+  }
+   */
+  // --------------------
+  ///
+  static Future<bool> onReceiveAuthModel({
+    @required AuthModel authModel,
+    @required GlobalKey flushbarKey,
+  }) async {
+    bool _success = false;
+
+    if (authModel != null) {
+
+      _success = await _composeUserByAuthModel(
+        authModel: authModel,
+      );
+
+      await showAuthSuccessDialog(
+        success: _success,
+        flushbarKey: flushbarKey,
+        userName: authModel?.name,
       );
 
     }

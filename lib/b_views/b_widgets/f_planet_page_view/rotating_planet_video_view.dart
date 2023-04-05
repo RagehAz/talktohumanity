@@ -15,18 +15,22 @@ class RotatingPlanetVideo extends StatelessWidget {
     // --------------------
     final double _longSide = Scale.screenLongestSide(context);
     // --------------------
-    return WidgetFader(
-      fadeType: FadeType.fadeIn,
-      duration: const Duration(seconds: 5),
-      child: OverflowBox(
-        maxWidth: _longSide,
-        maxHeight: _longSide,
-        child: SuperVideoPlayer(
-          width: _longSide,
-          aspectRatio: 1,
-          autoPlay: true,
-          asset: TalkTheme.earthLoop,
-          loop: true,
+    return SizedBox(
+      width: Scale.screenWidth(context),
+      height: Scale.screenHeight(context),
+      child: WidgetFader(
+        fadeType: FadeType.fadeIn,
+        duration: const Duration(seconds: 5),
+        child: OverflowBox(
+          maxWidth: _longSide,
+          maxHeight: _longSide,
+          child: SuperVideoPlayer(
+            width: _longSide,
+            aspectRatio: 1,
+            autoPlay: true,
+            asset: TalkTheme.earthLoop,
+            loop: true,
+          ),
         ),
       ),
     );

@@ -4,6 +4,7 @@ import 'package:layouts/layouts.dart';
 import 'package:mediators/mediators.dart';
 import 'package:numeric/numeric.dart';
 import 'package:provider/provider.dart';
+import 'package:scale/scale.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/b_views/a_screens/b_1_posts_view.dart';
 import 'package:talktohumanity/b_views/a_screens/b_2_auth_view.dart';
@@ -112,57 +113,61 @@ class _HomeScreenState extends State<HomeScreen> {
 
       },
 
-      body: Stack(
-        alignment: Alignment.topCenter,
-        children: <Widget>[
+      body: SizedBox(
+        width: Scale.screenWidth(context),
+        height: Scale.screenHeight(context),
+        child: Stack(
+          alignment: Alignment.topCenter,
+          children: <Widget>[
 
-          /// PLANET VIDEO
-          const RotatingPlanetVideo(),
+            /// PLANET VIDEO
+            const RotatingPlanetVideo(),
 
-          Selector<UiProvider, HomeScreenView>(
-            selector: (_, UiProvider pro) => pro.homeView,
-            builder: (BuildContext context, HomeScreenView _view, Widget child) {
+            Selector<UiProvider, HomeScreenView>(
+              selector: (_, UiProvider pro) => pro.homeView,
+              builder: (BuildContext context, HomeScreenView _view, Widget child) {
 
-              /// TIMELINE
-              if (_view == HomeScreenView.posts) {
-                return const PostsView();
-              }
+                /// TIMELINE
+                if (_view == HomeScreenView.posts) {
+                  return const PostsView();
+                }
 
-              else if (_view == HomeScreenView.auth) {
-                return const AuthView(
-                  backButtonIsSkipButton: false,
-                );
-              }
+                else if (_view == HomeScreenView.auth) {
+                  return const AuthView(
+                    backButtonIsSkipButton: false,
+                  );
+                }
 
-              else if (_view == HomeScreenView.creator) {
-                return const CreatorView();
-              }
+                else if (_view == HomeScreenView.creator) {
+                  return const CreatorView();
+                }
 
-              else {
-                return Container();
-              }
+                else {
+                  return Container();
+                }
 
-            },
-          ),
+              },
+            ),
 
-          /// TESTING : RE NAV BUTTON
-          // Align(
-          //   alignment: Alignment.topLeft,
-          //   child: TalkBox(
-          //     height: 40,
-          //     isBold: true,
-          //     icon: Iconz.dvRageh,
-          //     onTap: () async {
-          //       UiProvider.proSetHomeView(view: HomeScreenView.posts, notify: true);
-          //       await Nav.pushNamedAndRemoveAllBelow(
-          //         context: getContext(),
-          //         goToRoute: Routing.archiveRoute,
-          //       );
-          //     },
-          //   ),
-          // ),
+            /// TESTING : RE NAV BUTTON
+            // Align(
+            //   alignment: Alignment.topLeft,
+            //   child: TalkBox(
+            //     height: 40,
+            //     isBold: true,
+            //     icon: Iconz.dvRageh,
+            //     onTap: () async {
+            //       UiProvider.proSetHomeView(view: HomeScreenView.posts, notify: true);
+            //       await Nav.pushNamedAndRemoveAllBelow(
+            //         context: getContext(),
+            //         goToRoute: Routing.archiveRoute,
+            //       );
+            //     },
+            //   ),
+            // ),
 
-        ],
+          ],
+        ),
       ),
     );
     // --------------------

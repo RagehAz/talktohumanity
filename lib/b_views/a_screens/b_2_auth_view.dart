@@ -1,3 +1,4 @@
+import 'package:authing/authing.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:devicer/devicer.dart';
 import 'package:email_validator/email_validator.dart';
@@ -16,6 +17,7 @@ import 'package:talktohumanity/c_services/helpers/standards.dart';
 import 'package:talktohumanity/c_services/protocols/auth_protocols.dart';
 import 'package:talktohumanity/c_services/providers/ui_provider.dart';
 import 'package:widget_fader/widget_fader.dart';
+
 
 class AuthView extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -104,7 +106,7 @@ class _AuthViewState extends State<AuthView> {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   Future<void> _onEmailSignUp() async {
 
     FocusManager.instance.primaryFocus?.unfocus();
@@ -146,57 +148,30 @@ class _AuthViewState extends State<AuthView> {
 
   }
   // --------------------
-  /// TASK : WRITE ME
-  // Future<void> _onForgetPassword() async {
-  //
-  // }
-  // --------------------
-  /// TASK : WRITE ME
-  Future<void> _onAppleTap() async {
+  /// TESTED : WORKS PERFECT
+  Future<void> _onAuthSuccess(AuthModel authModel) async {
 
-    FocusManager.instance.primaryFocus?.unfocus();
-    await _triggerLoading(setTo: true);
-    final bool _success = await AuthProtocols.simpleAppleSignIn(
-      flushbarKey: _flushbarKey,
-    );
+                              FocusManager.instance.primaryFocus?.unfocus();
 
-    await _afterSignIn(
-        success: _success,
-    );
+                              AuthModel.blogAuthModel(authModel: authModel);
 
+                              final bool _success = await AuthProtocols.onReceiveAuthModel(
+                                flushbarKey: _flushbarKey,
+                                authModel: authModel,
+                              );
 
-  }
+                              await _afterSignIn(
+                                success: _success,
+                              );
+                            }
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onGoogleTap() async {
-
-    FocusManager.instance.primaryFocus?.unfocus();
-    await _triggerLoading(setTo: true);
-
-    final bool _success = await AuthProtocols.simpleGoogleSignIn(
+  Future<void> _onAuthError(String error) async {
+    blog('error : $error');
+    await AuthProtocols.showAuthFailureDialog(
       flushbarKey: _flushbarKey,
+      error: error,
     );
-
-    await _afterSignIn(
-        success: _success,
-    );
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  Future<void> _onFacebookTap() async {
-
-    FocusManager.instance.primaryFocus?.unfocus();
-    await _triggerLoading(setTo: true);
-
-    final bool _success = await AuthProtocols.simpleFacebookSignIn(
-      flushbarKey: _flushbarKey,
-    );
-
-    await _afterSignIn(
-        success: _success,
-    );
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -223,11 +198,23 @@ class _AuthViewState extends State<AuthView> {
   Future<void> _onBack() async {
     UiProvider.goBack();
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _onAuthLoadingChanged(bool loading){
+    _triggerLoading(setTo: loading);
+  }
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     final double _screenHeight = Scale.screenHeightGross(context);
+
+    final List<SignInMethod> methods = [
+      if (DeviceChecker.deviceIsIOS() == true) SignInMethod.apple,
+      SignInMethod.google,
+      SignInMethod.facebook
+    ];
+
     // --------------------
     return WidgetFader(
       fadeType: FadeType.fadeIn,
@@ -365,37 +352,31 @@ class _AuthViewState extends State<AuthView> {
                       ),
                     ),
 
-                    const SeparatorLine(
-                      width: AuthButton.width,
-                      withMargins: true,
-                      thickness: 2,
+                    const SeparatorLine(width: AuthButton.width, withMargins: true, thickness: 2,),
+
+                  /// SOCIAL AUTH BUTTONS
+                  SizedBox(
+                    width: AuthButton.width,
+                    height: SocialAuthButton.standardSize,
+                    child: Row(
+                      children: <Widget>[
+
+                        ...List.generate(methods.length, (index) {
+                          return SocialAuthButton(
+                            signInMethod: methods[index],
+                            socialKeys: Standards.talkToHumanitySocialKeys,
+                            onSuccess: _onAuthSuccess,
+                            onError: _onAuthError,
+                            onAuthLoadingChanged: _onAuthLoadingChanged,
+                            manualAuthing: DeviceChecker.deviceIsAndroid(),
+                          );
+                        }),
+
+                      ],
                     ),
+                  ),
 
-                    const DotSeparator(color: Colorz.white200),
-
-                    /// APPLE SIGN IN
-                    if (DeviceChecker.deviceIsIOS() == true)
-                    AuthButton(
-                      icon: Iconz.comApple,
-                      text: ' SignIn by Apple',
-                      onTap: _onAppleTap,
-                    ),
-
-                    /// GOOGLE SIGN IN
-                    AuthButton(
-                      icon: Iconz.comGooglePlus,
-                      text: ' SignIn by Google',
-                      onTap: _onGoogleTap,
-                    ),
-
-                    /// FACEBOOK SIGN IN
-                    AuthButton(
-                      icon: Iconz.comFacebookWhite,
-                      text: ' SignIn by Facebook',
-                      onTap: _onFacebookTap,
-                    ),
-
-                    const DotSeparator(color: Colorz.white200),
+                  const SeparatorLine(width: AuthButton.width, withMargins: true, thickness: 2,),
 
                     /// GO BACK
                     AuthButton(

@@ -235,18 +235,18 @@ class _LabScreenState extends State<LabScreen> {
                   },
                 ),
 
-                /// SIMPLE GOOGLE SIGN IN
-                LabButton(
-                  text: 'Simple google sign in',
-                  // isOk: false,
-                  onTap: () async {
-                    await AuthProtocols.simpleGoogleSignIn(
-                      flushbarKey: null,
-                    );
-
-                    setState(() {});
-                  },
-                ),
+                // /// SIMPLE GOOGLE SIGN IN
+                // LabButton(
+                //   text: 'Simple google sign in',
+                //   // isOk: false,
+                //   onTap: () async {
+                //     await AuthProtocols.simpleGoogleSignIn(
+                //       flushbarKey: null,
+                //     );
+                //
+                //     setState(() {});
+                //   },
+                // ),
 
                 /// SIMPLE ANONYMOUS AUTH
                 LabButton(
@@ -477,6 +477,7 @@ class _LabScreenState extends State<LabScreen> {
                         onError: (String error) {
                           blog('error is : $error');
                         },
+                        manualAuthing: DeviceChecker.deviceIsAndroid(),
                       );
                     }),
                   ],

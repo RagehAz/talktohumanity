@@ -71,19 +71,19 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: a7f90523239ca7d8e8c596b032e111e2e167b8bf
+      resolved-ref: cf74a4d5222f3b6e93bc2e85b0694a3f5a9a396f
       url: "https://github.com/RagehAz/authing.git"
     source: git
-    version: "0.0.4"
+    version: "0.0.6"
   bldrs_theme:
     dependency: "direct main"
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "5acfee43bbd232a6bf656dab8f28cbe14bcd2722"
+      resolved-ref: "75714d5ead5b30b1a61f3f5f9d757a95945a5b88"
       url: "https://github.com/RagehAz/bldrs_theme.git"
     source: git
-    version: "1.0.7"
+    version: "1.0.8"
   boolean_selector:
     dependency: transitive
     description:
@@ -746,10 +746,10 @@ packages:
     dependency: transitive
     description:
       name: google_sign_in_platform_interface
-      sha256: fece762f0d2dd762ebde43ad70662a209ff6ee034111976549c392f7763d9264
+      sha256: "95a9e0a8701b5485f2ca330fd1fc6f918f5ce088042ce1019c5e389d8574ae4c"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.1"
+    version: "2.4.0"
   google_sign_in_web:
     dependency: transitive
     description:
