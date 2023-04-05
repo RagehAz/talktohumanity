@@ -1,6 +1,5 @@
 import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-
 import 'b_expanding_tile.dart';
 
 class NonCollapsableTile extends StatelessWidget {

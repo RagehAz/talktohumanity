@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:animators/animators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';

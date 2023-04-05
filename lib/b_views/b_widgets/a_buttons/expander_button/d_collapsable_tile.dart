@@ -1,7 +1,6 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-
 import 'b_expanding_tile.dart';
 import 'e_collapsed_tile.dart';
 
