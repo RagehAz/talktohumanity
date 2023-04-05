@@ -54,7 +54,6 @@ class PostModel {
     int likes,
     int views,
   }) {
-
     return PostModel(
       id: id ?? this.id,
       userID: userID ?? this.userID,
