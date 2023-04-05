@@ -144,7 +144,7 @@ class _AppStarterState extends State<AppStarter> {
         // onUnknownRoute: ,
         navigatorKey: AppStarter.navigatorKey,
         onGenerateRoute: Routing.allRoutes,
-        // initialRoute: Routing.homeRoute,
+        initialRoute: Routing.startingRoute,
         routes: Routing.routesMap,
       ),
     );

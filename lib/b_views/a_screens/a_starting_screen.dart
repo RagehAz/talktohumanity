@@ -143,7 +143,7 @@ class _StartingScreenState extends State<StartingScreen> {
     FocusManager.instance.primaryFocus?.unfocus();
     await AuthProtocols.simpleAnonymousSignIn();
     UiProvider.proSetHomeView(view: HomeScreenView.posts, notify: true);
-    await Nav.goToRoute(getContext(), Routing.archiveRoute);
+    await Nav.goToRoute(getContext(), Routing.homeRoute);
     await _slideToTop();
   }
   // --------------------

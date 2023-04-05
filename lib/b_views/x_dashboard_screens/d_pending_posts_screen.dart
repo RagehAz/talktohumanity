@@ -166,7 +166,7 @@ class _PendingPostsScreenState extends State<PendingPostsScreen> {
 
                                 await Nav.pushNamedAndRemoveAllBelow(
                                     context: context,
-                                    goToRoute: Routing.archiveRoute,
+                                    goToRoute: Routing.homeRoute,
                                 );
 
                               }

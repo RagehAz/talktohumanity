@@ -21,7 +21,7 @@ class Routing {
 
   // --------------------
   static const String startingRoute = '/starting';
-  static const String archiveRoute = '/archive';
+  static const String homeRoute = '/home';
   static const String terms = '/terms';
   static const String privacy = '/privacy';
   // -----------------------------------------------------------------------------
@@ -39,7 +39,7 @@ class Routing {
         return Nav.fadeToScreen(const StartingScreen(), settings);
         break;
     /// LAB
-      case archiveRoute:
+      case homeRoute:
         return Nav.fadeToScreen(const HomeScreen(), settings);
         break;
 
@@ -62,7 +62,7 @@ class Routing {
   // --------------------
   static Map<String, Widget Function(BuildContext)> routesMap = {
     startingRoute: (context) => const StartingScreen(),
-    archiveRoute: (context) => const HomeScreen(),
+    homeRoute: (context) => const HomeScreen(),
     terms: (context) => const TermsScreen(domain: _domain),
     privacy: (context) => const PrivacyScreen(domain: _domain),
   };
@@ -87,21 +87,12 @@ class Routing {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> goToPrivacyScreen() async {
-    await Nav.goToNewScreen(
-      context: getContext(),
-      screen: const PrivacyScreen(
-        domain: _domain,
-      ),
-    );
+    await Nav.goToRoute(getContext(), Routing.privacy);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> goToTermsScreen() async {
-    await Nav.goToNewScreen(
-      context: getContext(),
-      screen: const TermsScreen(
-        domain: _domain,
-      ),
-    );  }
+    await Nav.goToRoute(getContext(), Routing.terms);
+  }
   // -----------------------------------------------------------------------------
 }

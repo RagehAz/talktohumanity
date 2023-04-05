@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mediators/super_video_player/super_video_player.dart';
+import 'package:mediators/mediators.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/c_services/helpers/talk_theme.dart';
 import 'package:widget_fader/widget_fader.dart';
@@ -30,6 +30,7 @@ class RotatingPlanetVideo extends StatelessWidget {
             autoPlay: true,
             asset: TalkTheme.earthLoop,
             loop: true,
+            errorIcon: TalkTheme.logo_night,
           ),
         ),
       ),

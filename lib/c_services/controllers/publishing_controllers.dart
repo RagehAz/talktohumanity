@@ -125,7 +125,7 @@ Future<void> publishPostOps({
       UiProvider.proSetHomeView(view: HomeScreenView.posts, notify: true);
       await Nav.pushNamedAndRemoveAllBelow(
           context: getContext(),
-          goToRoute: Routing.archiveRoute,
+          goToRoute: Routing.homeRoute,
       );
 
     }

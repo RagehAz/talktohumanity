@@ -268,7 +268,7 @@ class _PostsViewState extends State<PostsView> {
 
                       await Nav.pushNamedAndRemoveAllBelow(
                         context: context,
-                        goToRoute: Routing.archiveRoute,
+                        goToRoute: Routing.homeRoute,
                       );
                     }
                   }
@@ -309,7 +309,7 @@ class _PostsViewState extends State<PostsView> {
 
                     await Nav.pushNamedAndRemoveAllBelow(
                       context: context,
-                      goToRoute: Routing.archiveRoute,
+                      goToRoute: Routing.homeRoute,
                     );
                   }
                 }),
@@ -347,7 +347,7 @@ class _PostsViewState extends State<PostsView> {
 
                     await Nav.pushNamedAndRemoveAllBelow(
                       context: context,
-                      goToRoute: Routing.archiveRoute,
+                      goToRoute: Routing.homeRoute,
                     );
 
                   }
