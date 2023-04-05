@@ -6,13 +6,13 @@ import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
 import 'package:segmented_circle_border/segmented_circle_border.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
-import 'package:talktohumanity/c_services/protocols/post_protocols/post_ldb_ops.dart';
-import 'package:talktohumanity/c_services/helpers/helper_methods.dart';
-import 'package:talktohumanity/c_services/helpers/standards.dart';
+import 'package:talktohumanity/b_views/b_widgets/a_buttons/expander_button/b_expanding_tile.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/talk_box.dart';
 import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text.dart';
-import 'package:talktohumanity/b_views/b_widgets/a_buttons/expander_button/b_expanding_tile.dart';
 import 'package:talktohumanity/b_views/b_widgets/e_timeline/vertical_timeline_line.dart';
+import 'package:talktohumanity/c_services/helpers/helper_methods.dart';
+import 'package:talktohumanity/c_services/helpers/standards.dart';
+import 'package:talktohumanity/c_services/protocols/post_protocols/post_ldb_ops.dart';
 
 class TimelineTile extends StatelessWidget {
   // -----------------------------------------------------------------------------
