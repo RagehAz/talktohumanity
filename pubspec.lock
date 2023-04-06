@@ -859,10 +859,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "28590bb53603cccf914d29303b47901da9d3bc49"
+      resolved-ref: c1adb52a0b774dd4484ec0e930b59be1983309e3
       url: "https://github.com/RagehAz/layouts.git"
     source: git
-    version: "0.0.11"
+    version: "0.0.12"
   ldb:
     dependency: "direct main"
     description:

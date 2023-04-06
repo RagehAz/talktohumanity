@@ -3,7 +3,7 @@ description: A platform designed to say something to humanity
 publish_to: "none"
 # --------------------------------------------------------------------------------
 # remember to change CFBundleVersion in ios/runner/info.plist
-version: 1.4.1
+version: 1.4.4
 # --------------------------------------------------------------------------------
 environment:
   sdk: ">=2.10.5 <3.0.0"
