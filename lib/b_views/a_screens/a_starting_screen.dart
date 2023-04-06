@@ -3,7 +3,7 @@ import 'package:authing/authing.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:layouts/layouts.dart' show Nav;
 import 'package:legalizer/legalizer.dart';
 import 'package:night_sky/night_sky.dart';
 import 'package:scale/scale.dart';
@@ -161,7 +161,7 @@ class _StartingScreenState extends State<StartingScreen> {
   Widget build(BuildContext context) {
     // --------------------
     final double _screenWidth = Scale.screenWidth(context);
-    final double _screenHeight = Scale.screenHeight(context);
+    final double _screenHeight = Scale.screenHeightGross(context);
     // --------------------
 
     return BasicLayout(
@@ -215,7 +215,8 @@ class _StartingScreenState extends State<StartingScreen> {
                   onTap: () => _slideToNextPage(
                     currentSlide: 2,
                   ),
-                  child: Stack(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
 
                       /// BRIEF MESSAGE BUBBLE
@@ -227,26 +228,27 @@ class _StartingScreenState extends State<StartingScreen> {
                         onSkip: _onImNotReady,
                       ),
 
-                      Positioned(
-                        bottom: 50,
-                        left: (_screenWidth / 2) - 15,
-                        child: SuperBox(
-                          width: 30,
-                          height: 30,
-                          icon: Iconz.dvRagehIcon,
-                          iconColor: Colorz.blue125,
-                          bubble: false,
-                          onDoubleTap: () async {
-                            await Routing.goToLab();
-                          },
-                        ),
+                      const SizedBox(
+                        width: 10,
+                        height: 10,
+                      ),
+
+                      /// RAGE7 ICON
+                      SuperBox(
+                        width: 30,
+                        height: 30,
+                        icon: Iconz.dvRagehIcon,
+                        iconColor: Colorz.blue125,
+                        bubble: false,
+                        margins: 10,
+                        onDoubleTap: () async {
+                          await Routing.goToLab();
+                        },
                       ),
 
                       /// LEGAL DISCLAIMER LINE
-                      Container(
-                        width: Scale.screenWidth(context),
-                        height: Scale.screenHeight(context),
-                        alignment: Alignment.bottomCenter,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
                         child: LegalDisclaimerLine(
                           onPolicyTap: () => Routing.goToPrivacyScreen(),
                           onTermsTap: () => Routing.goToTermsScreen(),

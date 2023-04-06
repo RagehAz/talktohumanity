@@ -31,7 +31,7 @@ class PostCreatorView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _shortest = Scale.screenShortestSide(context);
-    final double _screenHeight = Scale.screenHeight(context);
+    final double _screenHeight = Scale.screenHeightGross(context);
 
     return Container(
       width: _shortest,

@@ -12,6 +12,31 @@ import 'package:talktohumanity/c_services/helpers/routing.dart';
 import 'package:talktohumanity/firebase_options.dart';
 import 'package:authing/authing.dart';
 
+// --------------------
+/// to build clean ON IOS
+/*
+ flutter clean \
+        && rm ios/Podfile.lock pubspec.lock \
+        && rm -rf ios/Pods ios/Runner.xcworkspace \
+        && flutter build ios --build-name=1.0.0 --build-number=1 --release --dart-define=MY_APP_ENV=prod
+ */
+
+/*
+
+// on ios error : No such module 'Flutter' : Xcode 13.2.1
+
+// delete ios/Pods
+// delete ios/Podfile.lock
+// delete pubspec.lock
+// flutter clean
+// flutter pub get -v
+// pod deintegrate
+// pod install
+// flutter build ios-framework --output=Flutter -v
+(if you wanna create Release Files, you should use command "flutter build ios-framework --no-debug --no-profile --release --output=Flutter").
+
+ */
+
 Future<void> main() async {
   // --------------------------------------------------------------------------
   final WidgetsBinding _binding = WidgetsFlutterBinding.ensureInitialized();

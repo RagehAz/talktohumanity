@@ -50,7 +50,7 @@ class UserCreatorView extends StatelessWidget {
     const double _imageBubbleWidth = 130;
     // --------------------
     final double _screenWidth = Scale.screenWidth(context);
-    final double _screenHeight = Scale.screenHeight(context);
+    final double _screenHeight = Scale.screenHeightGross(context);
     final double _shortest = Scale.screenShortestSide(context);
     // --------------------
     return MaxBounceNavigator(

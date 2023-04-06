@@ -1342,7 +1342,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: becf6c4ab0029f89b9c1d665fb04801895c38f69
+      resolved-ref: "75a293366cc911220b46ef61c04c958a13ab9aaf"
       url: "https://github.com/RagehAz/super_image.git"
     source: git
     version: "1.0.1"

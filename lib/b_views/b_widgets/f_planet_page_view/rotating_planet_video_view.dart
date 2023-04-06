@@ -17,7 +17,7 @@ class RotatingPlanetVideo extends StatelessWidget {
     // --------------------
     return SizedBox(
       width: Scale.screenWidth(context),
-      height: Scale.screenHeight(context),
+      height: Scale.screenHeightGross(context),
       child: WidgetFader(
         fadeType: FadeType.fadeIn,
         duration: const Duration(seconds: 5),

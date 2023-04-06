@@ -89,6 +89,7 @@ class _LabScreenState extends State<LabScreen> {
   Widget build(BuildContext context) {
     // --------------------
     return BasicLayout(
+
       body: MaxBounceNavigator(
         child: LayoutBuilder(
           builder: (_, BoxConstraints constraints) {

@@ -76,7 +76,7 @@ class TalkWaitDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenHeight = Scale.screenHeight(context);
+    final double _screenHeight = Scale.screenHeightGross(context);
     final double _screenWidth = Scale.screenWidth(context);
     // --------------------
     return WillPopScope(

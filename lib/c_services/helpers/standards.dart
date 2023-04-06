@@ -38,7 +38,7 @@ class Standards {
   static const Duration homeViewFadeDuration = Duration(seconds: 2);
   // --------------------
   static double getMaxTimelineTileHeight() {
-    final double _screenHeight = Scale.screenHeight(getContext());
+    final double _screenHeight = Scale.screenHeightGross(getContext());
     return _screenHeight - 200;
   }
   // --------------------
@@ -58,7 +58,7 @@ class Standards {
   }
   // --------------------
   static double getTimeLineTopMostMargin(){
-    final double _screenHeight = Scale.screenHeight(getContext());
+    final double _screenHeight = Scale.screenHeightGross(getContext());
 
     return _screenHeight
         - getMaxTimelineTileHeight()
