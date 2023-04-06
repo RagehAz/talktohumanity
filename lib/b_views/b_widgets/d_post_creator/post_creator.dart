@@ -81,6 +81,7 @@ class PostCreatorView extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
+
                 /// GO BACK
                 TalkBox(
                   // width: 200,
@@ -97,6 +98,7 @@ class PostCreatorView extends StatelessWidget {
                   textCentered: false,
                   onTap: onBack,
                 ),
+
                 /// PUBLISH
                 TalkBox(
                   width: 100,
@@ -108,6 +110,7 @@ class PostCreatorView extends StatelessWidget {
                   isBold: true,
                   onTap: onPublish,
                 ),
+
               ],
             ),
           ),

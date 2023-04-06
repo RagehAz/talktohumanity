@@ -443,10 +443,11 @@ class _TimeLineBody extends StatelessWidget {
                     /// VIEWS
                     TalkBox(
                       height: Standards.postButtonsHeight,
+                      width: _postBubbleWidth / 2,
                       icon: Iconz.viewsIcon,
                       text: '$_viewsCount   Views',
                       iconSizeFactor: 0.5,
-                      textScaleFactor: 0.7 / 0.5,
+                      textScaleFactor: 0.6 / 0.5,
                       bubble: false,
                       isBold: true,
                       color: Colorz.nothing,
@@ -466,15 +467,17 @@ class _TimeLineBody extends StatelessWidget {
 
                           return TalkBox(
                             height: Standards.postButtonsHeight,
+                            width: _postBubbleWidth / 2,
                             icon: Iconz.love,
                             isBold: true,
                             text: '$_likesCount   Likes',
                             iconSizeFactor: 0.5,
-                            textScaleFactor: 0.7 / 0.5,
+                            textScaleFactor: 0.6 / 0.5,
                             onTap: onLike,
                             color: _isLiked == true ? Colorz.white255 : Colorz.nothing,
                             textColor: _isLiked == true ? Colorz.black255 : Colorz.white255,
                             iconColor: _isLiked == true ? Colorz.black255 : Colorz.white255,
+                            textCentered: false,
                           );
                         }
                         ),

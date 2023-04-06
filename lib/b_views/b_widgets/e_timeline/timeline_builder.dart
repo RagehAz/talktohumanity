@@ -52,11 +52,12 @@ class TimeLineBuilder extends StatelessWidget {
       itemCount: _keys.length + 1,
       itemBuilder: (_, i) {
 
+        /// TALK TO HUMANITY BUTTON
         if (i == _keys.length) {
-
-          return goToPostCreatorButtonIsOn == false ? const SizedBox() : Column(
+          return goToPostCreatorButtonIsOn == false ? const SizedBox()
+              :
+          Column(
             children: <Widget>[
-
               const SeparatorLine(
                 width: 100,
                 withMargins: true,
@@ -64,26 +65,24 @@ class TimeLineBuilder extends StatelessWidget {
               ),
 
               FutureBuilder(
-                future: UserProtocols.fetchUser(userID: Authing.getUserID()),
-                builder: (_, AsyncSnapshot<UserModel> snap){
+                  future: UserProtocols.fetchUser(userID: Authing.getUserID()),
+                  builder: (_, AsyncSnapshot<UserModel> snap) {
 
-                  final UserModel _user = snap.data;
+                    final UserModel _user = snap.data;
 
-                  return TalkBox(
-                height: 50,
-                width: Scale.screenWidth(context) - 60,
-                text: 'Talk to Humanity',
-                // margins: const EdgeInsets.only(top: 50),
-                // color: Colorz.white255,
-                isBold: true,
-                icon: _user?.image,
-                iconColor: Colorz.black255,
-                textScaleFactor: 0.8,
-                onTap: onTalkToHumanityButtonTap,
-              );
-
-                }
-              ),
+                    return TalkBox(
+                      height: 50,
+                      width: Scale.screenWidth(context) - 60,
+                      text: 'Talk to Humanity',
+                      // margins: const EdgeInsets.only(top: 50),
+                      // color: Colorz.white255,
+                      isBold: true,
+                      icon: _user?.image,
+                      iconColor: Colorz.black255,
+                      textScaleFactor: 0.8,
+                      onTap: onTalkToHumanityButtonTap,
+                    );
+                  }),
 
               const SeparatorLine(
                 width: 100,
@@ -107,6 +106,7 @@ class TimeLineBuilder extends StatelessWidget {
 
         }
 
+        /// POSTS
         else {
           final String key = _keys[i];
 
@@ -118,6 +118,7 @@ class TimeLineBuilder extends StatelessWidget {
             onDoubleTap: onDoubleTap,
           );
         }
+
       },
     );
   }
