@@ -36,7 +36,22 @@ import 'package:authing/authing.dart';
 (if you wanna create Release Files, you should use command "flutter build ios-framework --no-debug --no-profile --release --output=Flutter").
 
  */
+// ---------------------------------------------------------------------------
+/// steps to DEPLOY web
+/*
 
+flutter run -d chrome --web-renderer html
+
+1- flutter build web --web-renderer html --release -v
+
+// 1 - flutter build web
+// 2 - fix build/web/main.dart.js in line 27435 and put this => else a.xZ(0,s,"Bldrs.net",b)},
+        => 1.0.7 was at  28781 else a.zj(0,s,"Bldrs.net",b)},
+        => 1.0.7+1 was at else a.zj(0,s,"flutter",b)},
+
+// 3 - firebase deploy
+*/
+// ---------------------------------------------------------------------------
 Future<void> main() async {
   // --------------------------------------------------------------------------
   final WidgetsBinding _binding = WidgetsFlutterBinding.ensureInitialized();
