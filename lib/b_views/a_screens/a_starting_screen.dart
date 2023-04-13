@@ -1,5 +1,5 @@
 import 'package:animators/animators.dart';
-import 'package:authing/authing.dart';
+import 'package:super_fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';

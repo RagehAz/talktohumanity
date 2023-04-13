@@ -12,7 +12,7 @@ import 'package:talktohumanity/c_services/protocols/post_protocols/post_real_ops
 import 'package:talktohumanity/c_services/helpers/helper_methods.dart';
 import 'package:talktohumanity/c_services/helpers/routing.dart';
 import 'package:talktohumanity/c_services/providers/ui_provider.dart';
-import 'package:authing/authing.dart';
+import 'package:super_fire/super_fire.dart';
 // -----------------------------------------------------------------------------
 /// TESTED : WORKS PERFECT
 Future<bool> prePublishCheckUps({

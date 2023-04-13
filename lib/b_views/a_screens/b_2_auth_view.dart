@@ -1,4 +1,4 @@
-import 'package:authing/authing.dart';
+import 'package:super_fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:devicer/devicer.dart';
 import 'package:email_validator/email_validator.dart';

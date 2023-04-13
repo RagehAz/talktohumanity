@@ -1,12 +1,11 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:dialogs/dialogs.dart';
 import 'package:filers/filers.dart';
-import 'package:fire/fire.dart';
+import 'package:super_fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:ldb/ldb.dart';
 import 'package:mapper/mapper.dart';
-import 'package:real/real.dart';
 import 'package:scale/scale.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/b_views/b_widgets/b_texting/talk_text.dart';

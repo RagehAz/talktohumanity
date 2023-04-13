@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
-import 'package:real/real.dart';
+import 'package:super_fire/super_fire.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/c_services/helpers/helper_methods.dart';
 

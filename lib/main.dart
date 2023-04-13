@@ -1,6 +1,5 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:devicer/devicer.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +9,7 @@ import 'package:talktohumanity/c_services/helpers/standards.dart';
 import 'package:talktohumanity/c_services/providers/ui_provider.dart';
 import 'package:talktohumanity/c_services/helpers/routing.dart';
 import 'package:talktohumanity/firebase_options.dart';
-import 'package:authing/authing.dart';
+import 'package:super_fire/super_fire.dart';
 
 // --------------------
 /// to build clean ON IOS
