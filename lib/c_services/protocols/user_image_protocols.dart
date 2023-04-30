@@ -1,11 +1,8 @@
 import 'dart:typed_data';
-
 import 'package:filers/filers.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:mediators/mediators.dart';
-import 'package:storage/foundation/pic_meta_model.dart';
-import 'package:storage/storage.dart';
+import 'package:super_fire/super_fire.dart';
 
 class UserImageProtocols {
   // -----------------------------------------------------------------------------
@@ -34,7 +31,8 @@ class UserImageProtocols {
       path: '$usersPics/$userID',
       metaData: PicMetaModel(
         ownersIDs: [userID],
-        dimensions: _dims,
+        height: _dims.height,
+        width: _dims.width,
       ).toSettableMetadata(),
     );
 

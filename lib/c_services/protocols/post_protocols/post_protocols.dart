@@ -1,12 +1,7 @@
-
-
 import 'dart:typed_data';
-
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:mediators/mediators.dart';
-import 'package:storage/foundation/pic_meta_model.dart';
-import 'package:storage/storage.dart';
+import 'package:super_fire/super_fire.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/c_services/protocols/post_protocols/post_ldb_ops.dart';
 import 'package:talktohumanity/c_services/protocols/post_protocols/post_real_ops.dart';
@@ -43,7 +38,8 @@ class PostProtocols {
       path: 'talkersImages/$postID',
       metaData: PicMetaModel(
         ownersIDs: [ownerID],
-        dimensions: _dims,
+        height: _dims.height,
+        width: _dims.width,
       ).toSettableMetadata(),
     );
 

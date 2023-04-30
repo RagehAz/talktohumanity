@@ -2,7 +2,7 @@ import 'package:devicer/devicer.dart';
 import 'package:flutter/material.dart';
 import 'package:space_time/space_time.dart';
 import 'package:talktohumanity/c_services/protocols/zoning_protocols.dart';
-import 'package:authing/authing.dart';
+import 'package:super_fire/super_fire.dart';
 /// => TAMAM
 @immutable
 class UserModel {

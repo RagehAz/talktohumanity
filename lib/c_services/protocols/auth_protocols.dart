@@ -6,7 +6,7 @@ import 'package:talktohumanity/b_views/b_widgets/c_dialogs/talk_dialogs.dart';
 import 'package:talktohumanity/c_services/protocols/timing_protocols.dart';
 import 'package:talktohumanity/c_services/protocols/user_image_protocols.dart';
 import 'package:talktohumanity/c_services/protocols/user_protocols/user_protocols.dart';
-import 'package:authing/authing.dart';
+import 'package:super_fire/super_fire.dart';
 
 class AuthProtocols {
   // -----------------------------------------------------------------------------

@@ -1,9 +1,9 @@
 import 'package:animators/animators.dart';
-import 'package:authing/authing.dart';
+import 'package:super_fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart' show Nav;
+import 'package:layouts/layouts.dart' show BasicLayout, Nav;
 import 'package:legalizer/legalizer.dart';
 import 'package:night_sky/night_sky.dart';
 import 'package:scale/scale.dart';

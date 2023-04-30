@@ -1,4 +1,4 @@
-import 'package:fire/fire.dart';
+import 'package:super_fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:talktohumanity/a_models/user_model.dart';

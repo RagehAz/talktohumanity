@@ -5,7 +5,7 @@ import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
 import 'package:space_time/space_time.dart';
 import 'package:stringer/stringer.dart';
-import 'package:authing/authing.dart';
+import 'package:super_fire/super_fire.dart';
 
 @immutable
 class PostModel {

@@ -1,6 +1,5 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:devicer/devicer.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +9,7 @@ import 'package:talktohumanity/c_services/helpers/standards.dart';
 import 'package:talktohumanity/c_services/providers/ui_provider.dart';
 import 'package:talktohumanity/c_services/helpers/routing.dart';
 import 'package:talktohumanity/firebase_options.dart';
-import 'package:authing/authing.dart';
+import 'package:super_fire/super_fire.dart';
 
 // --------------------
 /// to build clean ON IOS
@@ -36,7 +35,22 @@ import 'package:authing/authing.dart';
 (if you wanna create Release Files, you should use command "flutter build ios-framework --no-debug --no-profile --release --output=Flutter").
 
  */
+// ---------------------------------------------------------------------------
+/// steps to DEPLOY web
+/*
 
+flutter run -d chrome --web-renderer html
+
+1- flutter build web --web-renderer html --release -v
+
+// 1 - flutter build web
+// 2 - fix build/web/main.dart.js in line 27435 and put this => else a.xZ(0,s,"Bldrs.net",b)},
+        => 1.0.7 was at  28781 else a.zj(0,s,"Bldrs.net",b)},
+        => 1.0.7+1 was at else a.zj(0,s,"flutter",b)},
+
+// 3 - firebase deploy
+*/
+// ---------------------------------------------------------------------------
 Future<void> main() async {
   // --------------------------------------------------------------------------
   final WidgetsBinding _binding = WidgetsFlutterBinding.ensureInitialized();

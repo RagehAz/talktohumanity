@@ -3,7 +3,7 @@ description: A platform designed to say something to humanity
 publish_to: "none"
 # --------------------------------------------------------------------------------
 # remember to change CFBundleVersion in ios/runner/info.plist
-version: 1.4.1
+version: 1.4.4
 # --------------------------------------------------------------------------------
 environment:
   sdk: ">=2.10.5 <3.0.0"
@@ -86,15 +86,12 @@ dependencies:
   rest:
     git:
       url: https://github.com/RagehAz/rest.git
-  fire:
+  super_fire:
     git:
-      url: https://github.com/RagehAz/fire.git
+      url: https://github.com/RagehAz/super_fire.git
   ldb:
     git:
       url: https://github.com/RagehAz/ldb.git
-  real:
-    git:
-      url: https://github.com/RagehAz/real.git
   # ------------------------------------
   # MY HELPERS
   bldrs_theme:
@@ -127,18 +124,12 @@ dependencies:
   dialogs:
     git:
       url: https://github.com/RagehAz/dialogs.git
-  storage:
-    git:
-      url: https://github.com/RagehAz/storage.git
   mediators:
     git:
       url: https://github.com/RagehAz/mediators.git
   legalizer:
     git:
       url: https://github.com/RagehAz/legalizer.git
-  authing:
-    git:
-      url: https://github.com/RagehAz/authing.git
 # ------------------------------------
 dev_dependencies:
   flutter_test:

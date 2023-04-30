@@ -1,15 +1,13 @@
 import 'dart:typed_data';
 
-import 'package:authing/authing.dart';
+import 'package:super_fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:ldb/ldb.dart';
 import 'package:legalizer/legalizer.dart';
-import 'package:real/real.dart';
 import 'package:super_image/super_image.dart';
 import 'package:talktohumanity/a_models/post_model.dart';
 import 'package:talktohumanity/b_views/b_widgets/a_buttons/lab_button.dart';
